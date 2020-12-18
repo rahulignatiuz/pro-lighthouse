@@ -10,7 +10,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { TagInputModule } from 'ngx-chips';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
-import { ModalModule } from 'ngx-bootstrap/modal';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -70,8 +69,7 @@ import { SocialAuthComponent } from './views/social-auth/social-auth.component';
     HttpClientModule,
     TagInputModule,
     NgMultiSelectDropDownModule.forRoot(),
-    DataTablesModule,
-    ModalModule.forRoot(),
+    DataTablesModule
   ],
   declarations: [
     AppComponent,

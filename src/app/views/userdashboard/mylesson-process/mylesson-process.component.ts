@@ -13,6 +13,7 @@ import { IDropdownSettings } from 'ng-multiselect-dropdown'
   styleUrls: ['./mylesson-process.component.scss']
 })
 export class MylessonProcessComponent implements OnInit {
+  step = 0;
   results: any[];
   projecttype: any[];
   isloading = false;
@@ -107,6 +108,7 @@ export class MylessonProcessComponent implements OnInit {
     this.iconhide();
 
   }
+  
   onselectuserusefullesson(e) {
     let event = e.target.value;
     console.log(event);

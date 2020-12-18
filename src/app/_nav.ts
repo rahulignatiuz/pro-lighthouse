@@ -286,11 +286,11 @@ export const navItems: NavData[] = [
           },        
         
       
-      {
-        name: 'Profile Management',
-        url: '/admin/lessons4',
-        icon: 'icon-user'
-      },
+      // {
+      //   name: 'Profile Management',
+      //   url: '/admin/lessons4',
+      //   icon: 'icon-user'
+      // },
       {
         name: 'User Management',
         url: '/dashboard',
@@ -306,11 +306,11 @@ export const navItems: NavData[] = [
         url: '/masterlists',
         icon: 'icon-notebook'
       },
-      {
-        name: 'System Settings',
-        url: '/buttons1',
-        icon: 'icon-settings'
-      }
+      // {
+      //   name: 'System Settings',
+      //   url: '/buttons1',
+      //   icon: 'icon-settings'
+      // }
     ] 
   },
   { 
@@ -333,11 +333,11 @@ export const navItems: NavData[] = [
         icon: 'icon-plus'
       },        
 
-      {
-        name: 'Profile management',
-        url: '/user/lessons1',
-        icon: 'icon-user'
-      },
+      // {
+      //   name: 'Profile management',
+      //   url: '/user/lessons1',
+      //   icon: 'icon-user'
+      // },
       {
         name: 'User Management',
         url: '/dashboard',
@@ -348,11 +348,11 @@ export const navItems: NavData[] = [
       //   url: '/admin/lessons2',
       //   icon: 'icon-folder-alt'
       // },
-      {
-        name: 'System Settings',
-        url: '/admin/lessons',
-        icon: 'icon-settings'
-      }   
+      // {
+      //   name: 'System Settings',
+      //   url: '/admin/lessons',
+      //   icon: 'icon-settings'
+      // }   
     ] 
   },
   { 

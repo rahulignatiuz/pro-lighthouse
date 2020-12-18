@@ -213,7 +213,9 @@ router.post('/google/auth/user', function (req, res) {
 });
 //handles url http://localhost:6001/api/login/google/auth/pending/user
 router.get('/google/auth/pending/user', function (req, res) {
+
     db.query(User.getAllPendingUser(), (err, data) => {
+
         if (!err) {
             if (data.length == 0) {
                 var status = false, msg = "Pending user not exist";
@@ -257,42 +259,28 @@ router.post('/google/admin/email', function (req, res) {
 
     fetch(url, { method: "Get" }).then(res => res.json()).then((json) => {
         db.query(User.googleUser(json, IsEnabled), (err, data) => {
-            if (!err) {
-                db.query(User.getUserEmailForNotification(), (err, notificationEmail) => {
-                    if (!err) {
-                        notificationEmail.forEach((emails, index) => {
-                            console.log("+654+987",notificationEmail);
-                            var mailOptions = {
-                                from: lighthouseJson.SMTP_USER,
-                                to: emails.Email,
-                                subject: 'A new account has been requested',
-                                text: `Hello Admin, 
-                                     \nA new account has been requested at ${lighthouseJson.BASE_URL} using ${json.email} email address. 
-                                     \nTo confirm your new account, please go to this web address:
-                                     \n${lighthouseJson.BASE_URL}\nIn most mail programs, this should appear as a blue link which you can just click on. If that doesnt work, then cut and paste the address into the address line at the top of your web browser window.
-                                            
-                                     \nThanks`
-                            };
-                            transport.sendMail(mailOptions, function (error, info) {
-                                if (!error) {
-                                    console.log('Email sent: ' + info.response);
-                           
-                                    // res.redirect(lighthouseJson.BASE_URL + "/#/social-auth?account-exist=" + json.email);
-                                }
-                            });
-
-                        });
-                        res.status(200).json({
-                            status: true,
-                            result: data
-                        });
-
-                    }
-
-                });
-            }
-
-
+            console.log(data);
+            var mailOptions = {
+                from: lighthouseJson.SMTP_USER,
+                to: 'rahul.rai@ardentinfotech.com',
+                subject: 'A new account has been requested',
+                text: `Hello Admin, 
+                     \nA new account has been requested at ${lighthouseJson.BASE_URL} using ${json.email} email address. 
+                     \nTo confirm your new account, please go to this web address:
+                     \n${lighthouseJson.BASE_URL}\nIn most mail programs, this should appear as a blue link which you can just click on. If that doesnt work, then cut and paste the address into the address line at the top of your web browser window.
+                            
+                     \nThanks`
+            };
+            transport.sendMail(mailOptions, function (error, info) {
+                if (!error) {
+                    console.log('Email sent: ' + info.response);
+                    res.status(200).json({
+                        status: true,
+                        result: data
+                    });
+                    // res.redirect(lighthouseJson.BASE_URL + "/#/social-auth?account-exist=" + json.email);
+                }
+            });
         });
     });
 });

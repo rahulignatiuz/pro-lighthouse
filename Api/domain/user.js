@@ -560,9 +560,9 @@ class User {
         return sql;
     }
     // used to get total count of flag (for dashboard)
-    static getallcountuserusefulSQL(id){
+    static getallcountuserusefulSQL(id) {
         let sql = `select count(userusefullesson.flag) as total, (select count(ID) from lesson)as totallesson from userusefullesson WHERE userusefullesson.flag=${id}`;
-    return sql;
+        return sql;
     }
     static getuserusefulByUserPieChartSQL(id) {
         let sql = `SELECT COUNT( userusefullesson.flag ) as "TotalNumber" FROM lighthouse.userusefullesson WHERE userusefullesson.flag=${id}`;
@@ -964,14 +964,14 @@ class User {
         return sql;
     }
     static getAllUser() {
-        let sql = `SELECT ul.ID,ul.FirstName,ul.LastName,ul.EmailNotification,ul.CreatedDate,ul.IsEnabled,ul.Email,murl.roleid, gu.Picture FROM User ul 
+        let sql = `SELECT ul.ID,ul.FirstName,ul.LastName,ul.CreatedDate,ul.IsEnabled,ul.Email,murl.roleid, gu.Picture FROM User ul 
         INNER JOIN MappingUserRole murl on ul.ID = murl.userid
         LEFT JOIN googleuser gu on ul.Email = gu.Email;`
         return sql;
     }
     static userRegistration(obj) {
-        let sql = `INSERT INTO lighthouse.user (FirstName,LastName,Email,EmailNotification,CreatedBy,CreatedDate,IsEnabled) VALUES \
-            ('${obj.FirstName}','${obj.LastName}','${obj.Email}','${obj.EmailNotification}','${obj.UserID}',now(),'${obj.IsEnabled}');`;
+        let sql = `INSERT INTO lighthouse.user (FirstName,LastName,Email,CreatedBy,CreatedDate,IsEnabled) VALUES \
+            ('${obj.FirstName}','${obj.LastName}','${obj.Email}','${obj.UserID}',now(),'${obj.IsEnabled}');`;
         return sql;
     }
     static mappingUserRoles(userID, roleID) {
@@ -993,7 +993,7 @@ class User {
     }
     static userAccountSettings(obj) {
         let sql = `UPDATE lighthouse.user
-        SET UpdatedBy='${obj.UserID}',EmailNotification='${obj.Notifications}', UpdatedDate=now(), IsEnabled='${obj.Status}'
+        SET UpdatedBy='${obj.UserID}', UpdatedDate=now(), IsEnabled='${obj.Status}'
         WHERE ID='${obj.SettingUserID}';`;
         return sql;
     }
@@ -1053,10 +1053,6 @@ class User {
         WHERE CreatedDate >=DATE_ADD(NOW(), INTERVAL -10 MONTH)) as lasttenmonth
         FROM lighthouse.lesson 
         WHERE CreatedDate >=DATE_ADD(NOW(), INTERVAL -3 MONTH)`
-        return sql; 
-     }
-     static getUserEmailForNotification(){
-        let sql = `SELECT Email FROM lighthouse.user WHERE EmailNotification = 1;`;
         return sql; 
      }
 }

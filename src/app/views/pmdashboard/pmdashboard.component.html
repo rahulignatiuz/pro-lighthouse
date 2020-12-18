@@ -1,4 +1,4 @@
-<div class="animated fadeIn">
+<!-- <div class="animated fadeIn">
   <div class="card-columns cols-2">     
     <div class="card card col-lg-10" style="padding-left: 0px; padding-right: 0px; margin-left: 15%;">
       <div class="card-header">
@@ -64,4 +64,315 @@
       </div>
     </div>       
   </div>
+</div> -->
+<div class="row">
+  <div class="col-sm-6">
+     <div class="card">
+          <div class="card-header">
+       Project
+  
+       <span style="margin-left: 32%;"> Process</span>
+      </div>
+        <div class="card-body">
+          <circle-progress [percent]="currentValue2" [radius]="100" [space]="-20" [unitsFontSize]="25" [animation]="true"
+       [animationDuration]="1300" [backgroundStrokeWidth]="38" [clockwise]="false" outerStrokeColor="#4882c2"
+       outerStrokeColor="#4882c2" outerStrokeGradientStopColor="#4882c2"></circle-progress>
+
+     <circle-progress [percent]="currentValue3" [radius]="100" [space]="-20" [unitsFontSize]="25" [animation]="true"
+       [animationDuration]="1300" [backgroundStrokeWidth]="38" outerStrokeColor="#4882c2" outerStrokeColor="#4882c2"
+       outerStrokeGradientStopColor="#4882c2"></circle-progress>
+        </div>
+     </div>
+  </div>
+   <div class="col-sm-6">
+     <div class="card">
+         <div class="card-header">
+       Issue
+       <span style="margin-left: 39%;"> Best Practice</span>
+     </div>
+        <div class="card-body">
+         <circle-progress [percent]="currentValue4" [radius]="100" [space]="-20" [unitsFontSize]="25" [animation]="true"
+       [animationDuration]="1300" [backgroundStrokeWidth]="38" [clockwise]="false" outerStrokeColor="#f64846"
+       outerStrokeColor="#f64846" outerStrokeGradientStopColor="#f64846"></circle-progress>
+
+     <circle-progress [percent]="currentValue5" [radius]="100" [space]="-20" [unitsFontSize]="25" [animation]="true"
+       [animationDuration]="1300" [backgroundStrokeWidth]="38" outerStrokeColor="#f64846" outerStrokeColor="#f64846"
+       outerStrokeGradientStopColor="#f64846"></circle-progress>
+        </div>
+     </div>
+  </div>
+ 
 </div>
+
+
+<div class="row">
+  <div class="col-sm-6">
+     <div class="card">
+        <div class="card-header">
+           Lessons by function
+        </div>
+        <div class="card-body">
+           <div class="chart-wrapper" *ngIf="funpieChartData && funpieChartData.length > 0">
+              <canvas baseChart class="chart" [data]="funpieChartData" [labels]="funpieChartLabels"
+              [chartType]="funpieChartType" (chartHover)="chartHovered($event)"
+              (chartClick)="chartClicked($event)"></canvas>
+           </div>
+        </div>
+     </div>
+  </div>
+  <div class="col-sm-6">
+     <div class="card">
+        <div class="card-header">
+           Lessons by Department Bar Chart
+        </div>
+        <div class="card-body">
+           <div class="chart-wrapper" *ngIf="barChartDatafordepartment && barChartDatafordepartment.length > 0">
+              <canvas baseChart class="chart" [data]="barChartDatafordepartment" [labels]="barChartLabelsfordepartment"
+              [colors]="lineChartColours" [options]="barChartOptions" [legend]="barChartLegend"
+              [chartType]="barChartType1" (chartHover)="chartHovered($event)"
+              (chartClick)="chartClicked($event)"></canvas>
+           </div>
+        </div>
+     </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-6">
+     <div class="card">
+          <div class="card-header">
+         Lessons by Projects
+       </div>
+      <select class="form-control col-sm-3" style=" margin-top: 6px;  margin-left: 1%;background-color: #f1f1f1;"
+        
+         (change)="onselectProjecttype3($event)" id="458">
+         <option value="" disabled> Select Type</option>
+         <option *ngFor="let projectype of projectsAsType" value="{{projectype.ID}}">
+           {{projectype.Name}}</option>
+       </select>
+        <div class="card-body">
+          <div class="chart-wrapper" *ngIf="projectpieChartData && projectpieChartData.length > 0">
+           <canvas baseChart class="chart" [data]="projectpieChartData" [labels]="projectpieChartLabels"
+             [chartType]="projectpieChartType" (chartHover)="chartHovered($event)" [colors]="chartColors"
+             (chartClick)="chartClicked($event)"></canvas>
+         </div>
+        </div>
+     </div>
+  </div>
+   <div class="col-sm-6">
+     <div class="card">
+        <div class="card-header">
+           Lessons by milestones
+        </div>
+        <select class="form-control col-sm-3" style=" margin-top: 6px;  margin-left: 1%;background-color: #f1f1f1;"
+      
+        (change)="onselectProjecttype1($event)" id="458">
+        <option value="" disabled> Select Type</option>
+        <option *ngFor="let projectype of projectsAsType" value="{{projectype.ID}}">
+           {{projectype.Name}}
+        </option>
+        </select>
+        <div class="card-body">
+           <div class="chart-wrapper" *ngIf="milespieChartData && milespieChartData.length > 0">
+              <canvas baseChart class="chart" [data]="milespieChartData" [labels]="milespieChartLabels"
+              [chartType]="milespieChartType" (chartHover)="chartHovered($event)"
+              (chartClick)="chartClicked($event)"></canvas>
+           </div>
+        </div>
+     </div>
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="col-sm-6">
+     <div class="card">
+             <div class="card-header">
+       Project Phase Bar Chart
+     </div>
+       <select class="form-control col-sm-3" style=" margin-top: 6px;  margin-left: 1%;background-color: #f1f1f1;"
+       
+       (change)="onselectProjecttype2($event)" id="458">
+       <option value="" disabled> Select Type</option>
+       <option *ngFor="let projectype of projectsAsType" value="{{projectype.ID}}">
+         {{projectype.Name}}</option>
+     </select>
+        <div class="card-body">
+           <div class="chart-wrapper" *ngIf="barChartData && barChartData.length > 0">
+         <canvas baseChart class="chart" [data]="barChartData" [labels]="barChartLabels" [colors]="lineChartColours"
+           [options]="barChartOptions" [legend]="barChartLegend" [chartType]="barChartType"
+           (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+       </div>
+        </div>
+     </div>
+  </div>
+  <div class="col-sm-6">
+    <div class="card">
+       <div class="card-header">
+          Lessons by Impact Category Bar Chart
+       </div>
+       <div class="card-body">
+          <div class="chart-wrapper" *ngIf="barChartDataforcategory && barChartDataforcategory.length > 0">
+             <canvas baseChart class="chart" [data]="barChartDataforcategory" [labels]="barChartLabelsforcategory"
+             [colors]="lineChartColours" [options]="barChartOptions" [legend]="barChartLegend"
+             [chartType]="barChartType1" (chartHover)="chartHovered($event)"
+             (chartClick)="chartClicked($event)"></canvas>
+          </div>
+       </div>
+    </div>
+ </div>
+</div>
+
+
+<div class="row">
+<div class="col-sm-6">
+     <div class="card">
+     <div class="card-header">
+       Implemented
+       <span style="margin-left: 25%;"> Not Implemented</span>
+     </div>
+        <div class="card-body">
+          <circle-progress [percent]="currentValue" [radius]="100" [space]="-20" [unitsFontSize]="25" [animation]="true"
+       [animationDuration]="1300" [backgroundStrokeWidth]="38" [clockwise]="false">
+     </circle-progress>
+
+     <circle-progress [percent]="currentValue1" [radius]="100" [space]="-20" [unitsFontSize]="25" [animation]="true"
+       [animationDuration]="1300" [backgroundStrokeWidth]="38">
+     </circle-progress>
+        </div>
+     </div>
+  </div>
+      <div class="col-sm-6">
+    <div class="card">
+     <div class="card-header">
+       <!-- <p style="float:left;"> -->
+       Lessons by Impact Level
+       <!-- </p>       -->
+     </div>
+     <div class="card-body">
+       <!-- This is some text within a card block. -->
+     </div>
+     <div class="row" style="width: 100%;">
+   
+        <!-- <div class="column  col-sm-6 col-md-4">
+         <div class="card" style="background-color: #f64846;">
+           <i class="fa fa-warning"
+             style="font-size:25px;color: white;"></i>
+           <p style="margin-right: -60%; color: white; margin-top: -20%;"
+             *ngFor="let project of getallimpactlevelhigh">{{project.TotalNumber}}</p>
+
+           <p class="sdata">High</p>
+         </div>
+       </div> -->
+
+
+       <div class="column  col-sm-6 col-md-4">
+        <div class="card" style="background-color: #f64846; height: 70%;">
+          <!-- <h3 *ngFor="let project of getallimpactlevelhigh">{{project.TotalNumber}}</h3> -->
+          <i class="fa fa-warning fa-lg mt-4"
+            style="font-size:25px;color: white; margin-left: -77%;"></i>
+          <p style="margin-right: -60%; color: white; margin-top: -20%; "
+            *ngFor="let project of getallimpactlevelhigh">{{project.TotalNumber}}</p>
+
+          <p class="sdata">High</p>
+        </div>
+      </div>
+
+       <div class="column  col-sm-6 col-md-4">
+         <div class="card" style="background-color: #f69114; height: 70%;">
+           <!-- <h3 *ngFor="let project of getallimpactlevelhigh">{{project.TotalNumber}}</h3> -->
+           <i class="fa fa-exclamation-circle fa-lg mt-4"
+             style="font-size:25px;color: white;     margin-left: -77%;"></i>
+           <p style="margin-right: -60%; color: white; margin-top: -20%;"
+             *ngFor="let project of getallimpactlevelmedium">{{project.TotalNumber}}</p>
+
+           <p class="sdata">Medium</p>
+         </div>
+       </div>
+       <div class="column  col-sm-6 col-md-4">
+         <div class="card" style="background-color:#268001;height: 70%;">
+           <!-- <h3 *ngFor="let project of getallimpactlevelhigh">{{project.TotalNumber}}</h3> -->
+           <i class="fa fa-exclamation fa-lg mt-4"
+             style="font-size:25px;color: white;     margin-left: -77%;"></i>
+           <p style="margin-right: -60%; color: white; margin-top: -20%;" *ngFor="let project of getallimpactlevellow">
+             {{project.TotalNumber}}</p>
+
+           <p class="sdata">Low</p>
+         </div>
+       </div>
+
+
+     </div>
+
+     <!-- <div class="card card col-lg-10" style="padding-left: 0px; padding-right: 0px; margin-left: 15%;">
+     <div class="card-header">
+       Lessons by Milestone       
+     </div>
+     <div class="card-body">
+       <div class="chart-wrapper" *ngIf="PhasepieChartData && PhasepieChartData.length > 0">
+         <canvas baseChart class="chart"
+         [data]="PhasepieChartData"
+         [labels]="PhasepieChartLabels"
+         [chartType]="PhasepieChartType"
+         (chartHover)="chartHovered($event)"
+         (chartClick)="chartClicked($event)"></canvas>
+       </div>
+     </div>
+   </div>     -->
+     <!--     
+   <div class="card card col-lg-10" style="padding-left: 0px; padding-right: 0px; margin-left: 15%;">
+     <div class="card-header">
+       Lessons by project phase        
+     </div>
+     <div class="card-body">
+       <div class="chart-wrapper" *ngIf="projpieChartData && projpieChartData.length > 0">
+         <canvas baseChart class="chart"
+         [data]="projpieChartData"
+         [labels]="projpieChartLabels"
+         [chartType]="projpieChartType"
+         (chartHover)="chartHovered($event)"
+         (chartClick)="chartClicked($event)"></canvas>
+       </div>
+     </div>
+   </div> -->
+
+     <!-- <div class="card card col-lg-10" style="padding-left: 0px; padding-right: 0px;">
+     <div class="card-header">
+       Lessons by category        
+     </div>
+     <div class="card-body" >
+       <div class="chart-wrapper" *ngIf="catpieChartData && catpieChartData.length > 0">
+         <canvas baseChart class="chart"
+         [data]="catpieChartData"
+         [labels]="catpieChartLabels"
+         [chartType]="catpieChartType"
+         (chartHover)="chartHovered($event)"
+         (chartClick)="chartClicked($event)"></canvas>
+       </div>
+     </div>
+   </div>  -->
+
+
+   </div>
+  </div>
+  </div>
+
+  <div class="row">
+  
+    <div class="col-sm-6">
+      <div class="card">
+        <div class="card-header">
+          Lesson by Months
+        </div>
+        <ejs-accumulationchart id="chart-container" class="abc" [legendSettings]='trianglelegent' 
+          [tooltip]='Triangulartooltipsettings' [background]='background'>
+          <e-accumulation-series-collection >
+            <e-accumulation-series type='Pyramid' [dataSource]='piedata' xName='x' yName='y'
+              [dataLabel]='trianglechartlabel' [palettes]='palette'>
+            </e-accumulation-series>
+          </e-accumulation-series-collection>
+        </ejs-accumulationchart>
+      </div>
+    </div>
+     
+  </div>

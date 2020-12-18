@@ -1,7 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../../_services/authentication.service';
-import { ModalDirective } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-social-auth',
@@ -19,8 +18,6 @@ export class SocialAuthComponent implements OnInit {
   outerEmail: boolean = false;
   emailNotExist: boolean = false;
   isEmailRequestPending: boolean = false;
-
-  @ViewChild('sendRequest', { static: false }) public sendRequest: ModalDirective;
 
   constructor(private router: Router, private authService: AuthenticationService) {
 
@@ -75,13 +72,9 @@ export class SocialAuthComponent implements OnInit {
     if (this.accessToken) {
       this.authService.sendLoginReq(this.accessToken).subscribe((data) => {
         if (data.status) {
-          this.sendRequest.show();
+          this.router.navigate(['/login']);
         }
       });
     }
-  }
-  sendDone() {
-    this.router.navigate(['/login']);
-
   }
 }

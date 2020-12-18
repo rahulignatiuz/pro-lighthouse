@@ -33,7 +33,6 @@ export class DashboardComponent implements OnInit {
   public settingUserID: number;
   public settRoles: number;
   public status: number;
-  public notifications: number;
   public p: any;
   public p1: any;
   public getAllPenUser: any[];
@@ -45,7 +44,6 @@ export class DashboardComponent implements OnInit {
   @ViewChild('deleteAccount', { static: false }) public deleteAccount: ModalDirective;
   @ViewChild('pendingUser', { static: false }) public pendingUser: ModalDirective;
   @ViewChild('pendingUserRegistrationForm', { static: false }) public pendingUserRegistrationForm: ModalDirective;
-  @ViewChild('userExists', { static: false }) public userExists: ModalDirective;
   public constructor(private titleService: Title, private userService: UserService, private router: Router, private formBuilder: FormBuilder) {
     this.titleService.setTitle("Lighthouse | User Management");
     this.getAllUser();
@@ -71,11 +69,24 @@ export class DashboardComponent implements OnInit {
     });
     this.accountSettingForm = this.formBuilder.group({
       settRoles: ['', Validators.required],
-      status: ['', Validators.required],
-      notifications: ['', Validators.required],
+      status: ['', Validators.required]
     });
     this.roles = null;
     this.p_roles = null;
+    this.masterlistproject();
+
+  }
+
+   //default tab for masterlist- project
+   masterlistproject() {
+    localStorage.removeItem("tabforprocess");
+    localStorage.removeItem("tabID");
+    var projectradiobuttn = "project";
+    var projecttabselection = "tab1"
+    localStorage.setItem("tabforprocess", projectradiobuttn);
+    localStorage.setItem("tabID", projecttabselection);
+
+
   }
   getAllPendingUser() {
     this.userService.getAllPendingUser().subscribe((data) => {
@@ -131,11 +142,6 @@ export class DashboardComponent implements OnInit {
       }
     });
   }
-  existsDone() {
-    this.userExists.hide();
-    this.registrationForm.show();
-
-  }
   userPending() {
     this.getAllPendingUser();
     this.pendingUser.show();
@@ -151,11 +157,10 @@ export class DashboardComponent implements OnInit {
 
     // this.router.navigate(['/register']);
   }
-  userSettings(settingUserFirstName, userID, settingCurrentUserRole, emailNotifications, settingCurrentUserStatus) {
+  userSettings(settingUserFirstName, userID, settingCurrentUserRole, settingCurrentUserStatus) {
     this.settingUserFirstName = settingUserFirstName;
     this.settingUserID = userID;
     this.settRoles = settingCurrentUserRole;
-    this.notifications = emailNotifications;
     this.status = settingCurrentUserStatus;
     this.accountSetting.show();
   }
@@ -182,20 +187,14 @@ export class DashboardComponent implements OnInit {
       LastName: this.lastName,
       Email: this.email,
       Roles: this.roles,
-      EmailNotification: 0,
       IsEnabled: 1
     };
     // console.log("this.isValidated",this.userRegistrationForm.valid);
     if (this.userRegistrationForm.valid) {
       this.userService.addUserRegistration(obj).subscribe((data) => {
-        if (data.status) {
-          console.log(data);
-          window.location.reload();
-          //this.router.navigate(['/dashboard']);
-        } else {
-          this.registrationForm.hide();
-          this.userExists.show();
-        }
+        console.log(data);
+        window.location.reload();
+        //this.router.navigate(['/dashboard']);
       });
     }
   }
@@ -204,7 +203,6 @@ export class DashboardComponent implements OnInit {
       UserID: this._user.ID,
       SettRoles: this.settRoles,
       Status: this.status,
-      Notifications: this.notifications,
       SettingUserID: this.settingUserID
     };
     this.userService.addAccountSetting(obj).subscribe((data) => {
@@ -220,7 +218,6 @@ export class DashboardComponent implements OnInit {
       LastName: this.p_lastName,
       Email: this.p_email,
       Roles: this.p_roles,
-      EmailNotification: 0,
       IsEnabled: 1
     };
     if (this.pendingRegistrationForm.valid) {

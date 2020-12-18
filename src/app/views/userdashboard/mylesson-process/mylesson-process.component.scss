@@ -193,8 +193,22 @@ font-size: 5rem !important;
     margin-left: 0px;
 }
 .wid90{
-    width: 98%;
+    width: 97%;
 }
+// @media (max-width: 1800px){
+//     .marginforsmall{
+//      margin-left: 96% !important;
+//     }
+//   }
+//   @media (max-width: 2100px){
+//     .marginforsmall{
+//       margin-left: 97%;
+//      }
+//   }
+  .marginforsmall{
+    margin-left: 25%;
+    margin-top: 9px;
+   }
 .multiselect-dropdown .dropdown-btn{
     display: inline-block;
     // border: 1px solid #adadad;
@@ -209,6 +223,10 @@ font-size: 5rem !important;
     cursor: pointer;
     background-image: none;
     border-radius:0px;
+}
+.textcolor{
+    color: black !important;
+
 }
 :host::ng-deep .multiselect-dropdown .dropdown-btn {    
     border-radius:0px;
@@ -251,10 +269,11 @@ button.toggle-panel.bi.bi-chevron-down{
 }
 
 .cssforlikes{
-    margin-right: -29px; 
-    font-size: 12px;
-        
-    }
+    margin-right: 48%; 
+    // font-size: 12px;
+    margin-top: 3px;
+    margin-bottom: 0px;
+}
 .xyz{
     margin-left: 40%; background: transparent;
 }

@@ -446,9 +446,9 @@ export class AdmindashboardComponent implements OnInit {
   }
   getCountimpactlevelhigh() {
     this.userService.getCountimpactlevelhigh().subscribe((data) => {
-       console.log("6+6+6+6",data);
+      // console.log(data);
       this.getallimpactlevelhigh = data.result;
-      //console.log(data);
+      console.log(data);
     });
 
 
@@ -475,7 +475,7 @@ export class AdmindashboardComponent implements OnInit {
       const totallesson = data.result[0].totallesson;
       const percent = totalimplement / totallesson * 100;
       this.currentValue = percent;
-      console.log('=======>>>>>88>>2222222222222222222222222', data, totalimplement, totallesson, percent);
+      console.log('=======>>>>>>>2222222222222222222222222', data, totalimplement, totallesson, percent);
 
     });
   }
@@ -514,7 +514,6 @@ export class AdmindashboardComponent implements OnInit {
 
   getlessonbyissue() {
     this.userService.getlessonbyissue().subscribe((data) => {
-      console.log("+96+96+96+96",data);
       this.getalllessonbyissue = data.result;
       const totalissue = data.result[0].total;
       const totallesson = data.result[0].totallesson;

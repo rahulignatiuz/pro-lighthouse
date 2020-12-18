@@ -1,24 +1,27 @@
 <div class="col-lg-12">
    <div class="card">
       <mat-accordion>
-         <mat-expansion-panel #expansionPanel [hideToggle]="true" style="display: contents; pointer-events: none;">
-            <mat-expansion-panel-header  style="margin-left: 40%; background: transparent;">
+         <mat-expansion-panel #expansionPanel [hideToggle]="true" style="display: contents; pointer-events: none;"
+            [expanded]="true">
+            <mat-expansion-panel-header style="margin-left: 40%; background: transparent;">
                <mat-panel-description>
-                  <button  class="toggle-panel bi bi-chevron-down" (click)="$event.stopPropagation(); expansionPanel.toggle(); showandhide();" >FILTER BY  <i id="id005"class="fa fa-chevron-down"></i> </button>
+                  <button class="toggle-panel bi bi-chevron-down"
+                     (click)="$event.stopPropagation(); expansionPanel.toggle(); showandhide();">FILTER BY <i id="id005"
+                        class="fa fa-chevron-up"></i> </button>
                </mat-panel-description>
-               <div class="float-right" id="id006" style="pointer-events: all;">
+               <div class="float-right" id="id006" style="pointer-events: all; display: none;">
                   <div class="row float-right">
-                     <select style="margin-left: -15%;  border-radius: 5%;"  name="dropdown" [(ngModel)]="sortbyBD" class="form-control" 
-                        (change)="onselectSoftBy($event)" (click)="$event.stopPropagation();">
+                     <select style="margin-left: -15%;  border-radius: 5%;" name="dropdown" [(ngModel)]="sortbyBD"
+                        class="form-control" (change)="onselectSoftBy($event)" (click)="$event.stopPropagation();">
                         <option value="" selected>Sort By</option>
                         <option value="likes">Most Liked</option>
                         <option value="newest">Newest</option>
-                        <option value="oldest">Oldest</option>   
+                        <option value="oldest">Oldest</option>
                      </select>
                   </div>
                </div>
             </mat-expansion-panel-header>
-            <div class="card-body p-4 clearfix" style="pointer-events:all; display: none;" id="id04">
+            <div class="card-body p-4 clearfix" style="pointer-events:all; display: block;" id="id04">
                <div class="row">
                   <div class="col-sm-3">
                      <div class="form-group row">
@@ -72,10 +75,10 @@
                   <div class="col-sm-3">
                      <div class="form-group row">
                         <div class="col-md-12">
-                           <ng-multiselect-dropdown  class="selectdiv cssformultiselect" [placeholder]="'Select LifeCycles'"
-                              [data]="lifecycleDropdownList" [(ngModel)]="selectedlifecycle"
-                              [settings]="dropdownSettingsWithSearch" (onSelect)="onLifecycleSelect($event)"
-                              (onDeSelect)="onLifecycleSelect($event)">
+                           <ng-multiselect-dropdown class="selectdiv cssformultiselect"
+                              [placeholder]="'Select LifeCycles'" [data]="lifecycleDropdownList"
+                              [(ngModel)]="selectedlifecycle" [settings]="dropdownSettingsWithSearch"
+                              (onSelect)="onLifecycleSelect($event)" (onDeSelect)="onLifecycleSelect($event)">
                            </ng-multiselect-dropdown>
                         </div>
                      </div>
@@ -102,7 +105,7 @@
                         </div>
                      </div>
                   </div>
-             
+
                </div>
 
                <div class="row">
@@ -200,15 +203,18 @@
 </div>
 <div class="col-12 col-lg-12"
    *ngFor="let lesson of results | filter:searchedKeyword | paginate: { itemsPerPage: 5, currentPage: p }">
-   <div class="card">
+   <div class="card"  style="border-radius: 10px;">
       <div class="card-body p-3 clearfix">
 
          <div class="float-right">
-            <!-- <a> <button class="btn btn-primary float-right" (click)="getidinurlProccess(lesson.ID)"
-                  style="border-radius: 4px; margin-right: -2%;" type="button"> Edit </button></a> -->
-                  <a (click)="getidinurlProccess(lesson.ID)" *ngIf="show">
+            <a> <button class="btn btn-primary float-right" (click)="getidinurlProccess(lesson.ID)"
+               style="border-radius: 4px; margin-right: 22%;padding: 0;height: 31px;" type="button"> Edit </button></a>
+               <br>
+               <i class="fa fa-thumbs-up marginforsmall" style="font-size:19px;color:#20a8d8;"></i>
+               <p class="float-right cssforlikes">{{lesson.likes}}</p>
+            <!-- <a (click)="getidinurlProccess(lesson.ID)" *ngIf="show">
                   <i class="fa fa-edit editcss " ></i>
-               </a>
+               </a> -->
             <!-- <button (click)="likebutton()"> -->
             <!-- </button> -->
             <!-- <div class="h4 text-primary mb-0" style="cursor: pointer;"><strong style= "color:gray;">Title : </strong><a (click)="getidlesson(lesson.ID)">{{lesson.Title}}</a></div> -->
@@ -220,15 +226,52 @@
                <i class="fa fa-thumbs-up mar float-right" style="font-size:20px;color:#20a8d8;"></i>
             </a>
          </div> -->
-         <div class="h7 text-primary mb-0" style="cursor: pointer;"><strong style="color:gray;">Title : </strong><a
+         <!-- <div class="h7 text-primary mb-0" style="cursor: pointer;"><strong style="color:gray;">Title : </strong><a
                (click)="getidlesson(lesson.ID)"><strong>{{lesson.Title}}</strong></a></div>
          <div class="text-muted font-s"><strong> Process Name : </strong> {{lesson.Name}}</div>
          <div class="text-muted font-s"><strong> Type : </strong> {{lesson.Type}}</div>
          <div class="text-muted font-s wid90"><strong> Recommendation : </strong> {{lesson.Recommendation}} <i
                class="fa fa-thumbs-up float-right" style="font-size:20px;color:#20a8d8;"></i>
             <p class="float-right cssforlikes">{{lesson.likes}}</p>
+         </div> -->
+         <div class="row">
+            <div class="col-sm-3">
+               <div class="form-group row">
+                  <div class="col-md-12 ">
+                     <strong class="textcolor" style="cursor: pointer;">Title : </strong><a (click)="getidlesson(lesson.ID)"><strong
+                           class="h7 text-primary mb-0" style="cursor: pointer;">{{lesson.Title}}</strong></a>
+                  </div>
+               </div>
+            </div>
+            <div class="col-sm-4">
+               <div class="form-group row">
+                  <div class="col-md-12 text-muted">
+                     <strong class="textcolor" > Project Name : </strong> {{lesson.Name}}
+                  </div>
+               </div>
+            </div>
+            <div class="col-sm-2">
+               <div class="form-group row">
+                  <div class="col-md-11 text-muted">
+                     <strong class="textcolor " > Type : </strong> {{lesson.Type}}
+                  </div>
+               </div>
+            </div>
+            <div class="col-sm-3">
+               <div class="form-group row">
+                  <div class="col-md-12 text-muted">
+                     <strong class="textcolor"> Created Date : </strong> {{lesson.CreatedDate
+                     | date }}
+                  </div>
+               </div>
+            </div>
          </div>
-         <div class="text-muted font-s"><strong> Created Date : </strong> {{lesson.CreatedDate  | date }}</div>
+         <div class="text-muted font-s wid90" style="margin-left: 15px; "><strong class="textcolor"> Recommendation : </strong>
+            {{lesson.Recommendation}} 
+            <!-- <i class="fa fa-thumbs-up float-right" style="font-size:20px;color:#20a8d8; "></i>
+            <p class="float-right cssforlikes">{{lesson.likes}}</p> -->
+         </div>
+         <!-- <div class="text-muted font-s"><strong> Created Date : </strong> {{lesson.CreatedDate  | date }}</div> -->
          <!-- <div class="text-muted font-s"><strong> LPN / PPN  : </strong> {{lesson.LPN}} </div>
           <div class="text-muted font-s"><strong> Created By  : </strong> {{lesson.UserName}} &nbsp;|&nbsp; <strong>Created Date: </strong> {{lesson.UpdatedDate | date }} <span *ngIf="lesson.attachments"> &nbsp;|&nbsp; <a href="{{_baseURL}}{{lesson.attachments}}" target="_blank" ><i class="fa fa-download float-right font-lg" style="cursor: pointer" ></i> </a></span></div> -->
       </div>
