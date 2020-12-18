@@ -1,0 +1,59 @@
+<div *ngIf="verifyEmail" class="loader">Loading...</div>
+
+<div *ngIf="outerEmail" class="py-5 outer-email">
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-md-2 text-center">
+                <p><i class="fa fa-exclamation-triangle fa-5x"></i><br />Status Code: 403</p>
+            </div>
+            <div class="col-md-10">
+                <h3>OPPSSS!!!! Sorry...</h3>
+                <p>Sorry, your access is refused due to this email id not allowed by your organization.<br />Please go
+                    back to the login page to continue with right email id.</p>
+                <a class="btn btn-danger" href="#" (click)="gotoLogin()">Go Back</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div *ngIf="emailNotExist" class="py-5 outer-email">
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-md-2 text-center">
+                <p><i class="fa fa-exclamation-triangle fa-5x"></i><br />Status Code: 403</p>
+            </div>
+            <div class="col-md-10">
+                <h3>OPPSSS!!!! Sorry...</h3>
+                <p>Sorry, your access is refused due to your account not exist.<br />Are you want to send the login
+                    required to the admin team.</p>
+                <a class="btn btn-danger" href="#" (click)="gotoLogin()">Go Back</a>
+                <a class="btn btn-primary" href="#" (click)="sendLoginReq()">Login Request</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div *ngIf="isEmailRequestPending" class="py-5 outer-email">
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-md-2 text-center">
+                <p><i class="fa fa-exclamation-triangle fa-5x"></i><br />Status Code: 403</p>
+            </div>
+            <div class="col-md-10">
+                <h3>OPPSSS!!!! Sorry...</h3>
+                <p>Sorry, your access is refused due to your request already pending. Please wait We will contact you
+                    soon.<br />Please go back to the login page to continue.</p>
+                <a class="btn btn-danger" href="#" (click)="gotoLogin()">Go Back</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div bsModal #sendRequest="bs-modal" class="modal">
+    <form class="modal-content row forms">
+      <div class="modal-body">
+        <h3>Your request to access the site has been submitted to the administrator.<br /> You will receive an email when your request is approved.
+        </h3>
+      </div>
+      <div class="modal-footer">
+        <button type="button" (click)="sendDone()" class="btn btn-primary">OK</button>
+      </div>
+    </form>
+  </div>

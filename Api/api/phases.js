@@ -1,0 +1,133 @@
+var express = require("express");
+const router = express.Router();
+var User = require("../domain/user");
+var db = require("../db/database");
+
+//http://localhost:6001/api/phases
+router.get("/", (req, res, next) => {
+    db.query(User.getAllphaseSQL(), (err, data) => {
+        if (!err) {
+            if (data && data.length > 0) {
+                res.status(200).json({
+                    status: true,
+                    message: "phases get successfully.",
+                    result: data
+                });
+            } else {
+                res.status(200).json({
+                    status: false,
+                    message: "phases not added.",
+                    result: data
+                });
+            }
+        }
+    });
+});
+//http://localhost:6001/api/phases/add
+router.post('/add', (req, res, next) => {
+    let p = {};
+    p.Name = req.body.Name;
+    p.Description = req.body.Description;
+    p.CreatedBy = req.body.CreatedBy;
+    p.UpdatedBy = req.body.UpdatedBy;
+    //console.log(p);
+    db.query(User.AddAllphasesSQL(p), (err, results) => {
+        if (err) {
+            res.send({ status: false, result: results, message: 'not-added' })
+        }
+        else {
+            return res.send({ status: true, data: results, message: 'added' });
+        }
+    });
+});
+//http://localhost:6001/api/phases/update
+router.post('/update', (req, res, next) => {
+    let i = {};
+    i.ID = req.body.ID;
+    i.Indexing = req.body.Indexing;
+
+
+    //console.log(p);
+    db.query(User.updateAllphasesSQL(i), (err, results) => {
+        if (err) {
+            res.send({ status: false, result: results, message: 'not-added' })
+        }
+        else {
+            return res.send({ status: true, data: results, message: 'added' });
+        }
+    });
+});
+
+//http://localhost:6001/api/phases/updatename
+router.post('/updatename', (req, res, next) => {
+    let i = {};
+    i.ID = req.body.ID;
+    i.Name = req.body.Name;
+
+
+    //console.log(p);
+    db.query(User.updatephasesSQL(i), (err, results) => {
+        if (err) {
+            res.send({ status: false, result: results, message: 'not-added' })
+        }
+        else {
+            return res.send({ status: true, data: results, message: 'added' });
+        }
+    });
+});
+//http://localhost:6001/api/phases/id
+router.post("/id", (req, res, next) => {
+    ID = req.body.ID;
+    db.query(User.getphasesbyid(ID), (err, data) => {
+        if (!err) {
+            if (data && data.length > 0) {
+                res.status(200).json({
+                    status: true,
+                    message: "Successfully get phases by ID.",
+                    result: data
+                });
+            } else {
+                res.status(200).json({
+                    status: false,
+                    message: "Not get phases by ID.",
+                    result: data
+                });
+            }
+        }
+    });
+});
+
+//http://localhost:6001/api/phases/phasebarchart
+router.post("/phasebarchart", (req, res, next) => {
+    ID = req.body.ID;
+    db.query(User.getphaseBybarchartSQL(req.body), (err, data) => {
+        if (!err) {
+            let dataObj = [];
+            let labelObj = [];
+            let totalObj = [];
+            if (data && data.length > 0) {
+                for (let i = 0; i < data.length; i++) {
+                    dataObj.push(data[i].total);
+                    labelObj.push(data[i].phase);
+                    totalObj.push(data[i].totallesson);
+                }
+                res.status(200).json({
+                    status: true,
+                    message: "phases get successfully.",
+                    data: dataObj,
+                    label: labelObj,
+                    totallesson: totalObj
+                });
+            } else {
+                res.status(200).json({
+                    status: false,
+                    message: "phases not added.",
+                    data: dataObj,
+                    label: labelObj,
+                    totallesson: totalObj
+                });
+            }
+        }
+    });
+});
+module.exports = router; 

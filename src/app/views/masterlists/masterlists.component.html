@@ -1,0 +1,2075 @@
+<div class="animated fadeIn">
+   <div class="card card-default">
+      <div class="card-header">
+         Master Lists
+      </div>
+      <div class="card-header">
+         <input type="radio" id="project" name="lesson" value="project" [(ngModel)]="lf"
+            (change)="togglelessonFlow($event, lf)" >
+         <label for="project" style="margin-left: 5px;">Project</label>
+         <input type="radio" style="margin-left: 20px;" id="Process" name="lesson" value="Process" [(ngModel)]="lf"
+            (change)="togglelessonFlow($event, lf)">
+         <label for="Process" style="margin-left: 5px;">Process</label><br>
+      </div>
+      <div class="" id="001">
+         <ul class="tabs">
+            <li style="margin-left: 8px;">
+               <input type="radio" checked name="tabs" id="tab1"
+                  (click)="showaddform55(); showaddform70(); showaddform56();showaddform57(); showaddform58(); showaddform59(); showaddform61(); showaddform62(); showaddform63(); tabcontforprojecttype();">
+               <label for="tab1">Project Type</label>
+               <div id="tab-content1" class="tab-content animated fadeIn">
+                  <button (click)="showaddform()" class="btn btn-primary addnewbut fontaddnew"> <i
+                        class="fa fa-plus-circle" style="font-size: 13px;"></i> Add New</button>
+                  <div>
+                     <!-- <div class="help-tip">
+                        <p>Please Drag and Drop entries of the table to change the positions of it</p>
+                     </div> -->
+                     <table style="width: 97%;margin-top: 1%;margin-left: 28px;" id="008">
+                        <thead>
+                           <tr>
+                              <th class="tabheading">Action</th>
+                              <th class="tabheading1">Project Type
+                                 <span class="tooltip-toggle"
+                                    aria-label="Please Drag and Drop entries of the table to change the positions."
+                                    tabindex="0">
+                                    <!-- <i class="fa fa-question-circle" style="font-size:24px; color: #0099CC"></i> -->
+                                    <!-- <i class="fa fa-plus-circle" style="font-size: 13px;"></i> -->
+                                    <!-- <svg width="24" height="24" viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg"><path d="M 500 0C 224 0 0 224 0 500C 0 776 224 1000 500 1000C 776 1000 1000 776 1000 500C 1000 224 776 0 500 0C 500 0 500 0 500 0 M 501 191C 626 191 690 275 690 375C 690 475 639 483 595 513C 573 525 558 553 559 575C 559 591 554 602 541 601C 541 601 460 601 460 601C 446 601 436 581 436 570C 436 503 441 488 476 454C 512 421 566 408 567 373C 566 344 549 308 495 306C 463 303 445 314 411 361C 400 373 384 382 372 373C 372 373 318 333 318 333C 309 323 303 307 312 293C 362 218 401 191 501 191C 501 191 501 191 501 191M 500 625C 541 625 575 659 575 700C 576 742 540 776 500 775C 457 775 426 739 425 700C 425 659 459 625 500 625C 500 625 500 625 500 625"/></svg> -->
+                                    <svg viewBox="0 0 27 27" xmlns="http://www.w3.org/2000/svg" class="svgmargin">
+                                       <g fill="blue" fill-rule="evenodd">
+                                          <path
+                                             d="M13.5 27C20.956 27 27 20.956 27 13.5S20.956 0 13.5 0 0 6.044 0 13.5 6.044 27 13.5 27zm0-2C7.15 25 2 19.85 2 13.5S7.15 2 13.5 2 25 7.15 25 13.5 19.85 25 13.5 25z" />
+                                          <path
+                                             d="M12.05 7.64c0-.228.04-.423.12-.585.077-.163.185-.295.32-.397.138-.102.298-.177.48-.227.184-.048.383-.073.598-.073.203 0 .398.025.584.074.186.05.35.126.488.228.14.102.252.234.336.397.084.162.127.357.127.584 0 .22-.043.412-.127.574-.084.163-.196.297-.336.4-.14.106-.302.185-.488.237-.186.053-.38.08-.584.08-.215 0-.414-.027-.597-.08-.182-.05-.342-.13-.48-.235-.135-.104-.243-.238-.32-.4-.08-.163-.12-.355-.12-.576zm-1.02 11.517c.134 0 .275-.013.424-.04.148-.025.284-.08.41-.16.124-.082.23-.198.313-.35.085-.15.127-.354.127-.61v-5.423c0-.238-.042-.43-.127-.57-.084-.144-.19-.254-.318-.332-.13-.08-.267-.13-.415-.153-.148-.024-.286-.036-.414-.036h-.21v-.95h4.195v7.463c0 .256.043.46.127.61.084.152.19.268.314.35.125.08.263.135.414.16.15.027.29.04.418.04h.21v.95H10.82v-.95h.21z" />
+                                       </g>
+                                    </svg>
+                                 </span>
+                                 <!-- <svg width="24" height="24" viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg"><path d="M 500 0C 224 0 0 224 0 500C 0 776 224 1000 500 1000C 776 1000 1000 776 1000 500C 1000 224 776 0 500 0C 500 0 500 0 500 0 M 501 191C 626 191 690 275 690 375C 690 475 639 483 595 513C 573 525 558 553 559 575C 559 591 554 602 541 601C 541 601 460 601 460 601C 446 601 436 581 436 570C 436 503 441 488 476 454C 512 421 566 408 567 373C 566 344 549 308 495 306C 463 303 445 314 411 361C 400 373 384 382 372 373C 372 373 318 333 318 333C 309 323 303 307 312 293C 362 218 401 191 501 191C 501 191 501 191 501 191M 500 625C 541 625 575 659 575 700C 576 742 540 776 500 775C 457 775 426 739 425 700C 425 659 459 625 500 625C 500 625 500 625 500 625"/></svg> -->
+                              </th>
+
+                              <!-- <th>Position</th> -->
+                           </tr>
+                           <!-- <div class="help-tip">
+                              <p>Please Drag and Drop entries of the table to change the positions.</p>
+                           </div> -->
+                        </thead>
+                        <tbody cdkDropList (cdkDropListDropped)="onDrop5($event)">
+                           <tr cdkDrag *ngFor="let project of projectsAsType" cdkDragLockAxis="y"
+                              style="cursor: pointer;">
+
+                              <td class="tdiconpadding">
+                                 <a>
+                                    <!-- <i class="fa fa-edit editcss" style="font-size: 15px; "></i> -->
+                                    <!-- <i class="fa fa-plus-circle" style="font-size:16px"></i> -->
+                                 </a>
+                                 <a onclick="document.getElementById('id04').style.display='block'"
+                                    (click)="getidinurl(project.ID)">
+                                    <i class="fa fa-plus-circle"
+                                       style="font-size:16px;color: green; cursor: pointer;"></i>
+                                    <!-- <i class="fa fa-edit editcss" style="font-size: 23px; color: #20a8d8; cursor: pointer;"></i> -->
+                                 </a>
+
+                                 <!-- <a routerLink="/edit"><button class="btn btn-primary"> edit</button></a> -->
+                              </td>
+                              <td>{{project.Name}}</td>
+                              <!-- <td>{{project.Indexing}}</td> -->
+                           </tr>
+
+                        </tbody>
+                     </table>
+                  </div>
+
+                  <form class="form-horizontal" [formGroup]="projectForm" (ngSubmit)="AddProjecttype(projectForm)"
+                     style="display: none;" id="007">
+                     <div class="row">
+                        <div class="card-body p-4 clearfix" style=" width: 75%;margin-right: 10%;">
+                           <div class="col-sm-9">
+                              <div class="form-group row labeldata">
+                                 <label class="col-md-12 addformcsss" for="text-input">Project type</label>
+                                 <div class="col-md-6">
+                                    <!-- <input class="form-control" id="text-input"
+                        formControlName="projectName" placeholder="Project Name" type="text"> -->
+                                    <input class="form-control " id="text-input" formControlName="projecttypeName"
+                                       placeholder="Projecttype Name" type="text">
+                                       <div
+                                       *ngIf="projectForm.controls['projecttypeName'].invalid && (projectForm.controls['projecttypeName'].dirty || projectForm.controls['projecttypeName'].touched)"
+                                       class="custom-errMsg">
+                                       <div *ngIf="projectForm.controls['projecttypeName'].errors.required">
+                                          Projecttype is required.
+                                       </div>
+                                    </div>
+                                 </div>
+                                
+                              </div>
+                           </div>
+                           <div class="col-sm-9">
+                              <div class="form-group row">
+                                 <label class="col-md-12 addformcsss" for="text-input">Project Description</label>
+                                 <div class="col-md-6">
+                                    <textarea class="form-control " id="textarea-input"
+                                       formControlName="projecttypeDescription" placeholder="Description..." rows="6"
+                                       maxlength="250" style="width: -98%;">
+                        </textarea>
+                                 </div>
+                                 <div
+                                    *ngIf="projectForm.controls['projecttypeDescription'].invalid && (projectForm.controls['projecttypeDescription'].dirty || projectForm.controls['projecttypeDescription'].touched)"
+                                    class="custom-errMsg">
+                                    <!-- <div *ngIf="projectForm.controls['projecttypeDescription'].errors.required">
+                                       Description is required.
+                                    </div> -->
+                                 </div>
+                              </div>
+                              <button class="btn btn-primary" type="submit"
+                                 [disabled]="( projectForm.controls['projecttypeName'].invalid )"
+                                 style="border-radius: 4px; margin-right: -27%;margin-left:20px;"><i class="fa fa-save"
+                                    style="font-size:15px"></i> Save</button>
+
+                           </div>
+
+                           <!-- <button class="btn btn-primary float-right" type="button" style="border-radius: 4px;">Save</button> -->
+                        </div>
+                     </div>
+                  </form>
+               </div>
+            </li>
+            <li>
+               <input type="radio" name="tabs" id="tab2"
+                  (click)="showaddform55(); showaddform70(); showaddform56();showaddform57(); showaddform58(); showaddform59(); showaddform61(); showaddform62(); showaddform63(); tabcontforproject();">
+               <label for="tab2">Projects</label>
+               <div id="tab-content2" class="tab-content animated fadeIn">
+                  <button (click)="showaddform1()" class="btn btn-primary addnewbut fontaddnew"> <i
+                        class="fa fa-plus-circle" style="font-size: 13px;"></i> Add New</button>
+                  <div>
+                     <select class="form-control col-sm-3" style=" margin-top: 6px;     margin-left: 41px;"
+                        (change)="onselectProjecttype1($event)" id="457">
+                        <option value="" disabled> Select Project Type</option>
+                        <option *ngFor="let projectype of projectsAsType" value="{{projectype.ID}}">
+                           {{projectype.Name}}</option>
+                     </select>
+                     <table style="width: 97%;margin-top: 1%;margin-left: 28px;" id="05">
+                        <thead>
+                           <tr>
+                              <th>Action</th>
+                              <th style="width:40%;">Project Name</th>
+                              <th>LPN/PPN #
+                                 <span class="tooltip-toggle"
+                                    aria-label="Please Drag and Drop entries of the table to change the positions."
+                                    tabindex="0">
+                                    <svg viewBox="0 0 27 27" xmlns="http://www.w3.org/2000/svg" class="svgmargin">
+                                       <g fill="blue" fill-rule="evenodd">
+                                          <path
+                                             d="M13.5 27C20.956 27 27 20.956 27 13.5S20.956 0 13.5 0 0 6.044 0 13.5 6.044 27 13.5 27zm0-2C7.15 25 2 19.85 2 13.5S7.15 2 13.5 2 25 7.15 25 13.5 19.85 25 13.5 25z" />
+                                          <path
+                                             d="M12.05 7.64c0-.228.04-.423.12-.585.077-.163.185-.295.32-.397.138-.102.298-.177.48-.227.184-.048.383-.073.598-.073.203 0 .398.025.584.074.186.05.35.126.488.228.14.102.252.234.336.397.084.162.127.357.127.584 0 .22-.043.412-.127.574-.084.163-.196.297-.336.4-.14.106-.302.185-.488.237-.186.053-.38.08-.584.08-.215 0-.414-.027-.597-.08-.182-.05-.342-.13-.48-.235-.135-.104-.243-.238-.32-.4-.08-.163-.12-.355-.12-.576zm-1.02 11.517c.134 0 .275-.013.424-.04.148-.025.284-.08.41-.16.124-.082.23-.198.313-.35.085-.15.127-.354.127-.61v-5.423c0-.238-.042-.43-.127-.57-.084-.144-.19-.254-.318-.332-.13-.08-.267-.13-.415-.153-.148-.024-.286-.036-.414-.036h-.21v-.95h4.195v7.463c0 .256.043.46.127.61.084.152.19.268.314.35.125.08.263.135.414.16.15.027.29.04.418.04h.21v.95H10.82v-.95h.21z" />
+                                       </g>
+                                    </svg>
+                                 </span>
+
+                              </th>
+                              <!-- <th>Position</th> -->
+                           </tr>
+                        </thead>
+                        <tbody cdkDropList (cdkDropListDropped)="onDrop20($event)">
+                           <tr cdkDrag *ngFor="let project of mappingProjectTypeAndProject" cdkDragLockAxis="y"
+                              style="cursor: pointer;">
+
+                              <td class="tdiconpadding">
+                                 <!-- <a routerLink="/edit"><button class="btn btn-primary"> edit</button></a> -->
+                                 <a>
+                                    <!-- <i class="fa fa-edit editcss" style="font-size: 15px; "></i> -->
+                                    <!-- <i class="fa fa-plus-circle" style="font-size:16px"></i> -->
+                                 </a>
+                                 <a onclick="document.getElementById('id011').style.display='block'"
+                                    (click)="getprojectbyid(project.ID)">
+                                    <i class="fa fa-plus-circle"
+                                       style="font-size:16px;color: green; cursor: pointer;"></i>
+                                    <!-- <i class="fa fa-edit editcss" style="font-size: 23px; color: #20a8d8; cursor: pointer;"></i> -->
+                                 </a>
+                              </td>
+                              <td>{{project.Name}}</td>
+                              <td>{{project.LPN}}</td>
+                              <!-- <td>{{project.Indexing}}</td> -->
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+
+
+                  <form class="form-horizontal" [formGroup]="projectForm" (ngSubmit)="AddProjects(projectForm)"
+                     *ngIf="selectedOption == 'first'" id="06" style="display: none;">
+                     <div class="row">
+                        <div class="card-body p-4 clearfix" style=" width: 75%;margin-right: 10%; ">
+                           <div class="col-sm-9">
+                              <div class="form-group row">
+                                 <label class="col-md-12 addformcsss" for="text-input">Project Type</label>
+                                 <div class="col-md-6">
+                                    <!-- <input class="form-control" id="text-input"
+                                 formControlName="projectName" placeholder="Project Name" type="text"> -->
+                                    <select class="form-control" formControlName="_projectType"
+                                       (change)="onselectProjecttype1($event)" id="ppt">
+                                       <option value="" disabled> Select ProjectType</option>
+                                       <option *ngFor="let projectype of projectsAsType" value="{{projectype.ID}}">
+                                          {{projectype.Name}}</option>
+                                    </select>
+                                    <div
+                                       *ngIf="projectForm.controls['_projectType'].invalid && (projectForm.controls['_projectType'].dirty || projectForm.controls['_projectType'].touched)"
+                                       class="custom-errMsg">
+                                       <div *ngIf="projectForm.controls['_projectType'].errors.required">
+                                          Project type is required.
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="form-group row">
+                                 <label class="col-md-12 addformcsss" for="text-input">Project Name</label>
+                                 <div class="col-md-6">
+                                    <!-- <tag-input [theme]="'minimal'" [(ngModel)]="projectName" class="" [maxItems]="1"
+                                       formControlName="projectName" [secondaryPlaceholder]="'Select Project'">
+                                       <tag-input-dropdown [showDropdownIfEmpty]="true"
+                                          [autocompleteItems]="mappingProjectTypeAndProject" [displayBy]="'Name'"
+                                          [identifyBy]="'projectId'">
+                                       </tag-input-dropdown>
+                                    </tag-input> -->
+                                    <input class="form-control" id="text-input" formControlName="projectName"
+                                       placeholder="Project Name" type="text">
+                                       <div
+                                       *ngIf="projectForm.controls['projectName'].invalid && (projectForm.controls['projectName'].dirty || projectForm.controls['projectName'].touched)"
+                                       class="custom-errMsg">
+                                       <div *ngIf="projectForm.controls['projectName'].errors.required">
+                                          Project Name is required.
+                                       </div>
+                                    </div>
+                                 </div>
+                                
+                              </div>
+                           </div>
+                           <div class="col-sm-9">
+                              <div class="form-group row">
+                                 <label class="col-md-12 addformcsss" for="text-input">Project Number</label>
+                                 <div class="col-md-6">
+                                    <!-- <input class="form-control" id="text-input" formControlName="projectNumber"
+                                    placeholder="Project Number" type="text"> -->
+                                    <input class="form-control " [(ngModel)]="projectNumber" name="somename"
+                                       value='0.00' formControlName="projectNumber" placeholder="Format : 01234.00"
+                                       oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                       type="number" maxlength="8" />
+                                       <div
+                                       *ngIf="projectForm.controls['projectNumber'].invalid && (projectForm.controls['projectNumber'].dirty || projectForm.controls['projectNumber'].touched)"
+                                       class="custom-errMsg">
+                                       <div *ngIf="projectForm.controls['projectNumber'].errors.required">
+                                          Project Number is required.
+                                       </div>
+                                    </div>
+                                 </div>
+                               
+                              </div>
+                           </div>
+                           <div class="col-sm-9">
+                              <div class="form-group row">
+                                 <label class="col-md-12 addformcsss" for="text-input">Project Description</label>
+                                 <div class="col-md-6">
+                                    <textarea class="form-control " id="textarea-input"
+                                       formControlName="projectDescription" placeholder="Description..." rows="6"
+                                       maxlength="250" style="width: -98%;">
+                                 </textarea>
+                                 </div>
+                                 <div
+                                    *ngIf="projectForm.controls['projectDescription'].invalid && (projectForm.controls['projectDescription'].dirty || projectForm.controls['projectDescription'].touched)"
+                                    class="custom-errMsg">
+                                    <!-- <div *ngIf="projectForm.controls['projectDescription'].errors.required">
+                                       Project Description is required.
+                                    </div> -->
+                                 </div>
+                              </div>
+                              <button class="btn btn-primary" type="submit"
+                                 [disabled]="(projectForm.controls['projectName'].invalid || projectForm.controls['projectNumber'].invalid || projectForm.controls['_projectType'].invalid )"
+                                 style="border-radius: 4px; margin-right: -27%;margin-left:20px;"><i class="fa fa-save"
+                                    style="font-size:15px"></i> Save</button>
+                                    
+
+                           </div>
+
+                           <!-- <button class="btn btn-primary float-right" type="button" style="border-radius: 4px;">Save</button> -->
+                        </div>
+                     </div>
+                  </form>
+               </div>
+            </li>
+            <li>
+               <input type="radio" name="tabs" id="tab8"
+                  (click)="showaddform55(); showaddform56(); showaddform70(); showaddform57(); showaddform58(); showaddform59(); showaddform61(); showaddform62(); showaddform63(); tabcontforphase();">
+               <label for="tab8">Phases</label>
+               <div id="tab-content3" class="tab-content animated fadeIn">
+                  <button (click)="showaddform7()" class="btn btn-primary addnewbut fontaddnew"> <i
+                        class="fa fa-plus-circle" style="font-size: 13px;"></i> Add New</button>
+                  <div>
+                     <select class="form-control col-sm-3" style=" margin-top: 6px;     margin-left: 41px;"
+                        (change)="onselectProjecttype1($event);" id="456">
+                        <option value="" disabled> Select Project Type</option>
+                        <option *ngFor="let projectype of projectsAsType" value="{{projectype.ID}}">
+                           {{projectype.Name}}</option>
+                     </select>
+                     <table style="width: 97%;margin-top: 1%;margin-left: 28px;" id="19">
+                        <thead>
+                           <tr>
+                              <th class="">Action</th>
+                              <th class="">Phase Name
+                                 <span class="tooltip-toggle"
+                                    aria-label="Please Drag and Drop entries of the table to change the positions."
+                                    tabindex="0">
+                                    <svg viewBox="0 0 27 27" xmlns="http://www.w3.org/2000/svg" class="svgmargin">
+                                       <g fill="blue" fill-rule="evenodd">
+                                          <path
+                                             d="M13.5 27C20.956 27 27 20.956 27 13.5S20.956 0 13.5 0 0 6.044 0 13.5 6.044 27 13.5 27zm0-2C7.15 25 2 19.85 2 13.5S7.15 2 13.5 2 25 7.15 25 13.5 19.85 25 13.5 25z" />
+                                          <path
+                                             d="M12.05 7.64c0-.228.04-.423.12-.585.077-.163.185-.295.32-.397.138-.102.298-.177.48-.227.184-.048.383-.073.598-.073.203 0 .398.025.584.074.186.05.35.126.488.228.14.102.252.234.336.397.084.162.127.357.127.584 0 .22-.043.412-.127.574-.084.163-.196.297-.336.4-.14.106-.302.185-.488.237-.186.053-.38.08-.584.08-.215 0-.414-.027-.597-.08-.182-.05-.342-.13-.48-.235-.135-.104-.243-.238-.32-.4-.08-.163-.12-.355-.12-.576zm-1.02 11.517c.134 0 .275-.013.424-.04.148-.025.284-.08.41-.16.124-.082.23-.198.313-.35.085-.15.127-.354.127-.61v-5.423c0-.238-.042-.43-.127-.57-.084-.144-.19-.254-.318-.332-.13-.08-.267-.13-.415-.153-.148-.024-.286-.036-.414-.036h-.21v-.95h4.195v7.463c0 .256.043.46.127.61.084.152.19.268.314.35.125.08.263.135.414.16.15.027.29.04.418.04h.21v.95H10.82v-.95h.21z" />
+                                       </g>
+                                    </svg>
+                                 </span>
+                              </th>
+                              <!-- <th>Position</th> -->
+                           </tr>
+                           <!-- <div class="help-tip">
+                              <p>Please Drag and Drop entries of the table to change the positions.</p>
+                           </div> -->
+                        </thead>
+                        <tbody cdkDropList (cdkDropListDropped)="onDrop24($event)">
+                           <tr cdkDrag *ngFor="let project of MappingProjectTypeAndPhase" cdkDragLockAxis="y"
+                              style="cursor: pointer;">
+                              <td class="tdiconpadding">
+                                 <a onclick="document.getElementById('id012').style.display='block'"
+                                    (click)="getphasesbyid(project.ID)">
+                                    <i class="fa fa-plus-circle"
+                                       style="font-size:16px;color: green; cursor: pointer;"></i>
+                                    <!-- <i class="fa fa-edit editcss" style="font-size: 23px; color: #20a8d8; cursor: pointer;"></i> -->
+                                 </a>
+                              </td>
+                              <td>{{project.Name}}</td>
+                              <!-- <td>{{project.Indexing}}</td> -->
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+                  <form class="form-horizontal" [formGroup]="projectForm" (ngSubmit)="Addphases(projectForm)" id="20"
+                     style="display: none;">
+                     <div class="row">
+                        <div class="card-body p-4 clearfix" style=" width: 75%; margin-right: 10%;">
+                           <div class="col-sm-9">
+                              <div class="form-group row">
+                                 <label class="col-md-12 addformcsss" for="text-input">Project Type</label>
+                                 <div class="col-md-6">
+                                    <!-- <input class="form-control" id="text-input"
+                  formControlName="projectName" placeholder="Project Name" type="text"> -->
+                                    <select class="form-control" (change)="onselectProjecttype1($event)"
+                                       formControlName="_projectType" id="ppt">
+                                       <option value="" disabled> Select Type</option>
+                                       <option *ngFor="let projectype of projectsAsType" value="{{projectype.ID}}">
+                                          {{projectype.Name}}</option>
+                                    </select>
+                                    <div
+                                       *ngIf="projectForm.controls['_projectType'].invalid && (projectForm.controls['_projectType'].dirty || projectForm.controls['_projectType'].touched)"
+                                       class="custom-errMsg">
+                                       <div *ngIf="projectForm.controls['_projectType'].errors.required">
+                                          Project type is required.
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="form-group row">
+                                 <label class="col-md-12 addformcsss" for="text-input">Phase Name</label>
+                                 <div class="col-md-6">
+                                    <!-- <input class="form-control" id="text-input"
+                  formControlName="projectName" placeholder="Project Name" type="text"> -->
+                                    <!-- <input class="form-control " id="text-input" formControlName="phaseName"
+                              placeholder="Phase Name" type="text"> -->
+                                    <!-- <tag-input [theme]="'minimal'" [(ngModel)]="phaseName" class="" [maxItems]="1"
+                                       formControlName="phaseName" [secondaryPlaceholder]="'Select Project'">
+                                       <tag-input-dropdown [showDropdownIfEmpty]="true"
+                                          [autocompleteItems]="MappingProjectTypeAndPhase" [displayBy]="'Name'"
+                                          [identifyBy]="'projectId'">
+                                       </tag-input-dropdown>
+                                    </tag-input> -->
+                                    <input class="form-control" id="text-input" formControlName="phaseName"
+                                       placeholder="Phase Name" type="text">
+                                       <div
+                                       *ngIf="projectForm.controls['phaseName'].invalid && (projectForm.controls['phaseName'].dirty || projectForm.controls['phaseName'].touched)"
+                                       class="custom-errMsg">
+                                       <div *ngIf="projectForm.controls['phaseName'].errors.required">
+                                          Phase Name is required.
+                                       </div>
+                                    </div>
+                                 </div>
+                               
+                              </div>
+                           </div>
+
+                           <div class="col-sm-9">
+                              <div class="form-group row">
+                                 <label class="col-md-12 addformcsss" for="text-input">Phase Description</label>
+                                 <div class="col-md-6">
+                                    <textarea class="form-control " id="textarea-input"
+                                       formControlName="phaseDescription" placeholder="Description..." rows="6"
+                                       maxlength="250" style="width: -98%;">
+                  </textarea>
+                                 </div>
+                                 <div
+                                    *ngIf="projectForm.controls['phaseDescription'].invalid && (projectForm.controls['phaseDescription'].dirty || projectForm.controls['phaseDescription'].touched)"
+                                    class="custom-errMsg">
+                                    <!-- <div *ngIf="projectForm.controls['phaseDescription'].errors.required">
+                                       Phase Description is required.
+                                    </div> -->
+                                 </div>
+                              </div>
+                              <button class="btn btn-primary" type="submit"
+                                 [disabled]="(projectForm.controls['phaseName'].invalid || projectForm.controls['_projectType'].invalid )"
+                                 style="border-radius: 4px; margin-right: -27%;margin-left:20px;"><i class="fa fa-save"
+                                    style="font-size:15px"></i> Save</button>
+
+                           </div>
+
+                           <!-- <button class="btn btn-primary float-right" type="button" style="border-radius: 4px;">Save</button> -->
+                        </div>
+                     </div>
+                  </form>
+               </div>
+            </li>
+            <li>
+               <input type="radio" name="tabs" id="tab9"
+                  (click)="showaddform55(); showaddform70(); showaddform56();showaddform57(); showaddform58(); showaddform59(); showaddform61(); showaddform62(); showaddform63(); tabcontformilestone();">
+               <label for="tab9">Milestone</label>
+               <div id="tab-content3" class="tab-content animated fadeIn">
+                  <button (click)="showaddform8()" class="btn btn-primary addnewbut fontaddnew"> <i
+                        class="fa fa-plus-circle" style="font-size: 13px;"></i> Add New</button>
+                  <div>
+                     <select class="form-control col-sm-3" style=" margin-top: 6px;  margin-left: 41px;"
+                        (change)="onselectProjecttype1($event)" id="458">
+                        <option value="" disabled> Select Type</option>
+                        <option *ngFor="let projectype of projectsAsType" value="{{projectype.ID}}">
+                           {{projectype.Name}}</option>
+                     </select>
+                     <table style="width: 97%;margin-top: 1%;margin-left: 28px;" id="21">
+                        <thead>
+                           <tr>
+                              <th class="tabheading">Action</th>
+                              <th class="tabheading1">Milestone Name
+                                 <span class="tooltip-toggle"
+                                    aria-label="Please Drag and Drop entries of the table to change the positions."
+                                    tabindex="0">
+                                    <svg viewBox="0 0 27 27" xmlns="http://www.w3.org/2000/svg" class="svgmargin">
+                                       <g fill="blue" fill-rule="evenodd">
+                                          <path
+                                             d="M13.5 27C20.956 27 27 20.956 27 13.5S20.956 0 13.5 0 0 6.044 0 13.5 6.044 27 13.5 27zm0-2C7.15 25 2 19.85 2 13.5S7.15 2 13.5 2 25 7.15 25 13.5 19.85 25 13.5 25z" />
+                                          <path
+                                             d="M12.05 7.64c0-.228.04-.423.12-.585.077-.163.185-.295.32-.397.138-.102.298-.177.48-.227.184-.048.383-.073.598-.073.203 0 .398.025.584.074.186.05.35.126.488.228.14.102.252.234.336.397.084.162.127.357.127.584 0 .22-.043.412-.127.574-.084.163-.196.297-.336.4-.14.106-.302.185-.488.237-.186.053-.38.08-.584.08-.215 0-.414-.027-.597-.08-.182-.05-.342-.13-.48-.235-.135-.104-.243-.238-.32-.4-.08-.163-.12-.355-.12-.576zm-1.02 11.517c.134 0 .275-.013.424-.04.148-.025.284-.08.41-.16.124-.082.23-.198.313-.35.085-.15.127-.354.127-.61v-5.423c0-.238-.042-.43-.127-.57-.084-.144-.19-.254-.318-.332-.13-.08-.267-.13-.415-.153-.148-.024-.286-.036-.414-.036h-.21v-.95h4.195v7.463c0 .256.043.46.127.61.084.152.19.268.314.35.125.08.263.135.414.16.15.027.29.04.418.04h.21v.95H10.82v-.95h.21z" />
+                                       </g>
+                                    </svg>
+                                 </span>
+                              </th>
+                              <!-- <th>Position</th> -->
+                           </tr>
+
+                        </thead>
+                        <tbody cdkDropList (cdkDropListDropped)="onDrop21($event)">
+                           <tr cdkDrag *ngFor="let project of mappingProjectAndMilestone" cdkDragLockAxis="y"
+                              style="cursor: pointer;">
+
+                              <td class="tdiconpadding">
+                                 <a onclick="document.getElementById('id013').style.display='block'"
+                                    (click)="getmilestonesbyid(project.ID)">
+                                    <i class="fa fa-plus-circle"
+                                       style="font-size:16px;color: green; cursor: pointer;"></i>
+                                    <!-- <i class="fa fa-edit editcss" style="font-size: 23px; color: #20a8d8; cursor: pointer;"></i> -->
+                                 </a>
+                              </td>
+                              <td>{{project.Name}}</td>
+                              <!-- <td>{{project.Indexing}}</td> -->
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+                  <form class="form-horizontal" [formGroup]="projectForm" (ngSubmit)="Addmilestones(projectForm)"
+                     id="22" style="display: none;">
+                     <div class="row">
+                        <div class="card-body p-4 clearfix" style=" width: 75%; margin-right: 10%; ">
+                           <div class="col-sm-9">
+                              <div class="form-group row">
+                                 <label class="col-md-12 addformcsss" for="text-input">Project Project Type</label>
+                                 <div class="col-md-6">
+                                    <!-- <input class="form-control" id="text-input"
+                           formControlName="projectName" placeholder="Project Name" type="text"> -->
+                                    <select class="form-control" (change)="onselectProjecttype1($event)"
+                                       formControlName="_projectType" id="ppt">
+                                       <option value="" disabled> Select Type</option>
+                                       <option *ngFor="let projectype of projectsAsType" value="{{projectype.ID}}">
+                                          {{projectype.Name}}</option>
+                                    </select>
+                                    <div
+                                       *ngIf="projectForm.controls['_projectType'].invalid && (projectForm.controls['_projectType'].dirty || projectForm.controls['_projectType'].touched)"
+                                       class="custom-errMsg">
+                                       <div *ngIf="projectForm.controls['_projectType'].errors.required">
+                                          Project type is required.
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="form-group row">
+                                 <label class="col-md-12 addformcsss" for="text-input">Milestone Name</label>
+                                 <div class="col-md-6">
+
+                                    <!-- <input class="form-control " id="text-input" formControlName="milestoneName"
+                                    placeholder="Milestone Name" type="text"> -->
+                                    <!-- <tag-input [theme]="'minimal'" [(ngModel)]="milestoneName" class="" [maxItems]="1"
+                                       formControlName="milestoneName" [secondaryPlaceholder]="'Select Project'">
+                                       <tag-input-dropdown [showDropdownIfEmpty]="true"
+                                          [autocompleteItems]="mappingProjectAndMilestone" [displayBy]="'Name'"
+                                          [identifyBy]="'projectId'">
+                                       </tag-input-dropdown>
+                                    </tag-input> -->
+                                    <input class="form-control" id="text-input" formControlName="milestoneName"
+                                       placeholder="Milestone Name" type="text">
+                                       <div
+                                       *ngIf="projectForm.controls['milestoneName'].invalid && (projectForm.controls['milestoneName'].dirty || projectForm.controls['milestoneName'].touched)"
+                                       class="custom-errMsg">
+                                       <div *ngIf="projectForm.controls['milestoneName'].errors.required">
+                                          Milestone Name is required.
+                                       </div>
+                                    </div>
+                                 </div>
+                                
+                              </div>
+                           </div>
+
+                           <div class="col-sm-9">
+                              <div class="form-group row">
+                                 <label class="col-md-12 addformcsss" for="text-input">Milestone Description</label>
+                                 <div class="col-md-6">
+                                    <textarea class="form-control " id="textarea-input"
+                                       formControlName="milestoneDescription" placeholder="Description..." rows="6"
+                                       maxlength="250" style="width: -98%;">
+                           </textarea>
+                                 </div>
+                                 <div
+                                    *ngIf="projectForm.controls['milestoneDescription'].invalid && (projectForm.controls['milestoneDescription'].dirty || projectForm.controls['milestoneDescription'].touched)"
+                                    class="custom-errMsg">
+                                    <!-- <div *ngIf="projectForm.controls['milestoneDescription'].errors.required">
+                                       Milestone Description is required.
+                                    </div> -->
+                                 </div>
+                              </div>
+                              <button class="btn btn-primary" type="submit"
+                                 [disabled]="(projectForm.controls['milestoneName'].invalid  || projectForm.controls['_projectType'].invalid )"
+                                 style="border-radius: 4px; margin-right: -27%;margin-left:20px;"><i class="fa fa-save"
+                                    style="font-size:15px"></i> Save</button>
+
+                           </div>
+                           <!-- <button class="btn btn-primary float-right" type="button" style="border-radius: 4px;">Save</button> -->
+                        </div>
+                     </div>
+                  </form>
+               </div>
+            </li>
+            <li>
+               <input type="radio" name="tabs" id="tab3"
+                  (click)="showaddform55(); showaddform70(); showaddform56();showaddform57(); showaddform58(); showaddform59(); showaddform61(); showaddform62(); showaddform63(); tabcontforlifecycle();">
+               <label for="tab3">Lifecycle Team</label>
+               <div id="tab-content3" class="tab-content animated fadeIn">
+                  <button (click)="showaddform2()" class="btn btn-primary addnewbut fontaddnew fontaddnew"> <i
+                        class="fa fa-plus-circle" style="font-size: 13px;"></i> Add New</button>
+                  <div>
+                     <table style="width: 97%;margin-top: 1%;margin-left: 28px;" id="10">
+                        <thead>
+                           <tr>
+                              <th class="tabheading">Action</th>
+                              <th class="tabheading1">Lifecycle Name
+                                 <span class="tooltip-toggle"
+                                    aria-label="Please Drag and Drop entries of the table to change the positions."
+                                    tabindex="0">
+                                    <svg viewBox="0 0 27 27" xmlns="http://www.w3.org/2000/svg" class="svgmargin">
+                                       <g fill="blue" fill-rule="evenodd">
+                                          <path
+                                             d="M13.5 27C20.956 27 27 20.956 27 13.5S20.956 0 13.5 0 0 6.044 0 13.5 6.044 27 13.5 27zm0-2C7.15 25 2 19.85 2 13.5S7.15 2 13.5 2 25 7.15 25 13.5 19.85 25 13.5 25z" />
+                                          <path
+                                             d="M12.05 7.64c0-.228.04-.423.12-.585.077-.163.185-.295.32-.397.138-.102.298-.177.48-.227.184-.048.383-.073.598-.073.203 0 .398.025.584.074.186.05.35.126.488.228.14.102.252.234.336.397.084.162.127.357.127.584 0 .22-.043.412-.127.574-.084.163-.196.297-.336.4-.14.106-.302.185-.488.237-.186.053-.38.08-.584.08-.215 0-.414-.027-.597-.08-.182-.05-.342-.13-.48-.235-.135-.104-.243-.238-.32-.4-.08-.163-.12-.355-.12-.576zm-1.02 11.517c.134 0 .275-.013.424-.04.148-.025.284-.08.41-.16.124-.082.23-.198.313-.35.085-.15.127-.354.127-.61v-5.423c0-.238-.042-.43-.127-.57-.084-.144-.19-.254-.318-.332-.13-.08-.267-.13-.415-.153-.148-.024-.286-.036-.414-.036h-.21v-.95h4.195v7.463c0 .256.043.46.127.61.084.152.19.268.314.35.125.08.263.135.414.16.15.027.29.04.418.04h.21v.95H10.82v-.95h.21z" />
+                                       </g>
+                                    </svg>
+                                 </span>
+                              </th>
+                              <!-- <th>Position</th> -->
+                           </tr>
+
+                        </thead>
+                        <tbody cdkDropList (cdkDropListDropped)="onDrop9($event)">
+                           <tr cdkDrag *ngFor="let project of lifecycleAsObjects" cdkDragLockAxis="y"
+                              style="cursor: pointer;">
+
+                              <td class="tdiconpadding">
+                                 <a onclick="document.getElementById('id06').style.display='block'"
+                                    (click)="getlifecyclebyid(project.ID)">
+                                    <i class="fa fa-plus-circle"
+                                       style="font-size:16px;color: green; cursor: pointer;"></i>
+                                 </a>
+                              </td>
+                              <td>{{project.Name}}</td>
+                              <!-- <td>{{project.Indexing}}</td> -->
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+                  <form class="form-horizontal" [formGroup]="projectForm" (ngSubmit)="Addlifecycle(projectForm)" id="09"
+                     style="display: none;">
+                     <div class="row">
+                        <div class="card-body p-4 clearfix" style="width: 75%; margin-right: 10%;">
+                           <div class="col-sm-9">
+                              <div class="form-group row">
+                                 <label class="col-md-12 addformcsss" for="text-input">LifeCycle Name</label>
+                                 <div class="col-md-6">
+                                    <!-- <tag-input [ngModel]="lifecycleName.value" [theme]="'minimal'" [maxItems]="1"
+                                       [separatorKeyCodes]="[186,59]" formControlName="lifecycleName"
+                                       [placeholder]="'Select lifecycleName'"
+                                       [secondaryPlaceholder]="'Select lifecycleName'" theme='bootstrap'>
+                                       <tag-input-dropdown [autocompleteItems]="lifecycleAsObjects" [identifyBy]="'ID'"
+                                          [displayBy]="'Name'">
+                                       </tag-input-dropdown>
+                                    </tag-input> -->
+                                    <input class="form-control" id="text-input" formControlName="lifecycleName"
+                                       placeholder="Lifecycle team Name" type="text">
+                                       <div
+                                       *ngIf="projectForm.controls['lifecycleName'].invalid && (projectForm.controls['lifecycleName'].dirty || projectForm.controls['lifecycleName'].touched)"
+                                       class="custom-errMsg">
+                                       <div *ngIf="projectForm.controls['lifecycleName'].errors.required">
+                                          LifeCycle Name is required.
+                                       </div>
+                                    </div>
+                                 </div>
+                                
+                              </div>
+                           </div>
+
+                           <div class="col-sm-9">
+                              <div class="form-group row">
+                                 <label class="col-md-12 addformcsss" for="text-input">Lifecycle Description</label>
+                                 <div class="col-md-6">
+                                    <textarea class="form-control " id="textarea-input"
+                                       formControlName="lifecycleDescription" placeholder="Description..." rows="6"
+                                       maxlength="250" style="width: -98%;">
+                     </textarea>
+                                 </div>
+                                 <div
+                                    *ngIf="projectForm.controls['lifecycleDescription'].invalid && (projectForm.controls['lifecycleDescription'].dirty || projectForm.controls['lifecycleDescription'].touched)"
+                                    class="custom-errMsg">
+                                    <!-- <div *ngIf="projectForm.controls['lifecycleDescription'].errors.required">
+                                       Lifecycle Description is required.
+                                    </div> -->
+                                 </div>
+                              </div>
+                              <button class="btn btn-primary" type="submit"
+                                 [disabled]="(projectForm.controls['lifecycleName'].invalid  )"
+                                 style="border-radius: 4px; margin-right: -27%;margin-left:20px;"><i class="fa fa-save"
+                                    style="font-size:15px"></i> Save</button>
+
+                           </div>
+
+                           <!-- <button class="btn btn-primary float-right" type="button" style="border-radius: 4px;">Save</button> -->
+                        </div>
+                     </div>
+                  </form>
+               </div>
+            </li>
+            <li>
+               <input type="radio" name="tabs" id="tab4"
+                  (click)="showaddform55(); showaddform70(); showaddform56();showaddform57(); showaddform58(); showaddform59(); showaddform61(); showaddform62(); showaddform63(); tabcontforfunction();">
+               <label for="tab4">Functions</label>
+               <div id="tab-content3" class="tab-content animated fadeIn">
+                  <button (click)="showaddform3()" class="btn btn-primary addnewbut fontaddnew"> <i
+                        class="fa fa-plus-circle" style="font-size: 13px;"></i> Add New</button>
+                  <div>
+                     <table style="width: 97%;margin-top: 1%;margin-left: 28px;" id="11">
+                        <thead>
+                           <tr>
+                              <th class="tabheading">Action</th>
+                              <th class="tabheading1"> Function Name
+                                 <span class="tooltip-toggle"
+                                    aria-label="Please Drag and Drop entries of the table to change the positions."
+                                    tabindex="0">
+                                    <svg viewBox="0 0 27 27" xmlns="http://www.w3.org/2000/svg" class="svgmargin">
+                                       <g fill="blue" fill-rule="evenodd">
+                                          <path
+                                             d="M13.5 27C20.956 27 27 20.956 27 13.5S20.956 0 13.5 0 0 6.044 0 13.5 6.044 27 13.5 27zm0-2C7.15 25 2 19.85 2 13.5S7.15 2 13.5 2 25 7.15 25 13.5 19.85 25 13.5 25z" />
+                                          <path
+                                             d="M12.05 7.64c0-.228.04-.423.12-.585.077-.163.185-.295.32-.397.138-.102.298-.177.48-.227.184-.048.383-.073.598-.073.203 0 .398.025.584.074.186.05.35.126.488.228.14.102.252.234.336.397.084.162.127.357.127.584 0 .22-.043.412-.127.574-.084.163-.196.297-.336.4-.14.106-.302.185-.488.237-.186.053-.38.08-.584.08-.215 0-.414-.027-.597-.08-.182-.05-.342-.13-.48-.235-.135-.104-.243-.238-.32-.4-.08-.163-.12-.355-.12-.576zm-1.02 11.517c.134 0 .275-.013.424-.04.148-.025.284-.08.41-.16.124-.082.23-.198.313-.35.085-.15.127-.354.127-.61v-5.423c0-.238-.042-.43-.127-.57-.084-.144-.19-.254-.318-.332-.13-.08-.267-.13-.415-.153-.148-.024-.286-.036-.414-.036h-.21v-.95h4.195v7.463c0 .256.043.46.127.61.084.152.19.268.314.35.125.08.263.135.414.16.15.027.29.04.418.04h.21v.95H10.82v-.95h.21z" />
+                                       </g>
+                                    </svg>
+                                 </span>
+                              </th>
+                              <!-- <th>Position</th> -->
+                           </tr>
+
+                        </thead>
+                        <tbody cdkDropList (cdkDropListDropped)="onDrop10($event)">
+                           <tr cdkDrag *ngFor="let project of functionAsObjects" cdkDragLockAxis="y"
+                              style="cursor: pointer;">
+
+                              <td class="tdiconpadding">
+                                 <a onclick="document.getElementById('id07').style.display='block'"
+                                    (click)="getfunctionsbyid(project.ID)">
+                                    <i class="fa fa-plus-circle"
+                                       style="font-size:16px;color: green; cursor: pointer;"></i>
+                                    <!-- <i class="fa fa-edit editcss" style="font-size: 23px; color: #20a8d8; cursor: pointer;"></i> -->
+                                 </a>
+                              </td>
+                              <td>{{project.Name}}</td>
+                              <!-- <td>{{project.Indexing}}</td> -->
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+                  <form class="form-horizontal" [formGroup]="projectForm" (ngSubmit)="Addfunction(projectForm)" id="12"
+                     style="display: none;">
+                     <div class="row">
+                        <div class="card-body p-4 clearfix" style=" width: 75%; margin-right: 10%; ">
+                           <div class="col-sm-9">
+                              <div class="form-group row">
+                                 <label class="col-md-12 addformcsss" for="text-input">Function Name</label>
+                                 <div class="col-md-6">
+                                    <!-- <tag-input [ngModel]="function.value" [theme]="'minimal'" [maxItems]="1"
+                                       [separatorKeyCodes]="[186,59]" formControlName="function"
+                                       [placeholder]="'Select Functions'" [secondaryPlaceholder]="'Select Functions'"
+                                       theme='bootstrap'>
+                                       <tag-input-dropdown [autocompleteItems]="functionAsObjects" [identifyBy]="'ID'"
+                                          [displayBy]="'Name'">
+                                       </tag-input-dropdown>
+                                    </tag-input> -->
+                                    <input class="form-control" id="text-input" formControlName="function"
+                                       placeholder="Function Name" type="text">
+                                       <div
+                                       *ngIf="projectForm.controls['function'].invalid && (projectForm.controls['function'].dirty || projectForm.controls['function'].touched)"
+                                       class="custom-errMsg">
+                                       <div *ngIf="projectForm.controls['function'].errors.required">
+                                          Function Name is required.
+                                       </div>
+                                    </div>
+                                 </div>
+                                
+                              </div>
+                           </div>
+
+                           <div class="col-sm-9">
+                              <div class="form-group row">
+                                 <label class="col-md-12 addformcsss" for="text-input">Function Description</label>
+                                 <div class="col-md-6">
+                                    <textarea class="form-control " id="textarea-input"
+                                       formControlName="functionDescription" placeholder="Description..." rows="6"
+                                       maxlength="250" style="width: -98%;">
+                     </textarea>
+                                 </div>
+                                 <div
+                                    *ngIf="projectForm.controls['functionDescription'].invalid && (projectForm.controls['functionDescription'].dirty || projectForm.controls['functionDescription'].touched)"
+                                    class="custom-errMsg">
+                                    <!-- <div *ngIf="projectForm.controls['functionDescription'].errors.required">
+                                       Function Description is required.
+                                    </div> -->
+                                 </div>
+                              </div>
+                              <button class="btn btn-primary" type="submit"
+                                 [disabled]="(projectForm.controls['function'].invalid )"
+                                 style="border-radius: 4px; margin-right: -27%;margin-left:20px;"><i class="fa fa-save"
+                                    style="font-size:15px"></i> Save</button>
+
+                           </div>
+
+                           <!-- <button class="btn btn-primary float-right" type="button" style="border-radius: 4px;">Save</button> -->
+                        </div>
+                     </div>
+                  </form>
+               </div>
+            </li>
+            <li>
+               <input type="radio" name="tabs" id="tab5"
+                  (click)="showaddform55(); showaddform70(); showaddform56();showaddform57(); showaddform58(); showaddform59(); showaddform61(); showaddform62(); showaddform63(); tabcontfordepartment();">
+               <label for="tab5">Department</label>
+               <div id="tab-content3" class="tab-content animated fadeIn">
+                  <button (click)="showaddform4()" class="btn btn-primary addnewbut fontaddnew"> <i
+                        class="fa fa-plus-circle" style="font-size: 13px;"></i> Add New</button>
+                  <div>
+                     <table style="width: 97%;margin-top: 1%;margin-left: 28px;" id="13">
+                        <thead>
+                           <tr>
+                              <th class="tabheading">Action</th>
+                              <th class="tabheading1">Department Name
+                                 <span class="tooltip-toggle"
+                                    aria-label="Please Drag and Drop entries of the table to change the positions."
+                                    tabindex="0">
+                                    <svg viewBox="0 0 27 27" xmlns="http://www.w3.org/2000/svg" class="svgmargin">
+                                       <g fill="blue" fill-rule="evenodd">
+                                          <path
+                                             d="M13.5 27C20.956 27 27 20.956 27 13.5S20.956 0 13.5 0 0 6.044 0 13.5 6.044 27 13.5 27zm0-2C7.15 25 2 19.85 2 13.5S7.15 2 13.5 2 25 7.15 25 13.5 19.85 25 13.5 25z" />
+                                          <path
+                                             d="M12.05 7.64c0-.228.04-.423.12-.585.077-.163.185-.295.32-.397.138-.102.298-.177.48-.227.184-.048.383-.073.598-.073.203 0 .398.025.584.074.186.05.35.126.488.228.14.102.252.234.336.397.084.162.127.357.127.584 0 .22-.043.412-.127.574-.084.163-.196.297-.336.4-.14.106-.302.185-.488.237-.186.053-.38.08-.584.08-.215 0-.414-.027-.597-.08-.182-.05-.342-.13-.48-.235-.135-.104-.243-.238-.32-.4-.08-.163-.12-.355-.12-.576zm-1.02 11.517c.134 0 .275-.013.424-.04.148-.025.284-.08.41-.16.124-.082.23-.198.313-.35.085-.15.127-.354.127-.61v-5.423c0-.238-.042-.43-.127-.57-.084-.144-.19-.254-.318-.332-.13-.08-.267-.13-.415-.153-.148-.024-.286-.036-.414-.036h-.21v-.95h4.195v7.463c0 .256.043.46.127.61.084.152.19.268.314.35.125.08.263.135.414.16.15.027.29.04.418.04h.21v.95H10.82v-.95h.21z" />
+                                       </g>
+                                    </svg>
+                                 </span>
+                              </th>
+                              <!-- <th>Position</th> -->
+                           </tr>
+
+                        </thead>
+                        <tbody cdkDropList (cdkDropListDropped)="onDrop11($event)">
+                           <tr cdkDrag *ngFor="let project of departmentAsObjects" cdkDragLockAxis="y"
+                              style="cursor: pointer;">
+
+                              <td class="tdiconpadding">
+                                 <a onclick="document.getElementById('id08').style.display='block'"
+                                    (click)="getdepartmentsbyid(project.ID)">
+                                    <i class="fa fa-plus-circle"
+                                       style="font-size:16px;color: green; cursor: pointer;"></i>
+                                    <!-- <i class="fa fa-edit editcss" style="font-size: 23px; color: #20a8d8; cursor: pointer;"></i> -->
+                                 </a>
+                              </td>
+                              <td>{{project.Name}}</td>
+                              <!-- <td>{{project.Indexing}}</td> -->
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+                  <form class="form-horizontal" [formGroup]="projectForm" (ngSubmit)="Adddepartment(projectForm)"
+                     id="14" style="display: none;">
+                     <div class="row">
+                        <div class="card-body p-4 clearfix" style=" width: 75%;margin-right: 10%; ">
+                           <div class="col-sm-9">
+                              <div class="form-group row">
+                                 <label class="col-md-12 addformcsss" for="text-input">Department Name</label>
+                                 <div class="col-md-6">
+                                    <!-- <tag-input [ngModel]="department.value" [theme]="'minimal'" [maxItems]="1"
+                                       [separatorKeyCodes]="[186,59]" formControlName="departmentName"
+                                       [placeholder]="'Select Department'" [secondaryPlaceholder]="'Select Department'"
+                                       theme='bootstrap'>
+                                       <tag-input-dropdown [autocompleteItems]="departmentAsObjects" [identifyBy]="'ID'"
+                                          [displayBy]="'Name'">
+                                       </tag-input-dropdown>
+                                    </tag-input> -->
+                                    <input class="form-control" id="text-input" formControlName="departmentName"
+                                       placeholder="Department Name" type="text">
+                                       <div
+                                    *ngIf="projectForm.controls['departmentName'].invalid && (projectForm.controls['departmentName'].dirty || projectForm.controls['departmentName'].touched)"
+                                    class="custom-errMsg">
+                                    <div *ngIf="projectForm.controls['departmentName'].errors.required">
+                                       Department Name is required.
+                                    </div>
+                                 </div>
+                                 </div>
+                                 
+                              </div>
+                           </div>
+
+                           <div class="col-sm-9">
+                              <div class="form-group row">
+                                 <label class="col-md-12 addformcsss" for="text-input">Department Description</label>
+                                 <div class="col-md-6">
+                                    <textarea class="form-control " id="textarea-input"
+                                       formControlName="departmentDescription" placeholder="Description..." rows="6"
+                                       maxlength="250" style="width: -98%;">
+                     </textarea>
+                                 </div>
+                                 <div
+                                    *ngIf="projectForm.controls['departmentDescription'].invalid && (projectForm.controls['departmentDescription'].dirty || projectForm.controls['departmentDescription'].touched)"
+                                    class="custom-errMsg">
+                                    <!-- <div *ngIf="projectForm.controls['departmentDescription'].errors.required">
+                                       Department Description is required.
+                                    </div> -->
+                                 </div>
+                              </div>
+                              <button class="btn btn-primary" type="submit"
+                                 [disabled]="(projectForm.controls['departmentName'].invalid )"
+                                 style="border-radius: 4px; margin-right: -27%;margin-left:20px;"><i class="fa fa-save"
+                                    style="font-size:15px"></i> Save</button>
+
+                           </div>
+
+                           <!-- <button class="btn btn-primary float-right" type="button" style="border-radius: 4px;">Save</button> -->
+                        </div>
+                     </div>
+                  </form>
+               </div>
+            </li>
+            <li>
+               <input type="radio" name="tabs" id="tab6"
+                  (click)="showaddform55(); showaddform70(); showaddform56();showaddform57(); showaddform58(); showaddform59(); showaddform61(); showaddform62(); showaddform63(); tabcontforimpact();">
+               <label for="tab6">Impact Category</label>
+               <div id="tab-content3" class="tab-content animated fadeIn">
+                  <button (click)="showaddform5()" class="btn btn-primary addnewbut fontaddnew"> <i
+                        class="fa fa-plus-circle" style="font-size: 13px;"></i> Add New</button>
+                  <div>
+                     <table style="width: 97%;margin-top: 1%;margin-left: 28px;" id="15">
+                        <thead>
+                           <tr>
+                              <th class="tabheading">Action</th>
+                              <th class="tabheading1"> Impact category Name
+                                 <span class="tooltip-toggle"
+                                    aria-label="Please Drag and Drop entries of the table to change the positions."
+                                    tabindex="0">
+                                    <svg viewBox="0 0 27 27" xmlns="http://www.w3.org/2000/svg" class="svgmargin">
+                                       <g fill="blue" fill-rule="evenodd">
+                                          <path
+                                             d="M13.5 27C20.956 27 27 20.956 27 13.5S20.956 0 13.5 0 0 6.044 0 13.5 6.044 27 13.5 27zm0-2C7.15 25 2 19.85 2 13.5S7.15 2 13.5 2 25 7.15 25 13.5 19.85 25 13.5 25z" />
+                                          <path
+                                             d="M12.05 7.64c0-.228.04-.423.12-.585.077-.163.185-.295.32-.397.138-.102.298-.177.48-.227.184-.048.383-.073.598-.073.203 0 .398.025.584.074.186.05.35.126.488.228.14.102.252.234.336.397.084.162.127.357.127.584 0 .22-.043.412-.127.574-.084.163-.196.297-.336.4-.14.106-.302.185-.488.237-.186.053-.38.08-.584.08-.215 0-.414-.027-.597-.08-.182-.05-.342-.13-.48-.235-.135-.104-.243-.238-.32-.4-.08-.163-.12-.355-.12-.576zm-1.02 11.517c.134 0 .275-.013.424-.04.148-.025.284-.08.41-.16.124-.082.23-.198.313-.35.085-.15.127-.354.127-.61v-5.423c0-.238-.042-.43-.127-.57-.084-.144-.19-.254-.318-.332-.13-.08-.267-.13-.415-.153-.148-.024-.286-.036-.414-.036h-.21v-.95h4.195v7.463c0 .256.043.46.127.61.084.152.19.268.314.35.125.08.263.135.414.16.15.027.29.04.418.04h.21v.95H10.82v-.95h.21z" />
+                                       </g>
+                                    </svg>
+                                 </span>
+                              </th>
+                              <!-- <th>Position</th> -->
+                           </tr>
+
+                        </thead>
+                        <tbody cdkDropList (cdkDropListDropped)="onDrop12($event)">
+                           <tr cdkDrag *ngFor="let project of impactcategoriesAsObjects" cdkDragLockAxis="y"
+                              style="cursor: pointer;">
+
+                              <td class="tdiconpadding">
+                                 <a onclick="document.getElementById('id09').style.display='block'"
+                                    (click)="getimpactcategorybyid(project.ID)">
+                                    <i class="fa fa-plus-circle"
+                                       style="font-size:16px;color: green; cursor: pointer;"></i>
+                                    <!-- <i class="fa fa-edit editcss" style="font-size: 23px; color: #20a8d8; cursor: pointer;"></i> -->
+                                 </a>
+                              </td>
+                              <td>{{project.Name}}</td>
+                              <!-- <td>{{project.Indexing}}</td> -->
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+                  <form class="form-horizontal" [formGroup]="projectForm" (ngSubmit)="Addimpactcategory(projectForm)"
+                     id="16" style="display: none;">
+                     <div class="row">
+                        <div class="card-body p-4 clearfix" style=" width: 75%; margin-right: 10%;">
+                           <div class="col-sm-9">
+                              <div class="form-group row">
+                                 <label class="col-md-12 addformcsss" for="text-input">Impact Category Name</label>
+                                 <div class="col-md-6">
+                                    <!-- <tag-input [ngModel]="Impactcategory.value" [theme]="'minimal'" [maxItems]="1"
+                                       [separatorKeyCodes]="[186,59]" formControlName="ImpactcategoryName"
+                                       [placeholder]="'Select Impact Category'"
+                                       [secondaryPlaceholder]="'Select Impact Category'" theme='bootstrap'>
+                                       <tag-input-dropdown [autocompleteItems]="impactcategoriesAsObjects"
+                                          [identifyBy]="'ID'" [displayBy]="'Name'">
+                                       </tag-input-dropdown>
+                                    </tag-input> -->
+                                    <input class="form-control" id="text-input" formControlName="ImpactcategoryName"
+                                       placeholder="Impact Category Name" type="text">
+                                       <div
+                                       *ngIf="projectForm.controls['ImpactcategoryName'].invalid && (projectForm.controls['ImpactcategoryName'].dirty || projectForm.controls['ImpactcategoryName'].touched)"
+                                       class="custom-errMsg">
+                                       <div *ngIf="projectForm.controls['ImpactcategoryName'].errors.required">
+                                          Impact Category Name is required.
+                                       </div>
+                                    </div>
+                                 </div>
+                              
+                              </div>
+                           </div>
+
+                           <div class="col-sm-9">
+                              <div class="form-group row">
+                                 <label class="col-md-12  addformcsss" for="text-input">Impact Category
+                                    Description</label>
+                                 <div class="col-md-6">
+                                    <textarea class="form-control " id="textarea-input"
+                                       formControlName="ImpactcategoryDescription" placeholder="Description..." rows="6"
+                                       maxlength="250" style="width: -98%;">
+                     </textarea>
+                                 </div>
+                                 <div
+                                    *ngIf="projectForm.controls['ImpactcategoryDescription'].invalid && (projectForm.controls['ImpactcategoryDescription'].dirty || projectForm.controls['ImpactcategoryDescription'].touched)"
+                                    class="custom-errMsg">
+                                    <!-- <div *ngIf="projectForm.controls['ImpactcategoryDescription'].errors.required">
+                                       Impact Category Description is required.
+                                    </div> -->
+                                 </div>
+                              </div>
+                              <button class="btn btn-primary" type="submit"
+                                 [disabled]="(projectForm.controls['ImpactcategoryName'].invalid )"
+                                 style="border-radius: 4px; margin-right: -27%;margin-left:20px;"><i class="fa fa-save"
+                                    style="font-size:15px"></i> Save</button>
+
+                           </div>
+
+                           <!-- <button class="btn btn-primary float-right" type="button" style="border-radius: 4px;">Save</button> -->
+                        </div>
+                     </div>
+                  </form>
+
+               </div>
+            </li>
+            <li>
+               <input type="radio" name="tabs" id="tab7"
+                  (click)="showaddform55(); showaddform70(); showaddform56();showaddform57(); showaddform58(); showaddform59(); showaddform61(); showaddform62(); showaddform63(); tabcontforlevel();">
+               <label for="tab7">Impact level</label>
+               <div id="tab-content3" class="tab-content animated fadeIn">
+                  <button (click)="showaddform6()" class="btn btn-primary addnewbut fontaddnew fontaddnew"> <i
+                        class="fa fa-plus-circle" style="font-size: 13px;"></i> Add New</button>
+                  <div>
+                     <table style="width: 97%;margin-top: 1%;margin-left: 28px;" id="17">
+                        <thead>
+                           <tr>
+                              <th class="tabheading">Action</th>
+                              <th class="tabheading1">Impact Level Name
+                                 <span class="tooltip-toggle"
+                                    aria-label="Please Drag and Drop entries of the table to change the positions."
+                                    tabindex="0">
+                                    <svg viewBox="0 0 27 27" xmlns="http://www.w3.org/2000/svg" class="svgmargin">
+                                       <g fill="blue" fill-rule="evenodd">
+                                          <path
+                                             d="M13.5 27C20.956 27 27 20.956 27 13.5S20.956 0 13.5 0 0 6.044 0 13.5 6.044 27 13.5 27zm0-2C7.15 25 2 19.85 2 13.5S7.15 2 13.5 2 25 7.15 25 13.5 19.85 25 13.5 25z" />
+                                          <path
+                                             d="M12.05 7.64c0-.228.04-.423.12-.585.077-.163.185-.295.32-.397.138-.102.298-.177.48-.227.184-.048.383-.073.598-.073.203 0 .398.025.584.074.186.05.35.126.488.228.14.102.252.234.336.397.084.162.127.357.127.584 0 .22-.043.412-.127.574-.084.163-.196.297-.336.4-.14.106-.302.185-.488.237-.186.053-.38.08-.584.08-.215 0-.414-.027-.597-.08-.182-.05-.342-.13-.48-.235-.135-.104-.243-.238-.32-.4-.08-.163-.12-.355-.12-.576zm-1.02 11.517c.134 0 .275-.013.424-.04.148-.025.284-.08.41-.16.124-.082.23-.198.313-.35.085-.15.127-.354.127-.61v-5.423c0-.238-.042-.43-.127-.57-.084-.144-.19-.254-.318-.332-.13-.08-.267-.13-.415-.153-.148-.024-.286-.036-.414-.036h-.21v-.95h4.195v7.463c0 .256.043.46.127.61.084.152.19.268.314.35.125.08.263.135.414.16.15.027.29.04.418.04h.21v.95H10.82v-.95h.21z" />
+                                       </g>
+                                    </svg>
+                                 </span>
+                              </th>
+                              <!-- <th>Position</th> -->
+                           </tr>
+                        </thead>
+                        <tbody cdkDropList (cdkDropListDropped)="onDrop13($event)">
+                           <tr cdkDrag *ngFor="let project of impactlevelAsObjects" cdkDragLockAxis="y"
+                              style="cursor: pointer;">
+
+                              <td class="tdiconpadding">
+                                 <a onclick="document.getElementById('id10').style.display='block'"
+                                    (click)="getimpactlevelbyid(project.ID)">
+                                    <i class="fa fa-plus-circle"
+                                       style="font-size:16px;color: green; cursor: pointer;"></i>
+                                    <!-- <i class="fa fa-edit editcss" style="font-size: 23px; color: #20a8d8; cursor: pointer;"></i> -->
+                                 </a>
+                              </td>
+                              <td>{{project.Name}}</td>
+                              <!-- <td>{{project.Indexing}}</td> -->
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+                  <form class="form-horizontal" [formGroup]="projectForm" (ngSubmit)="Addimpactlevel(projectForm)"
+                     id="18" style="display: none;">
+                     <div class="row">
+                        <div class="card-body p-4 clearfix" style=" width: 75%; margin-right: 10%;">
+                           <div class="col-sm-9">
+                              <div class="form-group row">
+                                 <label class="col-md-12 addformcsss" for="text-input">Impact Level Name</label>
+                                 <div class="col-md-6">
+                                    <!-- <tag-input [ngModel]="Impactcategory.value" [theme]="'minimal'" [maxItems]="1"
+                                       [separatorKeyCodes]="[186,59]" formControlName="ImpactcategoryName"
+                                       [placeholder]="'Select Impact Level'"
+                                       [secondaryPlaceholder]="'Select Impact Level'" theme='bootstrap'>
+                                       <tag-input-dropdown [autocompleteItems]="impactlevelAsObjects"
+                                          [identifyBy]="'ID'" [displayBy]="'Name'">
+                                       </tag-input-dropdown>
+                                    </tag-input> -->
+                                    <input class="form-control" id="text-input" formControlName="ImpactcategoryName"
+                                       placeholder="Impact Level Name" type="text">
+                                       <div
+                                       *ngIf="projectForm.controls['ImpactcategoryName'].invalid && (projectForm.controls['ImpactcategoryName'].dirty || projectForm.controls['ImpactcategoryName'].touched)"
+                                       class="custom-errMsg">
+                                       <div *ngIf="projectForm.controls['ImpactcategoryName'].errors.required">
+                                          Impact Level Name is required.
+                                       </div>
+                                    </div>
+                                 </div>
+                                
+                              </div>
+                           </div>
+
+                           <div class="col-sm-9">
+                              <div class="form-group row">
+                                 <label class="col-md-12  addformcsss" for="text-input">Impact Level
+                                    Description</label>
+                                 <div class="col-md-6">
+                                    <textarea class="form-control " id="textarea-input"
+                                       formControlName="ImpactcategoryDescription" placeholder="Description..." rows="6"
+                                       maxlength="250" style="width: -98%;">
+                     </textarea>
+                                 </div>
+                                 <div
+                                    *ngIf="projectForm.controls['ImpactcategoryDescription'].invalid && (projectForm.controls['ImpactcategoryDescription'].dirty || projectForm.controls['ImpactcategoryDescription'].touched)"
+                                    class="custom-errMsg">
+                                    <!-- <div *ngIf="projectForm.controls['ImpactcategoryDescription'].errors.required">
+                                       Impact Level Description is required.
+                                    </div> -->
+                                 </div>
+                              </div>
+                              <button class="btn btn-primary" type="submit"
+                                 [disabled]="(projectForm.controls['ImpactcategoryName'].invalid )"
+                                 style="border-radius: 4px; margin-right: -27%;margin-left:20px;"><i class="fa fa-save"
+                                    style="font-size:15px"></i> Save</button>
+
+                           </div>
+
+                           <!-- <button class="btn btn-primary float-right" type="button" style="border-radius: 4px;">Save</button> -->
+                        </div>
+                     </div>
+                  </form>
+               </div>
+            </li>
+
+
+         </ul>
+         <br>
+         <div style="clear:both"></div>
+
+      </div>
+
+      <div class="" id="002" style="display: none;">
+
+         <ul class="tabs1">
+            <li style="margin-left: 8px;">
+               <input type="radio" checked name="tabs1" id="tab10"
+                  (click)="showaddform65(); showaddform64(); showaddform66(); showaddform67(); showaddform68(); showaddform69();tabcontforprocess();">
+               <label for="tab10">Process</label>
+               <div id="tab-content10" class="tab-content animated fadeIn">
+                  <button (click)="showaddform9()" class="btn btn-primary addnewbut fontaddnew ">Add New</button>
+
+                  <div>
+                     <table style="width: 97%;margin-top: 1%;margin-left: 28px;" id="23">
+                        <thead>
+                           <tr>
+                              <th class="tabheading">Action</th>
+                              <th class="tabheading1">Process Name
+                                 <span class="tooltip-toggle"
+                                    aria-label="Please Drag and Drop entries of the table to change the positions."
+                                    tabindex="0">
+                                    <svg viewBox="0 0 27 27" xmlns="http://www.w3.org/2000/svg" class="svgmargin">
+                                       <g fill="blue" fill-rule="evenodd">
+                                          <path
+                                             d="M13.5 27C20.956 27 27 20.956 27 13.5S20.956 0 13.5 0 0 6.044 0 13.5 6.044 27 13.5 27zm0-2C7.15 25 2 19.85 2 13.5S7.15 2 13.5 2 25 7.15 25 13.5 19.85 25 13.5 25z" />
+                                          <path
+                                             d="M12.05 7.64c0-.228.04-.423.12-.585.077-.163.185-.295.32-.397.138-.102.298-.177.48-.227.184-.048.383-.073.598-.073.203 0 .398.025.584.074.186.05.35.126.488.228.14.102.252.234.336.397.084.162.127.357.127.584 0 .22-.043.412-.127.574-.084.163-.196.297-.336.4-.14.106-.302.185-.488.237-.186.053-.38.08-.584.08-.215 0-.414-.027-.597-.08-.182-.05-.342-.13-.48-.235-.135-.104-.243-.238-.32-.4-.08-.163-.12-.355-.12-.576zm-1.02 11.517c.134 0 .275-.013.424-.04.148-.025.284-.08.41-.16.124-.082.23-.198.313-.35.085-.15.127-.354.127-.61v-5.423c0-.238-.042-.43-.127-.57-.084-.144-.19-.254-.318-.332-.13-.08-.267-.13-.415-.153-.148-.024-.286-.036-.414-.036h-.21v-.95h4.195v7.463c0 .256.043.46.127.61.084.152.19.268.314.35.125.08.263.135.414.16.15.027.29.04.418.04h.21v.95H10.82v-.95h.21z" />
+                                       </g>
+                                    </svg>
+                                 </span>
+                              </th>
+
+                              <!-- <th>Position</th> -->
+                           </tr>
+                        </thead>
+                        <tbody cdkDropList (cdkDropListDropped)="onDrop($event)">
+                           <tr cdkDrag *ngFor="let project of processAsObjects" cdkDragLockAxis="y"
+                              style="cursor: pointer;">
+                              <td class="tdiconpadding">
+                                 <a onclick="document.getElementById('id05').style.display='block'"
+                                    (click)="getprocessbyid(project.ID)">
+                                    <i class="fa fa-plus-circle"
+                                       style="font-size:16px;color: green; cursor: pointer;"></i>
+                                    <!-- <i class="fa fa-edit editcss" style="font-size: 23px; color: #20a8d8; cursor: pointer;"></i> -->
+                                 </a>
+                                 <!-- <a routerLink="/edit"><button class="btn btn-primary"> edit</button></a> -->
+                              </td>
+                              <td>{{project.Name}}</td>
+                              <!-- <td>{{project.Indexing}}</td> -->
+                           </tr>
+                        </tbody>
+                     </table>
+
+                  </div>
+                  <form class="form-horizontal" [formGroup]="projectForm" (ngSubmit)="Addprocess(projectForm)" id="24"
+                     style="display: none;">
+                     <div class="row">
+                        <div class="card-body p-4 clearfix" style=" width: 75%;margin-right: 10%; ">
+                           <div class="col-sm-9">
+                              <div class="form-group row">
+                                 <label class="col-md-12  addformcsss" for="text-input">Process Name</label>
+                                 <div class="col-md-6">
+                                    <!-- <input class="form-control" id="text-input"
+                              formControlName="projectName" placeholder="Project Name" type="text"> -->
+                                    <!-- <input class="form-control " id="text-input" formControlName="projectName"
+                                 placeholder="Project Name" type="text"> -->
+                                    <!-- <tag-input [theme]="'minimal'" [(ngModel)]="processName" class="" [maxItems]="1"
+                                       formControlName="processName" [secondaryPlaceholder]="'Select Process'">
+                                       <tag-input-dropdown [showDropdownIfEmpty]="true"
+                                          [autocompleteItems]="processAsObjects" [displayBy]="'Name'"
+                                          [identifyBy]="'projectId'">
+                                       </tag-input-dropdown>
+                                    </tag-input> -->
+                                    <input class="form-control" id="text-input" formControlName="processName"
+                                       placeholder="Process Name" type="text">
+                                       <div
+                                    *ngIf="projectForm.controls['processName'].invalid && (projectForm.controls['processName'].dirty || projectForm.controls['processName'].touched)"
+                                    class="custom-errMsg">
+                                    <div *ngIf="projectForm.controls['processName'].errors.required">
+                                       Process Name is required.
+                                    </div>
+                                 </div>
+                                 </div>
+                                 
+                              </div>
+                           </div>
+                           <div class="col-sm-9">
+                              <div class="form-group row">
+                                 <label class="col-md-12 addformcsss" for="text-input">Process Description</label>
+                                 <div class="col-md-6">
+                                    <textarea class="form-control " id="textarea-input"
+                                       formControlName="processDescription" placeholder="Description..." rows="6"
+                                       maxlength="250" style="width: -98%;">
+                              </textarea>
+                                 </div>
+                                 <div
+                                    *ngIf="projectForm.controls['processDescription'].invalid && (projectForm.controls['processDescription'].dirty || projectForm.controls['processDescription'].touched)"
+                                    class="custom-errMsg">
+                                    <!-- <div *ngIf="projectForm.controls['processDescription'].errors.required">
+                                       Process Description is required.
+                                    </div> -->
+                                 </div>
+                              </div>
+                              <button class="btn btn-primary" type="submit"
+                                 [disabled]="( projectForm.controls['processName'].invalid)"
+                                 style="border-radius: 4px; margin-right: -27%;margin-left:20px;"><i class="fa fa-save"
+                                    style="font-size:15px"></i> Save</button>
+
+                           </div>
+
+                           <!-- <button class="btn btn-primary float-right" type="button" style="border-radius: 4px;">Save</button> -->
+                        </div>
+                     </div>
+                  </form>
+
+
+               </div>
+            </li>
+            <li>
+               <input type="radio" name="tabs1" id="tab11"
+                  (click)="showaddform65(); showaddform64(); showaddform66(); showaddform67(); showaddform68(); showaddform69();tabcontforprocesslifecycle();">
+               <label for="tab11">Lifecycle Team</label>
+               <div id="tab-content11" class="tab-content animated fadeIn">
+                  <button (click)="showaddform10()" class="btn btn-primary addnewbut fontaddnew">Add New</button>
+                  <div>
+                     <table style="width: 97%;margin-top: 1%;margin-left: 28px;" id="25">
+                        <thead>
+                           <tr>
+                              <th class="tabheading">Action</th>
+                              <th class="tabheading1">Lifecycle Name
+                                 <span class="tooltip-toggle"
+                                    aria-label="Please Drag and Drop entries of the table to change the positions."
+                                    tabindex="0">
+                                    <svg viewBox="0 0 27 27" xmlns="http://www.w3.org/2000/svg" class="svgmargin">
+                                       <g fill="blue" fill-rule="evenodd">
+                                          <path
+                                             d="M13.5 27C20.956 27 27 20.956 27 13.5S20.956 0 13.5 0 0 6.044 0 13.5 6.044 27 13.5 27zm0-2C7.15 25 2 19.85 2 13.5S7.15 2 13.5 2 25 7.15 25 13.5 19.85 25 13.5 25z" />
+                                          <path
+                                             d="M12.05 7.64c0-.228.04-.423.12-.585.077-.163.185-.295.32-.397.138-.102.298-.177.48-.227.184-.048.383-.073.598-.073.203 0 .398.025.584.074.186.05.35.126.488.228.14.102.252.234.336.397.084.162.127.357.127.584 0 .22-.043.412-.127.574-.084.163-.196.297-.336.4-.14.106-.302.185-.488.237-.186.053-.38.08-.584.08-.215 0-.414-.027-.597-.08-.182-.05-.342-.13-.48-.235-.135-.104-.243-.238-.32-.4-.08-.163-.12-.355-.12-.576zm-1.02 11.517c.134 0 .275-.013.424-.04.148-.025.284-.08.41-.16.124-.082.23-.198.313-.35.085-.15.127-.354.127-.61v-5.423c0-.238-.042-.43-.127-.57-.084-.144-.19-.254-.318-.332-.13-.08-.267-.13-.415-.153-.148-.024-.286-.036-.414-.036h-.21v-.95h4.195v7.463c0 .256.043.46.127.61.084.152.19.268.314.35.125.08.263.135.414.16.15.027.29.04.418.04h.21v.95H10.82v-.95h.21z" />
+                                       </g>
+                                    </svg>
+                                 </span>
+                              </th>
+                              <!-- <th>Position</th> -->
+                           </tr>
+                        </thead>
+                        <tbody cdkDropList (cdkDropListDropped)="onDrop1($event)">
+                           <tr cdkDrag *ngFor="let project of lifecycleAsObjects" cdkDragLockAxis="y"
+                              style="cursor: pointer;">
+                              <td class="tdiconpadding">
+                                 <a onclick="document.getElementById('id06').style.display='block'"
+                                    (click)="getlifecyclebyid(project.ID)">
+                                    <i class="fa fa-plus-circle"
+                                       style="font-size:16px;color: green; cursor: pointer;"></i>
+                                    <!-- <i class="fa fa-edit editcss" style="font-size: 23px; color: #20a8d8; cursor: pointer;"></i> -->
+                                 </a>
+                                 <!-- <a routerLink="/edit"><button class="btn btn-primary"> edit</button></a> -->
+                              </td>
+                              <td>{{project.Name}}</td>
+                              <!-- <td>{{project.Indexing}}</td> -->
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+                  <form class="form-horizontal" [formGroup]="projectForm" (ngSubmit)="Addlifecycle(projectForm)" id="26"
+                     style="display: none;">
+                     <div class="row">
+                        <div class="card-body p-4 clearfix" style=" width: 75%; margin-right: 10%; ">
+                           <div class="col-sm-9">
+                              <div class="form-group row">
+                                 <label class="col-md-12 addformcsss" for="text-input">Lifecycle Name</label>
+                                 <div class="col-md-6">
+                                    <!-- <tag-input [ngModel]="lifecycleName.value" [theme]="'minimal'" [maxItems]="1"
+                                       [separatorKeyCodes]="[186,59]" formControlName="lifecycleName"
+                                       [placeholder]="'Select lifecycleName'"
+                                       [secondaryPlaceholder]="'Select lifecycleName'" theme='bootstrap'>
+                                       <tag-input-dropdown [autocompleteItems]="lifecycleAsObjects" [identifyBy]="'ID'"
+                                          [displayBy]="'Name'">
+                                       </tag-input-dropdown>
+                                    </tag-input> -->
+                                    <input class="form-control" id="text-input" formControlName="lifecycleName"
+                                       placeholder="Lifecycle Team Name" type="text">
+                                       <div
+                                       *ngIf="projectForm.controls['lifecycleName'].invalid && (projectForm.controls['lifecycleName'].dirty || projectForm.controls['lifecycleName'].touched)"
+                                       class="custom-errMsg">
+                                       <div *ngIf="projectForm.controls['lifecycleName'].errors.required">
+                                          Lifecycle Name is required.
+                                       </div>
+                                    </div>
+                                 </div>
+                                
+                              </div>
+                           </div>
+
+                           <div class="col-sm-9">
+                              <div class="form-group row">
+                                 <label class="col-md-12 addformcsss" for="text-input">Lifecycle Description</label>
+                                 <div class="col-md-6">
+                                    <textarea class="form-control " id="textarea-input"
+                                       formControlName="lifecycleDescription" placeholder="Description..." rows="6"
+                                       maxlength="250" style="width: -98%;">
+                  </textarea>
+                                 </div>
+                                 <div
+                                    *ngIf="projectForm.controls['lifecycleDescription'].invalid && (projectForm.controls['lifecycleDescription'].dirty || projectForm.controls['lifecycleDescription'].touched)"
+                                    class="custom-errMsg">
+                                    <!-- <div *ngIf="projectForm.controls['lifecycleDescription'].errors.required">
+                                       Lifecycle Description is required.
+                                    </div> -->
+                                 </div>
+                              </div>
+                              <button class="btn btn-primary" type="submit"
+                                 [disabled]="(projectForm.controls['lifecycleName'].invalid)"
+                                 style="border-radius: 4px; margin-right: -27%;margin-left:20px;"><i class="fa fa-save"
+                                    style="font-size:15px"></i> Save</button>
+
+                           </div>
+
+                           <!-- <button class="btn btn-primary float-right" type="button" style="border-radius: 4px;">Save</button> -->
+                        </div>
+                     </div>
+                  </form>
+               </div>
+            </li>
+            <li>
+               <input type="radio" name="tabs1" id="tab12"
+                  (click)="showaddform65(); showaddform64(); showaddform66(); showaddform67(); showaddform68(); showaddform69(); tabcontforprocessfunction();">
+               <label for="tab12">Function</label>
+               <div id="tab-content12" class="tab-content animated fadeIn">
+                  <button (click)="showaddform11()" class="btn btn-primary addnewbut fontaddnew">Add New</button>
+                  <div>
+                     <table style="width: 97%;margin-top: 1%;margin-left: 28px;" id="27">
+                        <thead>
+                           <tr>
+                              <th class="tabheading">Action</th>
+                              <th class="tabheading1">Function Name
+                                 <span class="tooltip-toggle"
+                                    aria-label="Please Drag and Drop entries of the table to change the positions."
+                                    tabindex="0">
+                                    <svg viewBox="0 0 27 27" xmlns="http://www.w3.org/2000/svg" class="svgmargin">
+                                       <g fill="blue" fill-rule="evenodd">
+                                          <path
+                                             d="M13.5 27C20.956 27 27 20.956 27 13.5S20.956 0 13.5 0 0 6.044 0 13.5 6.044 27 13.5 27zm0-2C7.15 25 2 19.85 2 13.5S7.15 2 13.5 2 25 7.15 25 13.5 19.85 25 13.5 25z" />
+                                          <path
+                                             d="M12.05 7.64c0-.228.04-.423.12-.585.077-.163.185-.295.32-.397.138-.102.298-.177.48-.227.184-.048.383-.073.598-.073.203 0 .398.025.584.074.186.05.35.126.488.228.14.102.252.234.336.397.084.162.127.357.127.584 0 .22-.043.412-.127.574-.084.163-.196.297-.336.4-.14.106-.302.185-.488.237-.186.053-.38.08-.584.08-.215 0-.414-.027-.597-.08-.182-.05-.342-.13-.48-.235-.135-.104-.243-.238-.32-.4-.08-.163-.12-.355-.12-.576zm-1.02 11.517c.134 0 .275-.013.424-.04.148-.025.284-.08.41-.16.124-.082.23-.198.313-.35.085-.15.127-.354.127-.61v-5.423c0-.238-.042-.43-.127-.57-.084-.144-.19-.254-.318-.332-.13-.08-.267-.13-.415-.153-.148-.024-.286-.036-.414-.036h-.21v-.95h4.195v7.463c0 .256.043.46.127.61.084.152.19.268.314.35.125.08.263.135.414.16.15.027.29.04.418.04h.21v.95H10.82v-.95h.21z" />
+                                       </g>
+                                    </svg>
+                                 </span>
+                              </th>
+                              <!-- <th>Position</th> -->
+                           </tr>
+                        </thead>
+                        <tbody cdkDropList (cdkDropListDropped)="onDrop2($event)">
+                           <tr cdkDrag *ngFor="let project of functionAsObjects" cdkDragLockAxis="y"
+                              style="cursor: pointer;">
+
+                              <td class="tdiconpadding">
+                                 <a onclick="document.getElementById('id07').style.display='block'"
+                                    (click)="getfunctionsbyid(project.ID)">
+                                    <i class="fa fa-plus-circle"
+                                       style="font-size:16px;color: green; cursor: pointer;"></i>
+                                    <!-- <i class="fa fa-edit editcss" style="font-size: 23px; color: #20a8d8; cursor: pointer;"></i> -->
+                                 </a>
+                                 <!-- <a routerLink="/edit"><button class="btn btn-primary"> edit</button></a> -->
+                              </td>
+                              <td>{{project.Name}}</td>
+                              <!-- <td>{{project.Indexing}}</td> -->
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+                  <form class="form-horizontal" [formGroup]="projectForm" (ngSubmit)="Addfunction(projectForm)" id="28"
+                     style="display: none;">
+                     <div class="row">
+                        <div class="card-body p-4 clearfix" style=" width: 75%; margin-right: 10%; ">
+                           <div class="col-sm-9">
+                              <div class="form-group row">
+                                 <label class="col-md-12 addformcsss" for="text-input">Function Name</label>
+                                 <div class="col-md-6">
+                                    <!-- <tag-input [ngModel]="function.value" [theme]="'minimal'" [maxItems]="1"
+                                       [separatorKeyCodes]="[186,59]" formControlName="function"
+                                       [placeholder]="'Select Functions'" [secondaryPlaceholder]="'Select Functions'"
+                                       theme='bootstrap'>
+                                       <tag-input-dropdown [autocompleteItems]="functionAsObjects" [identifyBy]="'ID'"
+                                          [displayBy]="'Name'">
+                                       </tag-input-dropdown>
+                                    </tag-input> -->
+                                    <input class="form-control" id="text-input" formControlName="function"
+                                       placeholder="Function Name" type="text">
+                                       <div
+                                       *ngIf="projectForm.controls['function'].invalid && (projectForm.controls['function'].dirty || projectForm.controls['function'].touched)"
+                                       class="custom-errMsg">
+                                       <div *ngIf="projectForm.controls['function'].errors.required">
+                                          Function Name is required.
+                                       </div>
+                                    </div>
+                                 </div>
+                                
+                              </div>
+                           </div>
+
+                           <div class="col-sm-9">
+                              <div class="form-group row">
+                                 <label class="col-md-12 addformcsss" for="text-input">Function Description</label>
+                                 <div class="col-md-6">
+                                    <textarea class="form-control " id="textarea-input"
+                                       formControlName="functionDescription" placeholder="Description..." rows="6"
+                                       maxlength="250" style="width: -98%;">
+                  </textarea>
+                                 </div>
+                                 <div
+                                    *ngIf="projectForm.controls['functionDescription'].invalid && (projectForm.controls['functionDescription'].dirty || projectForm.controls['functionDescription'].touched)"
+                                    class="custom-errMsg">
+                                    <!-- <div *ngIf="projectForm.controls['functionDescription'].errors.required">
+                                       Function Description is required.
+                                    </div> -->
+                                 </div>
+                              </div>
+                              <button class="btn btn-primary" type="submit"
+                                 [disabled]="( projectForm.controls['function'].invalid)"
+                                 style="border-radius: 4px; margin-right: -27%;margin-left:20px;"><i class="fa fa-save"
+                                    style="font-size:15px"></i> Save</button>
+
+                           </div>
+
+                           <!-- <button class="btn btn-primary float-right" type="button" style="border-radius: 4px;">Save</button> -->
+                        </div>
+                     </div>
+                  </form>
+
+               </div>
+            </li>
+            <li>
+               <input type="radio" name="tabs1" id="tab13"
+                  (click)="showaddform65(); showaddform64(); showaddform66(); showaddform67(); showaddform68(); showaddform69(); tabcontforprocessdeparment();">
+               <label for="tab13">Department</label>
+               <div id="tab-content11" class="tab-content animated fadeIn">
+                  <button (click)="showaddform12()" class="btn btn-primary addnewbut fontaddnew">Add New</button>
+                  <div>
+                     <table style="width: 97%;margin-top: 1%;margin-left: 28px;" id="29">
+                        <thead>
+                           <tr>
+                              <th class="tabheading">Action</th>
+                              <th class="tabheading1">Department Name
+                                 <span class="tooltip-toggle"
+                                    aria-label="Please Drag and Drop entries of the table to change the positions."
+                                    tabindex="0">
+                                    <svg viewBox="0 0 27 27" xmlns="http://www.w3.org/2000/svg" class="svgmargin">
+                                       <g fill="blue" fill-rule="evenodd">
+                                          <path
+                                             d="M13.5 27C20.956 27 27 20.956 27 13.5S20.956 0 13.5 0 0 6.044 0 13.5 6.044 27 13.5 27zm0-2C7.15 25 2 19.85 2 13.5S7.15 2 13.5 2 25 7.15 25 13.5 19.85 25 13.5 25z" />
+                                          <path
+                                             d="M12.05 7.64c0-.228.04-.423.12-.585.077-.163.185-.295.32-.397.138-.102.298-.177.48-.227.184-.048.383-.073.598-.073.203 0 .398.025.584.074.186.05.35.126.488.228.14.102.252.234.336.397.084.162.127.357.127.584 0 .22-.043.412-.127.574-.084.163-.196.297-.336.4-.14.106-.302.185-.488.237-.186.053-.38.08-.584.08-.215 0-.414-.027-.597-.08-.182-.05-.342-.13-.48-.235-.135-.104-.243-.238-.32-.4-.08-.163-.12-.355-.12-.576zm-1.02 11.517c.134 0 .275-.013.424-.04.148-.025.284-.08.41-.16.124-.082.23-.198.313-.35.085-.15.127-.354.127-.61v-5.423c0-.238-.042-.43-.127-.57-.084-.144-.19-.254-.318-.332-.13-.08-.267-.13-.415-.153-.148-.024-.286-.036-.414-.036h-.21v-.95h4.195v7.463c0 .256.043.46.127.61.084.152.19.268.314.35.125.08.263.135.414.16.15.027.29.04.418.04h.21v.95H10.82v-.95h.21z" />
+                                       </g>
+                                    </svg>
+                                 </span>
+                              </th>
+                              <!-- <th>Position</th> -->
+                           </tr>
+                        </thead>
+                        <tbody cdkDropList (cdkDropListDropped)="onDrop3($event)">
+                           <tr cdkDrag *ngFor="let project of departmentAsObjects" cdkDragLockAxis="y"
+                              style="cursor: pointer;">
+
+                              <td class="tdiconpadding">
+                                 <a onclick="document.getElementById('id08').style.display='block'"
+                                    (click)="getdepartmentsbyid(project.ID)">
+                                    <i class="fa fa-plus-circle"
+                                       style="font-size:16px;color: green; cursor: pointer;"></i>
+                                    <!-- <i class="fa fa-edit editcss" style="font-size: 23px; color: #20a8d8; cursor: pointer;"></i> -->
+                                 </a>
+                                 <!-- <a routerLink="/edit"><button class="btn btn-primary"> edit</button></a> -->
+                              </td>
+                              <td>{{project.Name}}</td>
+                              <!-- <td>{{project.Indexing}}</td> -->
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+                  <form class="form-horizontal" [formGroup]="projectForm" (ngSubmit)="Adddepartment(projectForm)"
+                     id="30" style="display: none;">
+                     <div class="row">
+                        <div class="card-body p-4 clearfix" style=" width: 75%; margin-right: 10%; ">
+                           <div class="col-sm-9">
+                              <div class="form-group row">
+                                 <label class="col-md-12 addformcsss" for="text-input">Department Name</label>
+                                 <div class="col-md-6">
+                                    <!-- <tag-input [ngModel]="department.value" [theme]="'minimal'" [maxItems]="1"
+                                       [separatorKeyCodes]="[186,59]" formControlName="departmentName"
+                                       [placeholder]="'Select Department'" [secondaryPlaceholder]="'Select Department'"
+                                       theme='bootstrap'>
+                                       <tag-input-dropdown [autocompleteItems]="departmentAsObjects" [identifyBy]="'ID'"
+                                          [displayBy]="'Name'">
+                                       </tag-input-dropdown>
+                                    </tag-input> -->
+                                    <input class="form-control" id="text-input" formControlName="departmentName"
+                                       placeholder="Department Name" type="text">
+                                       <div
+                                       *ngIf="projectForm.controls['departmentName'].invalid && (projectForm.controls['departmentName'].dirty || projectForm.controls['departmentName'].touched)"
+                                       class="custom-errMsg">
+                                       <div *ngIf="projectForm.controls['departmentName'].errors.required">
+                                          Department Name is required.
+                                       </div>
+                                    </div>
+                                 </div>
+                                
+                              </div>
+                           </div>
+
+                           <div class="col-sm-9">
+                              <div class="form-group row">
+                                 <label class="col-md-12 addformcsss" for="text-input">Department Description</label>
+                                 <div class="col-md-6">
+                                    <textarea class="form-control " id="textarea-input"
+                                       formControlName="departmentDescription" placeholder="Description..." rows="6"
+                                       maxlength="250" style="width: -98%;">
+                  </textarea>
+                                 </div>
+                                 <div
+                                    *ngIf="projectForm.controls['departmentDescription'].invalid && (projectForm.controls['departmentDescription'].dirty || projectForm.controls['departmentDescription'].touched)"
+                                    class="custom-errMsg">
+                                    <!-- <div *ngIf="projectForm.controls['departmentDescription'].errors.required">
+                                       Department Description is required.
+                                    </div> -->
+                                 </div>
+                              </div>
+                              <button class="btn btn-primary" type="submit"
+                                 [disabled]="(projectForm.controls['departmentName'].invalid)"
+                                 style="border-radius: 4px; margin-right: -27%;margin-left:20px;"><i class="fa fa-save"
+                                    style="font-size:15px"></i> Save</button>
+
+                           </div>
+
+                           <!-- <button class="btn btn-primary float-right" type="button" style="border-radius: 4px;">Save</button> -->
+                        </div>
+                     </div>
+                  </form>
+
+               </div>
+            </li>
+            <li>
+               <input type="radio" name="tabs1" id="tab14"
+                  (click)="showaddform65(); showaddform64(); showaddform66(); showaddform67(); showaddform68(); showaddform69(); tabcontforprocessimpact();">
+               <label for="tab14">Impact Category</label>
+               <div id="tab-content14" class="tab-content animated fadeIn">
+                  <button (click)="showaddform13()" class="btn btn-primary addnewbut fontaddnew">Add New</button>
+                  <div>
+                     <table style="width: 97%;margin-top: 1%;margin-left: 28px;" id="31">
+                        <thead>
+                           <tr>
+                              <th class="tabheading">Action</th>
+                              <th class="tabheading1">Impact Category Name
+                                 <span class="tooltip-toggle"
+                                    aria-label="Please Drag and Drop entries of the table to change the positions."
+                                    tabindex="0">
+                                    <svg viewBox="0 0 27 27" xmlns="http://www.w3.org/2000/svg" class="svgmargin">
+                                       <g fill="blue" fill-rule="evenodd">
+                                          <path
+                                             d="M13.5 27C20.956 27 27 20.956 27 13.5S20.956 0 13.5 0 0 6.044 0 13.5 6.044 27 13.5 27zm0-2C7.15 25 2 19.85 2 13.5S7.15 2 13.5 2 25 7.15 25 13.5 19.85 25 13.5 25z" />
+                                          <path
+                                             d="M12.05 7.64c0-.228.04-.423.12-.585.077-.163.185-.295.32-.397.138-.102.298-.177.48-.227.184-.048.383-.073.598-.073.203 0 .398.025.584.074.186.05.35.126.488.228.14.102.252.234.336.397.084.162.127.357.127.584 0 .22-.043.412-.127.574-.084.163-.196.297-.336.4-.14.106-.302.185-.488.237-.186.053-.38.08-.584.08-.215 0-.414-.027-.597-.08-.182-.05-.342-.13-.48-.235-.135-.104-.243-.238-.32-.4-.08-.163-.12-.355-.12-.576zm-1.02 11.517c.134 0 .275-.013.424-.04.148-.025.284-.08.41-.16.124-.082.23-.198.313-.35.085-.15.127-.354.127-.61v-5.423c0-.238-.042-.43-.127-.57-.084-.144-.19-.254-.318-.332-.13-.08-.267-.13-.415-.153-.148-.024-.286-.036-.414-.036h-.21v-.95h4.195v7.463c0 .256.043.46.127.61.084.152.19.268.314.35.125.08.263.135.414.16.15.027.29.04.418.04h.21v.95H10.82v-.95h.21z" />
+                                       </g>
+                                    </svg>
+                                 </span>
+                              </th>
+                              <!-- <th>Position</th> -->
+                           </tr>
+                        </thead>
+                        <tbody cdkDropList (cdkDropListDropped)="onDrop4($event)">
+                           <tr cdkDrag *ngFor="let project of impactcategoriesAsObjects" cdkDragLockAxis="y"
+                              style="cursor: pointer;">
+
+                              <td class="tdiconpadding">
+                                 <a onclick="document.getElementById('id09').style.display='block'"
+                                    (click)="getimpactcategorybyid(project.ID)">
+                                    <i class="fa fa-plus-circle"
+                                       style="font-size:16px;color: green; cursor: pointer;"></i>
+                                    <!-- <i class="fa fa-edit editcss" style="font-size: 23px; color: #20a8d8; cursor: pointer;"></i> -->
+                                 </a>
+                                 <!-- <a routerLink="/edit"><button class="btn btn-primary"> edit</button></a> -->
+                              </td>
+                              <td>{{project.Name}}</td>
+                              <!-- <td>{{project.Indexing}}</td> -->
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+                  <form class="form-horizontal" [formGroup]="projectForm" (ngSubmit)="Addimpactcategory(projectForm)"
+                     id="32" style="display: none;">
+                     <div class="row">
+                        <div class="card-body p-4 clearfix" style=" width: 75%; margin-right: 10%; ">
+                           <div class="col-sm-9">
+                              <div class="form-group row">
+                                 <label class="col-md-12 addformcsss" for="text-input">Impact Category Name</label>
+                                 <div class="col-md-6">
+                                    <!-- <tag-input [ngModel]="Impactcategory.value" [theme]="'minimal'" [maxItems]="1"
+                                       [separatorKeyCodes]="[186,59]" formControlName="ImpactcategoryName"
+                                       [placeholder]="'Select Impact Category'"
+                                       [secondaryPlaceholder]="'Select Impact Category'" theme='bootstrap'>
+                                       <tag-input-dropdown [autocompleteItems]="impactcategoriesAsObjects"
+                                          [identifyBy]="'ID'" [displayBy]="'Name'">
+                                       </tag-input-dropdown>
+                                    </tag-input> -->
+                                    <input class="form-control" id="text-input" formControlName="ImpactcategoryName"
+                                       placeholder="Impact Category Name" type="text">
+                                       <div
+                                       *ngIf="projectForm.controls['ImpactcategoryName'].invalid && (projectForm.controls['ImpactcategoryName'].dirty || projectForm.controls['ImpactcategoryName'].touched)"
+                                       class="custom-errMsg">
+                                       <div *ngIf="projectForm.controls['ImpactcategoryName'].errors.required">
+                                          Impact Category Name is required.
+                                       </div>
+                                    </div>
+                                 </div>
+                             
+                              </div>
+                           </div>
+
+                           <div class="col-sm-9">
+                              <div class="form-group row">
+                                 <label class="col-md-12 addformcsss" for="text-input">Impact Category
+                                    Description</label>
+                                 <div class="col-md-6">
+                                    <textarea class="form-control " id="textarea-input"
+                                       formControlName="ImpactcategoryDescription" placeholder="Description..." rows="6"
+                                       maxlength="250" style="width: -98%;">
+                  </textarea>
+                                 </div>
+                                 <div
+                                    *ngIf="projectForm.controls['ImpactcategoryDescription'].invalid && (projectForm.controls['ImpactcategoryDescription'].dirty || projectForm.controls['ImpactcategoryDescription'].touched)"
+                                    class="custom-errMsg">
+                                    <!-- <div *ngIf="projectForm.controls['ImpactcategoryDescription'].errors.required">
+                                       Impact Category Description is required.
+                                    </div> -->
+                                 </div>
+                              </div>
+                              <button class="btn btn-primary" type="submit"
+                                 [disabled]="( projectForm.controls['ImpactcategoryName'].invalid)"
+                                 style="border-radius: 4px; margin-right: -27%;margin-left:20px;"><i class="fa fa-save"
+                                    style="font-size:15px"></i> Save</button>
+
+                           </div>
+
+                           <!-- <button class="btn btn-primary float-right" type="button" style="border-radius: 4px;">Save</button> -->
+                        </div>
+                     </div>
+                  </form>
+
+
+               </div>
+            </li>
+            <li>
+               <input type="radio" name="tabs1" id="tab15"
+                  (click)="showaddform65(); showaddform64(); showaddform66(); showaddform67(); showaddform68(); showaddform69(); tabcontforprocesslevel();">
+               <label for="tab15">Impact Level</label>
+               <div id="tab-content11" class="tab-content animated fadeIn">
+                  <button (click)="showaddform14()" class="btn btn-primary addnewbut fontaddnew"> Add New</button>
+                  <div>
+                     <table style="width: 97%;margin-top: 1%;margin-left: 28px;" id="33">
+                        <thead>
+                           <tr>
+                              <th class="tabheading">Action</th>
+                              <th class="tabheading1">Impact level Name
+                                 <span class="tooltip-toggle"
+                                    aria-label="Please Drag and Drop entries of the table to change the positions."
+                                    tabindex="0">
+                                    <svg viewBox="0 0 27 27" xmlns="http://www.w3.org/2000/svg" class="svgmargin">
+                                       <g fill="blue" fill-rule="evenodd">
+                                          <path
+                                             d="M13.5 27C20.956 27 27 20.956 27 13.5S20.956 0 13.5 0 0 6.044 0 13.5 6.044 27 13.5 27zm0-2C7.15 25 2 19.85 2 13.5S7.15 2 13.5 2 25 7.15 25 13.5 19.85 25 13.5 25z" />
+                                          <path
+                                             d="M12.05 7.64c0-.228.04-.423.12-.585.077-.163.185-.295.32-.397.138-.102.298-.177.48-.227.184-.048.383-.073.598-.073.203 0 .398.025.584.074.186.05.35.126.488.228.14.102.252.234.336.397.084.162.127.357.127.584 0 .22-.043.412-.127.574-.084.163-.196.297-.336.4-.14.106-.302.185-.488.237-.186.053-.38.08-.584.08-.215 0-.414-.027-.597-.08-.182-.05-.342-.13-.48-.235-.135-.104-.243-.238-.32-.4-.08-.163-.12-.355-.12-.576zm-1.02 11.517c.134 0 .275-.013.424-.04.148-.025.284-.08.41-.16.124-.082.23-.198.313-.35.085-.15.127-.354.127-.61v-5.423c0-.238-.042-.43-.127-.57-.084-.144-.19-.254-.318-.332-.13-.08-.267-.13-.415-.153-.148-.024-.286-.036-.414-.036h-.21v-.95h4.195v7.463c0 .256.043.46.127.61.084.152.19.268.314.35.125.08.263.135.414.16.15.027.29.04.418.04h.21v.95H10.82v-.95h.21z" />
+                                       </g>
+                                    </svg>
+                                 </span>
+                              </th>
+                              <!-- <th>Position</th> -->
+                           </tr>
+                        </thead>
+                        <tbody cdkDropList (cdkDropListDropped)="onDrop14($event)">
+                           <tr cdkDrag *ngFor="let project of impactlevelAsObjects" cdkDragLockAxis="y"
+                              style="cursor: pointer;">
+
+                              <td class="tdiconpadding">
+                                 <a onclick="document.getElementById('id10').style.display='block'"
+                                    (click)="getimpactlevelbyid(project.ID)">
+                                    <i class="fa fa-plus-circle"
+                                       style="font-size:16px;color: green; cursor: pointer;"></i>
+                                    <!-- <i class="fa fa-edit editcss" style="font-size: 23px; color: #20a8d8; cursor: pointer;"></i> -->
+                                 </a>
+                                 <!-- <a routerLink="/edit"><button class="btn btn-primary"> edit</button></a> -->
+                              </td>
+                              <td>{{project.Name}}</td>
+                              <!-- <td>{{project.Indexing}}</td> -->
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+                  <form class="form-horizontal" [formGroup]="projectForm" (ngSubmit)="Addimpactlevel(projectForm)"
+                     id="34" style="display: none;">
+                     <div class="row">
+                        <div class="card-body p-4 clearfix" style=" width: 75%; margin-right: 10%;">
+                           <div class="col-sm-9">
+                              <div class="form-group row">
+                                 <label class="col-md-12 addformcsss" for="text-input">Impact Level Name</label>
+                                 <div class="col-md-6">
+                                    <!-- <tag-input [ngModel]="Impactcategory.value" [theme]="'minimal'" [maxItems]="1"
+                                       [separatorKeyCodes]="[186,59]" formControlName="ImpactcategoryName"
+                                       [placeholder]="'Select Impact Level'"
+                                       [secondaryPlaceholder]="'Select Impact Level'" theme='bootstrap'>
+                                       <tag-input-dropdown [autocompleteItems]="impactlevelAsObjects"
+                                          [identifyBy]="'ID'" [displayBy]="'Name'">
+                                       </tag-input-dropdown>
+                                    </tag-input> -->
+                                    <input class="form-control" id="text-input" formControlName="ImpactcategoryName"
+                                       placeholder="Impact Level Name" type="text">
+                                       <div
+                                    *ngIf="projectForm.controls['ImpactcategoryName'].invalid && (projectForm.controls['ImpactcategoryName'].dirty || projectForm.controls['ImpactcategoryName'].touched)"
+                                    class="custom-errMsg">
+                                    <div *ngIf="projectForm.controls['ImpactcategoryName'].errors.required">
+                                       Impact Level Name is required.
+                                    </div>
+                                 </div>
+                                 </div>
+                                 
+                              </div>
+                           </div>
+
+                           <div class="col-sm-9">
+                              <div class="form-group row">
+                                 <label class="col-md-12 addformcsss" for="text-input">Impact Level
+                                    Description</label>
+                                 <div class="col-md-6">
+                                    <textarea class="form-control " id="textarea-input"
+                                       formControlName="ImpactcategoryDescription" placeholder="Description..." rows="6"
+                                       maxlength="250" style="width: -98%;">
+            </textarea>
+                                 </div>
+                                 <div
+                                    *ngIf="projectForm.controls['ImpactcategoryDescription'].invalid && (projectForm.controls['ImpactcategoryDescription'].dirty || projectForm.controls['ImpactcategoryDescription'].touched)"
+                                    class="custom-errMsg">
+                                    <!-- <div *ngIf="projectForm.controls['ImpactcategoryDescription'].errors.required">
+                                       Impact Level Description is required.
+                                    </div> -->
+                                 </div>
+                              </div>
+                              <button class="btn btn-primary" type="submit"
+                                 [disabled]="( projectForm.controls['ImpactcategoryName'].invalid)"
+                                 style="border-radius: 4px; margin-right: -27%;margin-left:20px;"><i class="fa fa-save"
+                                    style="font-size:20px"></i> Save</button>
+
+                           </div>
+
+                           <!-- <button class="btn btn-primary float-right" type="button" style="border-radius: 4px;">Save</button> -->
+                        </div>
+                     </div>
+                  </form>
+
+               </div>
+            </li>
+
+         </ul>
+         <br>
+         <div style="clear:both"></div>
+
+      </div>
+   </div>
+
+   <div bsModal id="id011" class="modal " style="top: 0% !important; background-color: rgba(0,0,0, 0.4);">
+      <form class="modal-content row d-flex justify-content-center align-items-center"
+         style="width: 30%; height: 185px; left: 36%; top: 30%;" [formGroup]="projectForm">
+         <div class="container">
+            <!-- <h3 style="text-align: center; margin-top:2%">Modal popup</h3> -->
+            <div class="col-sm-12">
+               <div class="form-group row">
+                  <!-- <label class="col-md-12 col-form-label" for="file-input">Attachments: </label> -->
+                  <label for="email"><b>Project Name</b></label>
+                  <input type="text" class="form-control" #titlename11 placeholder="Enter Name" formControlName="title"
+                     name="email" required>
+                  <input type="text" style="display: none;" #titleInput11 class="form-control" placeholder="Enter Name"
+                     formControlName="submitid" name="email" required>
+                  <!-- <input type="text"   class="form-control" placeholder="Enter Name" formControlName="submitid" name="email" required> -->
+                  <!-- <div class="col-md-12">
+                     <input id="attachments" (change)="onFileChangeProject($event)"
+                        [ngClass]="{'has-error is-invalid': isSubmitted && formControls.attachments.errors }"
+                        class="form-control filellm" type="file">
+                  </div>
+    -->
+               </div>
+            </div>
+            <div class="clearfix">
+               <br>
+               <br>
+               <button type="button" (click)="updateprojectbyid(titleInput11.value,titlename11.value);" [disabled]="(projectForm.controls['submitid'].invalid || projectForm.controls['title'].invalid)" class="deletebtn btn btn-danger float-right borderbtn marginleft">
+                  Submit</button>
+               <button type="button" onclick="document.getElementById('id011').style.display='none'"
+                  class="cancelbtn btn btn-primary float-right borderbtn">Cancel</button>
+            </div>
+         </div>
+      </form>
+   </div>
+   <div bsModal id="id012" class="modal " style="top: 0% !important; background-color: rgba(0,0,0, 0.4);">
+      <form class="modal-content row d-flex justify-content-center align-items-center"
+         style="width: 30%; height: 185px; left: 36%; top: 30%;" [formGroup]="projectForm">
+         <div class="container">
+            <!-- <h3 style="text-align: center; margin-top:2%">Modal popup</h3> -->
+            <div class="col-sm-12">
+               <div class="form-group row">
+                  <!-- <label class="col-md-12 col-form-label" for="file-input">Attachments: </label> -->
+                  <label for="email"><b>Phase Name</b></label>
+                  <input type="text" class="form-control" #titlename12 placeholder="Enter Name" formControlName="title"
+                     name="email" required>
+                  <input type="text" style="display: none;" #titleInput12 class="form-control" placeholder="Enter Name"
+                     formControlName="submitid" name="email" required>
+                  <!-- <input type="text"   class="form-control" placeholder="Enter Name" formControlName="submitid" name="email" required> -->
+                  <!-- <div class="col-md-12">
+                     <input id="attachments" (change)="onFileChangeProject($event)"
+                        [ngClass]="{'has-error is-invalid': isSubmitted && formControls.attachments.errors }"
+                        class="form-control filellm" type="file">
+                  </div>
+    -->
+               </div>
+            </div>
+            <div class="clearfix">
+               <br>
+               <br>
+               <button type="button" (click)="
+                                              updatephasesbyid(titleInput12.value,titlename12.value);
+                                              " class="deletebtn btn btn-danger float-right borderbtn marginleft" [disabled]="(projectForm.controls['submitid'].invalid || projectForm.controls['title'].invalid)">
+                  Submit</button>
+               <button type="button" onclick="document.getElementById('id012').style.display='none'"
+                  class="cancelbtn btn btn-primary float-right borderbtn">Cancel</button>
+            </div>
+         </div>
+      </form>
+   </div>
+   <div bsModal id="id013" class="modal " style="top: 0% !important; background-color: rgba(0,0,0, 0.4);">
+      <form class="modal-content row d-flex justify-content-center align-items-center"
+         style="width: 30%; height: 185px; left: 36%; top: 30%;" [formGroup]="projectForm">
+         <div class="container">
+            <!-- <h3 style="text-align: center; margin-top:2%">Modal popup</h3> -->
+            <div class="col-sm-12">
+               <div class="form-group row">
+                  <!-- <label class="col-md-12 col-form-label" for="file-input">Attachments: </label> -->
+                  <label for="email"><b>Milestone Name</b></label>
+                  <input type="text" class="form-control" #titlename13 placeholder="Enter Name" formControlName="title"
+                     name="email" required>
+                  <input type="text" style="display: none;" #titleInput13 class="form-control" placeholder="Enter Name"
+                     formControlName="submitid" name="email" required>
+                  <!-- <input type="text"   class="form-control" placeholder="Enter Name" formControlName="submitid" name="email" required> -->
+                  <!-- <div class="col-md-12">
+                     <input id="attachments" (change)="onFileChangeProject($event)"
+                        [ngClass]="{'has-error is-invalid': isSubmitted && formControls.attachments.errors }"
+                        class="form-control filellm" type="file">
+                  </div>
+    -->
+               </div>
+            </div>
+            <div class="clearfix">
+               <br>
+               <br>
+               <button type="button" (click)="
+                                              updatemilestonesbyid(titleInput13.value,titlename13.value);
+                                              " class="deletebtn btn btn-danger float-right borderbtn marginleft" [disabled]="(projectForm.controls['submitid'].invalid || projectForm.controls['title'].invalid)">
+                  Submit</button>
+               <button type="button" onclick="document.getElementById('id013').style.display='none'"
+                  class="cancelbtn btn btn-primary float-right borderbtn">Cancel</button>
+            </div>
+         </div>
+      </form>
+   </div>
+   <div bsModal id="id04" class="modal " style="top: 0% !important; background-color: rgba(0,0,0, 0.4);">
+      <form class="modal-content row d-flex justify-content-center align-items-center"
+         style="width: 30%; height: 185px; left: 36%; top: 30%;" [formGroup]="projectForm">
+         <div class="container">
+            <!-- <h3 style="text-align: center; margin-top:2%">Modal popup</h3> -->
+            <div class="col-sm-12">
+               <div class="form-group row">
+                  <!-- <label class="col-md-12 col-form-label" for="file-input">Attachments: </label> -->
+                  <label for="email"><b>Project Type Name</b></label>
+                  <input type="text" class="form-control" #titlename placeholder="Enter Name" formControlName="title"
+                     name="email" required>
+                  <input type="text" style="display: none;" #titleInput class="form-control" placeholder="Enter Name"
+                     formControlName="submitid" name="email" required>
+                  <!-- <input type="text"   class="form-control" placeholder="Enter Name" formControlName="submitid" name="email" required> -->
+                  <!-- <div class="col-md-12">
+                     <input id="attachments" (change)="onFileChangeProject($event)"
+                        [ngClass]="{'has-error is-invalid': isSubmitted && formControls.attachments.errors }"
+                        class="form-control filellm" type="file">
+                  </div>
+    -->
+               </div>
+            </div>
+            <div class="clearfix">
+               <br>
+               <br>
+               <button type="button" (click)="updateprojecttypebyid(titleInput.value,titlename.value); "
+                  class="deletebtn btn btn-danger float-right borderbtn marginleft" [disabled]="(projectForm.controls['submitid'].invalid || projectForm.controls['title'].invalid)"> Submit</button>
+               <button type="button" onclick="document.getElementById('id04').style.display='none'"
+                  class="cancelbtn btn btn-primary float-right borderbtn">Cancel</button>
+            </div>
+         </div>
+      </form>
+   </div>
+   <div bsModal id="id05" class="modal " style="top: 0% !important; background-color: rgba(0,0,0, 0.4);">
+      <form class="modal-content row d-flex justify-content-center align-items-center"
+         style="width: 30%; height: 185px; left: 36%; top: 30%;" [formGroup]="projectForm">
+         <div class="container">
+            <div class="col-sm-12">
+               <div class="form-group row">
+                  <label for="email"><b>Prcoess Name</b></label>
+                  <input type="text" class="form-control" #titlename1 placeholder="Enter Name" formControlName="title"
+                     name="email" required>
+                  <input type="text" style="display: none;" #titleInput1 class="form-control" placeholder="Enter Name"
+                     formControlName="submitid" name="email" required>
+               </div>
+            </div>
+            <div class="clearfix">
+               <br>
+               <br>
+               <button type="button" (click)="updateprocessbyid(titleInput1.value,titlename1.value);
+                                         " class="deletebtn btn btn-danger float-right borderbtn marginleft" [disabled]="(projectForm.controls['submitid'].invalid || projectForm.controls['title'].invalid)">
+                  Submit</button>
+               <button type="button" onclick="document.getElementById('id05').style.display='none'"
+                  class="cancelbtn btn btn-primary float-right borderbtn">Cancel</button>
+            </div>
+         </div>
+      </form>
+   </div>
+   <div bsModal id="id06" class="modal " style="top: 0% !important; background-color: rgba(0,0,0, 0.4);">
+      <form class="modal-content row d-flex justify-content-center align-items-center"
+         style="width: 30%; height: 185px; left: 36%; top: 30%;" [formGroup]="projectForm">
+         <div class="container">
+            <div class="col-sm-12">
+               <div class="form-group row">
+                  <label for="email"><b>Lifecycle Name</b></label>
+                  <input type="text" class="form-control" #titlename2 placeholder="Enter Name" formControlName="title"
+                     name="email" required>
+                  <input type="text" style="display: none;" #titleInput2 class="form-control" placeholder="Enter Name"
+                     formControlName="submitid" name="email" required>
+               </div>
+            </div>
+            <div class="clearfix">
+               <br>
+               <br>
+               <button type="button" (click)="updatelifecyclebyid(titleInput2.value,titlename2.value);
+                                              " class="deletebtn btn btn-danger float-right borderbtn marginleft" [disabled]="(projectForm.controls['submitid'].invalid || projectForm.controls['title'].invalid)">
+                  Submit</button>
+               <button type="button" onclick="document.getElementById('id06').style.display='none'"
+                  class="cancelbtn btn btn-primary float-right borderbtn">Cancel</button>
+            </div>
+         </div>
+      </form>
+   </div>
+   <div bsModal id="id07" class="modal " style="top: 0% !important; background-color: rgba(0,0,0, 0.4);">
+      <form class="modal-content row d-flex justify-content-center align-items-center"
+         style="width: 30%; height: 185px; left: 36%; top: 30%;" [formGroup]="projectForm">
+         <div class="container">
+            <div class="col-sm-12">
+               <div class="form-group row">
+                  <label for="email"><b>Function Name</b></label>
+                  <input type="text" class="form-control" #titlename3 placeholder="Enter Name" formControlName="title"
+                     name="email" required>
+                  <input type="text" style="display: none;" #titleInput3 class="form-control" placeholder="Enter Name"
+                     formControlName="submitid" name="email" required>
+               </div>
+            </div>
+            <div class="clearfix">
+               <br>
+               <br>
+               <button type="button" (click)="
+                                              updatefunctionsbyid(titleInput3.value,titlename3.value);
+                                            
+                                              updateimpactcategorybyid(titleInput1.value,titlename1.value);
+                                              updateimpactlevelbyid(titleInput1.value,titlename1.value);"
+                  class="deletebtn btn btn-danger float-right borderbtn marginleft marginleft" [disabled]="(projectForm.controls['submitid'].invalid || projectForm.controls['title'].invalid)"> Submit</button>
+               <button type="button" onclick="document.getElementById('id07').style.display='none'"
+                  class="cancelbtn btn btn-primary float-right borderbtn">Cancel</button>
+            </div>
+         </div>
+      </form>
+   </div>
+   <div bsModal id="id08" class="modal " style="top: 0% !important; background-color: rgba(0,0,0, 0.4);">
+      <form class="modal-content row d-flex justify-content-center align-items-center"
+         style="width: 30%; height: 185px; left: 36%; top: 30%;" [formGroup]="projectForm">
+         <div class="container">
+            <div class="col-sm-12">
+               <div class="form-group row">
+                  <label for="email"><b>Department Name</b></label>
+                  <input type="text" class="form-control" #titlename4 placeholder="Enter Name" formControlName="title"
+                     name="email" required>
+                  <input type="text" style="display: none;" #titleInput4 class="form-control" placeholder="Enter Name"
+                     formControlName="submitid" name="email" required>
+               </div>
+            </div>
+            <div class="clearfix">
+               <br>
+               <br>
+               <button type="button" (click)="
+                                              updatedepartmentsbyid(titleInput4.value,titlename4.value);
+                                             ;" class="deletebtn btn btn-danger float-right borderbtn marginleft" [disabled]="(projectForm.controls['submitid'].invalid || projectForm.controls['title'].invalid)">
+                  Submit</button>
+               <button type="button" onclick="document.getElementById('id08').style.display='none'"
+                  class="cancelbtn btn btn-primary float-right borderbtn">Cancel</button>
+            </div>
+         </div>
+      </form>
+   </div>
+   <div bsModal id="id09" class="modal " style="top: 0% !important; background-color: rgba(0,0,0, 0.4);">
+      <form class="modal-content row d-flex justify-content-center align-items-center"
+         style="width: 30%; height: 185px; left: 36%; top: 30%;" [formGroup]="projectForm">
+         <div class="container">
+            <div class="col-sm-12">
+               <div class="form-group row">
+                  <label for="email"><b>Impact Category Name</b></label>
+                  <input type="text" class="form-control" #titlename5 placeholder="Enter Name" formControlName="title"
+                     name="email" required>
+                  <input type="text" style="display: none;" #titleInput5 class="form-control" placeholder="Enter Name"
+                     formControlName="submitid" name="email" required>
+               </div>
+            </div>
+            <div class="clearfix">
+               <br>
+               <br>
+               <button type="button" (click)="
+               updateimpactcategorybyid(titleInput5.value,titlename5.value);"
+                  class="deletebtn btn btn-danger float-right borderbtn marginleft" [disabled]="(projectForm.controls['submitid'].invalid || projectForm.controls['title'].invalid)"> Submit</button>
+               <button type="button" onclick="document.getElementById('id09').style.display='none'"
+                  class="cancelbtn btn btn-primary float-right borderbtn">Cancel</button>
+            </div>
+         </div>
+      </form>
+   </div>
+   <div bsModal id="id10" class="modal " style="top: 0% !important; background-color: rgba(0,0,0, 0.4);">
+      <form class="modal-content row d-flex justify-content-center align-items-center"
+         style="width: 30%; height: 185px; left: 36%; top: 30%;" [formGroup]="projectForm">
+         <div class="container">
+            <div class="col-sm-12">
+               <div class="form-group row">
+                  <label for="email"><b>Impect Level Name</b></label>
+                  <input type="text" class="form-control" #titlename6 placeholder="Enter Name" formControlName="title"
+                     name="email" required>
+                  <input type="text" style="display: none;" #titleInput6 class="form-control" placeholder="Enter Name"
+                     formControlName="submitid" name="email" required>
+               </div>
+            </div>
+            <div class="clearfix">
+               <br>
+               <br>
+               <button type="button" (click)="updateimpactlevelbyid(titleInput6.value,titlename6.value);
+                                         " class="deletebtn btn btn-danger float-right borderbtn marginleft" [disabled]="(projectForm.controls['submitid'].invalid || projectForm.controls['title'].invalid)">
+                  Submit</button>
+               <button type="button" onclick="document.getElementById('id10').style.display='none'"
+                  class="cancelbtn btn btn-primary float-right borderbtn">Cancel</button>
+            </div>
+         </div>
+      </form>
+   </div>
+</div>

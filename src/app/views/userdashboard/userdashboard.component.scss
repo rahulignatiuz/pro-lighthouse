@@ -1,0 +1,156 @@
+.form-control,.btn {
+    border-radius: 0;    
+}
+.btn {
+    margin-left: 20px;
+}
+.minimal.ng2-tag-input {
+    border-bottom: none;
+} 
+
+:host ::ng-deep :focus {
+    outline: none;
+}
+
+
+:host ::ng-deep .minimal.ng2-tag-input {
+    padding:0px 0px 0px 0.35rem !important;
+    border-bottom: none !important; 
+    border: 1px solid #e4e7ea !important;
+}
+
+:host ::ng-deep tag {
+    margin: 0px !important;
+    font-size: 0.875rem !important;
+    line-height:  30px !important;
+}
+
+:host ::ng-deep .ng2-tag-input__text-input {
+    height: 33px !important;
+    font-size: 0.785rem !important;
+}
+:host ::ng-deep select {
+    font-size: 0.875rem !important;
+}
+:host ::ng-deep .ng2-dropdown-menu { 
+    box-shadow:0 1px 2px 0 transparent !important;
+}
+
+:host ::ng-deep .tag-wrapper {
+ background: #efefef !important;
+ padding: 0 0.2rem !important; 
+}
+
+:host ::ng-deep .minimal tag {
+    background:transparent !important;   
+    box-shadow: none !important;
+    padding-left : 0px; 
+}
+
+.form-control:focus {
+    box-shadow:none;
+}
+
+:host ::ng-deep .nav-tabs .nav-link.active {
+    border-color: transparent !important;
+    border-bottom-color: #007AC2 !important;
+}
+
+:host ::ng-deep .tab-content {
+     border-right-color: transparent !important;
+     border-bottom-color: transparent !important;
+     border-left-color: transparent !important;
+}
+
+:host ::ng-deep .nav-tabs .nav-link:hover, .nav-tabs .nav-link:focus {
+    border-color: transparent;
+}
+
+:host ::ng-deep .btn-primary {
+    min-width: 80px;
+}
+
+:host ::ng-deep .searchIcon {
+    position: absolute;
+    right: 20px;
+    top: -18px;
+    color: #c8ced3;
+}
+
+:host ::ng-deep .modal {
+    top:30% !important;
+}
+
+:host ::ng-deep .Iconsuccess {
+color: #4dbd74;
+font-size: 5rem !important;
+}
+
+:host ::ng-deep .form-control.filellm {
+    height: auto !important;
+}
+
+:host ::ng-deep .ng-invalid.has-error.is-invalid {
+    border: 1px solid #f86c6b;
+}
+
+:host ::ng-deep .clear-btn {
+    margin-left: 0px;
+}
+.card-columns{
+    width: 90%;
+}
+body {
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  
+  /* Float four columns side by side */
+  .column {
+    float: left;
+    width: 25%;
+    padding: 0 10px;
+  }
+  
+  /* Remove extra left and right margins, due to padding */
+  .row {margin: 0 -5px;}
+  
+  /* Clear floats after the columns */
+  .row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  
+  /* Responsive columns */
+  @media screen and (max-width: 600px) {
+    .column {
+      width: 100%;
+      display: block;
+      margin-bottom: 20px;
+    }
+  }
+  
+  /* Style the counter cards */
+  .card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    padding: 16px;
+    text-align: center;
+    background-color: #f1f1f1;
+  }
+  .sdata{
+    
+    margin-right: -62%;
+    margin-top: -7%;
+    color: white;
+  }
+
+//   :host::ejs-deep .accumulationchart rect#chart-container_border{
+// fill: red;
+//   }
+
+//   :host::ejs-deep .accumulationchart rect{    
+//     fill: red;
+//   }
+svg{
+    fill: red;
+}

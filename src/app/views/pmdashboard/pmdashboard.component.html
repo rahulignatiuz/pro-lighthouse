@@ -1,0 +1,67 @@
+<div class="animated fadeIn">
+  <div class="card-columns cols-2">     
+    <div class="card card col-lg-10" style="padding-left: 0px; padding-right: 0px; margin-left: 15%;">
+      <div class="card-header">
+        Lessons by Milestone       
+      </div>
+      <div class="card-body">
+        <div class="chart-wrapper" *ngIf="PhasepieChartData && PhasepieChartData.length > 0">
+          <canvas baseChart class="chart"
+          [data]="PhasepieChartData"
+          [labels]="PhasepieChartLabels"
+          [chartType]="PhasepieChartType"
+          (chartHover)="chartHovered($event)"
+          (chartClick)="chartClicked($event)"></canvas>
+        </div>
+      </div>
+    </div>    
+    
+    <div class="card card col-lg-10" style="padding-left: 0px; padding-right: 0px; margin-left: 15%;">
+      <div class="card-header">
+        Lessons by project phase        
+      </div>
+      <div class="card-body">
+        <div class="chart-wrapper" *ngIf="projpieChartData && projpieChartData.length > 0">
+          <canvas baseChart class="chart"
+          [data]="projpieChartData"
+          [labels]="projpieChartLabels"
+          [chartType]="projpieChartType"
+          (chartHover)="chartHovered($event)"
+          (chartClick)="chartClicked($event)"></canvas>
+        </div>
+      </div>
+    </div>
+    
+    <div class="card card col-lg-10" style="padding-left: 0px; padding-right: 0px;">
+      <div class="card-header">
+        Lessons by category        
+      </div>
+      <div class="card-body" >
+        <div class="chart-wrapper" *ngIf="catpieChartData && catpieChartData.length > 0">
+          <canvas baseChart class="chart"
+          [data]="catpieChartData"
+          [labels]="catpieChartLabels"
+          [chartType]="catpieChartType"
+          (chartHover)="chartHovered($event)"
+          (chartClick)="chartClicked($event)"></canvas>
+        </div>
+      </div>
+    </div> 
+    
+    <div class="card card col-lg-10" style="padding-left: 0px; padding-right: 0px;">
+      <div class="card-header">
+        Lessons by impact level        
+      </div>
+      <div class="card-body">
+        <div class="chart-wrapper" *ngIf="levelpieChartData && levelpieChartData.length > 0">
+          <canvas baseChart class="chart"
+          [data]="levelpieChartData"
+          [labels]="levelpieChartLabels"
+          [chartType]="levelpieChartType"
+          (chartHover)="chartHovered($event)"
+          (chartClick)="chartClicked($event)"></canvas>
+        </div>
+      </div>
+    </div>       
+  </div>
+</div>
