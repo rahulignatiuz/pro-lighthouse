@@ -67,7 +67,7 @@ export class lessonComponent implements OnInit {
       if (routeParams && routeParams.id) {
         let rid = routeParams.id;
         this.URLlessonID = rid;
-        if (this.URLlessonID) this.getlessonbyid(this.URLlessonID);
+         this.getlessonbyid(this.URLlessonID);
       }
     });
     this.iconhide();
@@ -113,12 +113,12 @@ export class lessonComponent implements OnInit {
       this.created_date = data.result[0].UpdatedDate;
       this.created_by = data.result[0].Email;
       this.lessontype = data.result[0].lessontypeName;
-      if (this.useruseful == "" || this.useruseful.valueOf) {
-
-        this.showuseruseful1 = false;
-      }
+      // if (this.useruseful == "" || this.useruseful.valueOf) {
+      //   this.showuseruseful1 = false;
+      // }
 
       this.userService.checkUserLike(ID, this.UserID).subscribe((data) => {
+        console.log("121212121",data);
         if (data.status) {
           this.toggle = !this.toggle;
         } else {
@@ -168,19 +168,23 @@ export class lessonComponent implements OnInit {
     document.getElementById("IDLESSON1").style.display = "none";
     document.getElementById("IDLESSON3").style.display = "none";
 
-    this.userService.adduserusefullessonforNo(LessonID, UserID, data, title).subscribe((data) => {
-      this.getuserusefullesson = data.result;
-      console.log(data);
-    });
+    // this.userService.adduserusefullessonforNo(LessonID, UserID, data, title).subscribe((data) => {
+    //   this.getuserusefullesson = data.result;
+    //   console.log(data);
+    // });
 
 
     document.getElementById("id01").style.display = "none";
   }
   adduserlikes(lessonid, UserID, Likes) {
+ 
+
     this.userService.adduserlikes(lessonid, UserID, Likes).subscribe((data) => {
-      // console.log(data);
+      console.log(data,data.result[0].ID);
       if (data.status) {
+        console.log(data.result);
         this.getuserlikes = data.result;
+        console.log(this.getuserlikes);
       } else if (!data.status && data.result[0].ID) {
         //console.log(data.result[0].ID);
         this.userService.deleteAlluserlikeSQL(data.result[0].ID).subscribe((data) => {

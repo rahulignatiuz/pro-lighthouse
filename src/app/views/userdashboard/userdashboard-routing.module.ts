@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { UserdashboardComponent } from '../userdashboard/userdashboard.component';
-import { LessonRecordComponent } from '../userdashboard/lesson-record/lesson-record.component';
-import { MylessonsComponent } from '../userdashboard/mylessons/mylessons.component';
+import { UpdateProjectComponent } from './update-project/update-project.component';
+import { MylessonsProjectComponent } from './mylesson-project/mylesson-project.component';
 import { AddLessonComponent } from './add-project/add-project.component';
 import { AddProcessComponent } from './add-process/add-process.component';
 import { UpdateProcessComponent } from './update-process/update-process.component';
@@ -32,21 +32,21 @@ const routes: Routes = [
     }
   },
   {
-    path: 'edit-lesson/:id',
-    component: LessonRecordComponent,
+    path: 'update-project/:id',
+    component: UpdateProjectComponent,
     data: {
       title: 'Edit a Lesson'
     }
   },
   {
-    path: 'lessons',
-    component: MylessonsComponent,
+    path: 'mylessons-project',
+    component: MylessonsProjectComponent,
     data: {
       title: 'Project Lessons'
     }
   },
   {
-    path: 'lessons-process',
+    path: 'mylessons-process',
     component: MylessonProcessComponent,
     data: {
       title: 'Process Lessons'

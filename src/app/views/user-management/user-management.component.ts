@@ -8,11 +8,11 @@ import { ModalDirective } from 'ngx-bootstrap/modal';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 
 @Component({
-  templateUrl: 'dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  templateUrl: 'user-management.component.html',
+  styleUrls: ['./user-management.component.scss']
 
 })
-export class DashboardComponent implements OnInit {
+export class UserManagementComponent implements OnInit {
   public results: any[];
   private _user = localStorage.getItem('currentUser') ? JSON.parse(localStorage.getItem('currentUser')) : [{ roled: 0 }];
   public avatarImg: string = '';

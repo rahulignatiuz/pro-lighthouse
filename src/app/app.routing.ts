@@ -79,7 +79,11 @@ export const routes: Routes = [
       },
       {
         path: 'dashboard',
-        loadChildren: () => import('./views/dashboard/dashboard.module').then(m => m.DashboardModule)
+        loadChildren: () => import('./views/user-management/user-management.module').then(m => m.UserManagementModule)
+      },
+      {
+        path: 'user-management',
+        loadChildren: () => import('./views/user-management/user-management.module').then(m => m.UserManagementModule)
       },
       {
         path: 'icons',

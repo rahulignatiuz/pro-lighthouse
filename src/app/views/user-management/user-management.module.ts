@@ -4,8 +4,8 @@ import { ChartsModule } from 'ng2-charts';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { CommonModule } from '@angular/common';
-import { DashboardComponent } from './dashboard.component';
-import { DashboardRoutingModule } from './dashboard-routing.module';
+import { UserManagementComponent } from './user-management.component';
+import { UserManagementRoutingModule } from './user-management-routing.module';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ModalModule } from 'ngx-bootstrap/modal';
 
@@ -14,13 +14,13 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    DashboardRoutingModule,
+    UserManagementRoutingModule,
     ChartsModule,
     BsDropdownModule,
     ButtonsModule.forRoot(),
     NgxPaginationModule,
     ModalModule.forRoot(),
   ],
-  declarations: [ DashboardComponent ]
+  declarations: [ UserManagementComponent ]
 })
-export class DashboardModule { }
+export class UserManagementModule { }

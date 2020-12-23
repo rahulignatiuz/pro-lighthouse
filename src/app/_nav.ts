@@ -276,7 +276,7 @@ export const navItems: NavData[] = [
         
           {
             name: 'View Lessons',
-            url: '/user/lessons',
+            url: '/user/mylessons-project',
             icon: 'icon-list'
           },
           {
@@ -293,7 +293,7 @@ export const navItems: NavData[] = [
       // },
       {
         name: 'User Management',
-        url: '/dashboard',
+        url: '/user-management',
         icon: 'icon-people'
       },
       // {
@@ -340,7 +340,7 @@ export const navItems: NavData[] = [
       // },
       {
         name: 'User Management',
-        url: '/dashboard',
+        url: '/user-management',
         icon: 'icon-people'
       },
       // {

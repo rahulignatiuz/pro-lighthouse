@@ -8,11 +8,11 @@ import { Title } from '@angular/platform-browser';
 import { IDropdownSettings } from 'ng-multiselect-dropdown'
 import { TransitiveCompileNgModuleMetadata } from '@angular/compiler';
 @Component({
-  selector: 'app-mylessons',
-  templateUrl: './mylessons.component.html',
-  styleUrls: ['./mylessons.component.scss']
+  selector: 'app-mylesson-project',
+  templateUrl: './mylesson-project.component.html',
+  styleUrls: ['./mylesson-project.component.scss']
 })
-export class MylessonsComponent implements OnInit {
+export class MylessonsProjectComponent implements OnInit {
   results: any[];
   projecttype: any[];
   isloading = false;
@@ -156,9 +156,9 @@ export class MylessonsComponent implements OnInit {
     let target = e.target;
     let value = target.value;
     if (value == 1) {
-      this.router.navigate(['/user/lessons']);
+      this.router.navigate(['/user/mylessons-project']);
     } else if (value == 2) {
-      this.router.navigate(['/user/lessons-process']);
+      this.router.navigate(['/user/mylessons-process']);
     }
     this.selectLessonType = 1;
   }
@@ -357,7 +357,7 @@ export class MylessonsComponent implements OnInit {
 
   }
   getidinurl(ID) {
-    this.router.navigate(['/user/edit-lesson/' + ID]);
+    this.router.navigate(['/user/update-project/' + ID]);
   }
   getidinurlProccess(ID) {
     this.router.navigate(['/user/update-process/' + 178]);

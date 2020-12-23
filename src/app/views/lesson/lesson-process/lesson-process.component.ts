@@ -171,10 +171,10 @@ export class LessonProcessComponent implements OnInit {
     document.getElementById("IDLESSON1").style.display = "none";
     document.getElementById("IDLESSON3").style.display = "none";
 
-    this.userService.adduserusefullessonforNo(LessonID, UserID, data, title).subscribe((data) => {
-      this.getuserusefullesson = data.result;
-      console.log(data);
-    });
+    // this.userService.adduserusefullessonforNo(LessonID, UserID, data, title).subscribe((data) => {
+    //   this.getuserusefullesson = data.result;
+    //   console.log(data);
+    // });
 
 
     document.getElementById("id01").style.display = "none";

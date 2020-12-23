@@ -10,7 +10,7 @@ import { TagInputModule } from 'ngx-chips';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { UserdashboardComponent } from './userdashboard.component';
 import { UserdashboardRoutingModule } from './userdashboard-routing.module';
-import { LessonRecordComponent } from './lesson-record/lesson-record.component';
+import { UpdateProjectComponent } from './update-project/update-project.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AccumulationChartModule,PyramidSeriesService,AccumulationDataLabelService,AccumulationTooltipService,AccumulationLegendService} from '@syncfusion/ej2-angular-charts';
 import { NgCircleProgressModule } from 'ng-circle-progress';
@@ -20,7 +20,7 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 
 // Modal Component
 import { ModalModule } from 'ngx-bootstrap/modal';
-import { MylessonsComponent } from './mylessons/mylessons.component';
+import { MylessonsProjectComponent } from './mylesson-project/mylesson-project.component';
 import { DataTablesModule } from 'angular-datatables';
 import { AddLessonComponent } from './add-project/add-project.component';
 import { AddProcessComponent } from './add-process/add-process.component';
@@ -69,7 +69,7 @@ import { BulkImportComponent } from './bulk-import/bulk-import.component';
       "innerStrokeColor": "#78797d",
       // "innerStrokeColor": "#c9cacf",
       "innerStrokeWidth": 19,
-      // "subtitle": "Implemented",
+       "subtitle": "",
       "titleFontSize": "40",
       "subtitleColor": "#151414",
       // "subtitleFontSize": "20",
@@ -84,7 +84,7 @@ import { BulkImportComponent } from './bulk-import/bulk-import.component';
       "startFromZero": false,
       "lazy": false})
   ],
-  declarations: [UserdashboardComponent, LessonRecordComponent, MylessonsComponent, AddLessonComponent, AddProcessComponent, UpdateProcessComponent, MylessonProcessComponent, BulkImportComponent],
+  declarations: [UserdashboardComponent, UpdateProjectComponent, MylessonsProjectComponent, AddLessonComponent, AddProcessComponent, UpdateProcessComponent, MylessonProcessComponent, BulkImportComponent],
   providers: [PyramidSeriesService, AccumulationDataLabelService,AccumulationTooltipService,AccumulationLegendService]
 })
 export class UserdashboardModule { }

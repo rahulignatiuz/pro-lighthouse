@@ -208,7 +208,7 @@
 
          <div class="float-right">
             <a> <button class="btn btn-primary float-right" (click)="getidinurlProccess(lesson.ID)"
-               style="border-radius: 4px; margin-right: 22%;padding: 0;height: 31px;" type="button"> Edit </button></a>
+               style="border-radius: 4px; margin-right: 22%;padding: 0;height: 31px;" type="button" *ngIf="show"> Edit </button></a>
                <br>
                <i class="fa fa-thumbs-up marginforsmall" style="font-size:19px;color:#20a8d8;"></i>
                <p class="float-right cssforlikes">{{lesson.likes}}</p>
@@ -237,7 +237,7 @@
          <div class="row">
             <div class="col-sm-3">
                <div class="form-group row">
-                  <div class="col-md-12 ">
+                  <div class="col-md-12 text-muted">
                      <strong class="textcolor" style="cursor: pointer;">Title : </strong><a (click)="getidlesson(lesson.ID)"><strong
                            class="h7 text-primary mb-0" style="cursor: pointer;">{{lesson.Title}}</strong></a>
                   </div>

@@ -168,19 +168,19 @@
             download>{{attOriginalName}}({{fileExtension}})</a></p>
         <div class="row" style="margin-left: 75%;">
           <p class="float-right" style="margin-right: 1%;">Did you find this lesson helpfull?</p>
-          <i (click)="adduserlikes(UserID,LessonID,Likes)" style="font-size:20px;color:#0f69c4;">
+          <i (click)="adduserlikes(UserID,LessonID,Likes);" style="font-size:20px;color:#0f69c4;">
             <button (click)="enableDisableRule($event)" [ngClass]="{'black' : toggle, 'blue': !toggle}"
               class="fa fa-thumbs-up mar float-right cus focus">
             </button></i>
           <div>
-            <p id="IDLESSON3" style="margin-left: 0%;" *ngIf="showuseruseful1 && show">Was this lesson implemented?</p>
+            <p id="IDLESSON3" style="margin-left: 0%;" *ngIf="!showuseruseful && show">Was this lesson implemented?</p>
           </div>
           <a class="btn btn-primary btn-sm" onclick="document.getElementById('id01').style.display='block'"
             style="border-radius: 4px; cursor: pointer; margin-left: 1%; height: 10%;" id="IDLESSON"
-            *ngIf="showuseruseful1 && show">Yes</a>
+            *ngIf="!showuseruseful && show">Yes</a>
           <a class="btn btn-danger btn-sm" (click)="adduserusefullessonforNo(LessonID,UserID,data,titleInput.value)"
             style="border-radius: 4px;margin-left: 3px; cursor: pointer; height: 10%;" id="IDLESSON1"
-            *ngIf="showuseruseful1 && show">No</a>
+            *ngIf="!showuseruseful && show">No</a>
         </div>
         <br>
       </div>

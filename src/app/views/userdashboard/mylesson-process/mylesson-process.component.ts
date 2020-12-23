@@ -151,9 +151,9 @@ export class MylessonProcessComponent implements OnInit {
     let target = e.target;
     let value = target.value;
     if (value == 1) {
-      this.router.navigate(['/user/lessons']);
+      this.router.navigate(['/user/mylessons-project']);
     } else if (value == 2) {
-      this.router.navigate(['/user/lessons-process']);
+      this.router.navigate(['/user/mylessons-process']);
     }
   }
   onselectSoftBy(e) {

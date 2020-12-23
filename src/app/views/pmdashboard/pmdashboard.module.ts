@@ -49,7 +49,7 @@ import { NgCircleProgressModule } from 'ng-circle-progress';
       "innerStrokeColor": "#78797d",
       // "innerStrokeColor": "#c9cacf",
       "innerStrokeWidth": 19,
-      // "subtitle": "Implemented",
+       "subtitle": "",
       "titleFontSize": "40",
       "subtitleColor": "#151414",
       // "subtitleFontSize": "20",

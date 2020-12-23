@@ -16,11 +16,11 @@ import { analyzeAndValidateNgModules } from '@angular/compiler';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 
 @Component({
-  selector: 'app-lesson-record',
-  templateUrl: './lesson-record.component.html',
-  styleUrls: ['./lesson-record.component.scss']
+  selector: 'app-update-project',
+  templateUrl: './update-project.component.html',
+  styleUrls: ['./update-project.component.scss']
 })
-export class LessonRecordComponent implements OnInit {
+export class UpdateProjectComponent implements OnInit {
   @ViewChild('myModal', { static: false }) public myModal: ModalDirective;
   @ViewChild('attachments', { static: false }) public attachments: ElementRef;
   public projectsAsObjects: any;
