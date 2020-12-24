@@ -69,6 +69,7 @@ export class MylessonProcessComponent implements OnInit {
   public implement: string;
   public implemented: string;
   public show: boolean = true;
+  public hasuser = false;
 
   constructor(private router: Router, private userService: UserService, private titleService: Title) {
     this._baseURL = Constant.baseURL;
@@ -412,6 +413,7 @@ export class MylessonProcessComponent implements OnInit {
     // debugger;
     if (id == 3) {
       this.show = false;
+      this.hasuser = true;
     }
   }
 }

@@ -224,7 +224,9 @@ font-size: 5rem !important;
     background-image: none;
     border-radius:0px;
 }
-
+.cssforuser{
+    margin-left: -60% !important;
+}
 :host::ng-deep .multiselect-dropdown .dropdown-btn {    
     border-radius:0px;
     border: none !important;

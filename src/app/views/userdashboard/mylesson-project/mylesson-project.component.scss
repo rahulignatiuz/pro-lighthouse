@@ -256,7 +256,9 @@ font-size: 5rem !important;
    position: absolute;
    pointer-events: none
 }
-
+.cssforuser{
+    margin-left: -60% !important;
+}
 
 button.toggle-panel.bi.bi-chevron-down{
     pointer-events: auto;
