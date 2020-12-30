@@ -1,11 +1,11 @@
 var express = require("express");
 const router = express.Router();
-var User = require("../domain/user");
+var Model = require("../domain/model");
 var db = require("../db/database");
 
 //http://localhost:6001/api/lifecycle
 router.get("/", (req, res, next) => {
-    db.query(User.getAllLifecycleSQL(), (err, data) => {
+    db.query(Model.getAllLifecycleSQL(), (err, data) => {
         if (!err) {
             if (data && data.length > 0) {
                 res.status(200).json({
@@ -31,7 +31,7 @@ router.post('/add', (req, res, next) => {
     m.CreatedBy = req.body.CreatedBy;
     m.UpdatedBy = req.body.UpdatedBy;
     //console.log(p);
-    db.query(User.AddAlllifecycleSQL(m), (err, results) => {
+    db.query(Model.AddAlllifecycleSQL(m), (err, results) => {
         if (err) {
             res.send({ status: false, result: results, message: 'not-added' })
         }
@@ -50,7 +50,7 @@ router.post('/update', (req, res, next) => {
 
 
     //console.log(p);
-    db.query(User.updateAlllifecycleSQL(i), (err, results) => {
+    db.query(Model.updateAlllifecycleSQL(i), (err, results) => {
         if (err) {
             res.send({ status: false, result: results, message: 'not-added' })
         }
@@ -69,7 +69,7 @@ router.post('/updatename', (req, res, next) => {
 
 
     //console.log(p);
-    db.query(User.updatelifecycleSQL(i), (err, results) => {
+    db.query(Model.updatelifecycleSQL(i), (err, results) => {
         if (err) {
             res.send({ status: false, result: results, message: 'not-added' })
         }
@@ -83,7 +83,7 @@ router.post('/updatename', (req, res, next) => {
 //http://localhost:6001/api/lifecycle/id
 router.post("/id", (req, res, next) => {
     ID = req.body.ID;
-    db.query(User.getlifecyclebyid(ID), (err, data) => {
+    db.query(Model.getlifecyclebyid(ID), (err, data) => {
         if (!err) {
             if (data && data.length > 0) {
                 res.status(200).json({

@@ -1,14 +1,14 @@
 var express = require("express");
 const router = express.Router();
-var User = require("../domain/user");
+var Model = require("../domain/model");
 var db = require("../db/database");
 
 
 
 //http://localhost:6001/api/milestones
 router.get("/", (req, res, next) => {
-    // console.log(User.getAllProjectsSQL());
-    db.query(User.getAllMilestonesSQL(), (err, data) => {
+    // console.log(Model.getAllProjectsSQL());
+    db.query(Model.getAllMilestonesSQL(), (err, data) => {
         if (!err) {
             if (data && data.length > 0) {
                 res.status(200).json({
@@ -34,7 +34,7 @@ router.post('/add', (req, res, next) => {
     m.CreatedBy = req.body.CreatedBy;
     m.UpdatedBy = req.body.UpdatedBy;
     //console.log(p);
-    db.query(User.AddAllmilestoneSQL(m), (err, results) => {
+    db.query(Model.AddAllmilestoneSQL(m), (err, results) => {
         if (err) {
             res.send({ status: false, result: results, message: 'not-added' });
         }
@@ -53,7 +53,7 @@ router.post('/update', (req, res, next) => {
 
 
     //console.log(p);
-    db.query(User.updateAllmilestonesSQL(i), (err, results) => {
+    db.query(Model.updateAllmilestonesSQL(i), (err, results) => {
         if (err) {
             res.send({ status: false, result: results, message: 'not-added' });
         }
@@ -72,7 +72,7 @@ router.post('/updatename', (req, res, next) => {
 
 
     //console.log(p);
-    db.query(User.updatemilestonesSQL(i), (err, results) => {
+    db.query(Model.updatemilestonesSQL(i), (err, results) => {
         if (err) {
             res.send({ status: false, result: results, message: 'not-added' });
         }
@@ -86,7 +86,7 @@ router.post('/updatename', (req, res, next) => {
 //http://localhost:6001/api/milestones/id
 router.post("/id", (req, res, next) => {
     ID = req.body.ID;
-    db.query(User.getmilestonesbyid(ID), (err, data) => {
+    db.query(Model.getmilestonesbyid(ID), (err, data) => {
         if (!err) {
             if (data && data.length > 0) {
                 res.status(200).json({
@@ -108,7 +108,7 @@ router.post("/id", (req, res, next) => {
 //http://localhost:6001/api/milestones/milestonechart
 router.post("/milestonechart", (req, res, next) => {    
     ID = req.body.ID;
-    db.query(User.getmilestoneByUserPieChartSQL(ID), (err, data)=> {
+    db.query(Model.getmilestoneByUserPieChartSQL(ID), (err, data)=> {
         if(!err) {
             let dataObj = [];
             let labelObj = [];            

@@ -1,13 +1,13 @@
 var express = require("express");
 const router = express.Router();
-var User = require("../domain/user");
+var Model = require("../domain/model");
 var db = require("../db/database");
 
 //http://localhost:6001/api/functions  
 // router.get("/", middleware.checkToken, (req, res, next) =>{
 router.get("/", (req, res, next) => {
-    // console.log(User.getAllKeywordsSQL());
-    db.query(User.getAllFunctionsSQL(), (err, data) => {
+    // console.log(Model.getAllKeywordsSQL());
+    db.query(Model.getAllFunctionsSQL(), (err, data) => {
         if (!err) {
             if (data && data.length > 0) {
                 res.status(200).json({
@@ -34,8 +34,8 @@ router.post('/add', function (req, res) {
     f.CreatedBy = req.body.CreatedBy;
     f.UpdatedBy = req.body.UpdatedBy;
     //console.log(f)
-    //console.log(db.query(User.addalldepartmentsSQL(d)))
-    db.query(User.AddAllfunctionsSQL(f), (err, results) => {
+    //console.log(db.query(Model.addalldepartmentsSQL(d)))
+    db.query(Model.AddAllfunctionsSQL(f), (err, results) => {
 
         if (err) {
             res.send({ status: false, result: results, message: 'not-added' })
@@ -53,7 +53,7 @@ router.post('/update', (req, res, next) => {
 
 
     //console.log(p);
-    db.query(User.updateAllfunctionsSQL(i), (err, results) => {
+    db.query(Model.updateAllfunctionsSQL(i), (err, results) => {
         if (err) {
             res.send({ status: false, result: results, message: 'not-added' })
         }
@@ -72,7 +72,7 @@ router.post('/updatename', (req, res, next) => {
 
 
     //console.log(p);
-    db.query(User.updatefunctionSQL(i), (err, results) => {
+    db.query(Model.updatefunctionSQL(i), (err, results) => {
         if (err) {
             res.send({ status: false, result: results, message: 'not-added' })
         }
@@ -86,7 +86,7 @@ router.post('/updatename', (req, res, next) => {
 //http://localhost:6001/api/functions/id
 router.post("/id", (req, res, next) => {
     ID = req.body.ID;
-    db.query(User.getfunctionsbyid(ID), (err, data) => {
+    db.query(Model.getfunctionsbyid(ID), (err, data) => {
         if (!err) {
             if (data && data.length > 0) {
                 res.status(200).json({
@@ -106,7 +106,7 @@ router.post("/id", (req, res, next) => {
 });
 //http://localhost:6001/api/functions/functionschart
 router.get("/functionschart", (req, res, next) => {
-    db.query(User.getfunctionsByUserPieChartSQL(req.body), (err, data) => {
+    db.query(Model.getfunctionsByUserPieChartSQL(req.body), (err, data) => {
         if (!err) {
             let dataObj = [];
             let labelObj = [];

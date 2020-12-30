@@ -1,6 +1,6 @@
 var express = require("express");
 const router = express.Router();
-var User = require("../domain/user");
+var Model = require("../domain/model");
 var db = require("../db/database");
 const { google } = require('googleapis');
 const fetch = require('node-fetch');
@@ -28,8 +28,8 @@ var transport = nodemailer.createTransport({
 
 //handles url http://localhost:6001/api/login
 router.post("/", (req, res, next) => {
-    //console.log(User.getUserLoginSQL(req.body.Username,req.body.Password));    
-    db.query(User.getUserLoginSQL(req.body.Username, req.body.Password), (err, data) => {
+    //console.log(Model.getUserLoginSQL(req.body.Username,req.body.Password));    
+    db.query(Model.getUserLoginSQL(req.body.Username, req.body.Password), (err, data) => {
         if (data.length == 0) {
             var status = false, msg = "Invalid Username or Password.";
         } else {
@@ -114,17 +114,17 @@ router.get('/auth/google/callback', function (req, res) {
                     console.log(findCommonEmailDomain(allowDomain, loginDomain));
                     console.log(address);
                     if (findCommonEmailDomain(allowDomain, loginDomain)) {
-                        db.query(User.authUserByEmail(json.email), (emailErr, emailData) => {
+                        db.query(Model.authUserByEmail(json.email), (emailErr, emailData) => {
                             if (!emailErr) {
                                 if (emailData.length) {
                                     let IsEnabled = 1;
                                     // googleLoginCallback(json.email)
-                                    db.query(User.getGoogleUser(json.email, IsEnabled), (checkGoogleErr, checkGoogleData) => {
+                                    db.query(Model.getGoogleUser(json.email, IsEnabled), (checkGoogleErr, checkGoogleData) => {
                                         if (!checkGoogleErr) {
                                             if (checkGoogleData.length) {
                                                 res.redirect(lighthouseJson.BASE_URL + "/#/social-auth?email=" + json.email);
                                             } else {
-                                                db.query(User.googleUser(json, IsEnabled), (err, data) => {
+                                                db.query(Model.googleUser(json, IsEnabled), (err, data) => {
                                                     console.log(data);
                                                     res.redirect(lighthouseJson.BASE_URL + "/#/social-auth?email=" + json.email);
                                                 });
@@ -133,7 +133,7 @@ router.get('/auth/google/callback', function (req, res) {
                                     });
                                 } else {
                                     let IsEnabled = 0;
-                                    db.query(User.getGoogleUserBYEmail(json.email, IsEnabled), (checkGoogleErr, checkGoogleData) => {
+                                    db.query(Model.getGoogleUserBYEmail(json.email, IsEnabled), (checkGoogleErr, checkGoogleData) => {
                                         if (!checkGoogleErr) {
                                             if (checkGoogleData.length) {
                                                 res.redirect(lighthouseJson.BASE_URL + "/#/social-auth?request-pending=" + json.email);
@@ -174,7 +174,7 @@ function findCommonEmailDomain(allowDomain, loginDomain) {
 }
 //handles url http://localhost:6001/api/login/google/auth
 router.post('/google/auth', function (req, res) {
-    db.query(User.authUserByEmail(req.body.email), (err, data) => {
+    db.query(Model.authUserByEmail(req.body.email), (err, data) => {
         console.log(err);
         console.log(data);
         console.log(data.length);
@@ -194,7 +194,7 @@ router.post('/google/auth', function (req, res) {
 //handles url http://localhost:6001/api/login/google/auth/user
 router.post('/google/auth/user', function (req, res) {
     let IsEnabled = 1;
-    db.query(User.getGoogleUser(req.body.email, IsEnabled), (err, data) => {
+    db.query(Model.getGoogleUser(req.body.email, IsEnabled), (err, data) => {
         if (!err) {
             if (data.length == 0) {
                 var status = false, msg = "Invalid email";
@@ -214,7 +214,7 @@ router.post('/google/auth/user', function (req, res) {
 //handles url http://localhost:6001/api/login/google/auth/pending/user
 router.get('/google/auth/pending/user', function (req, res) {
 
-    db.query(User.getAllPendingUser(), (err, data) => {
+    db.query(Model.getAllPendingUser(), (err, data) => {
 
         if (!err) {
             if (data.length == 0) {
@@ -235,7 +235,7 @@ router.get('/google/auth/pending/user', function (req, res) {
 });
 //handles url http://localhost:6001/api/login/google/auth/pending/user/id
 router.post('/google/auth/pending/user/id', function (req, res) {
-    db.query(User.getPendingUserByID(req.body.ID), (err, data) => {
+    db.query(Model.getPendingUserByID(req.body.ID), (err, data) => {
         if (!err) {
             if (data.length == 0) {
                 var status = false, msg = "Pending user not exist";
@@ -258,7 +258,7 @@ router.post('/google/admin/email', function (req, res) {
     let IsEnabled = 0;
 
     fetch(url, { method: "Get" }).then(res => res.json()).then((json) => {
-        db.query(User.googleUser(json, IsEnabled), (err, data) => {
+        db.query(Model.googleUser(json, IsEnabled), (err, data) => {
             console.log(data);
             var mailOptions = {
                 from: lighthouseJson.SMTP_USER,

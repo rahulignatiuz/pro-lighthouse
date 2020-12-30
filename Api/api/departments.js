@@ -1,14 +1,14 @@
 var express = require("express");
 const router = express.Router();
-var User = require("../domain/user");
+var Model = require("../domain/model");
 var db = require("../db/database");
 
 
 //http://localhost:6001/api/departments  
 // router.get("/", middleware.checkToken, (req, res, next) =>{
 router.get("/", (req, res, next) => {
-    // console.log(User.getAllKeywordsSQL());
-    db.query(User.getAllDepartmentsSQL(), (err, data) => {
+    // console.log(Model.getAllKeywordsSQL());
+    db.query(Model.getAllDepartmentsSQL(), (err, data) => {
         if (!err) {
             if (data && data.length > 0) {
                 res.status(200).json({
@@ -35,8 +35,8 @@ router.post('/add', function (req, res) {
     d.CreatedBy = req.body.CreatedBy;
     d.UpdatedBy = req.body.UpdatedBy;
     console.log(d)
-    //console.log(db.query(User.addalldepartmentsSQL(d)))
-    db.query(User.AddAllDepartmentsSQL(d), (err, results) => {
+    //console.log(db.query(Model.addalldepartmentsSQL(d)))
+    db.query(Model.AddAllDepartmentsSQL(d), (err, results) => {
 
         if (err) {
             res.send({ status: false, result: results, message: 'not-added' })
@@ -54,7 +54,7 @@ router.post('/update', (req, res, next) => {
 
 
     //console.log(p);
-    db.query(User.updateAlldepartmentSQL(i), (err, results) => {
+    db.query(Model.updateAlldepartmentSQL(i), (err, results) => {
         if (err) {
             res.send({ status: false, result: results, message: 'not-added' })
         }
@@ -73,7 +73,7 @@ router.post('/updatename', (req, res, next) => {
 
 
     //console.log(p);
-    db.query(User.updatedepartmentSQL(i), (err, results) => {
+    db.query(Model.updatedepartmentSQL(i), (err, results) => {
         if (err) {
             res.send({ status: false, result: results, message: 'not-added' })
         }
@@ -87,7 +87,7 @@ router.post('/updatename', (req, res, next) => {
 //http://localhost:6001/api/departments/id
 router.post("/id", (req, res, next) => {
     ID = req.body.ID;
-    db.query(User.getdepartmentsbyid(ID), (err, data) => {
+    db.query(Model.getdepartmentsbyid(ID), (err, data) => {
         if (!err) {
             if (data && data.length > 0) {
                 res.status(200).json({
@@ -107,7 +107,7 @@ router.post("/id", (req, res, next) => {
 });
 //http://localhost:6001/api/departments/departmentbarchart
 router.get("/departmentbarchart", (req, res, next) => {
-    db.query(User.getdepartmentBybarchartSQL(req.body), (err, data) => {
+    db.query(Model.getdepartmentBybarchartSQL(req.body), (err, data) => {
         if (!err) {
             let dataObj = [];
             let labelObj = [];

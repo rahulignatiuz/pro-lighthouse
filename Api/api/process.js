@@ -1,11 +1,11 @@
 var express = require("express");
 const router = express.Router();
-var User = require("../domain/user");
+var Model = require("../domain/model");
 var db = require("../db/database");
 
 //http://localhost:6001/api/process
 router.get("/", (req, res, next) => {
-    db.query(User.getAllProcessSQL(), (err, data) => {
+    db.query(Model.getAllProcessSQL(), (err, data) => {
         if (!err) {
             if (data && data.length > 0) {
                 res.status(200).json({
@@ -31,7 +31,7 @@ router.post('/add', (req, res, next) => {
     i.CreatedBy = req.body.CreatedBy;
     i.UpdatedBy = req.body.UpdatedBy;
     //console.log(p);
-    db.query(User.AddAllprocessSQL(i), (err, results) => {
+    db.query(Model.AddAllprocessSQL(i), (err, results) => {
         if (err) {
             res.send({ status: false, result: results, message: 'not-added' });
         }
@@ -50,7 +50,7 @@ router.post('/update', (req, res, next) => {
 
 
     //console.log(p);
-    db.query(User.updateAllprocessSQL(i), (err, results) => {
+    db.query(Model.updateAllprocessSQL(i), (err, results) => {
         if (err) {
             res.send({ status: false, result: results, message: 'not-added' });
         }
@@ -70,7 +70,7 @@ router.post('/updatename', (req, res, next) => {
 
 
     //console.log(p);
-    db.query(User.updateprocessSQL(i), (err, results) => {
+    db.query(Model.updateprocessSQL(i), (err, results) => {
         if (err) {
             res.send({ status: false, result: results, message: 'not-added' });
         }
@@ -84,7 +84,7 @@ router.post('/updatename', (req, res, next) => {
 //http://localhost:6001/api/process/id
 router.post("/id", (req, res, next) => {
     ID = req.body.ID;
-    db.query(User.getprocessbyid(ID), (err, data) => {
+    db.query(Model.getprocessbyid(ID), (err, data) => {
         if (!err) {
             if (data && data.length > 0) {
                 res.status(200).json({

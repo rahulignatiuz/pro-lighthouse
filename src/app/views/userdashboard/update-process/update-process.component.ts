@@ -374,7 +374,7 @@ export class UpdateProcessComponent implements OnInit {
     console.log(this.URLlessonPoccessID);
     this.userService.deletelesson(this.URLlessonPoccessID).subscribe((data) => {
       this.results = data.result;
-      this.router.navigate(['/user/lessons-process']);
+      this.router.navigate(['/user/mylessons-process']);
     });
   }
 

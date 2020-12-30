@@ -1,6 +1,6 @@
 var express = require("express");
 const router = express.Router();
-var User = require("../domain/user");
+var Model = require("../domain/model");
 var db = require("../db/database");
 const lighthouseJson = require('../json/lighthouse');
 var nodemailer = require('nodemailer');
@@ -20,7 +20,7 @@ var transport = nodemailer.createTransport({
 // router.get("/", middleware.checkToken, (req, res, next) =>{
 router.get("/", (req, res, next) => {
     // console.log(User.getAllKeywordsSQL());
-    db.query(User.getAllUser(), (err, data) => {
+    db.query(Model.getAllUser(), (err, data) => {
         if (!err) {
             if (data && data.length > 0) {
                 res.status(200).json({
@@ -47,10 +47,10 @@ router.post('/register', function (req, res) {
     obj.Email = req.body.Email;
     obj.IsEnabled = req.body.IsEnabled;
 
-    db.query(User.userRegistration(obj), (err, userData) => {
+    db.query(Model.userRegistration(obj), (err, userData) => {
         if (!err) {
             console.log(userData.insertId);
-            db.query(User.mappingUserRoles(userData.insertId, req.body.Roles), (err, data) => {
+            db.query(Model.mappingUserRoles(userData.insertId, req.body.Roles), (err, data) => {
                 if (!err) {
                     res.status(200).json({
                         status: true,
@@ -76,10 +76,10 @@ router.post('/account/settings', function (req, res) {
     obj.Status = req.body.Status;
     obj.SettingUserID = req.body.SettingUserID;
 
-    db.query(User.userAccountSettings(obj), (err, userData) => {
+    db.query(Model.userAccountSettings(obj), (err, userData) => {
         if (!err) {
             // console.log(userData.insertId);
-            db.query(User.mappingUserRolesAccountSettings(obj), (err, data) => {
+            db.query(Model.mappingUserRolesAccountSettings(obj), (err, data) => {
                 if (!err) {
                     res.status(200).json({
                         status: true,
@@ -98,15 +98,15 @@ router.post('/account/settings', function (req, res) {
 //http://localhost:6001/api/user/account/delete
 router.post('/account/delete', function (req, res) {
     UserID = req.body.UserID;
-    db.query(User.getUserByID(UserID), (err, userData) => {
+    db.query(Model.getUserByID(UserID), (err, userData) => {
         if (!err) {
-            db.query(User.deleteGoogleUser(userData[0].Email), (err, data) => {
+            db.query(Model.deleteGoogleUser(userData[0].Email), (err, data) => {
                 if (!err) {
 
-                    db.query(User.deleteUserSQL(UserID), (err, userData) => {
+                    db.query(Model.deleteUserSQL(UserID), (err, userData) => {
                         if (!err) {
                             // console.log(userData.insertId);
-                            db.query(User.deleteMappingUserRolesSQL(UserID), (err, data) => {
+                            db.query(Model.deleteMappingUserRolesSQL(UserID), (err, data) => {
                                 if (!err) {
                                     res.status(200).json({
                                         status: true,
@@ -137,12 +137,12 @@ router.post('/pending/register', function (req, res) {
     obj.Email = req.body.Email;
     obj.IsEnabled = req.body.IsEnabled;
 
-    db.query(User.userRegistration(obj), (err, userData) => {
+    db.query(Model.userRegistration(obj), (err, userData) => {
         if (!err) {
             console.log(userData.insertId);
-            db.query(User.mappingUserRoles(userData.insertId, req.body.Roles), (err, data) => {
+            db.query(Model.mappingUserRoles(userData.insertId, req.body.Roles), (err, data) => {
                 if (!err) {
-                    db.query(User.updateGoogleUser(obj), (err, data) => {
+                    db.query(Model.updateGoogleUser(obj), (err, data) => {
                         if (!err) {
                             var mailOptions = {
                                 from: lighthouseJson.SMTP_USER,
@@ -181,7 +181,7 @@ router.post('/pending/register', function (req, res) {
 });
 //http://localhost:6001/api/user/pending/account/delete
 router.post('/pending/account/delete', function (req, res) {
-    db.query(User.pendingUserDelete(req.body.ID), (err, data) => {
+    db.query(Model.pendingUserDelete(req.body.ID), (err, data) => {
         if (!err) {
             var mailOptions = {
                 from: lighthouseJson.SMTP_USER,

@@ -30,8 +30,9 @@ export class AdmindashboardComponent implements OnInit {
 
   };
   // public barChartLabels: string[];
-  public barChartType = 'bar';
-  public barChartType1 = 'horizontalBar';
+  public barChartTypeforphase = 'doughnut';
+  public barChartTypefordepartment = 'horizontalBar';
+  public barChartTypeforcategory = 'doughnut';
   barChartLabels: string[];
   barChartLabelsfordepartment: string[];
 

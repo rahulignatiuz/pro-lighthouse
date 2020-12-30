@@ -1,12 +1,12 @@
 var express = require("express");
 const router = express.Router();
-var User = require("../domain/user");
+var Model = require("../domain/model");
 var db = require("../db/database");
 
 //http://localhost:6001/api/projects
 router.get("/", (req, res, next) => {
 
-    db.query(User.getAllProjectsSQL(), (err, data) => {
+    db.query(Model.getAllProjectsSQL(), (err, data) => {
         if (!err) {
             if (data && data.length > 0) {
                 res.status(200).json({
@@ -29,8 +29,8 @@ router.post('/projectgetbyid', function (req, res) {
     var p = {};
     p.ID = req.body.projectID;
 
-    //console.log(db.query(User.updateProjectsSQL(p)))
-    db.query(User.getProjectByID(req.body), (err, data) => {
+    //console.log(db.query(Model.updateProjectsSQL(p)))
+    db.query(Model.getProjectByID(req.body), (err, data) => {
 
         if (!err) {
             if (data && data.length > 0) {
@@ -56,8 +56,8 @@ router.post('/update', function (req, res) {
     p.LPN = req.body.LPN;
 
     console.log(p)
-    //console.log(db.query(User.updateProjectsSQL(p)))
-    db.query(User.updateProjectsSQL(p), (err, results) => {
+    //console.log(db.query(Model.updateProjectsSQL(p)))
+    db.query(Model.updateProjectsSQL(p), (err, results) => {
 
         if (err) {
             res.send({ status: false, result: results, message: 'not-updated' })
@@ -76,7 +76,7 @@ router.post('/add', (req, res, next) => {
     p.CreatedBy = req.body.CreatedBy;
     p.UpdatedBy = req.body.UpdatedBy;
     //console.log(d);
-    db.query(User.AddAllProjectsSQL(p), (err, results) => {
+    db.query(Model.AddAllProjectsSQL(p), (err, results) => {
         if (err) {
             res.send({ status: false, result: results, message: 'not-added' })
         }
@@ -95,7 +95,7 @@ router.post('/updateindex', (req, res, next) => {
 
 
     //console.log(p);
-    db.query(User.updateAllprojectsSQL(i), (err, results) => {
+    db.query(Model.updateAllprojectsSQL(i), (err, results) => {
         if (err) {
             res.send({ status: false, result: results, message: 'not-added' })
         }
@@ -114,7 +114,7 @@ router.post('/updatename', (req, res, next) => {
 
 
     //console.log(p);
-    db.query(User.updateprojectSQL(i), (err, results) => {
+    db.query(Model.updateprojectSQL(i), (err, results) => {
         if (err) {
             res.send({ status: false, result: results, message: 'not-added' })
         }
@@ -128,7 +128,7 @@ router.post('/updatename', (req, res, next) => {
 //http://localhost:6001/api/projects/id
 router.post("/id", (req, res, next) => {
     ID = req.body.ID;
-    db.query(User.getprojectbyid(ID), (err, data) => {
+    db.query(Model.getprojectbyid(ID), (err, data) => {
         if (!err) {
             if (data && data.length > 0) {
                 res.status(200).json({
@@ -149,7 +149,7 @@ router.post("/id", (req, res, next) => {
 //http://localhost:6001/api/projects/projectpiechart
 router.post("/projectpiechart", (req, res, next) => {
     ID = req.body.ID;
-    db.query(User.getprojectBypiechartSQL(req.body), (err, data) => {
+    db.query(Model.getprojectBypiechartSQL(req.body), (err, data) => {
         if (!err) {
             let dataObj = [];
             let labelObj = [];

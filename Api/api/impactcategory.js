@@ -1,6 +1,6 @@
 var express = require("express");
 const router = express.Router();
-var User = require("../domain/user");
+var Model = require("../domain/model");
 var db = require("../db/database");
 
 
@@ -8,7 +8,7 @@ var db = require("../db/database");
 //http://localhost:6001/api/impactcategory
 router.get("/", (req, res, next) => {
 
-    db.query(User.getAllimpactcategorySQL(), (err, data) => {
+    db.query(Model.getAllimpactcategorySQL(), (err, data) => {
         if (!err) {
             if (data && data.length > 0) {
                 res.status(200).json({
@@ -34,7 +34,7 @@ router.post('/add', (req, res, next) => {
     i.CreatedBy = req.body.CreatedBy;
     i.UpdatedBy = req.body.UpdatedBy;
     //console.log(p);
-    db.query(User.AddAllimpactcategorySQL(i), (err, results) => {
+    db.query(Model.AddAllimpactcategorySQL(i), (err, results) => {
         if (err) {
             res.send({ status: false, result: results, message: 'not-added' })
         }
@@ -53,7 +53,7 @@ router.post('/update', (req, res, next) => {
 
 
     //console.log(p);
-    db.query(User.updateAllimpactcategorySQL(i), (err, results) => {
+    db.query(Model.updateAllimpactcategorySQL(i), (err, results) => {
         if (err) {
             res.send({ status: false, result: results, message: 'not-added' })
         }
@@ -72,7 +72,7 @@ router.post('/updatename', (req, res, next) => {
 
 
     //console.log(p);
-    db.query(User.updateimpactcategorySQL(i), (err, results) => {
+    db.query(Model.updateimpactcategorySQL(i), (err, results) => {
         if (err) {
             res.send({ status: false, result: results, message: 'not-added' })
         }
@@ -86,7 +86,7 @@ router.post('/updatename', (req, res, next) => {
 //http://localhost:6001/api/impactcategory/id
 router.post("/id", (req, res, next) => {
     ID = req.body.ID;
-    db.query(User.getimpactcategorybyid(ID), (err, data) => {
+    db.query(Model.getimpactcategorybyid(ID), (err, data) => {
         if (!err) {
             if (data && data.length > 0) {
                 res.status(200).json({
@@ -106,7 +106,7 @@ router.post("/id", (req, res, next) => {
 });
 //http://localhost:6001/api/impactcategory/impactcategorybarchart
 router.get("/impactcategorybarchart", (req, res, next) => {
-    db.query(User.getimpactcategoryBybarchartSQL(req.body), (err, data) => {
+    db.query(Model.getimpactcategoryBybarchartSQL(req.body), (err, data) => {
         if (!err) {
             let dataObj = [];
             let labelObj = [];

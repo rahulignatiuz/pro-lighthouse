@@ -15,9 +15,12 @@
    <div class="col-lg-12">
       <div class="card">
          <div class="card-header">
-            <i class="icon-plus"></i>Record a new project lesson
-            <button class="btn btn-primary borderbtn float-right" type="button" (click)="importBulkFileHistory()">Import
-               History</button>
+            <span class="centerposition">
+               <i class="icon-plus"></i> Record a new project lesson
+   
+              </span>
+            <button class="btn btn-primary borderbtn float-right" type="button" (click)="importBulkFileHistory()">
+               History <i class="fa fa-history"></i></button>
             <button class="btn btn-primary borderbtn float-right" type="button" (click)="importBulkFile()">Import <i
                   class="fa fa-upload"></i></button>
          </div>
@@ -268,7 +271,7 @@
                            </div>
                            <div class="form-actions col-sm-12 text-right">
                               <button class="btn btn-primary borderbtn" type="button" (click)="tabChange(2)"
-                                 [disabled]="(!formControls._projectType.value || !formControls._projectname.value || !formControls._projectPhase.value || !formControls._projectphasemilestone.value || !formControls.function.value|| !formControls.department.value)">Next</button>
+                                 [disabled]="(!formControls._projectType.value || !formControls._projectname.value || !formControls._projectPhase.value || !formControls._projectphasemilestone.value || !formControls.function.value|| !formControls.department.value)">Next <i class="fa fa-angle-double-right"></i></button>
                            </div>
                         </div>
                      </tab>
@@ -445,9 +448,9 @@
                            </div>
                            <div class="form-actions col-sm-12 text-right">
                               <button class="btn btn-secondary borderbtn" type="button"
-                                 (click)="tabChange(1)">Back</button>
+                                 (click)="tabChange(1)"><i class="fa fa-angle-double-left"></i> Back</button>
                               <button class="btn btn-primary borderbtn" type="button" (click)="tabChange(3)"
-                                 [disabled]="( lessonForm.controls['_Keywords'].invalid || !formControls.title.value || !formControls.typeoflesson.value || !formControls.issuedescription.value || !formControls.Recommendation.value || !formControls.rootcouse.value )">Next</button>
+                                 [disabled]="( lessonForm.controls['_Keywords'].invalid || !formControls.title.value || !formControls.typeoflesson.value || !formControls.issuedescription.value || !formControls.Recommendation.value || !formControls.rootcouse.value )">Next <i class="fa fa-angle-double-right"> </i></button>
 
                            </div>
                         </div>
@@ -524,9 +527,9 @@
                            </div>
                            <div class="form-actions col-sm-12 text-right">
                               <button class="btn btn-secondary borderbtn" type="button"
-                                 (click)="tabChange(1)">Back</button>
+                                 (click)="tabChange(1)"><i class="fa fa-angle-double-left"></i> Back</button>
                               <button class="btn btn-primary borderbtn" type="button" (click)="tabChange(3)"
-                                 [disabled]="(lessonForm.controls['_Keywords'].invalid || !formControls.title.value ||  !formControls.typeoflesson.value || !formControls.issuedescription.value || !formControls.Recommendation.value )">Next</button>
+                                 [disabled]="(lessonForm.controls['_Keywords'].invalid || !formControls.title.value ||  !formControls.typeoflesson.value || !formControls.issuedescription.value || !formControls.Recommendation.value )">Next <i class="fa fa-angle-double-right"> </i></button>
                            </div>
                         </div>
 
@@ -756,7 +759,7 @@
                         </div>
                         <div class="form-actions col-sm-12 text-right">
                            <button class="btn btn-secondary borderbtn" type="button"
-                              (click)="tabChange(2)">Back</button>
+                              (click)="tabChange(2)"> <i class="fa fa-angle-double-left"> </i>Back</button>
                            <button class="btn btn-primary borderbtn" type="submit"
                               [disabled]="(!formControls.impectcategory.value || !formControls.impectlevel.value)"><span
                                  class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
@@ -777,9 +780,9 @@
                         <br>
                         <br>
                         <button type="button" (click)="deletelesson(URLlessonID)"
-                           class="deletebtn btn btn-danger float-right borderbtn"> Delete</button>
+                           class="deletebtn btn btn-danger float-right borderbtn"> Delete <i class="fa fa-trash"></i></button>
                         <button type="button borderbtn" onclick="document.getElementById('id01').style.display='none'"
-                           class="cancelbtn btn btn-primary float-right">Cancel</button>
+                           class="cancelbtn btn btn-primary float-right">Cancel <i class="fa fa-close"></i></button>
                      </div>
                   </div>
                </form>

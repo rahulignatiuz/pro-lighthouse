@@ -1,6 +1,6 @@
 var express = require("express");
 var db = require("../db/database");
-var User = require("../domain/user");
+var Model = require("../domain/model");
 var multer = require('multer');
 var path = require('path')
 var MulterAzureStorage = require('multer-azure-storage');
@@ -32,7 +32,7 @@ const router = express.Router();
 
 // get all lessons url-http://localhost:6001/api/lessons/project
 router.get("/project", (req, res, next) => {
-    db.query(User.getAllLessonProjectSQL(), (err, data) => {
+    db.query(Model.getAllLessonProjectSQL(), (err, data) => {
         console.log(data);
         if (!err) {
             if (data && data.length > 0) {
@@ -53,7 +53,7 @@ router.get("/project", (req, res, next) => {
 });
 // get all lessons url-http://localhost:6001/api/lessons/process
 router.get("/process", (req, res, next) => {
-    db.query(User.getAllLessonProcessSQL(), (err, data) => {
+    db.query(Model.getAllLessonProcessSQL(), (err, data) => {
         console.log(data);
         if (!err) {
             if (data && data.length > 0) {
@@ -99,7 +99,7 @@ router.post("/add", (req, res, next) => {
 
 function saveData(o, res, kaywords) {
     let response = [];
-    db.query(User.addLessonSQL(o), (err, data) => {
+    db.query(Model.addLessonSQL(o), (err, data) => {
         if (!err) {
             addKaywords(data.insertId, kaywords);
             response.push(data);
@@ -122,13 +122,13 @@ function saveData(o, res, kaywords) {
 function addKaywords(lessonID, kaywords) {
     for (kayword of kaywords) {
         if (kayword.ID) {
-            db.query(User.addKaywordsByMappingLessonSQL(lessonID, kayword.ID), (err, results) => {
+            db.query(Model.addKaywordsByMappingLessonSQL(lessonID, kayword.ID), (err, results) => {
 
             });
         } else {
-            db.query(User.addKaywordsBySQL(kayword.display), (err, kaywordResults) => {
+            db.query(Model.addKaywordsBySQL(kayword.display), (err, kaywordResults) => {
                 if (kaywordResults.insertId) {
-                    db.query(User.addKaywordsByMappingLessonSQL(lessonID, kaywordResults.insertId), (err, mappingResults) => {
+                    db.query(Model.addKaywordsByMappingLessonSQL(lessonID, kaywordResults.insertId), (err, mappingResults) => {
 
                     });
                 }
@@ -137,7 +137,7 @@ function addKaywords(lessonID, kaywords) {
     }
 }
 router.post("/filterLesson", (req, res, next) => {
-    db.query(User.getLessonsByFilterSQL(req.body), (err, data) => {
+    db.query(Model.getLessonsByFilterSQL(req.body), (err, data) => {
         if (!err) {
             if (data && data.length > 0) {
                 res.status(200).json({
@@ -157,7 +157,7 @@ router.post("/filterLesson", (req, res, next) => {
 });
 router.post('/delete', function (req, res) {
     var ID = req.body.ID;
-    db.query(User.deletelessonsSQL(ID), (err, results, data) => {
+    db.query(Model.deletelessonsSQL(ID), (err, results, data) => {
         if (err) {
             // console.log(err)
             res.send({ status: false, result: results, message: 'not-deleted' });
@@ -192,7 +192,7 @@ router.post('/update', function (req, res) {
     o.UpdatedBy = req.body.UpdatedBy;
     o.IsEnabled = req.body.IsEnabled;
 
-    db.query(User.updatelessonSQL(o), (err, data) => {
+    db.query(Model.updatelessonSQL(o), (err, data) => {
         if (err) {
             res.send({ status: false, result: data, message: 'not-updated' });
         } else {
@@ -203,16 +203,16 @@ router.post('/update', function (req, res) {
     });
 });
 function updateKaywords(lessonID, kaywords) {
-    db.query(User.deleteAllKaywordsByID(lessonID), (err, deleteResults) => {
+    db.query(Model.deleteAllKaywordsByID(lessonID), (err, deleteResults) => {
         for (kayword of kaywords) {
             if (kayword.ID) {
-                db.query(User.addKaywordsByMappingLessonSQL(lessonID, kayword.ID), (err, addResults) => {
+                db.query(Model.addKaywordsByMappingLessonSQL(lessonID, kayword.ID), (err, addResults) => {
 
                 });
             } else {
-                db.query(User.addKaywordsBySQL(kayword.Name), (err, kaywordResults) => {
+                db.query(Model.addKaywordsBySQL(kayword.Name), (err, kaywordResults) => {
                     if (kaywordResults.insertId) {
-                        db.query(User.addKaywordsByMappingLessonSQL(lessonID, kaywordResults.insertId), (err, mappingResults) => {
+                        db.query(Model.addKaywordsByMappingLessonSQL(lessonID, kaywordResults.insertId), (err, mappingResults) => {
 
                         });
                     }
@@ -224,7 +224,7 @@ function updateKaywords(lessonID, kaywords) {
 //http://localhost:6001/api/lessons/porject/id
 router.post("/porject/id", (req, res, next) => {
     ID = req.body.ID;
-    db.query(User.getlessonProject(ID), (err, data) => {
+    db.query(Model.getlessonProject(ID), (err, data) => {
         if (!err) {
             if (data && data.length > 0) {
                 res.status(200).json({
@@ -245,7 +245,7 @@ router.post("/porject/id", (req, res, next) => {
 //http://localhost:6001/api/lessons/process/id
 router.post("/process/id", (req, res, next) => {
     ID = req.body.ID;
-    db.query(User.getlessonProcess(ID), (err, data) => {
+    db.query(Model.getlessonProcess(ID), (err, data) => {
         if (!err) {
             if (data && data.length > 0) {
                 res.status(200).json({
@@ -266,7 +266,7 @@ router.post("/process/id", (req, res, next) => {
 //http://localhost:6001/api/lessons/project/filter
 router.post('/project/filter', function (req, res) {
     var d = {};
-    db.query(User.FilterAllLessonssSQL(req.body), (err, data) => {
+    db.query(Model.FilterAllLessonssSQL(req.body), (err, data) => {
         if (!err) {
             if (data && data.length > 0) {
                 res.status(200).json({
@@ -286,7 +286,7 @@ router.post('/project/filter', function (req, res) {
 });
 router.post('/process/filter', function (req, res) {
     var d = {};
-    db.query(User.FilterAllLessonssProcessSQL(req.body), (err, data) => {
+    db.query(Model.FilterAllLessonssProcessSQL(req.body), (err, data) => {
         if (!err) {
             if (data && data.length > 0) {
                 res.status(200).json({
@@ -310,7 +310,7 @@ router.post('/attachment', upload.single('attachment'), (req, res) => {
     console.log(req.file);
     try {
         //res.send(req.file);
-        db.query(User.AddAllAttachmentSQL(req.file), (err, data) => {
+        db.query(Model.AddAllAttachmentSQL(req.file), (err, data) => {
             if (err) {
                 res.send({ status: false, data: data, message: 'not-updated' });
             } else {
@@ -326,7 +326,7 @@ router.post('/mappingattachment', (req, res) => {
     console.log(req.body);
     try {
         //res.send(req.file);
-        db.query(User.AddMappingLessonAttachmentSQL(req.body), (err, data) => {
+        db.query(Model.AddMappingLessonAttachmentSQL(req.body), (err, data) => {
             if (err) {
                 res.send({ status: false, data: data, message: 'not-updated' });
             } else {
@@ -342,7 +342,7 @@ router.post('/getattachment', (req, res) => {
     console.log(req.body);
     try {
         //res.send(req.file);
-        db.query(User.getLessonAttachmentSQL(req.body.ID), (err, data) => {
+        db.query(Model.getLessonAttachmentSQL(req.body.ID), (err, data) => {
             if (!err) {
                 if (data && data.length > 0) {
                     res.status(200).json({
@@ -366,7 +366,7 @@ router.post('/getattachment', (req, res) => {
 //http://localhost:6001/api/lessons/deleteattachment
 router.post('/deleteattachment', function (req, res) {
     var ID = req.body.ID;
-    db.query(User.deleteAttachmnetSQL(ID), (err, results) => {
+    db.query(Model.deleteAttachmnetSQL(ID), (err, results) => {
         if (err) {
             // console.log(err)
             res.send({ status: false, data: results, message: 'not-deleted' });
@@ -385,7 +385,7 @@ router.post("/freesearch", (req, res, next) => {
     // d.Milestone = req.body.Milestone;
     // d.Impactlevel = req.body.Impactlevel;
     // d.Impactcategory =req.body.Impactcategory; 
-    db.query(User.getfreesearchByFilterSQL(data), (err, data) => {
+    db.query(Model.getfreesearchByFilterSQL(data), (err, data) => {
         if (!err) {
             if (data && data.length > 0) {
                 res.status(200).json({
@@ -406,7 +406,7 @@ router.post("/freesearch", (req, res, next) => {
 //http://localhost:6001/api/lessons/type
 //type of lesson
 router.get("/type", (req, res, next) => {
-    db.query(User.getalltypeoflessonSql(), (err, data) => {
+    db.query(Model.getalltypeoflessonSql(), (err, data) => {
         if (!err) {
             if (data && data.length > 0) {
                 res.status(200).json({
@@ -428,7 +428,7 @@ router.get("/type", (req, res, next) => {
 //http://localhost:6001/api/lessons/kaywords/id
 router.post("/kaywords/id", (req, res, next) => {
     var ID = req.body.ID;
-    db.query(User.getAllKaywordsByID(ID), (err, data) => {
+    db.query(Model.getAllKaywordsByID(ID), (err, data) => {
         if (!err) {
             if (data && data.length > 0) {
                 res.status(200).json({
@@ -449,7 +449,7 @@ router.post("/kaywords/id", (req, res, next) => {
 //http://localhost:6001/api/lessons/attachment/lessonid
 router.post('/attachment/lessonid', function (req, res) {
     var d = {};
-    db.query(User.getAttachmentNameByID(req.body), (err, data) => {
+    db.query(Model.getAttachmentNameByID(req.body), (err, data) => {
         if (!err) {
             if (data && data.length > 0) {
                 res.status(200).json({
@@ -511,17 +511,17 @@ router.post('/bulkupload', uploadCSV.single('bulkcsv'), (req, res) => {
                 o.RootCause = "undefined";
             }
 
-            db.query(User.addLessonSQLBulk(o), (err, data) => {
+            db.query(Model.addLessonSQLBulk(o), (err, data) => {
                 if (!err) {
                     LessonID = data.insertId;
                     var results = addLessonByExcle(LessonID, rowdata, index, res);
                     results.then(function (result) {
                         if (i === rows.length - 1) {
                             const frontICPath = filePath.replace(/\\/g, "\\\\");
-                            db.query(User.addBulkImportSQL(fileName, frontICPath, successRow.length, errorcell.length, UserID), (err, data) => {
+                            db.query(Model.addBulkImportSQL(fileName, frontICPath, successRow.length, errorcell.length, ModelID), (err, data) => {
                                 if (!err) {
                                     errorcell.forEach((errcell) => {
-                                        db.query(User.mappingBulkImportAndErrorSQL(data.insertId, errcell.errorID), (err, data) => {
+                                        db.query(Model.mappingBulkImportAndErrorSQL(data.insertId, errcell.errorID), (err, data) => {
 
 
                                         });
@@ -714,7 +714,7 @@ function responseCount(res, importID, errorCount) {
 }
 async function AddBulkImport(index, row, errorF, rowIndex, columnIndex, errorMessage) {
     const finalResults = await new Promise((resolve, reject) => {
-        db.query(User.addBulkErrorImportSQL(index, row, errorF, rowIndex, columnIndex, errorMessage), (err, data) => {
+        db.query(Model.addBulkErrorImportSQL(index, row, errorF, rowIndex, columnIndex, errorMessage), (err, data) => {
             resolve(data.insertId);
         });
 
@@ -723,7 +723,7 @@ async function AddBulkImport(index, row, errorF, rowIndex, columnIndex, errorMes
 }
 async function updateDataBulk(lessonID, o) {
     const finalResults = await new Promise((resolve, reject) => {
-        db.query(User.updateLessonBybulk(lessonID, o), (err, data) => {
+        db.query(Model.updateLessonBybulk(lessonID, o), (err, data) => {
             if (!err) {
                 resolve(data);
             }
@@ -733,16 +733,16 @@ async function updateDataBulk(lessonID, o) {
 }
 function addKaywordsInBulk(KeywordsArr, LessonID) {
     KeywordsArr.forEach(key => {
-        db.query(User.checkKeywordIDByName(key), (keyerr, keydata) => {
+        db.query(Model.checkKeywordIDByName(key), (keyerr, keydata) => {
             if (!keyerr) {
                 if (keydata.length) {
-                    db.query(User.addKaywordsByMappingLessonSQL(LessonID, keydata[0].ID), (err, results) => {
+                    db.query(Model.addKaywordsByMappingLessonSQL(LessonID, keydata[0].ID), (err, results) => {
 
                     });
                 } else {
-                    db.query(User.addKaywordsBySQL(key), (err, kaywordResults) => {
+                    db.query(Model.addKaywordsBySQL(key), (err, kaywordResults) => {
                         if (kaywordResults.insertId) {
-                            db.query(User.addKaywordsByMappingLessonSQL(LessonID, kaywordResults.insertId), (err, mappingResults) => {
+                            db.query(Model.addKaywordsByMappingLessonSQL(LessonID, kaywordResults.insertId), (err, mappingResults) => {
 
                             });
                         }
@@ -754,12 +754,12 @@ function addKaywordsInBulk(KeywordsArr, LessonID) {
 }
 function getProjectCallback(Project, lessonID) {
     return new Promise((resolve, reject) => {
-        db.query(User.getProjectIDByName(Project), (err, data) => {
+        db.query(Model.getProjectIDByName(Project), (err, data) => {
             if (data.length > 0) {
                 //console.log(err);
                 return err ? reject(err) : resolve(data[0].ID);
             } else {
-                db.query(User.deletelessonsSQL(lessonID), (err, data) => {
+                db.query(Model.deletelessonsSQL(lessonID), (err, data) => {
                     //console.log("Delete", data);
                 });
                 return err ? reject(err) : resolve(null);
@@ -769,12 +769,12 @@ function getProjectCallback(Project, lessonID) {
 }
 function getProjectTypeCallback(ProjectType, lessonID) {
     return new Promise((resolve, reject) => {
-        db.query(User.getProjectTypeIDByName(ProjectType), (err, data) => {
+        db.query(Model.getProjectTypeIDByName(ProjectType), (err, data) => {
             if (data.length > 0) {
                 //console.log(err);
                 return err ? reject(err) : resolve(data[0].ID);
             } else {
-                db.query(User.deletelessonsSQL(lessonID), (err, data) => {
+                db.query(Model.deletelessonsSQL(lessonID), (err, data) => {
                     //console.log("Delete", data);
                 });
                 return err ? reject(err) : resolve(null);
@@ -784,12 +784,12 @@ function getProjectTypeCallback(ProjectType, lessonID) {
 }
 function getPhaseCallback(Phase, lessonID) {
     return new Promise((resolve, reject) => {
-        db.query(User.getPhaseIDByName(Phase), (err, data) => {
+        db.query(Model.getPhaseIDByName(Phase), (err, data) => {
             if (data.length > 0) {
                 //console.log(err);
                 return err ? reject(err) : resolve(data[0].ID);
             } else {
-                db.query(User.deletelessonsSQL(lessonID), (err, data) => {
+                db.query(Model.deletelessonsSQL(lessonID), (err, data) => {
                     //console.log("Delete", data);
                 });
                 return err ? reject(err) : resolve(null);
@@ -799,12 +799,12 @@ function getPhaseCallback(Phase, lessonID) {
 }
 function getMilestoneCallback(Milestone, lessonID) {
     return new Promise((resolve, reject) => {
-        db.query(User.getMilestoneIDByName(Milestone), (err, data) => {
+        db.query(Model.getMilestoneIDByName(Milestone), (err, data) => {
             if (data.length > 0) {
                 //console.log(err);
                 return err ? reject(err) : resolve(data[0].ID);
             } else {
-                db.query(User.deletelessonsSQL(lessonID), (err, data) => {
+                db.query(Model.deletelessonsSQL(lessonID), (err, data) => {
                     //console.log("Delete", data);
                 });
                 return err ? reject(err) : resolve(null);
@@ -814,12 +814,12 @@ function getMilestoneCallback(Milestone, lessonID) {
 }
 function getProcessCallback(Process, lessonID) {
     return new Promise((resolve, reject) => {
-        db.query(User.getProcessIDByName(Process), (err, data) => {
+        db.query(Model.getProcessIDByName(Process), (err, data) => {
             if (data.length > 0) {
                 //console.log(err);
                 return err ? reject(err) : resolve(data[0].ID);
             } else {
-                db.query(User.deletelessonsSQL(lessonID), (err, data) => {
+                db.query(Model.deletelessonsSQL(lessonID), (err, data) => {
                     //console.log("Delete", data);
                 });
                 return err ? reject(err) : resolve(null);
@@ -829,12 +829,12 @@ function getProcessCallback(Process, lessonID) {
 }
 function getTypeCallback(Type, lessonID) {
     return new Promise((resolve, reject) => {
-        db.query(User.getTypeIDByName(Type), (err, data) => {
+        db.query(Model.getTypeIDByName(Type), (err, data) => {
             if (data.length > 0) {
                 //console.log(err);
                 return err ? reject(err) : resolve(data[0].ID);
             } else {
-                db.query(User.deletelessonsSQL(lessonID), (err, data) => {
+                db.query(Model.deletelessonsSQL(lessonID), (err, data) => {
                     //console.log("Delete", data);
                 });
                 return err ? reject(err) : resolve(null);
@@ -845,12 +845,12 @@ function getTypeCallback(Type, lessonID) {
 }
 function getImpactCategoryCallback(ImpactCategory, lessonID) {
     return new Promise((resolve, reject) => {
-        db.query(User.getImpactCategoryIDByName(ImpactCategory), (err, data) => {
+        db.query(Model.getImpactCategoryIDByName(ImpactCategory), (err, data) => {
             if (data.length > 0) {
                 //console.log(err);
                 return err ? reject(err) : resolve(data[0].ID);
             } else {
-                db.query(User.deletelessonsSQL(lessonID), (err, data) => {
+                db.query(Model.deletelessonsSQL(lessonID), (err, data) => {
                     //console.log("Delete", data);
                 });
                 return err ? reject(err) : resolve(null);
@@ -860,12 +860,12 @@ function getImpactCategoryCallback(ImpactCategory, lessonID) {
 }
 function getImpactLevelCallback(ImpactLevel, lessonID) {
     return new Promise((resolve, reject) => {
-        db.query(User.getImpactLevelIDByName(ImpactLevel), (err, data) => {
+        db.query(Model.getImpactLevelIDByName(ImpactLevel), (err, data) => {
             if (data.length > 0) {
                 //console.log(err);
                 return err ? reject(err) : resolve(data[0].ID);
             } else {
-                db.query(User.deletelessonsSQL(lessonID), (err, data) => {
+                db.query(Model.deletelessonsSQL(lessonID), (err, data) => {
                     //console.log("Delete", data);
                 });
                 return err ? reject(err) : resolve(null);
@@ -875,12 +875,12 @@ function getImpactLevelCallback(ImpactLevel, lessonID) {
 }
 function getFunctionCallback(Function, lessonID) {
     return new Promise((resolve, reject) => {
-        db.query(User.getFunctionIDByName(Function), (err, data) => {
+        db.query(Model.getFunctionIDByName(Function), (err, data) => {
             if (data.length > 0) {
                 //console.log(err);
                 return err ? reject(err) : resolve(data[0].ID);
             } else {
-                db.query(User.deletelessonsSQL(lessonID), (err, data) => {
+                db.query(Model.deletelessonsSQL(lessonID), (err, data) => {
                     //console.log("Delete", data);
                 });
                 return err ? reject(err) : resolve(null);
@@ -890,12 +890,12 @@ function getFunctionCallback(Function, lessonID) {
 }
 function getDepartmentCallback(Department, lessonID) {
     return new Promise((resolve, reject) => {
-        db.query(User.getDepartmentIDByName(Department), (err, data) => {
+        db.query(Model.getDepartmentIDByName(Department), (err, data) => {
             if (data.length > 0) {
                 //console.log(err);
                 return err ? reject(err) : resolve(data[0].ID);
             } else {
-                db.query(User.deletelessonsSQL(lessonID), (err, data) => {
+                db.query(Model.deletelessonsSQL(lessonID), (err, data) => {
                     //console.log("Delete", data);
                 });
                 return err ? reject(err) : resolve(null);
@@ -905,12 +905,12 @@ function getDepartmentCallback(Department, lessonID) {
 }
 function getLifeCycleCallback(LifeCycle, lessonID) {
     return new Promise((resolve, reject) => {
-        db.query(User.getLifeCycleIDByName(LifeCycle), (err, data) => {
+        db.query(Model.getLifeCycleIDByName(LifeCycle), (err, data) => {
             if (data.length > 0) {
                 //console.log(err);
                 return err ? reject(err) : resolve(data[0].ID);
             } else {
-                db.query(User.deletelessonsSQL(lessonID), (err, data) => {
+                db.query(Model.deletelessonsSQL(lessonID), (err, data) => {
                     //console.log("Delete", data);
                 });
                 return err ? reject(err) : resolve(null);
@@ -920,12 +920,12 @@ function getLifeCycleCallback(LifeCycle, lessonID) {
 }
 function getEmailCallback(Email, lessonID) {
     return new Promise((resolve, reject) => {
-        db.query(User.getUserIDByEmail(Email), (err, data) => {
+        db.query(Model.getUserIDByEmail(Email), (err, data) => {
             if (data.length > 0) {
                 //console.log(err);
                 return err ? reject(err) : resolve(data[0].ID);
             } else {
-                db.query(User.deletelessonsSQL(lessonID), (err, data) => {
+                db.query(Model.deletelessonsSQL(lessonID), (err, data) => {
                     //console.log("Delete", data);
                 });
                 return err ? reject(err) : resolve(null);
@@ -972,7 +972,7 @@ router.post('/errorexcel', (req, res, next) => {
         const filePath = 'uploads/' + fileName;
         const frontICPath = filePath.replace(/\\/g, "\\\\");
         workbook.write(filePath);
-        db.query(User.updateBulkSQL(ID, fileName, frontICPath), (err, data) => {
+        db.query(Model.updateBulkSQL(ID, fileName, frontICPath), (err, data) => {
             if (!err) {
                 let result = { dataOnResult: data, filePath: frontICPath, ID: ID };
                 res.status(200).json({
@@ -1004,7 +1004,7 @@ async function addDataOnExcle(ID, worksheet, workbook) {
     });
     let cellIndex = 0;
     const finalResults = await new Promise((resolve, reject) => {
-        db.query(User.getBulkImportErrorData(ID), (err, data) => {
+        db.query(Model.getBulkImportErrorData(ID), (err, data) => {
             if (data) {
                 resolve(data);
             }
@@ -1128,7 +1128,7 @@ async function addDataOnExcle(ID, worksheet, workbook) {
 }
 //http://localhost:6001/api/lessons/bulk
 router.get("/bulk", (req, res, next) => {
-    db.query(User.getallbulkSql(), (err, data) => {
+    db.query(Model.getallbulkSql(), (err, data) => {
         if (!err) {
             if (data && data.length > 0) {
                 res.status(200).json({
@@ -1150,7 +1150,7 @@ router.get("/bulk", (req, res, next) => {
 // pie chart lesson type (issue or best practice)
 //http://localhost:6001/api/lessons/typepiechart
 router.get("/typepiechart", (req, res, next) => {
-    db.query(User.gettypeBypiechartSQL(req.body), (err, data) => {
+    db.query(Model.gettypeBypiechartSQL(req.body), (err, data) => {
         if (!err) {
             let dataObj = [];
             let labelObj = [];
@@ -1186,7 +1186,7 @@ router.get("/typepiechart", (req, res, next) => {
 router.post("/countlessontype", (req, res, next) => {
     let id = req.body.id;
 
-    db.query(User.getcountlessontype(id), (err, data) => {
+    db.query(Model.getcountlessontype(id), (err, data) => {
         if (!err) {
             if (data && data.length > 0) {
                 res.status(200).json({
@@ -1209,7 +1209,7 @@ router.post("/countlessontype", (req, res, next) => {
 router.post("/counttype", (req, res, next) => {
     let id = req.body.id;
 
-    db.query(User.getcounttype(id), (err, data) => {
+    db.query(Model.getcounttype(id), (err, data) => {
         if (!err) {
             if (data && data.length > 0) {
                 res.status(200).json({
@@ -1230,7 +1230,7 @@ router.post("/counttype", (req, res, next) => {
 
 //http://localhost:6001/api/lessons/monthdata
 router.get("/monthdata", (req, res, next) => {
-    db.query(User.getcountlessonbymonth(), (err, data) => {
+    db.query(Model.getcountlessonbymonth(), (err, data) => {
         if (!err) {
             if (data && data.length > 0) {
                 res.status(200).json({

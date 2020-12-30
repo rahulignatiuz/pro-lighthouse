@@ -1,11 +1,11 @@
 var express = require("express");
 const router = express.Router();
-var User = require("../domain/user");
+var Model = require("../domain/model");
 var db = require("../db/database");
 
 //http://localhost:6001/api/projecttype
 router.get("/", (req, res, next) => {
-    db.query(User.getAllProjecttypeSQL(), (err, data) => {
+    db.query(Model.getAllProjecttypeSQL(), (err, data) => {
         if (!err) {
             if (data && data.length > 0) {
                 res.status(200).json({
@@ -31,7 +31,7 @@ router.post('/add', (req, res, next) => {
     p.CreatedBy = req.body.CreatedBy;
     p.UpdatedBy = req.body.UpdatedBy;
     //console.log(p);
-    db.query(User.AddAllProjecttypeSQL(p), (err, results) => {
+    db.query(Model.AddAllProjecttypeSQL(p), (err, results) => {
         if (err) {
             res.send({ status: false, result: results, message: 'not-added' });
         }
@@ -50,7 +50,7 @@ router.post('/update', (req, res, next) => {
 
 
     //console.log(p);
-    db.query(User.updateAllprojecttypeSQL(i), (err, results) => {
+    db.query(Model.updateAllprojecttypeSQL(i), (err, results) => {
         if (err) {
             res.send({ status: false, result: results, message: 'not-added' });
         }
@@ -69,7 +69,7 @@ router.post('/updatename', (req, res, next) => {
 
 
     //console.log(p);
-    db.query(User.updateprojecttypeSQL(i), (err, results) => {
+    db.query(Model.updateprojecttypeSQL(i), (err, results) => {
         if (err) {
             res.send({ status: false, result: results, message: 'not-added' });
         }
@@ -83,7 +83,7 @@ router.post('/updatename', (req, res, next) => {
 //http://localhost:6001/api/projecttype/id
 router.post("/id", (req, res, next) => {
     ID = req.body.ID;
-    db.query(User.getprojecttypebyid(ID), (err, data) => {
+    db.query(Model.getprojecttypebyid(ID), (err, data) => {
         if (!err) {
             if (data && data.length > 0) {
                 res.status(200).json({

@@ -662,7 +662,7 @@ export class UpdateProjectComponent implements OnInit {
   deletelesson(URLlessonID) {
     this.userService.deletelesson(this.URLlessonID).subscribe((data) => {
       this.results = data.result;
-      this.router.navigate(['/user/lessons']);
+      this.router.navigate(['/user/mylessons-project']);
     });
   }
   updateLesson(form: NgForm) {

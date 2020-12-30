@@ -1,11 +1,11 @@
 var express    = require("express");
 const router   = express.Router();
-var User       = require("../domain/user");
+var Model       = require("../domain/model");
 var db         = require("../db/database");
 
 //http://localhost:6001/api/keywords
 router.get("/",  (req, res, next)=>{
-    db.query(User.getAllKeywordsSQL(), (err, data)=> {
+    db.query(Model.getAllKeywordsSQL(), (err, data)=> {
         if(!err) {
             if(data && data.length > 0) {
                 res.status(200).json({
@@ -31,7 +31,7 @@ router.get("/",  (req, res, next)=>{
         k.CreatedBy = req.body.CreatedBy;
         k.UpdatedBy = req.body.UpdatedBy;
         //console.log(d);
-        db.query(User.AddAllKeywordsSQL(k),(err,results)=>{
+        db.query(Model.AddAllKeywordsSQL(k),(err,results)=>{
             if(err){
                 res.send({status:false,result:results,message:'not-added'})
             }

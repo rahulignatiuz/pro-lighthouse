@@ -863,8 +863,8 @@ export class MasterlistsComponent implements OnInit {
         this.functionAsObjects = data.result;
       });
     });
-    // this.reloadfunction();
-    window.location.reload();
+    this.reloadfunction();
+    // window.location.reload();
 
 
   }
@@ -876,8 +876,8 @@ export class MasterlistsComponent implements OnInit {
         this.departmentAsObjects = data.result;
       });
     });
-    // this.reloadfunction();
-    window.location.reload();
+    this.reloadfunction();
+    // window.location.reload();
 
 
   }

@@ -90,12 +90,12 @@
                                     <!-- <input class="form-control" id="text-input"
                         formControlName="projectName" placeholder="Project Name" type="text"> -->
                                     <input class="form-control " id="text-input" formControlName="projecttypeName"
-                                       placeholder="Projecttype Name" type="text">
+                                       placeholder="Project type Name" type="text">
                                        <div
                                        *ngIf="projectForm.controls['projecttypeName'].invalid && (projectForm.controls['projecttypeName'].dirty || projectForm.controls['projecttypeName'].touched)"
                                        class="custom-errMsg">
                                        <div *ngIf="projectForm.controls['projecttypeName'].errors.required">
-                                          Projecttype is required.
+                                          Project type is required.
                                        </div>
                                     </div>
                                  </div>

@@ -212,7 +212,7 @@
                            <div class="form-actions col-sm-12 text-right">
                               <button class="btn btn-primary borderbtn" type="button" 
                                  (click)="tabChange(2)"
-                                 [disabled]="lessonForm.controls[ '_projectType' && '_projectname' && '_projectPhase' && '_projectphasemilestone' && 'function' && 'department'].invalid">Next</button>
+                                 [disabled]="lessonForm.controls[ '_projectType' && '_projectname' && '_projectPhase' && '_projectphasemilestone' && 'function' && 'department'].invalid">Next <i class="fa fa-angle-double-right"></i></button>
                            </div>
                         </div>
                      </tab>
@@ -417,10 +417,10 @@
                         </div>
                         <div class="form-actions col-sm-12 text-right">
                            <button class="btn btn-secondary borderbtn" type="button" 
-                              (click)="tabChange(1)">Back</button>
+                              (click)="tabChange(1)"> <i class="fa fa-angle-double-left"></i> Back</button>
                            <button class="btn btn-primary borderbtn" type="button" 
                               (click)="tabChange(3)"
-                              [disabled]="additionalFormbtn || lessonForm.controls['_Keywords' || 'issuedescription' || 'title' || 'Recommendation' || 'typeoflesson'].invalid">Next</button>
+                              [disabled]="additionalFormbtn || lessonForm.controls['_Keywords' || 'issuedescription' || 'title' || 'Recommendation' || 'typeoflesson'].invalid">Next <i class="fa fa-angle-double-right"></i></button>
                         </div>
                      </tab>
                      <tab heading="Additional Information" [active]="additionalTab" [disabled]="additionaldTab">
@@ -646,7 +646,7 @@
                                        aria-label="Recipient's username" aria-describedby="basic-addon2">
                                     <div class="input-group-append">
                                        <button class="form-control filellm" (click)="resetAttach()"
-                                          type="button">Reset</button>
+                                          type="button"> <i class="fa fa-refresh"></i> Reset</button>
                                     </div>
                                  </div>
                               </div>
@@ -654,12 +654,12 @@
                         </div>
                         <div class="form-actions col-sm-12 text-right">
                            <button class="btn btn-secondary borderbtn" type="button" 
-                              (click)="tabChange(2)">Back</button>
+                              (click)="tabChange(2)"> <i class="fa fa-angle-double-left"></i> Back</button>
                            <button class="btn btn-primary borderbtn" type="submit" ><span
                                  class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
-                                 *ngIf="showLoader"></span>{{showLoader? 'Loading...' : 'Update'}}</button>
+                                 *ngIf="showLoader"></span>{{showLoader? 'Loading...' : 'Update'}} <i class="fa fa-edit"></i> </button>
                            <a class="btn btn-danger borderbtn" onclick="document.getElementById('id01').style.display='block'"
-                              style="cursor: pointer; color: white !important;">Delete</a>
+                              style="cursor: pointer; color: white !important;"> Delete <i class="fa fa-trash"> </i></a>
                         </div>
                      </tab>
                   </tabset>
@@ -673,9 +673,9 @@
                         <br>
                         <br>
                         <button type="button" (click)="deletelesson()" class="deletebtn btn btn-danger float-right borderbtn"
-                           > Delete</button>
+                           > Delete <i class="fa fa-trash"></i></button>
                         <button type="button" onclick="document.getElementById('id01').style.display='none'"
-                           class="cancelbtn btn btn-primary float-right borderbtn">Cancel</button>
+                           class="cancelbtn btn btn-primary float-right borderbtn">Cancel <i class="fa fa-close"></i> </button>
                      </div>
                   </div>
                </form>

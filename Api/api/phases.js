@@ -1,11 +1,11 @@
 var express = require("express");
 const router = express.Router();
-var User = require("../domain/user");
+var Model = require("../domain/model");
 var db = require("../db/database");
 
 //http://localhost:6001/api/phases
 router.get("/", (req, res, next) => {
-    db.query(User.getAllphaseSQL(), (err, data) => {
+    db.query(Model.getAllphaseSQL(), (err, data) => {
         if (!err) {
             if (data && data.length > 0) {
                 res.status(200).json({
@@ -31,7 +31,7 @@ router.post('/add', (req, res, next) => {
     p.CreatedBy = req.body.CreatedBy;
     p.UpdatedBy = req.body.UpdatedBy;
     //console.log(p);
-    db.query(User.AddAllphasesSQL(p), (err, results) => {
+    db.query(Model.AddAllphasesSQL(p), (err, results) => {
         if (err) {
             res.send({ status: false, result: results, message: 'not-added' })
         }
@@ -48,7 +48,7 @@ router.post('/update', (req, res, next) => {
 
 
     //console.log(p);
-    db.query(User.updateAllphasesSQL(i), (err, results) => {
+    db.query(Model.updateAllphasesSQL(i), (err, results) => {
         if (err) {
             res.send({ status: false, result: results, message: 'not-added' })
         }
@@ -66,7 +66,7 @@ router.post('/updatename', (req, res, next) => {
 
 
     //console.log(p);
-    db.query(User.updatephasesSQL(i), (err, results) => {
+    db.query(Model.updatephasesSQL(i), (err, results) => {
         if (err) {
             res.send({ status: false, result: results, message: 'not-added' })
         }
@@ -78,7 +78,7 @@ router.post('/updatename', (req, res, next) => {
 //http://localhost:6001/api/phases/id
 router.post("/id", (req, res, next) => {
     ID = req.body.ID;
-    db.query(User.getphasesbyid(ID), (err, data) => {
+    db.query(Model.getphasesbyid(ID), (err, data) => {
         if (!err) {
             if (data && data.length > 0) {
                 res.status(200).json({
@@ -100,7 +100,7 @@ router.post("/id", (req, res, next) => {
 //http://localhost:6001/api/phases/phasebarchart
 router.post("/phasebarchart", (req, res, next) => {
     ID = req.body.ID;
-    db.query(User.getphaseBybarchartSQL(req.body), (err, data) => {
+    db.query(Model.getphaseBybarchartSQL(req.body), (err, data) => {
         if (!err) {
             let dataObj = [];
             let labelObj = [];

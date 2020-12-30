@@ -9,12 +9,14 @@
       <div class="card-body">
         <circle-progress [percent]="currentValue2" [radius]="100" [space]="-20" [unitsFontSize]="25" [animation]="true"
           [animationDuration]="1300" [backgroundStrokeWidth]="38" [clockwise]="false" outerStrokeColor="#4882c2"
-          outerStrokeColor="#4882c2" outerStrokeGradientStopColor="#4882c2" subtitle="Projects"></circle-progress>
+          outerStrokeColor="#4882c2" outerStrokeGradientStopColor="#4882c2" ></circle-progress>
 <!-- 
         <circle-progress [percent]="currentValue3" [radius]="100" [space]="-20" [unitsFontSize]="25" [animation]="true"
           [animationDuration]="1300" [backgroundStrokeWidth]="38" outerStrokeColor="#4882c2" outerStrokeColor="#4882c2"
-          outerStrokeGradientStopColor="#4882c2"></circle-progress> -->
+          outerStrokeGradientStopColor="#4882c2" subtitle="Projects"></circle-progress> -->
       </div>
+      <label>Projects </label>
+
     </div>
   </div>
   <div class="col-sm-6">
@@ -26,12 +28,13 @@
       <div class="card-body">
         <circle-progress [percent]="currentValue4" [radius]="100" [space]="-20" [unitsFontSize]="25" [animation]="true"
           [animationDuration]="1300" [backgroundStrokeWidth]="38" [clockwise]="false" outerStrokeColor="#f64846"
-          outerStrokeColor="#f64846" outerStrokeGradientStopColor="#f64846" subtitle="Issue"></circle-progress>
+          outerStrokeColor="#f64846" outerStrokeGradientStopColor="#f64846"></circle-progress>
 
         <!-- <circle-progress [percent]="currentValue5" [radius]="100" [space]="-20" [unitsFontSize]="25" [animation]="true"
           [animationDuration]="1300" [backgroundStrokeWidth]="38" outerStrokeColor="#f64846" outerStrokeColor="#f64846"
           outerStrokeGradientStopColor="#f64846"></circle-progress> -->
       </div>
+      <label>Issue </label>
     </div>
   </div>
 
@@ -39,7 +42,7 @@
 
 
 <div class="row">
-  <div class="col-sm-6">
+  <!-- <div class="col-sm-6">
     <div class="card">
       <div class="card-header">
         Lessons by function
@@ -52,7 +55,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
   <div class="col-sm-6">
     <div class="card">
       <div class="card-header">
@@ -62,7 +65,7 @@
         <div class="chart-wrapper" *ngIf="barChartDatafordepartment && barChartDatafordepartment.length > 0">
           <canvas baseChart class="chart" [data]="barChartDatafordepartment" [labels]="barChartLabelsfordepartment"
             [colors]="lineChartColours" [options]="barChartOptions" [legend]="barChartLegend"
-            [chartType]="barChartType1" (chartHover)="chartHovered($event)"
+            [chartType]="barChartTypefordepartment" (chartHover)="chartHovered($event)"
             (chartClick)="chartClicked($event)"></canvas>
         </div>
       </div>
@@ -71,17 +74,23 @@
 </div>
 
 <div class="row">
-  <div class="col-sm-6">
+  <div class="col-sm-4">
     <div class="card">
       <div class="card-header">
         Lessons by Projects
-      </div>
-      <select class="form-control col-sm-3" style=" margin-top: 6px;  margin-left: 1%;background-color: #f1f1f1;"
+        <select class="form-control col-sm-3" style=" margin-top: -12%;  margin-left: 78%;background-color: #f1f1f1;"
         (change)="onselectProjecttype3($event)" id="458">
         <option value="" disabled> Select Type</option>
         <option *ngFor="let projectype of projectsAsType" value="{{projectype.ID}}">
           {{projectype.Name}}</option>
       </select>
+      </div>
+      <!-- <select class="form-control col-sm-3" style=" margin-top: 6px;  margin-left: 1%;background-color: #f1f1f1;"
+        (change)="onselectProjecttype3($event)" id="458">
+        <option value="" disabled> Select Type</option>
+        <option *ngFor="let projectype of projectsAsType" value="{{projectype.ID}}">
+          {{projectype.Name}}</option>
+      </select> -->
       <div class="card-body">
         <div class="chart-wrapper" *ngIf="projectpieChartData && projectpieChartData.length > 0">
           <canvas baseChart class="chart" [data]="projectpieChartData" [labels]="projectpieChartLabels"
@@ -91,12 +100,12 @@
       </div>
     </div>
   </div>
-  <div class="col-sm-6">
+  <div class="col-sm-4">
     <div class="card">
       <div class="card-header">
-        Lessons by milestones
+        Lessons by Milestones
       </div>
-      <select class="form-control col-sm-3" style=" margin-top: 6px;  margin-left: 1%;background-color: #f1f1f1;"
+      <select class="form-control col-sm-3" style=" margin-top: -11%;  margin-left: 75%;background-color: #f1f1f1;"
         (change)="onselectProjecttype1($event)" id="458">
         <option value="" disabled> Select Type</option>
         <option *ngFor="let projectype of projectsAsType" value="{{projectype.ID}}">
@@ -112,6 +121,29 @@
       </div>
     </div>
   </div>
+  <div class="col-sm-4">
+    <div class="card">
+      <div class="card-header">
+        Project Phase 
+      </div>
+      <select class="form-control col-sm-3" style=" margin-top: -11%;  margin-left: 75%;background-color: #f1f1f1;"
+        (change)="onselectProjecttype2($event)" id="458">
+        <option value="" disabled> Select Type</option>
+        <option *ngFor="let projectype of projectsAsType" value="{{projectype.ID}}">
+          {{projectype.Name}}</option>
+      </select>
+      <div class="card-body">
+        <div class="chart-wrapper" *ngIf="barChartData && barChartData.length > 0">
+          <!-- <canvas baseChart class="chart" [data]="barChartData" [labels]="barChartLabels" [colors]="lineChartColours"
+            [options]="barChartOptions" [legend]="barChartLegend" [chartType]="barChartType"
+            (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas> -->
+            <canvas baseChart class="chart" [data]="barChartData" [labels]="barChartLabels" [chartType]="barChartTypeforphase"
+            (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+        </div>
+      </div>
+      
+    </div>
+  </div>
 </div>
 
 
@@ -119,7 +151,7 @@
   <div class="col-sm-6">
     <div class="card">
       <div class="card-header">
-        Project Phase Bar Chart
+        Project Phase 
       </div>
       <select class="form-control col-sm-3" style=" margin-top: 6px;  margin-left: 1%;background-color: #f1f1f1;"
         (change)="onselectProjecttype2($event)" id="458">
@@ -129,24 +161,29 @@
       </select>
       <div class="card-body">
         <div class="chart-wrapper" *ngIf="barChartData && barChartData.length > 0">
-          <canvas baseChart class="chart" [data]="barChartData" [labels]="barChartLabels" [colors]="lineChartColours"
+          <!-- <canvas baseChart class="chart" [data]="barChartData" [labels]="barChartLabels" [colors]="lineChartColours"
             [options]="barChartOptions" [legend]="barChartLegend" [chartType]="barChartType"
+            (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas> -->
+            <canvas baseChart class="chart" [data]="barChartData" [labels]="barChartLabels" [chartType]="barChartTypeforphase"
             (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
         </div>
       </div>
+      
     </div>
   </div>
   <div class="col-sm-6">
     <div class="card">
       <div class="card-header">
-        Lessons by Impact Category Bar Chart
+        Lessons by Impact Category 
       </div>
       <div class="card-body">
         <div class="chart-wrapper" *ngIf="barChartDataforcategory && barChartDataforcategory.length > 0">
-          <canvas baseChart class="chart" [data]="barChartDataforcategory" [labels]="barChartLabelsforcategory"
+          <!-- <canvas baseChart class="chart" [data]="barChartDataforcategory" [labels]="barChartLabelsforcategory"
             [colors]="lineChartColours" [options]="barChartOptions" [legend]="barChartLegend"
             [chartType]="barChartType1" (chartHover)="chartHovered($event)"
-            (chartClick)="chartClicked($event)"></canvas>
+            (chartClick)="chartClicked($event)"></canvas> -->
+            <canvas baseChart class="chart" [data]="barChartDataforcategory" [labels]="barChartLabelsforcategory"
+            [chartType]="barChartTypeforcategory" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
         </div>
       </div>
     </div>
