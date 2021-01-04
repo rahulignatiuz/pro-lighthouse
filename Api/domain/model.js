@@ -848,6 +848,11 @@ class User {
     GROUP BY  DepartmentID;`
         return sql;
     }
+    static getdepartmentBybarSQL(){
+
+        let sql =`SELECT Name as deprt FROM lighthouse.department;`
+        return sql;
+    }
     static getprojectBypiechartSQL() {
         let sql = `select pr.Name as project,COUNT(ProjectID) as total,(select count(ID) from lesson) as totallesson
     FROM lesson les 
@@ -959,19 +964,19 @@ class User {
         return sql;
     }
     static authUserByEmail(email) {
-        let sql = `SELECT ul.ID,ul.FirstName,ul.LastName,ul.Email,murl.roleid FROM User ul 
+        let sql = `SELECT ul.ID,ul.FirstName,ul.LastName,ul.Email,ul.IsEnabled,murl.roleid FROM User ul 
         INNER JOIN MappingUserRole murl on ul.ID = murl.userid  WHERE ul.Email = "${email}";`
         return sql;
     }
     static getAllUser() {
-        let sql = `SELECT ul.ID,ul.FirstName,ul.LastName,ul.CreatedDate,ul.IsEnabled,ul.Email,murl.roleid, gu.Picture FROM User ul 
+        let sql = `SELECT ul.ID,ul.FirstName,ul.LastName,ul.EmailNotification,ul.CreatedDate,ul.IsEnabled,ul.Email,murl.roleid, gu.Picture FROM User ul 
         INNER JOIN MappingUserRole murl on ul.ID = murl.userid
         LEFT JOIN googleuser gu on ul.Email = gu.Email;`
         return sql;
     }
     static userRegistration(obj) {
-        let sql = `INSERT INTO lighthouse.user (FirstName,LastName,Email,CreatedBy,CreatedDate,IsEnabled) VALUES \
-            ('${obj.FirstName}','${obj.LastName}','${obj.Email}','${obj.UserID}',now(),'${obj.IsEnabled}');`;
+       let sql = `INSERT INTO lighthouse.user (FirstName,LastName,Email,EmailNotification,CreatedBy,CreatedDate,IsEnabled) VALUES \
+            ('${obj.FirstName}','${obj.LastName}','${obj.Email}','${obj.EmailNotification}','${obj.UserID}',now(),'${obj.IsEnabled}');`;
         return sql;
     }
     static mappingUserRoles(userID, roleID) {
@@ -993,7 +998,7 @@ class User {
     }
     static userAccountSettings(obj) {
         let sql = `UPDATE lighthouse.user
-        SET UpdatedBy='${obj.UserID}', UpdatedDate=now(), IsEnabled='${obj.Status}'
+        SET FirstName='${obj.SettFirstName}',LastName='${obj.SettLastName}',UpdatedBy='${obj.UserID}',EmailNotification='${obj.Notifications}', UpdatedDate=now(), IsEnabled='${obj.Status}'
         WHERE ID='${obj.SettingUserID}';`;
         return sql;
     }
@@ -1055,5 +1060,13 @@ class User {
         WHERE CreatedDate >=DATE_ADD(NOW(), INTERVAL -3 MONTH)`
         return sql; 
      }
+		 static getUserEmailForNotification(){
+        let sql = `SELECT Email FROM lighthouse.user WHERE EmailNotification = 1;`;
+        return sql; 
+     }
+     static updateAvatarImage(email, picture, isEnabled){
+        let sql = `UPDATE lighthouse.googleuser SET Picture='${picture}' WHERE Email='${email}' and IsEnabled='${isEnabled}';`;
+        return sql;
+     }								  
 }
 module.exports = User;

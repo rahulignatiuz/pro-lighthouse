@@ -2,6 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ModalModule } from 'ngx-bootstrap/modal';
+
 
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
@@ -34,6 +36,7 @@ import {
   AppHeaderModule,
   AppFooterModule,
   AppSidebarModule,
+  
 
 } from '@coreui/angular';
 
@@ -69,7 +72,9 @@ import { SocialAuthComponent } from './views/social-auth/social-auth.component';
     HttpClientModule,
     TagInputModule,
     NgMultiSelectDropDownModule.forRoot(),
-    DataTablesModule
+    DataTablesModule,
+    ModalModule.forRoot(),
+
   ],
   declarations: [
     AppComponent,

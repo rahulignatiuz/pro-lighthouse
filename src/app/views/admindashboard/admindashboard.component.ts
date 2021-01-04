@@ -26,13 +26,28 @@ export class AdmindashboardComponent implements OnInit {
   //barchart
   public barChartOptions: any = {
     scaleShowVerticalLines: false,
-    responsive: true
+    responsive: true,
+    scales: {
+      xAxes: [{
+        gridLines: {
+          display: false,
+          barPercentage: 0.4,
+
+
+        }
+      }],
+      yAxes: [{
+        gridLines: {
+          display: false
+        }
+      }]
+    }
 
   };
   // public barChartLabels: string[];
-  public barChartTypeforphase = 'doughnut';
-  public barChartTypefordepartment = 'horizontalBar';
-  public barChartTypeforcategory = 'doughnut';
+  public barChartTypeforphase = 'bar';
+  public barChartTypefordepartment = 'bar';
+  public barChartTypeforcategory = 'bar';
   barChartLabels: string[];
   barChartLabelsfordepartment: string[];
 
@@ -41,6 +56,8 @@ export class AdmindashboardComponent implements OnInit {
     // { data: [65, 59, 80, 81, 56, 55, 46], label: '123' },
 
   ];
+
+
   public barChartDatafordepartment: any[] = [
     // { data: [65, 59, 80, 81, 56, 55, 46], label: '' },
     // { data: [65, 59, 80, 81, 56, 55, 46], label: '123' },
@@ -74,7 +91,7 @@ export class AdmindashboardComponent implements OnInit {
   // Pie milestones
   public milespieChartLabels: string[];
   public milespieChartData: number[];
-  public milespieChartType = 'doughnut';
+  public milespieChartType = 'bar';
 
   // Pie function
   public funpieChartLabels: string[];
@@ -116,7 +133,7 @@ export class AdmindashboardComponent implements OnInit {
   // Pie projects
   public projectpieChartLabels: string[];
   public projectpieChartData: number[];
-  public projectpieChartType = 'doughnut';
+  public projectpieChartType = 'pie';
 
   public mappingProjectTypeAndProject: any;
   public getallimplemented: any;
@@ -187,6 +204,7 @@ export class AdmindashboardComponent implements OnInit {
   }
 
   ngOnInit() {
+
     // this.currentValue = 70;
 
     // this.piedata = [
@@ -219,7 +237,9 @@ export class AdmindashboardComponent implements OnInit {
       "#f1f1f1"
     ];
     // css for pyramid
-    // this.palette = ["#E94649", "#F6B53F", "#6FAAB0", "#FF33F3","#228B22","#3399FF"];
+    // this.palette = ['#1c5881', '#268001', '#f64846', '#f69114', 'rgb(0, 255, 255)'];
+    this.palette = ['#F7464A', '#46BFBD', '#949FB1', '#0f69c4'];
+    
     // this.sortbyBD = "1";
     this.masterlistproject();
 
@@ -279,6 +299,8 @@ export class AdmindashboardComponent implements OnInit {
     console.log(ID)
     this.userService.getmilestonePiechart(ID).subscribe((data) => {
       if (data) {
+        data.data.push(0);
+
         this.milespieChartLabels = data.label;
         this.milespieChartData = data.data;
       }
@@ -368,6 +390,12 @@ export class AdmindashboardComponent implements OnInit {
 
   getdepartmentbarchart() {
     this.userService.getdepartbarchart().subscribe((data) => {
+      this.userService.getdepartbarchart1().subscribe((data) => {
+        //data.label;
+        // let deprt1 = data.label;
+       // console.log(data.label)
+        this.barChartLabelsfordepartment = data.label;
+      });
       if (data) {
         data.data.push(0);
         this.barChartLabelsfordepartment = data.label;
@@ -377,6 +405,7 @@ export class AdmindashboardComponent implements OnInit {
       }
 
     });
+    
   }
   getcategorybarchart() {
     this.userService.getcategorybarchart().subscribe((data) => {

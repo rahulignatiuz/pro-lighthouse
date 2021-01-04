@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../../_services/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Constant } from '../../../_global/constant';
-
+import { Title } from '@angular/platform-browser';
 @Component({
   selector: 'app-bulk-import',
   templateUrl: './bulk-import.component.html',
@@ -13,8 +13,9 @@ export class BulkImportComponent implements OnInit {
   public importID: number;
   public _baseURL: string;
   public p: any;
-  constructor(private userService: UserService, private route: ActivatedRoute,) {
+  constructor(private userService: UserService, private route: ActivatedRoute, private titleService: Title) {
     this.getAllBulk();
+    this.titleService.setTitle("Lighthouse | Import-History");
     this._baseURL = Constant.baseURLForbulk;
 
   }

@@ -8,6 +8,7 @@ import { UserManagementComponent } from './user-management.component';
 import { UserManagementRoutingModule } from './user-management-routing.module';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 @NgModule({
   imports: [
@@ -19,6 +20,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     BsDropdownModule,
     ButtonsModule.forRoot(),
     NgxPaginationModule,
+    Ng2SearchPipeModule,
     ModalModule.forRoot(),
   ],
   declarations: [ UserManagementComponent ]

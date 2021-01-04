@@ -129,7 +129,7 @@ export class UpdateProjectComponent implements OnInit {
     this.getdepartments();
     this.getfunctions();
     this.getlifecycle();
-    this.titleService.setTitle('Record Lesson');
+    this.titleService.setTitle('Lighthouse | Edit Project');
   }
 
   ngOnInit() {

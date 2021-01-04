@@ -63,7 +63,7 @@ const routes: Routes = [
     path: 'bulk-import/:id',
     component: BulkImportComponent,
     data: {
-      title: 'Bulk Import'
+      title: 'Import-History'
     }
   }
 ];

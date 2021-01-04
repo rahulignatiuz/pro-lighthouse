@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../../_services/authentication.service';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-social-auth',
@@ -10,14 +11,19 @@ import { AuthenticationService } from '../../_services/authentication.service';
 export class SocialAuthComponent implements OnInit {
   email: string;
   message: string;
+  isError: boolean = false;
   outerDomainEmail: string;
   emailAccountNotExist: string;
   emailRequestPending: string;
   accessToken: string;
+  emailInactive: string;
   verifyEmail: boolean = false;
   outerEmail: boolean = false;
   emailNotExist: boolean = false;
   isEmailRequestPending: boolean = false;
+  isEmailInactive: boolean = false;
+
+  @ViewChild('sendRequest', { static: false }) public sendRequest: ModalDirective;
 
   constructor(private router: Router, private authService: AuthenticationService) {
 
@@ -27,16 +33,23 @@ export class SocialAuthComponent implements OnInit {
       this.emailAccountNotExist = params['account-exist'];
       this.emailRequestPending = params['request-pending'];
       this.accessToken = params['access-token'];
+      this.emailInactive = params['inactive'];
       // console.log("access=", this.emailRequestPending);
       if (this.email) {
         this.verifyEmail = true;
         this.oauthLogin(this.email);
       } else if (this.outerDomainEmail) {
+        this.isError = true;
         this.outerEmail = true;
       } else if (this.emailAccountNotExist) {
+        this.isError = true;
         this.emailNotExist = true;
       } else if (this.emailRequestPending) {
+        this.isError = true;
         this.isEmailRequestPending = true;
+      } else if (this.emailInactive) {
+        this.isError = true;
+        this.isEmailInactive = true;
       }
     });
   }
@@ -70,11 +83,20 @@ export class SocialAuthComponent implements OnInit {
   }
   sendLoginReq() {
     if (this.accessToken) {
+      console.log("1696+96+96", this.accessToken);
       this.authService.sendLoginReq(this.accessToken).subscribe((data) => {
         if (data.status) {
-          this.router.navigate(['/login']);
+          console.log("2696+96+96", this.accessToken);
+          this.sendRequest.show();
+        } else {
+          this.emailNotExist = false;
+          this.isEmailRequestPending = true;
         }
       });
     }
+  }
+  sendDone() {
+    this.router.navigate(['/login']);
+
   }
 }

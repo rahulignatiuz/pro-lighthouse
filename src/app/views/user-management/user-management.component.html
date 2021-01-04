@@ -3,18 +3,37 @@
     <div class="table-wrapper">
       <div class="table-title">
         <div class="row user-header">
-          <div class="col-sm-5">
-            <h2>User <b>Management</b></h2>
+          <div class="col-sm-6">
+            <h4 style="font-weight: 500;">User Management </h4>
           </div>
-          <div class="col-sm-7">
+          <!-- <div class="col-sm-3">
+            <div class="col-sm-12">
+              <div class="search-hero">
+                <input type="text" class="form-control" placeholder="Enter name or email to search user..."
+                  [(ngModel)]="searchedUser">
+              </div>
 
-            <a href="#" (click)="userRegister()" class="btn btn-secondary"><i class="	fa fa-plus-circle fa-fw"></i><span>Add
-                New User</span></a>
-            <a href="#" (click)="userPending()" class="btn btn-secondary"><span>Pending User</span></a>
+            </div>
+          </div> -->
+
+          <div class="col-sm-6">
+            <a href="#" (click)="userRegister()" class="btn btn-secondary"><i
+                class="	fa fa-plus-circle fa-fw"></i><span>Add
+                User</span></a>
+            <a href="#" (click)="userPending()" class="btn btn-secondary pending-user"><span>Pending
+                Requests</span><span *ngIf="isPendingUser" class="badge">{{pendingUserCount}}</span></a>
+                <div class="col-sm-5">
+                  <div class="search-hero  has-search ">
+                    <span class="fa fa-search form-control-feedback" style="
+                    margin-left: 39%;"></span>
+                    <input type="text" class="form-control" style="
+                    margin-left: 45%; height: 1%;" placeholder="Search"
+                      [(ngModel)]="searchedUser">
+                  </div>
+                </div>
           </div>
         </div>
       </div>
-
       <table class="table table-hover shadow-lg bg-white">
         <thead>
           <tr>
@@ -22,12 +41,13 @@
             <th>Email</th>
             <th>Role</th>
             <th>Status</th>
+            <th>Notification Email</th>
             <th>Date Created</th>
             <th>Action</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let user of results | paginate: { itemsPerPage: 10, currentPage: p }">
+          <tr *ngFor="let user of results | filter:searchedUser | paginate: { itemsPerPage: 10, currentPage: p }">
             <td> <img src="{{user.Picture}}" onerror="this.src='assets/img/avatars/user.png';" class="rounded-circle"
                 alt="Avatar" width="30" height="30"><img><span style="margin-left: 5px;">
                 {{user.FirstName}}
@@ -38,11 +58,14 @@
             <td *ngIf="user.roleid === 3">User</td>
             <td *ngIf="user.IsEnabled === 1">Active</td>
             <td *ngIf="user.IsEnabled === 0">Inactive</td>
+            <td *ngIf="user.EmailNotification === 1">Active</td>
+            <td *ngIf="user.EmailNotification === 0">Inactive</td>
             <td>{{user.CreatedDate | date}}</td>
             <td>
-              <a href="#" (click)="userSettings(user.FirstName, user.ID, user.roleid, user.IsEnabled)" class="settings"
-                title="" data-toggle="tooltip" data-original-title="Settings"><i class="fa fa-cog icon fa-fw"
-                  aria-hidden="true"></i></a>
+              <a href="#"
+                (click)="userSettings(user.FirstName,user.LastName,user.Email, user.ID, user.roleid, user.EmailNotification, user.IsEnabled)"
+                class="settings" title="" data-toggle="tooltip" data-original-title="Settings"><i
+                  class="fa fa-cog icon fa-fw" aria-hidden="true"></i></a>
               <a href="#" (click)=userDelete(user.ID) class="delete" title="" data-toggle="tooltip"
                 data-original-title="Delete"><i class="fa fa-remove icon" style="color:red"></i></a>
             </td>
@@ -53,9 +76,19 @@
     </div>
   </div>
 </div>
+<div bsModal #userExists="bs-modal" class="modal">
+  <form class="modal-content row forms">
+    <div class="modal-body">
+      <h3>The user already exists. Please use a different user.</h3>
+    </div>
+    <div class="modal-footer">
+      <button type="button" (click)="existsDone()" class="btn btn-primary">OK</button>
+    </div>
+  </form>
+</div>
 <div bsModal #registrationForm="bs-modal" class="modal">
   <form class="modal-content row forms" [formGroup]="userRegistrationForm" (ngSubmit)="registration()">
-    <h2 class="text-muted">Add New User Account</h2>
+    <h2 class="text-muted">Add User Account</h2>
 
     <div class="form-group">
       <label for="firstName">First Name</label>
@@ -115,13 +148,35 @@
       </div>
     </div>
 
-    <button type="submit" class="btn btn-block btn-primary">Create Account</button>
+    <button type="submit" [disabled]="createAccBtnDis" class="btn btn-block btn-primary centerbtn">Create Account</button>
 
   </form>
 </div>
 <div bsModal #accountSetting="bs-modal" class="modal">
   <form class="modal-content row forms" [formGroup]="accountSettingForm" (ngSubmit)="userAccountSetting()">
-    <h2 class="text-muted">{{settingUserFirstName}} Account Settings</h2>
+    <h2 class="text-muted">Edit User - {{settingUserFirstName}}</h2>
+    <div class="form-group">
+      <label for="firstName">First Name</label>
+      <input type="text" [(ngModel)]="sett_firstName"
+        [ngClass]="{'has-error is-invalid': (isSettingSubmitted || accountSettingForm.controls['sett_firstName'].touched) && accountSettingFormControls.sett_firstName.errors }"
+        formControlName="sett_firstName" class="form-control" placeholder="First Name" autocomplete="first-name" required>
+      <div
+        *ngIf="accountSettingForm.controls['sett_firstName'].invalid && (isSubmitted || accountSettingForm.controls['sett_firstName'].dirty || accountSettingForm.controls['sett_firstName'].touched)"
+        class="text-danger">
+        <div *ngIf="accountSettingForm.controls['sett_firstName'].errors.required">
+          First name is required.
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="lastName">Last Name</label>
+      <input type="text" [(ngModel)]="sett_lastName" formControlName="sett_lastName" class="form-control" placeholder="Last Name"
+        autocomplete="last-name">
+    </div>
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="text" [(ngModel)]="sett_email" formControlName="sett_email" class="form-control" placeholder="Email" autocomplete="email" disabled>
+    </div>
     <div class="form-group">
       <label for="roles">Roles</label>
       <select class="form-control" [(ngModel)]="settRoles" formControlName="settRoles" name="settRoles" required>
@@ -137,7 +192,15 @@
         <option value="1">Active</option>
       </select>
     </div>
-    <button type="submit" class="btn btn-block btn-primary">Save</button>
+    <div class="form-group">
+      <label for="roles">Notification Emails</label>
+      <select class="form-control" [(ngModel)]="notifications" formControlName="notifications" name="notifications"
+        required>
+        <option value="0">Inactive</option>
+        <option value="1">Active</option>
+      </select>
+    </div>
+    <button type="submit" class="btn btn-block btn-primary centerbtn">Save</button>
   </form>
 </div>
 <div bsModal #deleteAccount="bs-modal" class="modal">
@@ -145,9 +208,9 @@
     <div class="modal-body">
       <h3>Are you sure you want to delete this user?</h3>
     </div>
-    <div class="modal-footer">
-      <button type="button" (click)="deleteClose()" class="btn btn-primary">Cancel</button>
-      <button type="button" (click)="deleteDone()" class="btn btn-danger">Delete</button>
+    <div class="modal-footer" style="border-top: 0px solid #c8ced3;">
+      <button type="button" (click)="deleteClose()" class="btn btn-primary">Cancel <i class="fa fa-close"> </i></button>
+      <button type="button" (click)="deleteDone()" class="btn btn-danger">Delete <i class="fa fa-trash"></i></button>
     </div>
   </form>
 </div>
@@ -172,10 +235,11 @@
 
           <tr *ngFor="let penUser of getAllPenUser | paginate: { itemsPerPage: 5, currentPage: p1 }; let i = index">
             <td>{{penUser.Email}}</td>
-            <td>{{penUser.CreatedDate  | date}}</td>
+            <td>{{penUser.CreatedDate | date}}</td>
             <td>
               <a href="#" (click)="openUserAddForm(penUser.ID)" class="settings" title="" data-toggle="tooltip"
-                data-original-title="Settings"><span><i class="fa fa-user-plus fa-lg  approve-icon"  aria-hidden="true"></i></span></a>
+                data-original-title="Settings"><span><i class="fa fa-user-plus fa-lg  approve-icon"
+                    aria-hidden="true"></i></span></a>
               <a href="#" (click)=pendingUserDelete(i,penUser) class="delete" title="" data-toggle="tooltip"
                 data-original-title="Delete"><i class="fa fa-user-times fa-lg reject-icon" aria-hidden="true"></i></a>
             </td>
@@ -241,7 +305,7 @@
       </div>
     </div>
 
-    <button type="submit" class="btn btn-block btn-primary">Approve</button>
+    <button type="submit" [disabled]="approveBtnDis" class="btn btn-block btn-primary">Approve</button>
 
   </form>
 </div>

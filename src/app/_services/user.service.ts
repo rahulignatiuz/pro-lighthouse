@@ -138,6 +138,9 @@ export class UserService {
   getdepartbarchart() {
     return this.http.get<any>(`${this._baseURL}/departments/departmentbarchart`);
   }
+  getdepartbarchart1() {
+    return this.http.get<any>(`${this._baseURL}/departments/departmentbar`);
+  }
   getcategorybarchart() {
     return this.http.get<any>(`${this._baseURL}/impactcategory/impactcategorybarchart`);
   }

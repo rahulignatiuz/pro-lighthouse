@@ -137,4 +137,36 @@ router.get("/departmentbarchart", (req, res, next) => {
         }
     });
 });
+//http://localhost:6001/api/departments/departmentbar
+router.get("/departmentbar", (req, res, next) => {
+    db.query(Model.getdepartmentBybarSQL(req.body), (err, data) => {
+        if (!err) {
+            let dataObj = [];
+            let labelObj = [];
+           // let totalObj = [];
+            if (data && data.length > 0) {
+                for (let i = 0; i < data.length; i++) {
+                    // dataObj.push(data[i].total);
+                    labelObj.push(data[i].deprt);
+                    //totalObj.push(data[i].totallesson);
+                }
+                res.status(200).json({
+                    status: true,
+                    message: "departments get successfully.",
+                    data: dataObj,
+                    label: labelObj,
+                    // totallesson: totalObj
+                });
+            } else {
+                res.status(200).json({
+                    status: false,
+                    message: "departments not added.",
+                    data: dataObj,
+                    label: labelObj,
+                    // totallesson: totalObj
+                });
+            }
+        }
+    });
+});
 module.exports = router; 

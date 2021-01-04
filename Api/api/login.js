@@ -115,22 +115,34 @@ router.get('/auth/google/callback', function (req, res) {
                     console.log(address);
                     if (findCommonEmailDomain(allowDomain, loginDomain)) {
                         db.query(Model.authUserByEmail(json.email), (emailErr, emailData) => {
+                           // console.log("rrrrrrrrrrrrrrrrrrrrrreeeeee=>", emailData);
                             if (!emailErr) {
+                                // console.log("emailData[0].IsEnabled=>",emailData[0].IsEnabled);
+
                                 if (emailData.length) {
-                                    let IsEnabled = 1;
-                                    // googleLoginCallback(json.email)
-                                    db.query(Model.getGoogleUser(json.email, IsEnabled), (checkGoogleErr, checkGoogleData) => {
-                                        if (!checkGoogleErr) {
-                                            if (checkGoogleData.length) {
-                                                res.redirect(lighthouseJson.BASE_URL + "/#/social-auth?email=" + json.email);
-                                            } else {
-                                                db.query(Model.googleUser(json, IsEnabled), (err, data) => {
-                                                    console.log(data);
-                                                    res.redirect(lighthouseJson.BASE_URL + "/#/social-auth?email=" + json.email);
-                                                });
+                                    if (emailData[0].IsEnabled == 1) {
+                                        let IsEnabled = 1;
+                                        // googleLoginCallback(json.email)
+                                        db.query(Model.getGoogleUser(json.email, IsEnabled), (checkGoogleErr, checkGoogleData) => {
+                                            if (!checkGoogleErr) {
+                                                if (checkGoogleData.length) {
+                                                    // res.redirect(lighthouseJson.BASE_URL + "/#/social-auth?email=" + json.email);
+                                                    db.query(Model.updateAvatarImage(json.email, json.picture, IsEnabled), (err, data) => {
+                                                        res.redirect(lighthouseJson.BASE_URL + "/#/social-auth?email=" + json.email);
+                                                    });
+
+                                                } else {
+                                                    db.query(Model.googleUser(json, IsEnabled), (err, data) => {
+                                                        console.log(data);
+                                                        res.redirect(lighthouseJson.BASE_URL + "/#/social-auth?email=" + json.email);
+                                                    });
+                                                }
                                             }
-                                        }
-                                    });
+                                        });
+                                    } else {
+
+                                        res.redirect(lighthouseJson.BASE_URL + "/#/social-auth?inactive=" + json.email);
+                                    }
                                 } else {
                                     let IsEnabled = 0;
                                     db.query(Model.getGoogleUserBYEmail(json.email, IsEnabled), (checkGoogleErr, checkGoogleData) => {
@@ -144,6 +156,8 @@ router.get('/auth/google/callback', function (req, res) {
                                     });
 
                                 }
+
+
                             }
                         });
                     } else {
@@ -156,12 +170,12 @@ router.get('/auth/google/callback', function (req, res) {
 });
 // function googleLoginCallback(Project, lessonID) {
 //     return new Promise((resolve, reject) => {
-//         db.query(User.getProjectIDByName(Project), (err, data) => {
+//         db.query(Model.getProjectIDByName(Project), (err, data) => {
 //             if (data.length > 0) {
 //                 //console.log(err);
 //                 return err ? reject(err) : resolve(data[0].ID);
 //             } else {
-//                 db.query(User.deletelessonsSQL(lessonID), (err, data) => {
+//                 db.query(Model.deletelessonsSQL(lessonID), (err, data) => {
 //                     //console.log("Delete", data);
 //                 });
 //                 return err ? reject(err) : resolve(null);
@@ -258,30 +272,59 @@ router.post('/google/admin/email', function (req, res) {
     let IsEnabled = 0;
 
     fetch(url, { method: "Get" }).then(res => res.json()).then((json) => {
-        db.query(Model.googleUser(json, IsEnabled), (err, data) => {
-            console.log(data);
-            var mailOptions = {
-                from: lighthouseJson.SMTP_USER,
-                to: 'rahul.rai@ardentinfotech.com',
-                subject: 'A new account has been requested',
-                text: `Hello Admin, 
-                     \nA new account has been requested at ${lighthouseJson.BASE_URL} using ${json.email} email address. 
-                     \nTo confirm your new account, please go to this web address:
-                     \n${lighthouseJson.BASE_URL}\nIn most mail programs, this should appear as a blue link which you can just click on. If that doesnt work, then cut and paste the address into the address line at the top of your web browser window.
-                            
-                     \nThanks`
-            };
-            transport.sendMail(mailOptions, function (error, info) {
-                if (!error) {
-                    console.log('Email sent: ' + info.response);
+        db.query(Model.getGoogleUserBYEmail(json.email, IsEnabled), (checkGoogleErr, checkGoogleData) => {
+            if (!checkGoogleErr) {
+                if (checkGoogleData.length) {
+
+																
                     res.status(200).json({
-                        status: true,
-                        result: data
+                        status: false,
+                        result: checkGoogleData
                     });
-                    // res.redirect(lighthouseJson.BASE_URL + "/#/social-auth?account-exist=" + json.email);
+                } else {
+                    db.query(Model.googleUser(json, IsEnabled), (err, data) => {
+                        if (!err) {
+                            db.query(Model.getUserEmailForNotification(), (err, notificationEmail) => {
+                                if (!err) {
+                                    notificationEmail.forEach((emails, index) => {
+                                        console.log("+654+987", notificationEmail);
+                                        var mailOptions = {
+                                            from: lighthouseJson.SMTP_USER,
+                                            to: emails.Email,
+                                            subject: 'A new account has been requested',
+                                            text: `Hello Admin, 
+                                                 \nA new account has been requested at ${lighthouseJson.BASE_URL} using ${json.email} email address. 
+                                                 \nTo confirm your new account, please go to this web address:
+                                                 \n${lighthouseJson.BASE_URL}/#/dashboard?request-email=${json.email}\nIn most mail programs, this should appear as a blue link which you can just click on. If that doesnt work, then cut and paste the address into the address line at the top of your web browser window.
+                                                        
+                                                 \nThanks`
+                                        };
+                                        transport.sendMail(mailOptions, function (error, info) {
+                                            if (!error) {
+                                                console.log('Email sent: ' + info.response);
+
+                                                // res.redirect(lighthouseJson.BASE_URL + "/#/social-auth?account-exist=" + json.email);
+                                            }
+                                        });
+
+                                    });
+                                    res.status(200).json({
+                                        status: true,
+                                        result: data
+                                    });
+
+                                }
+
+                            });
+                        }
+
+
+                    });
                 }
-            });
+            }
+
         });
+
     });
 });
 module.exports = router;

@@ -121,7 +121,7 @@ export class AddLessonComponent implements OnInit {
     this.getProjects();
     this.getlessontype();
     this.getlifecycle();
-    this.titleService.setTitle("Lighthouse | Add Lesson");
+    this.titleService.setTitle("Lighthouse | Add Project");
   }
 
   ngOnInit() {

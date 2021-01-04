@@ -45,6 +45,7 @@ router.post('/register', function (req, res) {
     obj.FirstName = req.body.FirstName;
     obj.LastName = req.body.LastName;
     obj.Email = req.body.Email;
+    obj.EmailNotification = req.body.EmailNotification;
     obj.IsEnabled = req.body.IsEnabled;
 
     db.query(Model.userRegistration(obj), (err, userData) => {
@@ -63,7 +64,7 @@ router.post('/register', function (req, res) {
             res.status(200).json({
                 status: false,
                 message: "user not added successfully.",
-                result: data
+                result: userData
             });
         }
     });
@@ -135,6 +136,7 @@ router.post('/pending/register', function (req, res) {
     obj.FirstName = req.body.FirstName;
     obj.LastName = req.body.LastName;
     obj.Email = req.body.Email;
+    obj.EmailNotification = req.body.EmailNotification;
     obj.IsEnabled = req.body.IsEnabled;
 
     db.query(Model.userRegistration(obj), (err, userData) => {
