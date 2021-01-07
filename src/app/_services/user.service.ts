@@ -171,8 +171,8 @@ export class UserService {
     return this.http.post<any>(`${this._baseURL}/lessons/update`, o);
   }
 
-  getlessonbyPojectID(ID: number) {
-    console.log(ID, "getlessonbyPojectID");
+  getlessonbyProjectID(ID: number) {
+    console.log(ID, "getlessonbyProjectID");
     return this.http.post<any>(`${this._baseURL}/lessons/porject/id`, { ID })
       .pipe(
         timeout(5000) //5 seconds

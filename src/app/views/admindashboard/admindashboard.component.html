@@ -2,7 +2,7 @@
  
 
  
-  <div class="col-sm-8">
+  <div class="col-sm-8 centerline">
     <div class="card">
      <div class="card-header">
        <!-- <p style="float:left;"> -->
@@ -115,7 +115,7 @@
 
    </div>
   </div>
-  <div class="col-sm-4">
+  <div class="col-sm-4 rightmargin">
     <div class="card">
       <div class="card-header">
         Issue / Best Practice
@@ -160,14 +160,14 @@
     </div>
   </div> -->
   
-  <div class="col-sm-8">
+  <div class="col-sm-8 centerline">
     <div class="card">
       <div class="card-header">
-        Lessons by Department Bar Chart
+        Lessons by Department
       </div>
       <div class="card-body">
         <div class="chart-wrapper" *ngIf="barChartDatafordepartment && barChartDatafordepartment.length > 0">
-          <canvas baseChart class="chart" [data]="barChartDatafordepartment" [labels]="barChartLabelsfordepartment"
+          <canvas baseChart class="chart smallscreen" [data]="barChartDatafordepartment" [labels]="barChartLabelsfordepartment"
             [colors]="lineChartColours" [options]="barChartOptions" [legend]="barChartLegend"
             [chartType]="barChartTypefordepartment" (chartHover)="chartHovered($event)"
             (chartClick)="chartClicked($event)"></canvas>
@@ -175,12 +175,12 @@
       </div>
     </div>
   </div>
-  <div class="col-sm-4">
+  <div class="col-sm-4 rightmargin">
     <div class="card">
       <div class="card-header">
         Lesson by Months
       </div>
-      <ejs-accumulationchart id="chart-container" class="abc" [legendSettings]='trianglelegent' style="margin-top: 9%;"
+      <ejs-accumulationchart id="chart-container" class="abc cssforsmallscreen" [legendSettings]='trianglelegent' 
         [tooltip]='Triangulartooltipsettings' [background]='background'>
         <e-accumulation-series-collection>
           <e-accumulation-series type='Pyramid' [dataSource]='piedata' xName='x' yName='y'
@@ -188,8 +188,9 @@
           </e-accumulation-series>
         </e-accumulation-series-collection>
       </ejs-accumulationchart>
-      <br>
-      <br>
+      <br class="cssforsmal">
+      <br class="cssforsmal">
+      <br class="cssforsmal">
       <!-- <label >pyramid</label> -->
     </div>
 
@@ -198,11 +199,11 @@
 </div>
 
 <div class="row">
-  <div class="col-sm-4">
+  <div class="col-sm-4 centerline">
     <div class="card">
       <div class="card-header">
         Lessons by Projects
-        <select class="form-control col-sm-3 float-right" style="background-color: #f1f1f1;"
+        <select class="form-control col-sm-3 float-right" style="background-color: #f1f1f1; margin-top: -9px;"
         (change)="onselectProjecttype3($event)" id="458">
         <option value="" disabled> Select Type</option>
         <option *ngFor="let projectype of projectsAsType" value="{{projectype.ID}}">
@@ -217,21 +218,24 @@
       </select> -->
       <div class="card-body">
         <div class="chart-wrapper" *ngIf="projectpieChartData && projectpieChartData.length > 0">
-          <canvas baseChart class="chart" [data]="projectpieChartData" [labels]="projectpieChartLabels"
+          <canvas baseChart class="chart marginforsmall" [data]="projectpieChartData" [labels]="projectpieChartLabels"
             [chartType]="projectpieChartType" (chartHover)="chartHovered($event)" [colors]="chartColors"
             (chartClick)="chartClicked($event)"></canvas>
         </div>
+        <br class="largescreen">
+        <br class="largescreen">
+      
       </div>
     </div>
   </div>
-  <div class="col-sm-4">
-    <div class="card">
-      <div class="card-header">
+  <div class="col-sm-4 centerlineright">
+    <div class="card ">
+      <div class="card-header ">
         Projects / Process
 
         <!-- <span style="margin-left: 32%;"> Process</span> -->
       </div>
-      <div class="card-body">
+      <div class="card-body marginforlarger">
         <circle-progress [percent]="currentValue2" [radius]="80" [space]="-20" subtitleFontSize="12" [unitsFontSize]="12" [animation]="true"
           [animationDuration]="1300" [backgroundStrokeWidth]="38" [clockwise]="false" outerStrokeColor="#4882c2"
           outerStrokeColor="#4882c2" outerStrokeGradientStopColor="#4882c2"  titleFontSize="24"></circle-progress>
@@ -245,12 +249,12 @@
 
     </div>
   </div>
-  <div class="col-sm-4">
+  <div class="col-sm-4 centerlineright">
     <div class="card">
       <div class="card-header">
         Project Phase 
       </div>
-      <select class="form-control col-sm-3" style=" margin-top: -9%;  margin-left: 75%;    margin-bottom: 5%;background-color: #f1f1f1;"
+      <select class="form-control col-sm-3 projectphaseselect" style=" margin-top: -9%;  margin-left: 75%;    margin-bottom: 5%;background-color: #f1f1f1;"
         (change)="onselectProjecttype2($event)" id="458">
         <option value="" disabled> Select Type</option>
         <option *ngFor="let projectype of projectsAsType" value="{{projectype.ID}}">
@@ -258,7 +262,7 @@
       </select>
       <div class="card-body">
         <div class="chart-wrapper" *ngIf="barChartData && barChartData.length > 0">
-          <canvas baseChart class="chart" [data]="barChartData" [labels]="barChartLabels" [colors]="lineChartColours"
+          <canvas baseChart class="chart smallscreenprojectphase" [data]="barChartData" [labels]="barChartLabels" [colors]="lineChartColours"
             [options]="barChartOptions" [legend]="barChartLegend" [chartType]="barChartTypeforphase"
             (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
             
@@ -279,14 +283,14 @@
 
 
 <div class="row">
-  <div class="col-sm-4">
+  <div class="col-sm-4 centerline">
     <div class="card">
       <div class="card-header">
         Implemented / Not Implemented
 
         <!-- <span style="margin-left: 32%;"> Process</span> -->
       </div>
-      <div class="card-body">
+      <div class="card-body largescreenimplemented">
         <circle-progress [percent]="currentValue" [radius]="80" [space]="-20" subtitleFontSize="12" [unitsFontSize]="12" [animation]="true"
           [animationDuration]="1300" [backgroundStrokeWidth]="38" [clockwise]="false" 
             titleFontSize="24"></circle-progress>
@@ -300,14 +304,14 @@
     </div>
   </div>
 
-  <div class="col-sm-4">
+  <div class="col-sm-4 centerlineright">
     <div class="card">
       <div class="card-header">
         Lessons by Impact Category 
       </div>
       <div class="card-body">
         <div class="chart-wrapper" *ngIf="barChartDataforcategory && barChartDataforcategory.length > 0">
-          <canvas baseChart class="chart" [data]="barChartDataforcategory" [labels]="barChartLabelsforcategory" style="margin-top: 15px;"
+          <canvas baseChart class="chart impactcssforsmallscreen" [data]="barChartDataforcategory" [labels]="barChartLabelsforcategory" style="margin-top: 15px;"
             [colors]="lineChartColours" [options]="barChartOptions" [legend]="barChartLegend"
             [chartType]="barChartTypeforcategory" (chartHover)="chartHovered($event)"
             (chartClick)="chartClicked($event)"></canvas>
@@ -319,12 +323,12 @@
       </div>
     </div>
   </div>
-  <div class="col-sm-4">
+  <div class="col-sm-4 centerlineright">
     <div class="card">
       <div class="card-header">
         Lessons by Milestones
       </div>
-      <select class="form-control col-sm-3" style=" margin-top: -9%;  margin-left: 75%;    margin-bottom: 5%;background-color: #f1f1f1;"
+      <select class="form-control col-sm-3 projectphaseselect" style=" margin-top: -9%;  margin-left: 75%;    margin-bottom: 5%;background-color: #f1f1f1;"
         (change)="onselectProjecttype1($event)" id="458">
         <option value="" disabled> Select Type</option>
         <option *ngFor="let projectype of projectsAsType" value="{{projectype.ID}}">
@@ -337,7 +341,7 @@
             [chartType]="milespieChartType" (chartHover)="chartHovered($event)"
             (chartClick)="chartClicked($event)"></canvas> -->
 
-            <canvas baseChart class="chart" [data]="milespieChartData" [labels]="milespieChartLabels" [colors]="lineChartColours"
+            <canvas baseChart class="chart Milestonecssforsmall" [data]="milespieChartData" [labels]="milespieChartLabels" [colors]="lineChartColours"
             [options]="barChartOptions" [legend]="barChartLegend" [chartType]="milespieChartType"
             (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
         </div>

@@ -235,7 +235,7 @@ export class UpdateProjectComponent implements OnInit {
 
     this.isupdate = true;
     this.isLoader = true;
-    this.userService.getlessonbyPojectID(ID).subscribe((data) => {
+    this.userService.getlessonbyProjectID(ID).subscribe((data) => {
       // console.log(data.result[0])
       // console.log(data.result)
       console.log(data)

@@ -55,7 +55,7 @@ export class ButtonsComponent implements OnInit {
     });  
   }
   getlessonbyid(ID) {
-    this.userService.getlessonbyPojectID(ID).subscribe((data) => {        
+    this.userService.getlessonbyProjectID(ID).subscribe((data) => {        
     console.log(data.result[0]);
     this.title = data.result[0].Title;
     this._projectType = data.result[0].projecttype;

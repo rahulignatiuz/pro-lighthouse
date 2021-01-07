@@ -210,7 +210,7 @@ class User {
     // used to get lessonProject data by lesson id
     static getlessonProject(ID) {
         let sql = `select COUNT(ul.Likes) as likes,pro.Name as projecttype,pro.ID as projecttypeID, les.Recommendation,lf.ID as lifecycleID,lf.Name as lifecycle,
-        les.RootCause,les.ProcessID,les.Title,les.IssueDescription,les.CreatedDate,les.UserID ,lt.Name as lessontypeName,pr.ID as projectID,pr.LPN,pr.Name as projectname,us.Email as Email,p.Name as phase,p.ID as phaseID,
+        les.RootCause,les.ProcessID,les.Title,les.IssueDescription,les.CreatedDate,les.UserID ,lt.Name as lessontypeName,pr.ID as projectID,pr.LPN,pr.Name as projectname,us.Email as Email,us.FirstName as firstname,us.LastName as lastname,p.Name as phase,p.ID as phaseID,
         im.Name as impactlevel,im.ID as impactlevelID,mil.Name as milestones,mil.ID as milestonesID,imp.Name as impactcategory,imp.ID as impactcategoryID,les.ID as LessonID,t.Name as Type,t.ID as TypeID,f.Name as functions,f.ID as functionID,d.Name as department,d.ID as departmentID,usles.Description as useruseful
         from lesson les
         Inner join lessontype lt on lt.ID =les.LessonTypeID
@@ -232,7 +232,7 @@ class User {
     // used to get lessonProcess data by lesson id
     static getlessonProcess(ID) {
         let sql = `select COUNT(ul.Likes) as likes, les.Recommendation,lt.Name as lessontypeName,lf.ID as lifecycleID,lf.Name as lifecycle,
-        les.RootCause,les.ProcessID,les.Title,les.IssueDescription,les.CreatedDate,les.UserID ,us.Email as Email,
+        les.RootCause,les.ProcessID,les.Title,les.IssueDescription,les.CreatedDate,les.UserID ,us.Email as Email,us.FirstName as firstname,us.LastName as lastname,
         im.Name as impactlevel,im.ID as impactlevelID,imp.Name as impactcategory,imp.ID as impactcategoryID,les.ID as LessonID,t.Name as Type,t.ID as TypeID,f.Name as functions,f.ID as functionID,d.Name as department,d.ID as departmentID, proc.ID as processID, proc.Name as Name,usles.Description as useruseful
         from lesson les
         Inner join lessontype lt on lt.ID =les.LessonTypeID

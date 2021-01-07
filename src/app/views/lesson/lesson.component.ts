@@ -16,6 +16,8 @@ export class lessonComponent implements OnInit {
   public _baseURL: string;
   URLlessonID: number;
   projectname: string;
+  firstname :string;
+  lastname:string;
   Email: string;
   issuedescription: string;
   rootcouse: string;
@@ -79,7 +81,7 @@ export class lessonComponent implements OnInit {
     });
   }
   getlessonbyid(ID) {
-    this.userService.getlessonbyPojectID(ID).subscribe((data) => {
+    this.userService.getlessonbyProjectID(ID).subscribe((data) => {
       console.log('111', data.result[0]);
       this.title = data.result[0].Title;
       this._projectType = data.result[0].projecttype;
@@ -96,6 +98,8 @@ export class lessonComponent implements OnInit {
       this.department = data.result[0].department;
       this.lifecycle = data.result[0].lifecycle;
       this.projectname = data.result[0].projectname;
+      this.firstname = data.result[0].firstname;
+      this.lastname  = data.result[0].lastname;
       this.Email = data.result[0].Email;
       if (this.rootcouse == "undefined") {
         this.showrootcouse = false;

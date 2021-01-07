@@ -19,7 +19,7 @@ var transport = nodemailer.createTransport({
 //http://localhost:6001/api/user
 // router.get("/", middleware.checkToken, (req, res, next) =>{
 router.get("/", (req, res, next) => {
-    // console.log(User.getAllKeywordsSQL());
+    // console.log(Model.getAllKeywordsSQL());
     db.query(Model.getAllUser(), (err, data) => {
         if (!err) {
             if (data && data.length > 0) {
@@ -47,25 +47,39 @@ router.post('/register', function (req, res) {
     obj.Email = req.body.Email;
     obj.EmailNotification = req.body.EmailNotification;
     obj.IsEnabled = req.body.IsEnabled;
-
-    db.query(Model.userRegistration(obj), (err, userData) => {
+    db.query(Model.getUserIDByEmail(req.body.Email), (err, userDetails) => {
         if (!err) {
-            console.log(userData.insertId);
-            db.query(Model.mappingUserRoles(userData.insertId, req.body.Roles), (err, data) => {
-                if (!err) {
-                    res.status(200).json({
-                        status: true,
-                        message: "user added successfully.",
-                        result: userData
-                    });
-                }
-            });
-        } else {
-            res.status(200).json({
-                status: false,
-                message: "user not added successfully.",
-                result: userData
-            });
+            console.log("*9+-*9+-*9+-", userDetails);
+            if (userDetails.length === 0) {
+                //new user logic
+                db.query(Model.userRegistration(obj), (err, userData) => {
+                    if (!err) {
+                        console.log(userData.insertId);
+                        db.query(Model.mappingUserRoles(userData.insertId, req.body.Roles), (err, data) => {
+                            if (!err) {
+                                res.status(200).json({
+                                    status: true,
+                                    message: "user added successfully.",
+                                    result: userData
+                                });
+                            }
+                        });
+                    } else {
+                        res.status(200).json({
+                            status: false,
+                            message: "user not added successfully.",
+                            result: err
+                        });
+                    }
+                });
+            } else {
+                //existing user, redirect to another page 
+                res.status(200).json({
+                    status: false,
+                    message: "user already exists.",
+                    result: userDetails
+                });
+            }
         }
     });
 });
@@ -73,8 +87,11 @@ router.post('/register', function (req, res) {
 router.post('/account/settings', function (req, res) {
     let obj = {};
     obj.UserID = req.body.UserID;
+    obj.SettFirstName = req.body.SettFirstName;
+    obj.SettLastName = req.body.SettLastName;
     obj.SettRoles = req.body.SettRoles;
     obj.Status = req.body.Status;
+    obj.Notifications = req.body.Notifications;
     obj.SettingUserID = req.body.SettingUserID;
 
     db.query(Model.userAccountSettings(obj), (err, userData) => {

@@ -155,6 +155,7 @@ export class AdmindashboardComponent implements OnInit {
       pointHoverBorderColor: 'rgba(148,159,177,0.8)'
     }
   ];
+  
   public chartColors: Array<any> = [
     {
       backgroundColor: ['#F7464A', '#46BFBD', '#FDB45C', '#949FB1', '#4D5360'],
@@ -204,6 +205,7 @@ export class AdmindashboardComponent implements OnInit {
   }
 
   ngOnInit() {
+    
 
     // this.currentValue = 70;
 
@@ -390,12 +392,12 @@ export class AdmindashboardComponent implements OnInit {
 
   getdepartmentbarchart() {
     this.userService.getdepartbarchart().subscribe((data) => {
-      this.userService.getdepartbarchart1().subscribe((data) => {
-        //data.label;
-        // let deprt1 = data.label;
-       // console.log(data.label)
-        this.barChartLabelsfordepartment = data.label;
-      });
+      // this.userService.getdepartbarchart1().subscribe((data) => {
+      //   //data.label;
+      //   // let deprt1 = data.label;
+      //  // console.log(data.label)
+      //   this.barChartLabelsfordepartment = data.label;
+      // });
       if (data) {
         data.data.push(0);
         this.barChartLabelsfordepartment = data.label;

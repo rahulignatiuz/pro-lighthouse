@@ -13,6 +13,8 @@ import { FormBuilder, FormGroup, Validators, NgForm } from '@angular/forms';
 export class LessonProcessComponent implements OnInit {
 
   results: any[];
+  firstname :string;
+  lastname:string;
   public _baseURL: string;
   URLlessonID: number;
   issuedescription: string;
@@ -89,6 +91,8 @@ export class LessonProcessComponent implements OnInit {
       this.functions = data.result[0].functions;
       this.department = data.result[0].department;
       this.lifecycle = data.result[0].lifecycle;
+      this.firstname = data.result[0].firstname;
+      this.lastname  = data.result[0].lastname;
       this.Email = data.result[0].Email;
       if (this.rootcouse == "undefined") {
         this.showrootcouse = false;

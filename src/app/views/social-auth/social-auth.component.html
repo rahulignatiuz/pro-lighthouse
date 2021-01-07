@@ -14,16 +14,14 @@
                         <p>Sorry, your account is Inactive Please contact your Administer</p>
                     </h3>
                     <h3 *ngIf="emailNotExist" class="access-message">
-                        <p>Sorry, your access is refused due to your account not exist.<br />Are you want to send the
-                            login
-                            required to the admin team.</p>
+                        <p>You do not have permission to access this account.</p>
                     </h3>
                     <div class="row">
                         <button type="button" (click)="gotoLogin()"
                             class="btn  btn-lg btn-primary rounded-pill go-back-login-btn">Go back
                             login</button>
                         <button type="button" *ngIf="emailNotExist" (click)="sendLoginReq()"
-                            class="btn  btn-lg btn-primary rounded-pill go-back-login-btn">Login Request</button>
+                            class="btn  btn-lg btn-primary rounded-pill go-back-login-btn">Request Access</button>
                     </div>
                 </div>
             </div>
@@ -33,70 +31,6 @@
         <img src="assets/img/Access-denied.png" class="float-right img403" alt="">
     </div>
 </div>
-
-
-
-
-
-<!-- <div *ngIf="outerEmail" class="py-5 outer-email">
-    <div class="container py-5">
-        <div class="row">
-            <div class="col-md-2 text-center">
-                <p><i class="fa fa-exclamation-triangle fa-5x"></i><br />Status Code: 403</p>
-            </div>
-            <div class="col-md-10">
-                <h3>Access denied</h3>
-                <p>You do not have permission to access this page.</p>
-                <a class="btn btn-danger" href="#" (click)="gotoLogin()">Go Back</a>
-            </div>
-        </div>
-    </div>
-</div>
-<div *ngIf="emailNotExist" class="py-5 outer-email">
-    <div class="container py-5">
-        <div class="row">
-            <div class="col-md-2 text-center">
-                <p><i class="fa fa-exclamation-triangle fa-5x"></i><br />Status Code: 403</p>
-            </div>
-            <div class="col-md-10">
-                <h3>Access denied</h3>
-                <p>Sorry, your access is refused due to your account not exist.<br />Are you want to send the login
-                    required to the admin team.</p>
-                <button class="btn btn-danger"  (click)="gotoLogin()">Go Back</button>
-                <button class="btn btn-primary"  (click)="sendLoginReq()">Login Request</button>
-            </div>
-        </div>
-    </div>
-</div>
-<div *ngIf="isEmailRequestPending" class="py-5 outer-email">
-    <div class="container py-5">
-        <div class="row">
-            <div class="col-md-2 text-center">
-                <p><i class="fa fa-exclamation-triangle fa-5x"></i><br />Status Code: 403</p>
-            </div>
-            <div class="col-md-10">
-                <h3>Access denied</h3>
-                <p>Sorry, your access is refused due to your request already pending. Please wait We will contact you
-                    soon.<br />Please go back to the login page to continue.</p>
-                <a class="btn btn-danger" href="#" (click)="gotoLogin()">Go Back</a>
-            </div>
-        </div>
-    </div>
-</div>
-<div *ngIf="isEmailInactive" class="py-5 outer-email">
-    <div class="container py-5">
-        <div class="row">
-            <div class="col-md-2 text-center">
-                <p><i class="fa fa-exclamation-triangle fa-5x"></i><br />Status Code: 403</p>
-            </div>
-            <div class="col-md-10">
-                <h3>Access denied</h3>
-                <p>Sorry, your account is Inactive Please contact your Administer</p>
-                <a class="btn btn-danger" href="#" (click)="gotoLogin()">Go Back</a>
-            </div>
-        </div>
-    </div>
-</div> -->
 <div bsModal #sendRequest="bs-modal" class="modal" data-backdrop="static">
     <form class="modal-content row forms">
         <div class="modal-body">
