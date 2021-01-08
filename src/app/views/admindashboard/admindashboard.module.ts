@@ -94,7 +94,7 @@ import { NgCircleProgressModule } from 'ng-circle-progress';
       "animateTitle": false,
       "animationDuration": 1000,
       "showTitle": true,
-      "showSubtitle": false,
+      "showSubtitle": true,
       "showUnits": true,
       "showBackground": false,
       "clockwise": true,

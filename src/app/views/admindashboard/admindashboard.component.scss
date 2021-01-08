@@ -162,6 +162,7 @@ svg{
 }
 .rightmargin{
     padding-right: 0px;
+    // padding-left: 7px;
 }
 @media (max-width: 1800px){
     
@@ -228,3 +229,68 @@ svg{
         margin-top: 0%;
     }
 }
+.card{
+    margin-bottom: 8px;
+}
+.card-header{
+    background-color:#f1f1f1 !important;
+}
+.tooltip-toggle {
+    cursor: pointer;
+    position: relative;
+  
+    svg {
+      height: 12px;
+      width: 14px;
+    }
+    
+    //Tooltip text container
+    &::before {
+      position: absolute;
+      top: -51px;
+      left: -80px;
+      background-color: #f0f3f5;
+      border-radius: 5px;
+      color: #fff;
+      content: attr(aria-label);
+      padding: 1rem;
+      text-transform: none;
+      transition: all 0.5s ease;
+      width: 377px;
+    }
+  
+    //Tooltip arrow
+    &::after {
+      position: absolute;
+      top: -8px;
+      left: 9px;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-top: 5px solid #f0f3f5;
+      content: " ";
+      font-size: 0;
+      line-height: 0;
+      margin-left: -5px;
+      width: 0;
+    }
+    
+    //Setting up the transition
+    &::before,
+    &::after {
+      color: black;
+      font-family: Sans-serif;
+      font-size: 14px;
+      opacity: 0;
+      pointer-events: none;
+      text-align: center;
+    }
+    
+    //Triggering the transition
+    &:focus::before,
+    &:focus::after,
+    &:hover::before,
+    &:hover::after {
+      opacity: 1;
+      transition: all 0.75s ease;
+    }
+  }

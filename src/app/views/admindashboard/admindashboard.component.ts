@@ -12,6 +12,8 @@ import * as Chart from 'chart.js';
 })
 export class AdmindashboardComponent implements OnInit {
   results: any[];
+  nrSelect = 1;
+
   public _baseURL: string;
   public sortbyBD: string;
   public getallimpactlevelhigh: any;
@@ -96,7 +98,7 @@ export class AdmindashboardComponent implements OnInit {
   // Pie function
   public funpieChartLabels: string[];
   public funpieChartData: number[];
-  public funpieChartType = 'pie';
+  public funpieChartType = 'bar';
 
   // bar function
   public phasebarChartLabels: string[];
@@ -147,7 +149,7 @@ export class AdmindashboardComponent implements OnInit {
   public lineChartColours: Array<any> = [
     { // css for bar chart colors
       // backgroundColor: '#80c1ed',
-      backgroundColor: ['#80c1ed', '#f64846', 'rgb(255, 99, 132)', '#f69114', 'rgb(0, 255, 255)', 'rgb(255, 255, 0)', 'rgb(255, 255, 128)'],
+      backgroundColor: ['#80c1ed', '#f64846', 'rgb(255, 99, 132)', '#f69114', 'rgb(0, 255, 255)', 'rgb(255, 255, 0)', 'rgb(255, 255, 128)','#4dbd74', '#20c997' , '#17a2b8', '#fff' , '#73818f' , '#2f353a' ,'#63c2de' , '#20a8d8', '#c8ced3', '#4dbd74', '#63c2de', '#ffc107' ,'#f86c6b','#f0f3f5'],
       borderColor: 'rgba(148,159,177,1)',
       pointBackgroundColor: 'rgba(148,159,177,1)',
       pointBorderColor: '#fff',
@@ -161,6 +163,13 @@ export class AdmindashboardComponent implements OnInit {
       backgroundColor: ['#F7464A', '#46BFBD', '#FDB45C', '#949FB1', '#4D5360'],
       hoverBackgroundColor: ['#FF5A5E', '#5AD3D1', '#FFC870', '#A8B3C5', '#616774'],
       borderWidth: 2,
+    }
+  ];
+  public chartColors1: Array<any> = [
+    {
+      backgroundColor: ['#f86c6b','#20a8d8', '#63c2de','#A8B3C5'],
+      hoverBackgroundColor: ['#f86c6b','#20a8d8', '#63c2de','#A8B3C5'],
+      borderWidth: 1,
     }
   ];
   currentValue1: number;
@@ -200,6 +209,9 @@ export class AdmindashboardComponent implements OnInit {
     this.getlessonbyissue();
     this.getlessonbypractice();
     this.getlessonbymonth();
+    this.getdefaultproject();
+    this.getdefaultmilestones();
+    this.getdefaultprojectphase();
     this.titleService.setTitle("Lighthouse | Dashboard");
 
   }
@@ -309,6 +321,35 @@ export class AdmindashboardComponent implements OnInit {
     });
 
   }
+  getdefaultproject(){
+    this.userService.getdefaultproject().subscribe((data) => {
+      if (data) {
+        this.projectpieChartLabels = data.label;
+        this.projectpieChartData = data.data;
+      }
+    });
+  }
+getdefaultmilestones(){
+    this.userService.getdefaultmilestones().subscribe((data) => {
+      if (data) {
+        data.data.push(0);
+
+        this.milespieChartLabels = data.label;
+        this.milespieChartData = data.data;
+      }
+    });
+  }
+getdefaultprojectphase(){
+    this.userService.getdefaultprojectphase().subscribe((data) => {
+      if (data) {
+        data.data.push(0);
+        this.barChartLabels = data.label;
+        this.barChartData = data.data;
+      }
+
+    });
+  }
+
   public onselectProjecttype2(e) {
 
     this.mappingProjectAndPhase = [];
@@ -363,6 +404,7 @@ export class AdmindashboardComponent implements OnInit {
   getfunctionPiechart() {
     this.userService.getfunctionPiechart().subscribe((data) => {
       if (data) {
+        data.data.push(0);
         this.funpieChartLabels = data.label;
         this.funpieChartData = data.data;
       }

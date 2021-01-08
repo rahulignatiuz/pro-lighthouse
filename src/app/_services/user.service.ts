@@ -101,6 +101,9 @@ export class UserService {
   getmilestonePiechart(ID) {
     return this.http.post<any>(`${this._baseURL}/milestones/milestonechart`, { ID });
   }
+  getdefaultmilestones() {
+    return this.http.post<any>(`${this._baseURL}/milestones/milestonechart`, { ID:1 });
+  }
   getfunctionPiechart() {
     return this.http.get<any>(`${this._baseURL}/functions/functionschart`);
   }
@@ -131,9 +134,15 @@ export class UserService {
   getprojectPiechart(ID) {
     return this.http.post<any>(`${this._baseURL}/projects/projectpiechart`, { ID });
   }
+  getdefaultproject() {
+    return this.http.post<any>(`${this._baseURL}/projects/projectpiechart`, { ID:1 });
+  }
 
   getphasebarchart(ID) {
     return this.http.post<any>(`${this._baseURL}/phases/phasebarchart`, { ID });
+  }
+  getdefaultprojectphase() {
+    return this.http.post<any>(`${this._baseURL}/phases/phasebarchart`, { ID:1 });
   }
   getdepartbarchart() {
     return this.http.get<any>(`${this._baseURL}/departments/departmentbarchart`);
