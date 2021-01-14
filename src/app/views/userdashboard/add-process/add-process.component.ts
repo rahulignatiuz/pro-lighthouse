@@ -54,7 +54,7 @@ export class AddProcessComponent implements OnInit {
   typeoflesson: string;
   issuedescription: string;
   title: string;
-  rootcouse: string;
+  rootcause: string;
   Recommendation: string;
   _Keywords: any[] = [];
   deletelesson: any;
@@ -117,7 +117,7 @@ export class AddProcessComponent implements OnInit {
       lifecycle: ['', Validators.required],
       _Keywords: ['', Validators.required],
       Recommendation: ['', Validators.required],
-      rootcouse: ['', Validators.required],
+      rootcause: ['', Validators.required],
       issuedescription: ['', [Validators.required, Validators.maxLength(250)]],
       title: ['', Validators.required],
       typeoflesson: ['', Validators.required],
@@ -372,8 +372,8 @@ export class AddProcessComponent implements OnInit {
   }
 
   public lessonFormFields() {
-    //console.log(this.typeoflesson , this.issuedescription , this.rootcouse , this.Recommendation, this._Keywords);            
-    if (this.typeoflesson && this.issuedescription && this.rootcouse && this.Recommendation && this._Keywords.length > 0) {
+    //console.log(this.typeoflesson , this.issuedescription , this.rootcause , this.Recommendation, this._Keywords);            
+    if (this.typeoflesson && this.issuedescription && this.rootcause && this.Recommendation && this._Keywords.length > 0) {
       this.additionalFormbtn = false;
     } else {
       this.additionalFormbtn = false;
@@ -406,8 +406,8 @@ export class AddProcessComponent implements OnInit {
       LifeCycleID: form.value.lifecycle,
       Title: this.title,
       IssueDescription: this.issuedescription,
-      RootCause: this.rootcouse,
-      Kaywords: this._Keywords,
+      RootCause: this.rootcause,
+      keywords: this._Keywords,
       DepartmentID: form.value.department[0].ID,
       FunctionID: form.value.function[0].ID,
       Recommendation: this.Recommendation,

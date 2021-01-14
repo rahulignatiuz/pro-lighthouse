@@ -114,6 +114,7 @@ export class UserManagementComponent implements OnInit {
     });
     this.roles = null;
     this.p_roles = null;
+    this.masterlistproject();
   }
   getAllPendingUser() {
     this.userService.getAllPendingUser().subscribe((data) => {
@@ -274,6 +275,16 @@ export class UserManagementComponent implements OnInit {
         window.location.reload();
       });
     }
+  }
+  masterlistproject() {
+    localStorage.removeItem("tabforprocess");
+    localStorage.removeItem("tabID");
+    var projectradiobuttn = "project";
+    var projecttabselection = "tab1"
+    localStorage.setItem("tabforprocess", projectradiobuttn);
+    localStorage.setItem("tabID", projecttabselection);
+
+
   }
 }
 

@@ -115,7 +115,7 @@
 
    </div>
   </div>
-  <div class="col-sm-4 rightmargin">
+  <div class="col-sm-4 rightmargin paddingright">
     <div class="card">
       <div class="card-header">
         Issue / Best Practice
@@ -137,7 +137,7 @@
           [animationDuration]="1300" [backgroundStrokeWidth]="38" outerStrokeColor="#f64846" outerStrokeColor="#f64846"
           outerStrokeGradientStopColor="#f64846"></circle-progress> -->
       </div>
-      <label style="color: #f1f1f1;">Issue </label>
+      <label style="color: #f1f1f1; margin-bottom: 1%;" class="labelsforsmall">Issue </label>
     </div>
   </div>
 
@@ -187,7 +187,7 @@
       </div>
     </div>
   </div>
-  <div class="col-sm-4 rightmargin">
+  <div class="col-sm-4 rightmargin paddingright">
     <div class="card">
       <div class="card-header">
         Lesson by Months
@@ -242,7 +242,7 @@
   </div>
   
   
-  <div class="col-sm-4 centerlineright">
+  <div class="col-sm-4 centerlineright paddingright">
     <div class="card ">
       <div class="card-header ">
         Projects / Process
@@ -263,7 +263,7 @@
 
     </div>
   </div>
-  <div class="col-sm-4 centerlineright">
+  <div class="col-sm-4 centerlineright paddingright">
     <div class="card">
       <div class="card-header">
         Project Phase 
@@ -318,14 +318,14 @@
     </div>
   </div>
 
-  <div class="col-sm-4 centerlineright">
+  <div class="col-sm-4 centerlineright paddingright">
     <div class="card">
       <div class="card-header">
         Lessons by Impact Category 
       </div>
       <div class="card-body">
         <div class="chart-wrapper" *ngIf="barChartDataforcategory && barChartDataforcategory.length > 0">
-          <canvas baseChart class="chart impactcssforsmallscreen" [data]="barChartDataforcategory" [labels]="barChartLabelsforcategory" style="margin-top: 15px;"
+          <canvas baseChart class="chart impactcssforsmallscreen" [data]="barChartDataforcategory" [labels]="barChartLabelsforcategory" style="margin-top: 13px;"
             [colors]="chartColors1" [options]="barChartOptions" [legend]="barChartLegend"
             [chartType]="barChartTypeforcategory" (chartHover)="chartHovered($event)"
             (chartClick)="chartClicked($event)"></canvas>
@@ -337,7 +337,7 @@
       </div>
     </div>
   </div>
-  <div class="col-sm-4 centerlineright">
+  <div class="col-sm-4 centerlineright paddingright">
     <div class="card">
       <div class="card-header">
         Lessons by Milestones

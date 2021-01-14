@@ -1,3 +1,6 @@
+const lighthouseJson = require('../json/lighthouse');
+var fs = require("fs");
+
 class User {
 
     static getUserLoginSQL(Username, Password) {
@@ -49,25 +52,25 @@ class User {
     }
     //delete lesson by lessonid
     static deletelessonsSQL(ID) {
-        let sql = `DELETE from lighthouse.lesson where ID=${ID}`;
+        let sql = `DELETE from ${lighthouseJson.database}.lesson where ID=${ID}`;
         return sql;
     }
     static deleteAttachmnetSQL(ID) {
-        let sql = `DELETE mla, att from lighthouse.mappinglessonattachment mla INNER JOIN lighthouse.attachment att  on mla.AttachmentID = att.ID where mla.LessonID=${ID}`;
+        let sql = `DELETE mla, att from ${lighthouseJson.database}.mappinglessonattachment mla INNER JOIN ${lighthouseJson.database}.attachment att  on mla.AttachmentID = att.ID where mla.LessonID=${ID}`;
         return sql;
     }
     // add lesson by both project and process
     static addLessonSQL(o) {
         if (o.ProcessID) {
-            let sql = `INSERT INTO lighthouse.lesson (UserID,LessonTypeID,ProcessID,TypeID,ImpactCategoryID,ImpactLevelID,FunctionID,LifeCycleID,DepartmentID,Title,IssueDescription,RootCause,Recommendation,CreatedBy,CreatedDate,IsEnabled) VALUES \
+            let sql = `INSERT INTO ${lighthouseJson.database}.lesson (UserID,LessonTypeID,ProcessID,TypeID,ImpactCategoryID,ImpactLevelID,FunctionID,LifeCycleID,DepartmentID,Title,IssueDescription,RootCause,Recommendation,CreatedBy,CreatedDate,IsEnabled) VALUES \
             ('${o.UserID}','${o.LessonTypeID}','${o.ProcessID}','${o.TypeID}','${o.ImpactCategoryID}','${o.ImpactLevelID}','${o.FunctionID}','${o.LifeCycleID}','${o.DepartmentID}','${o.Title}','${o.IssueDescription}','${o.RootCause}','${o.Recommendation}','${o.CreatedBy}',now(),'${o.IsEnabled}');`;
             return sql;
         } else if (o.ProjectID) {
-            let sql = `INSERT INTO lighthouse.lesson (UserID,LessonTypeID,ProjectTypeID,ProjectID,PhaseID,TypeID,ImpactCategoryID,ImpactLevelID,MilestoneID,FunctionID,LifeCycleID,DepartmentID,Title,IssueDescription,RootCause,Recommendation,CreatedBy,CreatedDate,IsEnabled) VALUES \
+            let sql = `INSERT INTO ${lighthouseJson.database}.lesson (UserID,LessonTypeID,ProjectTypeID,ProjectID,PhaseID,TypeID,ImpactCategoryID,ImpactLevelID,MilestoneID,FunctionID,LifeCycleID,DepartmentID,Title,IssueDescription,RootCause,Recommendation,CreatedBy,CreatedDate,IsEnabled) VALUES \
             ('${o.UserID}','${o.LessonTypeID}','${o.ProjectTypeID}','${o.ProjectID}','${o.PhaseID}','${o.TypeID}','${o.ImpactCategoryID}','${o.ImpactLevelID}','${o.MilestoneID}','${o.FunctionID}','${o.LifeCycleID}','${o.DepartmentID}','${o.Title}','${o.IssueDescription}','${o.RootCause}','${o.Recommendation}','${o.CreatedBy}',now(),'${o.IsEnabled}');`;
             return sql;
         } else {
-            let sql = `INSERT INTO lighthouse.lesson (UserID,LessonTypeID,ProjectTypeID,ProjectID,ProcessID,PhaseID,TypeID,ImpactCategoryID,ImpactLevelID,MilestoneID,FunctionID,LifeCycleID,DepartmentID,Title,IssueDescription,RootCause,Recommendation,CreatedBy,CreatedDate,IsEnabled) VALUES \
+            let sql = `INSERT INTO ${lighthouseJson.database}.lesson (UserID,LessonTypeID,ProjectTypeID,ProjectID,ProcessID,PhaseID,TypeID,ImpactCategoryID,ImpactLevelID,MilestoneID,FunctionID,LifeCycleID,DepartmentID,Title,IssueDescription,RootCause,Recommendation,CreatedBy,CreatedDate,IsEnabled) VALUES \
             ('${o.UserID}','${o.LessonTypeID}','${o.ProjectTypeID}','${o.ProjectID}','${o.ProcessID}','${o.PhaseID}','${o.TypeID}','${o.ImpactCategoryID}','${o.ImpactLevelID}','${o.MilestoneID}','${o.FunctionID}','${o.LifeCycleID}','${o.DepartmentID}','${o.Title}','${o.IssueDescription}','${o.RootCause}','${o.Recommendation}','${o.CreatedBy}',now(),'${o.IsEnabled}');`;
             return sql;
         }
@@ -75,7 +78,7 @@ class User {
     }
     static addLessonSQLBulk(o) {
 
-        let sql = `INSERT INTO lighthouse.lesson (Title,IssueDescription,RootCause,Recommendation,CreatedDate,IsEnabled) VALUES \
+        let sql = `INSERT INTO ${lighthouseJson.database}.lesson (Title,IssueDescription,RootCause,Recommendation,CreatedDate,IsEnabled) VALUES \
             ('${o.Title}','${o.IssueDescription}','${o.RootCause}','${o.Recommendation}',now(),'${o.IsEnabled}');`;
         return sql;
     }
@@ -83,42 +86,43 @@ class User {
 
         if (o.ProjectID) {
             console.log(o.ProjectID, "o.ProjectID");
-            let sql = `update lighthouse.lesson SET UserID='${o.UserID}', LessonTypeID='${o.LessonTypeID}',LifeCycleID='${o.LifeCycleID}',ProjectTypeID='${o.ProjectTypeID}',TypeID='${o.TypeID}',ProjectID='${o.ProjectID}',PhaseID='${o.PhaseID}',ImpactCategoryID='${o.ImpactCategoryID}',ImpactLevelID='${o.ImpactLevelID}',MilestoneID='${o.MilestoneID}',FunctionID='${o.FunctionID}' ,DepartmentID='${o.DepartmentID}', CreatedBy='${o.CreatedBy}' where ID='${lessonID}'`;
+            let sql = `update ${lighthouseJson.database}.lesson SET UserID='${o.UserID}', LessonTypeID='${o.LessonTypeID}',LifeCycleID='${o.LifeCycleID}',ProjectTypeID='${o.ProjectTypeID}',TypeID='${o.TypeID}',ProjectID='${o.ProjectID}',PhaseID='${o.PhaseID}',ImpactCategoryID='${o.ImpactCategoryID}',ImpactLevelID='${o.ImpactLevelID}',MilestoneID='${o.MilestoneID}',FunctionID='${o.FunctionID}' ,DepartmentID='${o.DepartmentID}', CreatedBy='${o.CreatedBy}' where ID='${lessonID}'`;
             return sql;
         } else if (o.ProcessID) {
             console.log(o.ProcessID, "o.ProcessID");
-            let sql = `update lighthouse.lesson SET UserID='${o.UserID}', LessonTypeID='${o.LessonTypeID}',LifeCycleID='${o.LifeCycleID}',ProcessID='${o.ProcessID}',TypeID='${o.TypeID}',ImpactCategoryID='${o.ImpactCategoryID}',ImpactLevelID='${o.ImpactLevelID}',FunctionID='${o.FunctionID}',DepartmentID='${o.DepartmentID}', CreatedBy='${o.CreatedBy}' where ID='${lessonID}'`;
+            let sql = `update ${lighthouseJson.database}.lesson SET UserID='${o.UserID}', LessonTypeID='${o.LessonTypeID}',LifeCycleID='${o.LifeCycleID}',ProcessID='${o.ProcessID}',TypeID='${o.TypeID}',ImpactCategoryID='${o.ImpactCategoryID}',ImpactLevelID='${o.ImpactLevelID}',FunctionID='${o.FunctionID}',DepartmentID='${o.DepartmentID}', CreatedBy='${o.CreatedBy}' where ID='${lessonID}'`;
             return sql;
         }
     }
     // get department data
     static getAllDepartmentsSQL() {
         //let sql =`call rochellms.GetAlldepartment()`;
-        let sql = `SELECT ID,Name,Description,Indexing FROM lighthouse.department order by Indexing ASC `;
+        let sql = `SELECT ID,Name,Description,Indexing FROM ${lighthouseJson.database}.department order by Indexing ASC `;
         return sql;
     }
     // add department
     static AddAllDepartmentsSQL(obj) {
-        let sql = `INSERT INTO  lighthouse.department(Name,Description,CreatedBy,UpdatedBy) \
+        let sql = `INSERT INTO  ${lighthouseJson.database}.department(Name,Description,CreatedBy,UpdatedBy) \
     VALUES( '${obj.Name}','${obj.Description}','${obj.CreatedBy}','${obj.UpdatedBy}')`;
         return sql;
 
     }
     // get all data of process
     static getAllProcessSQL() {
-        let sql = `SELECT ID,Name,Description,Indexing FROM lighthouse.process order by Indexing ASC`;
+        let sql = `SELECT ID,Name,Description,Indexing FROM ${lighthouseJson.database}.process order by Indexing ASC`;
+        // let sql = `SELECT ID,Name,Description,Indexing FROM lighthouse.process order by Indexing ASC`;
         return sql;
     }
     // used to map keyword with lesson id
     static Mappingkeywordlesson(obj) {
-        let sql = `INSERT INTO lighthouse.mappinglessonkeyword(LessonID,KeywordID) \
+        let sql = `INSERT INTO ${lighthouseJson.database}.mappinglessonkeyword(LessonID,KeywordID) \
     VALUES( '${obj.LessonID}','${obj.KeywordID}')`;
         return sql;
     }
     // to get project data
     static getAllProjectsSQL(projectTypeId) {
         console.log(projectTypeId);
-        let sql = `SELECT ID,Name,LPN,Description,Indexing FROM lighthouse.project order by Indexing ASC`;
+        let sql = `SELECT ID,Name,LPN,Description,Indexing FROM ${lighthouseJson.database}.project order by Indexing ASC`;
         //let sql =`SELECT lighthouse.project.ID, lighthouse.project.Name, lighthouse.project.LPN, lighthouse.project.Description FROM lighthouse.project INNER JOIN lighthouse.mappingprojectprojecttype ON lighthouse.project.ID = lighthouse.mappingprojectprojecttype.ProjectID where lighthouse.mappingprojectprojecttype.ProjecttypeID = "${projectTypeId}"  order by Name ASC`;
         return sql;
     }
@@ -149,52 +153,52 @@ class User {
     // used to get all keywords data
     static getAllKeywordsSQL() {
 
-        let sql = `SELECT ID,Name,Description FROM lighthouse.keyword order by ID DESC`;
-        //let sql = `SELECT ID,Name,Description FROM lighthouse.keyword order by Name ASC`;
+        let sql = `SELECT ID,Name,Description FROM ${lighthouseJson.database}.keyword order by ID DESC`;
+        //let sql = `SELECT ID,Name,Description FROM ${lighthouseJson.database}.keyword order by Name ASC`;
         return sql;
     }
     // used to get all milestones data
     static getAllMilestonesSQL() {
-        let sql = `SELECT ID,Name,Description,Indexing FROM lighthouse.milestone order by Indexing ASC`;
+        let sql = `SELECT ID,Name,Description,Indexing FROM ${lighthouseJson.database}.milestone order by Indexing ASC`;
         return sql;
     }
     // used to get all impactcategory data
     static getAllimpactcategorySQL() {
-        let sql = `SELECT ID,Name,Description,Indexing FROM lighthouse.impactcategory order by Indexing ASC`;
+        let sql = `SELECT ID,Name,Description,Indexing FROM ${lighthouseJson.database}.impactcategory order by Indexing ASC`;
         return sql;
     }
     // used to get all phase data
     static getAllphaseSQL() {
-        let sql = `SELECT ID,Name,Description,Indexing FROM lighthouse.phase order by Indexing ASC`;
+        let sql = `SELECT ID,Name,Description,Indexing FROM ${lighthouseJson.database}.phase order by Indexing ASC`;
         return sql;
     }
     // used to get all impactlevel data
     static getAllimpactlevelSQL() {
-        let sql = `SELECT ID,Name,Description,Indexing FROM lighthouse.impactlevel order by Indexing ASC`;
+        let sql = `SELECT ID,Name,Description,Indexing FROM ${lighthouseJson.database}.impactlevel order by Indexing ASC`;
         return sql;
     }
     // used to get all Projecttype data
     static getAllProjecttypeSQL() {
-        let sql = `SELECT ID,Name,Description,Indexing FROM lighthouse.projecttype order by Indexing ASC`;
+        let sql = `SELECT ID,Name,Description,Indexing FROM ${lighthouseJson.database}.projecttype order by Indexing ASC`;
         return sql;
     }    // used to update the lpn no 
     static updateProjectsSQL(p) {
-        let sql = `update lighthouse.project SET LPN='${p.LPN}' where ID='${p.ID}'`;
+        let sql = `update ${lighthouseJson.database}.project SET LPN='${p.LPN}' where ID='${p.ID}'`;
         return sql;
     }
     // used to update the lesson -> project and process 
     static updatelessonSQL(o) {
         if (o.ProjectID) {
             console.log(o.ProjectID, "o.ProjectID");
-            let sql = `update lighthouse.lesson SET UserID='${o.UserID}',LessonTypeID='${o.LessonTypeID}',ProjectTypeID='${o.ProjectTypeID}',ProjectID='${o.ProjectID}',PhaseID='${o.PhaseID}',TypeID='${o.TypeID}',ImpactCategoryID='${o.ImpactCategoryID}',ImpactLevelID='${o.ImpactLevelID}',MilestoneID='${o.MilestoneID}',FunctionID='${o.FunctionID}',LifeCycleID='${o.LifeCycleID}',DepartmentID='${o.DepartmentID}',Title='${o.Title}',IssueDescription='${o.IssueDescription}',RootCause='${o.RootCause}',Recommendation='${o.Recommendation}',UpdatedBy='${o.UpdatedBy}',UpdatedDate=now()where ID='${o.ID}'`;
+            let sql = `update ${lighthouseJson.database}.lesson SET UserID='${o.UserID}',LessonTypeID='${o.LessonTypeID}',ProjectTypeID='${o.ProjectTypeID}',ProjectID='${o.ProjectID}',PhaseID='${o.PhaseID}',TypeID='${o.TypeID}',ImpactCategoryID='${o.ImpactCategoryID}',ImpactLevelID='${o.ImpactLevelID}',MilestoneID='${o.MilestoneID}',FunctionID='${o.FunctionID}',LifeCycleID='${o.LifeCycleID}',DepartmentID='${o.DepartmentID}',Title='${o.Title}',IssueDescription='${o.IssueDescription}',RootCause='${o.RootCause}',Recommendation='${o.Recommendation}',UpdatedBy='${o.UpdatedBy}',UpdatedDate=now()where ID='${o.ID}'`;
             return sql;
         } else if (o.ProcessID) {
             console.log(o.ProcessID, "o.ProcessID");
-            let sql = `update lighthouse.lesson SET UserID='${o.UserID}',LessonTypeID='${o.LessonTypeID}',ProcessID='${o.ProcessID}',TypeID='${o.TypeID}',ImpactCategoryID='${o.ImpactCategoryID}',ImpactLevelID='${o.ImpactLevelID}',FunctionID='${o.FunctionID}',LifeCycleID='${o.LifeCycleID}',DepartmentID='${o.DepartmentID}',Title='${o.Title}',IssueDescription='${o.IssueDescription}',RootCause='${o.RootCause}',Recommendation='${o.Recommendation}',UpdatedBy='${o.UpdatedBy}',UpdatedDate=now()where ID='${o.ID}'`;
+            let sql = `update ${lighthouseJson.database}.lesson SET UserID='${o.UserID}',LessonTypeID='${o.LessonTypeID}',ProcessID='${o.ProcessID}',TypeID='${o.TypeID}',ImpactCategoryID='${o.ImpactCategoryID}',ImpactLevelID='${o.ImpactLevelID}',FunctionID='${o.FunctionID}',LifeCycleID='${o.LifeCycleID}',DepartmentID='${o.DepartmentID}',Title='${o.Title}',IssueDescription='${o.IssueDescription}',RootCause='${o.RootCause}',Recommendation='${o.Recommendation}',UpdatedBy='${o.UpdatedBy}',UpdatedDate=now()where ID='${o.ID}'`;
             return sql;
         } else {
             console.log(o.ProjectTypeID, "oTHER");
-            let sql = `update lighthouse.lesson SET UserID='${o.UserID}',LessonTypeID='${o.LessonTypeID}',ProjectTypeID='${o.ProjectTypeID}',ProjectID='${o.ProjectID}',ProcessID='${o.ProcessID}',PhaseID='${o.PhaseID}',TypeID='${o.TypeID}',ImpactCategoryID='${o.ImpactCategoryID}',ImpactLevelID='${o.ImpactLevelID}',MilestoneID='${o.MilestoneID}',FunctionID='${o.FunctionID}',LifeCycleID='${o.LifeCycleID}',DepartmentID='${o.DepartmentID}',Title='${o.Title}',IssueDescription='${o.IssueDescription}',RootCause='${o.RootCause}',Recommendation='${o.Recommendation}',UpdatedBy='${o.UpdatedBy}',UpdatedDate=now()where ID='${o.ID}'`;
+            let sql = `update ${lighthouseJson.database}.lesson SET UserID='${o.UserID}',LessonTypeID='${o.LessonTypeID}',ProjectTypeID='${o.ProjectTypeID}',ProjectID='${o.ProjectID}',ProcessID='${o.ProcessID}',PhaseID='${o.PhaseID}',TypeID='${o.TypeID}',ImpactCategoryID='${o.ImpactCategoryID}',ImpactLevelID='${o.ImpactLevelID}',MilestoneID='${o.MilestoneID}',FunctionID='${o.FunctionID}',LifeCycleID='${o.LifeCycleID}',DepartmentID='${o.DepartmentID}',Title='${o.Title}',IssueDescription='${o.IssueDescription}',RootCause='${o.RootCause}',Recommendation='${o.Recommendation}',UpdatedBy='${o.UpdatedBy}',UpdatedDate=now()where ID='${o.ID}'`;
             return sql;
         }
         return sql;
@@ -251,7 +255,7 @@ class User {
     static getLessonAttachmentSQL(LessonID) {
 
         let sql = `SELECT att.OriginalName,att.Url
-    FROM  lighthouse.mappinglessonattachment mla
+    FROM  ${lighthouseJson.database}.mappinglessonattachment mla
     INNER JOIN attachment att on mla.AttachmentID = att.ID where mla.LessonID='${LessonID}'`;
         return sql;
     }
@@ -355,7 +359,7 @@ class User {
         Inner Join functions f on f.ID =les.FunctionID
         Inner join lifecycle lf on lf.ID = les.LifeCycleID
         inner join impactcategory imp on imp.ID =les.ImpactCategoryID
-        inner  join (SELECT LessonID,KeywordID, COUNT(*) as CourseCount FROM lighthouse.mappinglessonkeyword  ${strkey}  group by LessonID) mlk ON mlk.LessonID = les.ID
+        inner  join (SELECT LessonID,KeywordID, COUNT(*) as CourseCount FROM ${lighthouseJson.database}.mappinglessonkeyword  ${strkey}  group by LessonID) mlk ON mlk.LessonID = les.ID
         left join userusefullesson usr on usr.LessonID = les.ID
         left Join userlike ul on ul.lessonID = les.ID where  les.LessonTypeID=1 ${str} group by les.ID order by ${sortby}`
         return sql;
@@ -434,48 +438,48 @@ class User {
         inner join impactcategory imp on imp.ID =les.ImpactCategoryID 
         Inner Join functions f on f.ID =les.FunctionID
         Inner join lifecycle lf on lf.ID = les.LifeCycleID
-        inner  join (SELECT LessonID,KeywordID, COUNT(*) as CourseCount FROM lighthouse.mappinglessonkeyword  ${strkey}  group by LessonID) mlk ON mlk.LessonID = les.ID
+        inner  join (SELECT LessonID,KeywordID, COUNT(*) as CourseCount FROM ${lighthouseJson.database}.mappinglessonkeyword  ${strkey}  group by LessonID) mlk ON mlk.LessonID = les.ID
         left join userusefullesson usr on usr.LessonID = les.ID
         left Join userlike ul on ul.lessonID = les.ID where les.LessonTypeID=2 ${str} group by les.ID order by ${sortby}`
         return sql;
     }
     // used to get all Keywords data
     static AddAllKeywordsSQL(k) {
-        let sql = `INSERT INTO  lighthouse.keyword(Name,Description,CreatedBy,UpdatedBy) \
+        let sql = `INSERT INTO  ${lighthouseJson.database}.keyword(Name,Description,CreatedBy,UpdatedBy) \
         VALUES( '${k.Name}','${k.Description}','${k.CreatedBy}','${k.UpdatedBy}')`;
         return sql;
     }
     // used to get all Project data by Project id
     static getProjectProject(obj) {
-        let sql = `SELECT ID,Name,LPN,Description,IsEnabled FROM lighthouse.project where ID='${obj.projectID}' order by Name ASC`;
+        let sql = `SELECT ID,Name,LPN,Description,IsEnabled FROM ${lighthouseJson.database}.project where ID='${obj.projectID}' order by Name ASC`;
         return sql;
     }
     // used to get all userlikes data by LessonID 
     static getAlluserlikeSQL(LessonID) {
-        let sql = `SELECT COUNT('Likes') FROM lighthouse.userlike where LessonID='${LessonID}';`
+        let sql = `SELECT COUNT('Likes') FROM ${lighthouseJson.database}.userlike where LessonID='${LessonID}';`
         return sql;
     }
     // used to add userlikes data in table  
     static addAlluserlikeSQL(l) {
-        let sql = ` INSERT INTO lighthouse.userlike ( UserID,LessonID,Likes) \
+        let sql = ` INSERT INTO ${lighthouseJson.database}.userlike ( UserID,LessonID,Likes) \
         VALUES( '${l.UserID}','${l.LessonID}','${l.Likes}')`;
         return sql;
     }
     // used to delete userlike data by ID 
     static deleteAlluserlikeSQL(ID) {
-        let sql = ` DELETE From lighthouse.userlike where ID=${ID}`;
+        let sql = ` DELETE From ${lighthouseJson.database}.userlike where ID=${ID}`;
         return sql;
     }
     // used to add Attachment data 
     static AddAllAttachmentSQL(obj) {
-        let sql = `INSERT INTO  lighthouse.attachment(FieldName,OriginalName,MimeType,Container,AzureBlob,FileSize,Url) \
+        let sql = `INSERT INTO  ${lighthouseJson.database}.attachment(FieldName,OriginalName,MimeType,Container,AzureBlob,FileSize,Url) \
         VALUES( '${obj.fieldname}','${obj.originalname}','${obj.mimetype}','${obj.container}','${obj.blob}','${obj.size}','${obj.url}');`;
         return sql;
 
     }
     // used to add attactment data according to lessonID
     static AddMappingLessonAttachmentSQL(obj) {
-        let sql = `INSERT INTO  lighthouse.mappinglessonattachment(LessonID,AttachmentID) \
+        let sql = `INSERT INTO  ${lighthouseJson.database}.mappinglessonattachment(LessonID,AttachmentID) \
         VALUES( '${obj.lessonID}','${obj.attachmentID}');`;
         return sql;
 
@@ -499,64 +503,64 @@ class User {
     }
     // used to get All Functions data 
     static getAllFunctionsSQL() {
-        let sql = `SELECT ID,Name,Description,Indexing FROM lighthouse.functions order by Indexing ASC `
+        let sql = `SELECT ID,Name,Description,Indexing FROM ${lighthouseJson.database}.functions order by Indexing ASC `
         return sql;
     }
     // used to get All type of lesson data i.e issue or best practice
     static getalltypeoflessonSql() {
-        let sql = `SELECT ID,Name,Description FROM lighthouse.type`
+        let sql = `SELECT ID,Name,Description FROM ${lighthouseJson.database}.type`
         return sql;
     }
     // used to check the user likes by lessonid and userid 
     static checkAlluserlikeSQL(l) {
         console.log(l);
-        let sql = `SELECT * FROM lighthouse.userlike where UserID='${l.UserID}' and LessonID='${l.LessonID}';`
+        let sql = `SELECT * FROM ${lighthouseJson.database}.userlike where UserID='${l.UserID}' and LessonID='${l.LessonID}';`
         return sql;
     }
     // used to add keyword through mapping by lesson id and keywordid
-    static addKaywordsByMappingLessonSQL(lessonID, kaywordID) {
-        let sql = ` INSERT INTO lighthouse.mappinglessonkeyword ( LessonID,KeywordID) \
+    static addkeywordsByMappingLessonSQL(lessonID, kaywordID) {
+        let sql = ` INSERT INTO ${lighthouseJson.database}.mappinglessonkeyword ( LessonID,KeywordID) \
         VALUES( '${lessonID}','${kaywordID}')`;
         return sql;
     }
     //used to add keywords data
-    static addKaywordsBySQL(value) {
-        let sql = ` INSERT INTO lighthouse.keyword ( Name,Description) \
+    static addkeywordsBySQL(value) {
+        let sql = ` INSERT INTO ${lighthouseJson.database}.keyword ( Name,Description) \
         VALUES( '${value}','${value}')`;
         return sql;
     }
     // used to get all keywords data by lessonid
-    static getAllKaywordsByID(ID) {
+    static getAllkeywordsByID(ID) {
         let sql = `SELECT keywd.ID, keywd.Name
-        FROM lighthouse.mappinglessonkeyword mlk
+        FROM ${lighthouseJson.database}.mappinglessonkeyword mlk
         INNER JOIN keyword keywd on mlk.KeywordID = keywd.ID where LessonID = ${ID};`
         return sql;
     }
     // used to dalete all keywords data in mapping table by lesson id
-    static deleteAllKaywordsByID(ID) {
-        let sql = `DELETE FROM lighthouse.mappinglessonkeyword where LessonID = ${ID};`
+    static deleteAllkeywordsByID(ID) {
+        let sql = `DELETE FROM ${lighthouseJson.database}.mappinglessonkeyword where LessonID = ${ID};`
         return sql;
     }
     // used to get data of user useful data i.e implemented or not implemented
     static getAllUserusefulllessonsSQL() {
-        let sql = `select ID,UserID,LessonID,Description,flag from lighthouse.userusefullesson`;
+        let sql = `select ID,UserID,LessonID,Description,flag from ${lighthouseJson.database}.userusefullesson`;
         return sql;
 
     }
     //used to get attachment data or file name by lesson id
     static getAttachmentNameByID(obj) {
-        let sql = `SELECT att.OriginalName, att.Url FROM lighthouse.attachment as att Inner join mappinglessonattachment mla on mla.AttachmentID = att.ID where mla.LessonID = ${obj.LessonID};`
+        let sql = `SELECT att.OriginalName, att.Url FROM ${lighthouseJson.database}.attachment as att Inner join mappinglessonattachment mla on mla.AttachmentID = att.ID where mla.LessonID = ${obj.LessonID};`
         return sql;
     }
     // used to add data in useruseful table (implemented or not implemented)
     static AddUserusefullessonsSQL(l) {
-        let sql = `INSERT INTO  lighthouse.userusefullesson(UserID,LessonID,Description,flag) \
+        let sql = `INSERT INTO  ${lighthouseJson.database}.userusefullesson(UserID,LessonID,Description,flag) \
         VALUES( '${l.UserID}','${l.LessonID}','${l.Description}','${l.flag}')`;
         return sql;
     }
     // used to get total count of impact level (for dashboard)
     static getCountimpactlevelSQL(id) {
-        let sql = `SELECT COUNT( lesson.ImpactLevelID ) as "TotalNumber" FROM lighthouse.lesson WHERE lesson.ImpactLevelID=${id};`;
+        let sql = `SELECT COUNT( lesson.ImpactLevelID ) as "TotalNumber" FROM ${lighthouseJson.database}.lesson WHERE lesson.ImpactLevelID=${id};`;
         return sql;
     }
     // used to get total count of flag (for dashboard)
@@ -565,154 +569,154 @@ class User {
         return sql;
     }
     static getuserusefulByUserPieChartSQL(id) {
-        let sql = `SELECT COUNT( userusefullesson.flag ) as "TotalNumber" FROM lighthouse.userusefullesson WHERE userusefullesson.flag=${id}`;
+        let sql = `SELECT COUNT( userusefullesson.flag ) as "TotalNumber" FROM ${lighthouseJson.database}.userusefullesson WHERE userusefullesson.flag=${id}`;
         return sql;
     }
     // used to add project data in project table 
     static AddAllProjectsSQL(p) {
-        let sql = `INSERT INTO  lighthouse.project(Name,LPN,Description,CreatedBy,UpdatedBy) \
+        let sql = `INSERT INTO  ${lighthouseJson.database}.project(Name,LPN,Description,CreatedBy,UpdatedBy) \
         VALUES( '${p.Name}','${p.LPN}','${p.Description}','${p.CreatedBy}','${p.UpdatedBy}')`;
         return sql;
 
     }
     static getAllLifecycleSQL() {
 
-        let sql = `SELECT ID,Name,Description,Indexing FROM lighthouse.lifecycle order by Indexing ASC`;
+        let sql = `SELECT ID,Name,Description,Indexing FROM ${lighthouseJson.database}.lifecycle order by Indexing ASC`;
         return sql;
     }
     static AddAllProjecttypeSQL(p) {
-        let sql = `INSERT INTO  lighthouse.projecttype(Name,Description,CreatedBy,UpdatedBy) \
+        let sql = `INSERT INTO  ${lighthouseJson.database}.projecttype(Name,Description,CreatedBy,UpdatedBy) \
         VALUES( '${p.Name}','${p.Description}','${p.CreatedBy}','${p.UpdatedBy}')`;
         return sql;
     }
     static AddAllmappingprojectprojecttypeSQL(p) {
-        let sql = `INSERT INTO  lighthouse.mappingprojectprojecttype(ProjectID,ProjecttypeID) \
+        let sql = `INSERT INTO  ${lighthouseJson.database}.mappingprojectprojecttype(ProjectID,ProjecttypeID) \
         VALUES( '${p.ProjectID}','${p.ProjecttypeID}')`;
         return sql;
     }
     static AddAllmappingprojectypephaseSQL(p) {
-        let sql = `INSERT INTO  lighthouse.mappingprojectphase(ProjecttypeID,PhaseID) \
+        let sql = `INSERT INTO  ${lighthouseJson.database}.mappingprojectphase(ProjecttypeID,PhaseID) \
         VALUES( '${p.ProjecttypeID}','${p.PhaseID}')`;
         return sql;
     }
     static AddAllmilestoneSQL(m) {
-        let sql = `INSERT INTO  lighthouse.milestone(Name,Description,CreatedBy,UpdatedBy) \
+        let sql = `INSERT INTO  ${lighthouseJson.database}.milestone(Name,Description,CreatedBy,UpdatedBy) \
         VALUES( '${m.Name}','${m.Description}','${m.CreatedBy}','${m.UpdatedBy}')`;
         return sql;
     }
     static AddAllmappingprojecttypemilstonesSQL(p) {
-        let sql = `INSERT INTO  lighthouse.mappingprojecttypemilestones(ProjecttypeID,MilestoneID) \
+        let sql = `INSERT INTO  ${lighthouseJson.database}.mappingprojecttypemilestones(ProjecttypeID,MilestoneID) \
         VALUES( '${p.ProjecttypeID}','${p.MilestoneID}')`;
         return sql;
     }
     static AddAllphasesSQL(p) {
-        let sql = `INSERT INTO  lighthouse.phase(Name,Description,CreatedBy,UpdatedBy) \
+        let sql = `INSERT INTO  ${lighthouseJson.database}.phase(Name,Description,CreatedBy,UpdatedBy) \
         VALUES( '${p.Name}','${p.Description}','${p.CreatedBy}','${p.UpdatedBy}')`;
         return sql;
     }
     static AddAllfunctionsSQL(f) {
-        let sql = `INSERT INTO  lighthouse.functions(Name,Description,CreatedBy,UpdatedBy) \
+        let sql = `INSERT INTO  ${lighthouseJson.database}.functions(Name,Description,CreatedBy,UpdatedBy) \
         VALUES( '${f.Name}','${f.Description}','${f.CreatedBy}','${f.UpdatedBy}')`;
         return sql;
     }
     static AddAlllifecycleSQL(m) {
-        let sql = `INSERT INTO  lighthouse.lifecycle(Name,Description,CreatedBy,UpdatedBy) \
+        let sql = `INSERT INTO  ${lighthouseJson.database}.lifecycle(Name,Description,CreatedBy,UpdatedBy) \
         VALUES( '${m.Name}','${m.Description}','${m.CreatedBy}','${m.UpdatedBy}')`;
         return sql;
     }
     static AddAllimpactcategorySQL(i) {
-        let sql = `INSERT INTO  lighthouse.impactcategory(Name,Description,CreatedBy,UpdatedBy) \
+        let sql = `INSERT INTO  ${lighthouseJson.database}.impactcategory(Name,Description,CreatedBy,UpdatedBy) \
         VALUES( '${i.Name}','${i.Description}','${i.CreatedBy}','${i.UpdatedBy}')`;
         return sql;
     }
     static AddAllimpactlevelSQL(i) {
-        let sql = `INSERT INTO  lighthouse.impactlevel(Name,Description,CreatedBy,UpdatedBy) \
+        let sql = `INSERT INTO  ${lighthouseJson.database}.impactlevel(Name,Description,CreatedBy,UpdatedBy) \
         VALUES( '${i.Name}','${i.Description}','${i.CreatedBy}','${i.UpdatedBy}')`;
         return sql;
     }
     static AddAllprocessSQL(i) {
-        let sql = `INSERT INTO  lighthouse.process(Name,Description,CreatedBy,UpdatedBy) \
+        let sql = `INSERT INTO  ${lighthouseJson.database}.process(Name,Description,CreatedBy,UpdatedBy) \
         VALUES( '${i.Name}','${i.Description}','${i.CreatedBy}','${i.UpdatedBy}')`;
         return sql;
     }
     static updateAllprocessSQL(i) {
-        let sql = `update lighthouse.process SET Indexing='${i.Indexing}' where ID='${i.ID}'`;
+        let sql = `update ${lighthouseJson.database}.process SET Indexing='${i.Indexing}' where ID='${i.ID}'`;
         return sql;
     }
     static updateAlllifecycleSQL(i) {
-        let sql = `update lighthouse.lifecycle SET Indexing='${i.Indexing}' where ID='${i.ID}'`;
+        let sql = `update ${lighthouseJson.database}.lifecycle SET Indexing='${i.Indexing}' where ID='${i.ID}'`;
         return sql;
     }
     static updateAllmappingprojectandtypeSQL(i) {
-        let sql = `update lighthouse.mappingprojectprojecttype SET Indexing='${i.Indexing}' where ID='${i.ID}'`;
+        let sql = `update ${lighthouseJson.database}.mappingprojectprojecttype SET Indexing='${i.Indexing}' where ID='${i.ID}'`;
         return sql;
     }
     static updateAllmappingprojectandmilestoneSQL(i) {
-        let sql = `update lighthouse.mappingprojecttypemilestones SET Indexing='${i.Indexing}' where ID='${i.ID}'`;
+        let sql = `update ${lighthouseJson.database}.mappingprojecttypemilestones SET Indexing='${i.Indexing}' where ID='${i.ID}'`;
         return sql;
     }
     static updateAllmappingprojectphaseSQL(i) {
-        let sql = `update lighthouse.mappingprojectphase SET Indexing='${i.Indexing}' where ID='${i.ID}'`;
+        let sql = `update ${lighthouseJson.database}.mappingprojectphase SET Indexing='${i.Indexing}' where ID='${i.ID}'`;
         return sql;
     }
     static updateAllfunctionsSQL(i) {
-        let sql = `update lighthouse.functions SET Indexing='${i.Indexing}' where ID='${i.ID}'`;
+        let sql = `update ${lighthouseJson.database}.functions SET Indexing='${i.Indexing}' where ID='${i.ID}'`;
         return sql;
     }
     static updateAlldepartmentSQL(i) {
-        let sql = `update lighthouse.department SET Indexing='${i.Indexing}' where ID='${i.ID}'`;
+        let sql = `update ${lighthouseJson.database}.department SET Indexing='${i.Indexing}' where ID='${i.ID}'`;
         return sql;
     }
     static updateAllimpactcategorySQL(i) {
-        let sql = `update lighthouse.impactcategory SET Indexing='${i.Indexing}' where ID='${i.ID}'`;
+        let sql = `update ${lighthouseJson.database}.impactcategory SET Indexing='${i.Indexing}' where ID='${i.ID}'`;
         return sql;
     }
     static updateAllimpactlevelSQL(i) {
-        let sql = `update lighthouse.impactlevel SET Indexing='${i.Indexing}' where ID='${i.ID}'`;
+        let sql = `update ${lighthouseJson.database}.impactlevel SET Indexing='${i.Indexing}' where ID='${i.ID}'`;
         return sql;
     }
     static updateAllprojecttypeSQL(i) {
-        let sql = `update lighthouse.projecttype SET Indexing='${i.Indexing}' where ID='${i.ID}'`;
+        let sql = `update ${lighthouseJson.database}.projecttype SET Indexing='${i.Indexing}' where ID='${i.ID}'`;
         return sql;
     }
     static updateAllprojectsSQL(i) {
-        let sql = `update lighthouse.project SET Indexing='${i.Indexing}' where ID='${i.ID}'`;
+        let sql = `update ${lighthouseJson.database}.project SET Indexing='${i.Indexing}' where ID='${i.ID}'`;
         return sql;
     }
     static updateAllphasesSQL(i) {
-        let sql = `update lighthouse.phase SET Indexing='${i.Indexing}' where ID='${i.ID}'`;
+        let sql = `update ${lighthouseJson.database}.phase SET Indexing='${i.Indexing}' where ID='${i.ID}'`;
         return sql;
     }
     static updateAllmilestonesSQL(i) {
-        let sql = `update lighthouse.milestone SET Indexing='${i.Indexing}' where ID='${i.ID}'`;
+        let sql = `update ${lighthouseJson.database}.milestone SET Indexing='${i.Indexing}' where ID='${i.ID}'`;
         return sql;
     }
     static updateprojecttypeSQL(i) {
-        let sql = `update lighthouse.projecttype SET Name='${i.Name}' where ID='${i.ID}'`;
+        let sql = `update ${lighthouseJson.database}.projecttype SET Name='${i.Name}' where ID='${i.ID}'`;
 
         return sql;
     }
     static updateprojectSQL(i) {
-        let sql = `update lighthouse.project SET Name='${i.Name}' where ID='${i.ID}'`;
+        let sql = `update ${lighthouseJson.database}.project SET Name='${i.Name}' where ID='${i.ID}'`;
 
 
         return sql;
     }
     static updateprocessSQL(i) {
-        let sql = `update lighthouse.process SET Name='${i.Name}' where ID='${i.ID}'`;
+        let sql = `update ${lighthouseJson.database}.process SET Name='${i.Name}' where ID='${i.ID}'`;
 
 
         return sql;
     }
     static updatephasesSQL(i) {
-        let sql = `update lighthouse.phase SET Name='${i.Name}' where ID='${i.ID}'`;
+        let sql = `update ${lighthouseJson.database}.phase SET Name='${i.Name}' where ID='${i.ID}'`;
 
 
 
         return sql;
     }
     static updatedepartmentSQL(i) {
-        let sql = `update lighthouse.department SET Name='${i.Name}' where ID='${i.ID}'`;
+        let sql = `update ${lighthouseJson.database}.department SET Name='${i.Name}' where ID='${i.ID}'`;
 
 
 
@@ -721,76 +725,76 @@ class User {
     static updatefunctionSQL(i) {
 
 
-        let sql = `update lighthouse.functions SET Name='${i.Name}' where ID='${i.ID}'`;
+        let sql = `update ${lighthouseJson.database}.functions SET Name='${i.Name}' where ID='${i.ID}'`;
         return sql;
 
     }
     static updateimpactcategorySQL(i) {
-        let sql = `update lighthouse.impactcategory SET Name='${i.Name}' where ID='${i.ID}'`;
+        let sql = `update ${lighthouseJson.database}.impactcategory SET Name='${i.Name}' where ID='${i.ID}'`;
         return sql;
     }
     static updateimpactlevelSQL(i) {
-        let sql = `update lighthouse.impactlevel SET Name='${i.Name}' where ID='${i.ID}'`;
+        let sql = `update ${lighthouseJson.database}.impactlevel SET Name='${i.Name}' where ID='${i.ID}'`;
 
         return sql;
     }
     static updatelifecycleSQL(i) {
-        let sql = `update lighthouse.lifecycle SET Name='${i.Name}' where ID='${i.ID}'`;
+        let sql = `update ${lighthouseJson.database}.lifecycle SET Name='${i.Name}' where ID='${i.ID}'`;
 
 
         return sql;
     }
     static updatemilestonesSQL(i) {
-        let sql = `update lighthouse.milestone SET Name='${i.Name}' where ID='${i.ID}'`;
+        let sql = `update ${lighthouseJson.database}.milestone SET Name='${i.Name}' where ID='${i.ID}'`;
 
         return sql;
     }
     static getprojecttypebyid(ID) {
-        let sql = `select ID,Name,Description,Indexing from lighthouse.projecttype  where ID='${ID}'`;
+        let sql = `select ID,Name,Description,Indexing from ${lighthouseJson.database}.projecttype  where ID='${ID}'`;
 
         return sql;
     }
     static getprojectbyid(ID) {
-        let sql = `select ID,Name,Description,Indexing from lighthouse.project  where ID='${ID}'`;
+        let sql = `select ID,Name,Description,Indexing from ${lighthouseJson.database}.project  where ID='${ID}'`;
 
         return sql;
     }
     static getprocessbyid(ID) {
-        let sql = `select ID,Name,Description,Indexing from lighthouse.process  where ID='${ID}'`;
+        let sql = `select ID,Name,Description,Indexing from ${lighthouseJson.database}.process  where ID='${ID}'`;
 
 
         return sql;
     }
     static getphasesbyid(ID) {
-        let sql = `select ID,Name,Description,Indexing from lighthouse.phase  where ID='${ID}'`;
+        let sql = `select ID,Name,Description,Indexing from ${lighthouseJson.database}.phase  where ID='${ID}'`;
 
 
         return sql;
     }
     static getlifecyclebyid(ID) {
-        let sql = `select ID,Name,Description,Indexing from lighthouse.lifecycle  where ID='${ID}'`;
+        let sql = `select ID,Name,Description,Indexing from ${lighthouseJson.database}.lifecycle  where ID='${ID}'`;
 
 
         return sql;
     }
     static getimpactlevelbyid(ID) {
-        let sql = `select ID,Name,Description,Indexing from lighthouse.impactlevel  where ID='${ID}'`;
+        let sql = `select ID,Name,Description,Indexing from ${lighthouseJson.database}.impactlevel  where ID='${ID}'`;
         return sql;
     }
     static getimpactcategorybyid(ID) {
-        let sql = `select ID,Name,Description,Indexing from lighthouse.impactcategory  where ID='${ID}'`;
+        let sql = `select ID,Name,Description,Indexing from ${lighthouseJson.database}.impactcategory  where ID='${ID}'`;
         return sql;
     }
     static getfunctionsbyid(ID) {
-        let sql = `select ID,Name,Description,Indexing from lighthouse.functions  where ID='${ID}'`;
+        let sql = `select ID,Name,Description,Indexing from ${lighthouseJson.database}.functions  where ID='${ID}'`;
         return sql;
     }
     static getdepartmentsbyid(ID) {
-        let sql = `select ID,Name,Description,Indexing from lighthouse.department  where ID='${ID}'`;
+        let sql = `select ID,Name,Description,Indexing from ${lighthouseJson.database}.department  where ID='${ID}'`;
         return sql;
     }
     static getmilestonesbyid(ID) {
-        let sql = `select ID,Name,Description,Indexing from lighthouse.milestone  where ID='${ID}'`;
+        let sql = `select ID,Name,Description,Indexing from ${lighthouseJson.database}.milestone  where ID='${ID}'`;
         return sql;
     }
     static mappingprojectphase() {
@@ -850,7 +854,7 @@ class User {
     }
     static getdepartmentBybarSQL(){
 
-        let sql =`SELECT Name as deprt FROM lighthouse.department;`
+        let sql =`SELECT Name as deprt FROM ${lighthouseJson.database}.department;`
         return sql;
     }
     static getprojectBypiechartSQL() {
@@ -870,84 +874,84 @@ class User {
         return sql;
     }
     static getProcessIDByName(Name) {
-        let sql = `SELECT ID FROM lighthouse.process WHERE Name = '${Name}';`;
+        let sql = `SELECT ID FROM ${lighthouseJson.database}.process WHERE Name = '${Name}';`;
         return sql;
     }
     static getTypeIDByName(Name) {
-        let sql = `SELECT ID FROM lighthouse.type WHERE Name = '${Name}';`;
+        let sql = `SELECT ID FROM ${lighthouseJson.database}.type WHERE Name = '${Name}';`;
         return sql;
     }
     static getImpactCategoryIDByName(Name) {
-        let sql = `SELECT ID FROM lighthouse.impactcategory WHERE Name = '${Name}';`;
+        let sql = `SELECT ID FROM ${lighthouseJson.database}.impactcategory WHERE Name = '${Name}';`;
         return sql;
     }
     static getImpactLevelIDByName(Name) {
-        let sql = `SELECT ID FROM lighthouse.impactlevel WHERE Name = '${Name}';`;
+        let sql = `SELECT ID FROM ${lighthouseJson.database}.impactlevel WHERE Name = '${Name}';`;
         return sql;
     }
     static getFunctionIDByName(Name) {
-        let sql = `SELECT ID FROM lighthouse.functions WHERE Name = '${Name}';`;
+        let sql = `SELECT ID FROM ${lighthouseJson.database}.functions WHERE Name = '${Name}';`;
         return sql;
     }
     static getDepartmentIDByName(Name) {
-        let sql = `SELECT ID FROM lighthouse.department WHERE Name = '${Name}';`;
+        let sql = `SELECT ID FROM ${lighthouseJson.database}.department WHERE Name = '${Name}';`;
         return sql;
     }
     static getLifeCycleIDByName(Name) {
-        let sql = `SELECT ID FROM lighthouse.lifecycle WHERE Name = '${Name}';`;
+        let sql = `SELECT ID FROM ${lighthouseJson.database}.lifecycle WHERE Name = '${Name}';`;
         return sql;
     }
     static getProjectIDByName(Name) {
-        let sql = `SELECT ID FROM lighthouse.project WHERE Name = '${Name}';`;
+        let sql = `SELECT ID FROM ${lighthouseJson.database}.project WHERE Name = '${Name}';`;
         return sql;
     }
     static getProjectTypeIDByName(Name) {
-        let sql = `SELECT ID FROM lighthouse.projecttype WHERE Name = '${Name}';`;
+        let sql = `SELECT ID FROM ${lighthouseJson.database}.projecttype WHERE Name = '${Name}';`;
         return sql;
     }
     static getPhaseIDByName(Name) {
-        let sql = `SELECT ID FROM lighthouse.phase WHERE Name = '${Name}';`;
+        let sql = `SELECT ID FROM ${lighthouseJson.database}.phase WHERE Name = '${Name}';`;
         return sql;
     }
     static getMilestoneIDByName(Name) {
-        let sql = `SELECT ID FROM lighthouse.milestone WHERE Name = '${Name}';`;
+        let sql = `SELECT ID FROM ${lighthouseJson.database}.milestone WHERE Name = '${Name}';`;
         return sql;
     }
     static getUserIDByEmail(Email) {
-        let sql = `SELECT ID FROM lighthouse.user WHERE Email = '${Email}';`;
+        let sql = `SELECT ID FROM ${lighthouseJson.database}.user WHERE Email = '${Email}';`;
         return sql;
     }
     static checkKeywordIDByName(Name) {
-        let sql = `SELECT ID, Name FROM lighthouse.keyword WHERE Name = '${Name}';`;
+        let sql = `SELECT ID, Name FROM ${lighthouseJson.database}.keyword WHERE Name = '${Name}';`;
         return sql;
     }
     static addBulkErrorImportSQL(index, row, errorF, rowIndex, columnIndex, errorMessage) {
-        let sql = `INSERT INTO lighthouse.bulkimporterrors (ErrorMessage,ErrorField,RowField,ColumnField,Name,Email,ProjectType,ProcessField,Project,Phase,Milestone,Type,ImpactCategory,ImpactLevel,FunctionField,Department,Title,Description,RootCause,Recommendation,Keywords,LifeCycle,IndexID) VALUES \
+        let sql = `INSERT INTO ${lighthouseJson.database}.bulkimporterrors (ErrorMessage,ErrorField,RowField,ColumnField,Name,Email,ProjectType,ProcessField,Project,Phase,Milestone,Type,ImpactCategory,ImpactLevel,FunctionField,Department,Title,Description,RootCause,Recommendation,Keywords,LifeCycle,IndexID) VALUES \
             ("'${errorMessage}'",'${errorF}','${rowIndex}','${columnIndex}','${row[0]}','${row[1]}','${row[2]}','${row[3]}','${row[4]}','${row[5]}','${row[6]}','${row[7]}','${row[8]}','${row[9]}','${row[10]}','${row[11]}','${row[12]}','${row[13]}','${row[14]}','${row[15]}','${row[16]}','${row[17]}','${index}');`;
         return sql;
     }
     static addBulkImportSQL(fileName, filePath, successLength, errorLengthe, UserID) {
 
-        let sql = `INSERT INTO lighthouse.bulkimport (FileName,TotalEntry,TotalEntryError,FilePath,ImportDate,CreatedBy) VALUES \
+        let sql = `INSERT INTO ${lighthouseJson.database}.bulkimport (FileName,TotalEntry,TotalEntryError,FilePath,ImportDate,CreatedBy) VALUES \
             ('${fileName}','${successLength}','${errorLengthe}','${filePath}',now(),'${UserID}');`;
         return sql;
     }
     static mappingBulkImportAndErrorSQL(BulkImportID, BulkImportErrorID) {
 
-        let sql = `INSERT INTO lighthouse.mappingbulkimportbulkimporterror (BulkImportID,BulkImportErrorID) VALUES \
+        let sql = `INSERT INTO ${lighthouseJson.database}.mappingbulkimportbulkimporterror (BulkImportID,BulkImportErrorID) VALUES \
             ('${BulkImportID}','${BulkImportErrorID}');`;
         return sql;
     }
     static getBulkImportErrorData(ID) {
         let sql = `select bie.ErrorMessage,bie.ErrorField,bie.RowField,bie.ColumnField,bie.Name,bie.Email,bie.ProjectType,bie.ProcessField,bie.Project,bie.Phase,bie.Milestone,bie.Type,bie.ImpactCategory,
         bie.ImpactLevel,bie.FunctionField,bie.Department,bie.Title,bie.Description,bie.RootCause,bie.Recommendation,bie.Keywords,bie.LifeCycle
-        from lighthouse.bulkimporterrors  bie
+        from ${lighthouseJson.database}.bulkimporterrors  bie
         Inner join mappingbulkimportbulkimporterror mbibie on bie.ID =mbibie.BulkImportErrorID where  mbibie.BulkImportID=${ID};`
         return sql;
     }
     static getallbulkSql() {
         let sql = `SELECT bi.ID,bi.FileName,bi.TotalEntry,bi.TotalEntryError,bi.ErrorFileName,bi.FilePath,bi.ErrorFilePath,bi.ImportDate,ur.FirstName,ur.LastName
-        FROM lighthouse.bulkimport bi
+        FROM ${lighthouseJson.database}.bulkimport bi
         INNER JOIN user ur on ur.ID = bi.CreatedBy
         order by bi.ImportDate DESC`
         return sql;
@@ -955,12 +959,12 @@ class User {
     static updateBulkSQL(ID, fileName, filePath) {
 
         // console.log(o.ProjectID, "o.ProjectID");
-        let sql = `update lighthouse.bulkimport SET ErrorFileName='${fileName}',ErrorFilePath='${filePath}' where ID='${ID}'`;
+        let sql = `update ${lighthouseJson.database}.bulkimport SET ErrorFileName='${fileName}',ErrorFilePath='${filePath}' where ID='${ID}'`;
         return sql;
 
     }
     static updateAllprocessSQL(i) {
-        let sql = `update lighthouse.process SET Indexing='${i.Indexing}' where ID='${i.ID}'`;
+        let sql = `update ${lighthouseJson.database}.process SET Indexing='${i.Indexing}' where ID='${i.ID}'`;
         return sql;
     }
     static authUserByEmail(email) {
@@ -975,18 +979,18 @@ class User {
         return sql;
     }
     static userRegistration(obj) {
-       let sql = `INSERT INTO lighthouse.user (FirstName,LastName,Email,EmailNotification,CreatedBy,CreatedDate,IsEnabled) VALUES \
+       let sql = `INSERT INTO ${lighthouseJson.database}.user (FirstName,LastName,Email,EmailNotification,CreatedBy,CreatedDate,IsEnabled) VALUES \
             ('${obj.FirstName}','${obj.LastName}','${obj.Email}','${obj.EmailNotification}','${obj.UserID}',now(),'${obj.IsEnabled}');`;
         return sql;
     }
     static mappingUserRoles(userID, roleID) {
-        let sql = `INSERT INTO lighthouse.mappinguserrole (UserID,RoleID) VALUES \
+        let sql = `INSERT INTO ${lighthouseJson.database}.mappinguserrole (UserID,RoleID) VALUES \
             ('${userID}','${roleID}');`;
         return sql;
     }
     static googleUser(json, IsEnabled) {
 
-        let sql = `INSERT INTO lighthouse.googleuser (Sub,Name,GivenName,FamilyName,Picture,Email,EmailVerified,Hd, CreatedDate, IsEnabled) VALUES \
+        let sql = `INSERT INTO ${lighthouseJson.database}.googleuser (Sub,Name,GivenName,FamilyName,Picture,Email,EmailVerified,Hd, CreatedDate, IsEnabled) VALUES \
             ('${json.sub}','${json.name}','${json.given_name}','${json.family_name}','${json.picture}','${json.email}','${json.email_verified}','${json.hd}',now(),'${IsEnabled}');`;
         return sql;
     }
@@ -997,7 +1001,7 @@ class User {
         return sql;
     }
     static userAccountSettings(obj) {
-        let sql = `UPDATE lighthouse.user
+        let sql = `UPDATE ${lighthouseJson.database}.user
         SET FirstName='${obj.SettFirstName}',LastName='${obj.SettLastName}',UpdatedBy='${obj.UserID}',EmailNotification='${obj.Notifications}', UpdatedDate=now(), IsEnabled='${obj.Status}'
         WHERE ID='${obj.SettingUserID}';`;
         return sql;
@@ -1005,42 +1009,42 @@ class User {
     static mappingUserRolesAccountSettings(obj) {
         console.log(obj.SettRoles);
         console.log(obj.SettingUserID);
-        let sql = `UPDATE lighthouse.mappinguserrole
+        let sql = `UPDATE ${lighthouseJson.database}.mappinguserrole
         SET RoleID='${obj.SettRoles}'
         WHERE UserID='${obj.SettingUserID}';`;
         return sql;
     }
     static deleteUserSQL(ID) {
-        let sql = `DELETE from lighthouse.user where ID=${ID}`;
+        let sql = `DELETE from ${lighthouseJson.database}.user where ID=${ID}`;
         return sql;
     }
     static deleteMappingUserRolesSQL(ID) {
-        let sql = `DELETE from lighthouse.mappinguserrole where UserID=${ID}`;
+        let sql = `DELETE from ${lighthouseJson.database}.mappinguserrole where UserID=${ID}`;
         return sql;
     }
     static getAllPendingUser() {
-        let sql = `SELECT ID, Name, GivenName, FamilyName, Picture, Email, CreatedDate  FROM lighthouse.googleuser WHERE IsEnabled = 0 order by CreatedDate DESC;`;
+        let sql = `SELECT ID, Name, GivenName, FamilyName, Picture, Email, CreatedDate  FROM ${lighthouseJson.database}.googleuser WHERE IsEnabled = 0 order by CreatedDate DESC;`;
         return sql;
     }
     static getPendingUserByID(ID) {
-        let sql = `SELECT ID, Name, GivenName, FamilyName, Picture, Email, CreatedDate  FROM lighthouse.googleuser WHERE ID = ${ID};`;
+        let sql = `SELECT ID, Name, GivenName, FamilyName, Picture, Email, CreatedDate  FROM ${lighthouseJson.database}.googleuser WHERE ID = ${ID};`;
         return sql;
     }
     static updateGoogleUser(obj) {
-        let sql = `UPDATE lighthouse.googleuser SET IsEnabled='${obj.IsEnabled}' WHERE Email='${obj.Email}';`;
+        let sql = `UPDATE ${lighthouseJson.database}.googleuser SET IsEnabled='${obj.IsEnabled}' WHERE Email='${obj.Email}';`;
         return sql;
     }
     static getUserByID(ID) {
-        let sql = `SELECT Email  FROM lighthouse.user WHERE ID = ${ID};`;
+        let sql = `SELECT Email  FROM ${lighthouseJson.database}.user WHERE ID = ${ID};`;
         return sql;
 
     }
     static deleteGoogleUser(Email) {
-        let sql = `DELETE from lighthouse.googleuser where Email =  '${Email}';`;
+        let sql = `DELETE from ${lighthouseJson.database}.googleuser where Email =  '${Email}';`;
         return sql;
     }
     static pendingUserDelete(ID) {
-        let sql = `DELETE from lighthouse.googleuser where ID =  '${ID}';`;
+        let sql = `DELETE from ${lighthouseJson.database}.googleuser where ID =  '${ID}';`;
         return sql;
     }
     static getGoogleUserBYEmail(email, IsEnabled) {
@@ -1050,22 +1054,22 @@ class User {
     }
     static getcountlessonbymonth(){
         let sql =`SELECT count(ID) as lastthreemonth,(select count(ID) 
-        FROM lighthouse.lesson
+        FROM ${lighthouseJson.database}.lesson
         WHERE CreatedDate >=DATE_ADD(NOW(), INTERVAL -1 MONTH)) as currentmonth ,(select count(ID) 
-        FROM lighthouse.lesson
+        FROM ${lighthouseJson.database}.lesson
         WHERE CreatedDate >=DATE_ADD(NOW(), INTERVAL -5 MONTH)) as lastfivemonth,(select count(ID) 
-        FROM lighthouse.lesson
+        FROM ${lighthouseJson.database}.lesson
         WHERE CreatedDate >=DATE_ADD(NOW(), INTERVAL -10 MONTH)) as lasttenmonth
-        FROM lighthouse.lesson 
+        FROM ${lighthouseJson.database}.lesson 
         WHERE CreatedDate >=DATE_ADD(NOW(), INTERVAL -3 MONTH)`
         return sql; 
      }
 		 static getUserEmailForNotification(){
-        let sql = `SELECT Email FROM lighthouse.user WHERE EmailNotification = 1;`;
+        let sql = `SELECT Email FROM ${lighthouseJson.database}.user WHERE EmailNotification = 1;`;
         return sql; 
      }
      static updateAvatarImage(email, picture, isEnabled){
-        let sql = `UPDATE lighthouse.googleuser SET Picture='${picture}' WHERE Email='${email}' and IsEnabled='${isEnabled}';`;
+        let sql = `UPDATE ${lighthouseJson.database}.googleuser SET Picture='${picture}' WHERE Email='${email}' and IsEnabled='${isEnabled}';`;
         return sql;
      }								  
 }

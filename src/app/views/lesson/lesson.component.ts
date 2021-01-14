@@ -20,7 +20,7 @@ export class lessonComponent implements OnInit {
   lastname:string;
   Email: string;
   issuedescription: string;
-  rootcouse: string;
+  rootcause: string;
   Recommendation: string;
   impactcategory: string;
   impactlevel: string;
@@ -92,7 +92,7 @@ export class lessonComponent implements OnInit {
       this.likes = data.result[0].likes;
       this.UserID = JSON.parse(localStorage.getItem('currentUser')).ID;
       this.useruseful = data.result[0].useruseful;
-      this.rootcouse = data.result[0].RootCause;
+      this.rootcause = data.result[0].RootCause;
       this.LessonID = data.result[0].LessonID;
       this.functions = data.result[0].functions;
       this.department = data.result[0].department;
@@ -101,7 +101,7 @@ export class lessonComponent implements OnInit {
       this.firstname = data.result[0].firstname;
       this.lastname  = data.result[0].lastname;
       this.Email = data.result[0].Email;
-      if (this.rootcouse == "undefined") {
+      if (this.rootcause == "undefined") {
         this.showrootcouse = false;
       }
       if (this.useruseful == null || this.useruseful == "") {
@@ -141,7 +141,7 @@ export class lessonComponent implements OnInit {
       }
 
     });
-    this.userService.getAllKaywordsByID(ID).subscribe((data) => {
+    this.userService.getAllkeywordsByID(ID).subscribe((data) => {
       if (data.status) {
         this.keyName = data.result;
       }

@@ -67,7 +67,7 @@ export class UpdateProjectComponent implements OnInit {
   issuedescription: string;
   show: boolean = false;
   title: string;
-  rootcouse: string;
+  rootcause: string;
   Recommendation: string;
   _Keywords: any[] = [];
   impectcategory: string = '';
@@ -183,7 +183,7 @@ export class UpdateProjectComponent implements OnInit {
       lifecycle: ['', Validators.required],
       _Keywords: ['', Validators.required],
       Recommendation: ['', Validators.required],
-      rootcouse: ['', Validators.required],
+      rootcause: ['', Validators.required],
       issuedescription: ['', Validators.required],
       title: ['', Validators.required],
       typeoflesson: ['', Validators.required],
@@ -205,7 +205,7 @@ export class UpdateProjectComponent implements OnInit {
       impectcategory: ['', Validators.required],
       _Keywords: ['', Validators.required],
       Recommendation: ['', Validators.required],
-      rootcouse: ['', Validators.required],
+      rootcause: ['', Validators.required],
       issuedescription: ['', Validators.required],
       title: ['', Validators.required],
       typeoflesson: ['', Validators.required],
@@ -250,7 +250,7 @@ export class UpdateProjectComponent implements OnInit {
       this.lessonForm.controls['_projectphasemilestone'].setValue(this.editData.milestonesID);
       this.lessonForm.controls['issuedescription'].setValue(this.editData.IssueDescription);
       this.lessonForm.controls['title'].setValue(this.editData.Title);
-      this.lessonForm.controls['rootcouse'].setValue(this.editData.RootCause);
+      this.lessonForm.controls['rootcause'].setValue(this.editData.RootCause);
       this.lessonForm.controls['Recommendation'].setValue(this.editData.Recommendation);
       this.lessonForm.controls['lifecycle'].setValue(this.editData.lifecycleID);
       this.lessonForm.controls['impectcategory'].setValue(this.editData.impactcategoryID);
@@ -275,7 +275,7 @@ export class UpdateProjectComponent implements OnInit {
 
       this.test = ([this.editData.projectname]);
       this.lessonForm.controls['_projectname'].setValue(this.test);
-      this.userService.getAllKaywordsByID(ID).subscribe((data) => {
+      this.userService.getAllkeywordsByID(ID).subscribe((data) => {
         //  console.log(data);
         if (data.status) {
 
@@ -288,7 +288,7 @@ export class UpdateProjectComponent implements OnInit {
       // this._projectPhase = this.editData.phase;
       // this.issuedescription = this.editData.IssueDescription;
       // this.title = this.editData.Title;
-      // this.rootcouse = this.editData.RootCause;
+      // this.rootcause = this.editData.RootCause;
       // this.Recommendation = this.editData.Recommendation;
       // this.impectcategory = this.editData.impactcategory;
       // this.impectlevel = this.editData.impactlevel;
@@ -637,8 +637,8 @@ export class UpdateProjectComponent implements OnInit {
   }
 
   public lessonFormFields() {
-    //console.log(this.typeoflesson , this.issuedescription , this.rootcouse , this.Recommendation, this._Keywords);            
-    if (this.typeoflesson && this.issuedescription && this.rootcouse && this.Recommendation && this._Keywords.length > 0) {
+    //console.log(this.typeoflesson , this.issuedescription , this.rootcause , this.Recommendation, this._Keywords);            
+    if (this.typeoflesson && this.issuedescription && this.rootcause && this.Recommendation && this._Keywords.length > 0) {
       this.additionalFormbtn = false;
     } else {
       this.additionalFormbtn = false;
@@ -670,7 +670,7 @@ export class UpdateProjectComponent implements OnInit {
     this.isSubmitted = true;
     const _user: any = JSON.parse(localStorage.getItem('currentUser'));
     if (form.value.typeoflesson == 2) {
-      this.rootcouse = "undefined";
+      this.rootcause = "undefined";
     }
     if (form.value._projectname[0].ID) {
       this.projectNameID = form.value._projectname[0].ID;
@@ -693,8 +693,8 @@ export class UpdateProjectComponent implements OnInit {
       DepartmentID: form.value.department[0].ID,
       FunctionID: form.value.function[0].ID,
       IssueDescription: form.value.issuedescription,
-      RootCause: this.rootcouse,
-      Kaywords: form.value._Keywords,
+      RootCause: this.rootcause,
+      keywords: form.value._Keywords,
       Recommendation: form.value.Recommendation,
       AttachmentsURL: '',
       UpdatedBy: _user.ID,

@@ -60,7 +60,7 @@ export class UpdateProcessComponent implements OnInit {
   typeoflesson: string;
   issuedescription: string;
   title: string;
-  rootcouse: string;
+  rootcause: string;
   Recommendation: string;
   _Keywords: string[] = [];
   impectcategory: string = '';
@@ -152,7 +152,7 @@ export class UpdateProcessComponent implements OnInit {
       impectcategory: ['', Validators.required],
       _Keywords: ['', Validators.required],
       Recommendation: ['', Validators.required],
-      rootcouse: ['', Validators.required],
+      rootcause: ['', Validators.required],
       issuedescription: ['', [Validators.required, Validators.maxLength(250)]],
       title: ['', Validators.required],
       typeoflesson: ['', Validators.required],
@@ -180,7 +180,7 @@ export class UpdateProcessComponent implements OnInit {
       this.lessonProcessForm.controls['process'].setValue(this.editData.ProcessID);
       this.lessonProcessForm.controls['issuedescription'].setValue(this.editData.IssueDescription);
       this.lessonProcessForm.controls['title'].setValue(this.editData.Title);
-      this.lessonProcessForm.controls['rootcouse'].setValue(this.editData.RootCause);
+      this.lessonProcessForm.controls['rootcause'].setValue(this.editData.RootCause);
       this.lessonProcessForm.controls['Recommendation'].setValue(this.editData.Recommendation);
       this.lessonProcessForm.controls['impectcategory'].setValue(this.editData.impactcategoryID);
       this.lessonProcessForm.controls['lifecycle'].setValue(this.editData.lifecycleID);
@@ -198,7 +198,7 @@ export class UpdateProcessComponent implements OnInit {
         this.showIssues = true;
         this.showPractice = false;
       }
-      this.userService.getAllKaywordsByID(ID).subscribe((data) => {
+      this.userService.getAllkeywordsByID(ID).subscribe((data) => {
         //  console.log(data);
         if (data.status) {
           this.lessonProcessForm.controls['_Keywords'].setValue(data.result);
@@ -217,7 +217,7 @@ export class UpdateProcessComponent implements OnInit {
       // this._projectPhase = this.editData.phase;
       // this.issuedescription = this.editData.IssueDescription;
       // this.title = this.editData.Title;
-      // this.rootcouse = this.editData.RootCause;
+      // this.rootcause = this.editData.RootCause;
       // this.Recommendation = this.editData.Recommendation;
       // this.impectcategory = this.editData.impactcategory;
       // this.impectlevel = this.editData.impactlevel;
@@ -388,8 +388,8 @@ export class UpdateProcessComponent implements OnInit {
   }
 
   public lessonFormFields() {
-    //console.log(this.typeoflesson , this.issuedescription , this.rootcouse , this.Recommendation, this._Keywords);            
-    if (this.typeoflesson && this.issuedescription && this.rootcouse && this.Recommendation && this._Keywords.length > 0) {
+    //console.log(this.typeoflesson , this.issuedescription , this.rootcause , this.Recommendation, this._Keywords);            
+    if (this.typeoflesson && this.issuedescription && this.rootcause && this.Recommendation && this._Keywords.length > 0) {
       this.additionalFormbtn = false;
     } else {
       this.additionalFormbtn = false;
@@ -416,7 +416,7 @@ export class UpdateProcessComponent implements OnInit {
     this.isSubmitted = true;
     let _user: any = JSON.parse(localStorage.getItem('currentUser'));
     if (form.value.typeoflesson == 2) {
-      this.rootcouse = "undefined";
+      this.rootcause = "undefined";
     }
     let o: any = {
       UserID: _user.ID,
@@ -429,8 +429,8 @@ export class UpdateProcessComponent implements OnInit {
       ImpactLevelID: form.value.impectlevel,
       Title: this.title,
       IssueDescription: this.issuedescription,
-      RootCause: this.rootcouse,
-      Kaywords: form.value._Keywords,
+      RootCause: this.rootcause,
+      keywords: form.value._Keywords,
       DepartmentID: form.value.department[0].ID,
       FunctionID: form.value.function[0].ID,
       Recommendation: this.Recommendation,

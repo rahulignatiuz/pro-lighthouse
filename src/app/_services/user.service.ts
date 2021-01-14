@@ -240,8 +240,8 @@ export class UserService {
   getlessontype() {
     return this.http.get<any>(`${this._baseURL}/lessons/type`);
   }
-  getAllKaywordsByID(LessonID) {
-    return this.http.post<any>(`${this._baseURL}/lessons/kaywords/id`, { ID: LessonID });
+  getAllkeywordsByID(LessonID) {
+    return this.http.post<any>(`${this._baseURL}/lessons/keywords/id`, { ID: LessonID });
   }
   deleteAlluserlikeSQL(ID) {
     return this.http.post<any>(`${this._baseURL}/userlike/dislike`, { ID: ID });

@@ -283,13 +283,13 @@
                                           class="danger">*</span></label>
                                     <div class="col-md-9">
                                        <textarea class="form-control" (blur)="lessonFormFields()" id="textarea-input"
-                                          [ngClass]="{'has-error is-invalid': isSubmitted && formControls.rootcouse.errors }"
-                                          [(ngModel)]="rootcouse" formControlName="rootcouse"
+                                          [ngClass]="{'has-error is-invalid': isSubmitted && formControls.rootcause.errors }"
+                                          [(ngModel)]="rootcause" formControlName="rootcause"
                                           placeholder="Root cause..." rows="6" maxlength="250"></textarea>
                                        <div
-                                          *ngIf="lessonForm.controls['rootcouse'].invalid && (lessonForm.controls['rootcouse'].dirty || lessonForm.controls['rootcouse'].touched)"
+                                          *ngIf="lessonForm.controls['rootcause'].invalid && (lessonForm.controls['rootcause'].dirty || lessonForm.controls['rootcause'].touched)"
                                           class="custom-errMsg">
-                                          <div *ngIf="lessonForm.controls['rootcouse'].errors.required">
+                                          <div *ngIf="lessonForm.controls['rootcause'].errors.required">
                                              Root cause is required.
                                           </div>
                                        </div>

@@ -282,7 +282,7 @@ export class AdmindashboardComponent implements OnInit {
   //     }
   //   });
   // }
-
+  // project pie chart
   public onselectProjecttype3(e) {
 
     this.mappingProjectTypeAndProject = [];
@@ -297,6 +297,7 @@ export class AdmindashboardComponent implements OnInit {
     });
 
   }
+  // milestones bar chart
   getMappingProjectTypeAndProject(ProjecttypeID) {
     this.userService.getMappingProjectTypeAndProject(ProjecttypeID).subscribe((data) => {
       if (data.status) {
@@ -321,6 +322,7 @@ export class AdmindashboardComponent implements OnInit {
     });
 
   }
+  // selected ivd as a project type  
   getdefaultproject(){
     this.userService.getdefaultproject().subscribe((data) => {
       if (data) {
@@ -329,6 +331,7 @@ export class AdmindashboardComponent implements OnInit {
       }
     });
   }
+  // selected ivd as a project type  
 getdefaultmilestones(){
     this.userService.getdefaultmilestones().subscribe((data) => {
       if (data) {
@@ -339,6 +342,7 @@ getdefaultmilestones(){
       }
     });
   }
+  // selected ivd as a project type  
 getdefaultprojectphase(){
     this.userService.getdefaultprojectphase().subscribe((data) => {
       if (data) {
