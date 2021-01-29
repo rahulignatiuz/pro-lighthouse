@@ -154,3 +154,176 @@ body {
 svg{
     fill: red;
 }
+.centerline{
+    padding: 0;
+}
+.centerlineright{
+    padding-right:0;
+}
+.rightmargin{
+    padding-right: 0px;
+}
+.paddingright{
+    padding-left: 8px;
+}
+
+@media (max-width: 1800px){
+    .labelsforsmall{
+        margin-bottom: 3% !important;
+    }
+    
+    .cssforsmallscreen{
+        margin-top: 4% !important;
+    }
+    .cssforsmal{
+        display: none !important;
+    }
+    .smallscreen{
+        margin-top: 5% !important;
+    }
+    .largescreen{
+        display: flex !important;
+    }
+    .smallscreenprojectphase{
+        margin-top: 18% !important; 
+    }
+    .impactcssforsmallscreen{
+        margin-top: 21% !important;
+    }
+    .Milestonecssforsmall{
+        margin-top: 19% !important;
+    }
+    .projectphaseselect{
+        margin-top: -12% !important;
+    }
+    .marginforlarger{
+        margin-top: 0% !important;
+    }
+    .marginforsmall{
+        margin-top: 5% !important;
+    }
+}
+@media (max-width: 2100px){
+    .largescreenimplemented{
+        margin-top: 3%;
+    }
+    .projectphaseselect{
+        margin-top: -9%;
+    }
+    .marginforsmall{
+        margin-top: 5%;
+    }
+    .marginforlarger{
+        margin-top: 28px;
+    }
+    .cssforsmallscreen{
+        margin-top: 8%;
+    }
+    .cssforsmal{
+        display: flex;
+    }
+    .largescreen{
+        display: none;
+    }
+    .smallscreenprojectphase{
+        margin-top: 19px; 
+    }
+    .impactcssforsmallscreen{
+        margin-top: 0%;
+    }
+    .Milestonecssforsmall{
+        margin-top: -2px;
+    }
+}
+.card{
+    margin-bottom: 8px;
+}
+.card-header{
+    background-color:#f1f1f1 !important;
+}
+.tooltip-toggle {
+    cursor: pointer;
+    position: relative;
+  
+    svg {
+      height: 12px;
+      width: 14px;
+    }
+    
+    //Tooltip text container
+    &::before {
+      position: absolute;
+      top: -51px;
+      left: -80px;
+      background-color: #f0f3f5;
+      border-radius: 5px;
+      color: #fff;
+      content: attr(aria-label);
+      padding: 1rem;
+      text-transform: none;
+      transition: all 0.5s ease;
+      width: 377px;
+    }
+  
+    //Tooltip arrow
+    &::after {
+      position: absolute;
+      top: -8px;
+      left: 9px;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-top: 5px solid #f0f3f5;
+      content: " ";
+      font-size: 0;
+      line-height: 0;
+      margin-left: -5px;
+      width: 0;
+    }
+    
+    //Setting up the transition
+    &::before,
+    &::after {
+      color: black;
+      font-family: Sans-serif;
+      font-size: 14px;
+      opacity: 0;
+      pointer-events: none;
+      text-align: center;
+    }
+    
+    //Triggering the transition
+    &:focus::before,
+    &:focus::after,
+    &:hover::before,
+    &:hover::after {
+      opacity: 1;
+      transition: all 0.75s ease;
+    }
+  }
+  div {
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+  }
+
+  @media (max-width: 1535px ){
+    .labelsforsmall{
+        margin-bottom: 4% !important;
+    }
+    .impactcssforsmallscreen{
+        margin-top: 33% !important;
+    }
+    .Milestonecssforsmall{
+        margin-top: 29% !important;
+    }
+    .smallscreenprojectphase{
+        margin-top: 28% !important;
+    }
+    .marginforsmall{
+        margin-top: 14% !important;
+    }
+    .smallscreen{
+        margin-top: 13% !important;
+    }
+  }
+  

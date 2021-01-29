@@ -83,7 +83,7 @@ export class AddProcessComponent implements OnInit {
   public dropdownSettings: IDropdownSettings = {};
   public lessontypeAsObjects: any;
 
-
+  maxChars = 250;
   constructor(private router: Router, private formBuilder: FormBuilder, private userService: UserService, private route: ActivatedRoute, private titleService: Title) {
     TagInputModule.withDefaults({
       tagInput: {

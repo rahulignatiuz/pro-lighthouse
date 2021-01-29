@@ -305,3 +305,25 @@ svg{
     -ms-user-select: none; /* IE 10 and IE 11 */
     user-select: none; /* Standard syntax */
   }
+
+  @media (max-width: 1535px ){
+    .labelsforsmall{
+        margin-bottom: 4% !important;
+    }
+    .impactcssforsmallscreen{
+        margin-top: 33% !important;
+    }
+    .Milestonecssforsmall{
+        margin-top: 29% !important;
+    }
+    .smallscreenprojectphase{
+        margin-top: 28% !important;
+    }
+    .marginforsmall{
+        margin-top: 14% !important;
+    }
+    .smallscreen{
+        margin-top: 13% !important;
+    }
+  }
+  

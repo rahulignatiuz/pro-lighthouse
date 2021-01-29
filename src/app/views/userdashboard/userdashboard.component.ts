@@ -12,6 +12,8 @@ import { Title } from '@angular/platform-browser';
 })
 export class UserdashboardComponent implements OnInit {
   results: any[];
+  nrSelect = 1;
+
   public _baseURL: string;
   public sortbyBD: string;
   public getallimpactlevelhigh: any;
@@ -26,7 +28,22 @@ export class UserdashboardComponent implements OnInit {
   //barchart
   public barChartOptions: any = {
     scaleShowVerticalLines: false,
-    responsive: true
+    responsive: true,
+    scales: {
+      xAxes: [{
+        gridLines: {
+          display: false,
+          barPercentage: 0.4,
+
+
+        }
+      }],
+      yAxes: [{
+        gridLines: {
+          display: false
+        }
+      }]
+    }
 
   };
   // public barChartLabels: string[];
@@ -34,6 +51,9 @@ export class UserdashboardComponent implements OnInit {
   public barChartType1 = 'horizontalBar';
   barChartLabels: string[];
   barChartLabelsfordepartment: string[];
+  public barChartTypeforphase = 'bar';
+  public barChartTypefordepartment = 'bar';
+  public barChartTypeforcategory = 'bar';
 
   public barChartData: any[] = [
     // { data: [65, 59, 80, 81, 56, 55, 46], label: '' },
@@ -73,12 +93,12 @@ export class UserdashboardComponent implements OnInit {
   // Pie milestones
   public milespieChartLabels: string[];
   public milespieChartData: number[];
-  public milespieChartType = 'doughnut';
+  public milespieChartType = 'bar';
 
   // Pie function
   public funpieChartLabels: string[];
   public funpieChartData: number[];
-  public funpieChartType = 'pie';
+  public funpieChartType = 'bar';
 
   // bar function
   public phasebarChartLabels: string[];
@@ -144,6 +164,13 @@ export class UserdashboardComponent implements OnInit {
       borderWidth: 2,
     }
   ];
+  public chartColors1: Array<any> = [
+    {
+      backgroundColor: ['#f86c6b','#20a8d8', '#63c2de','#A8B3C5'],
+      hoverBackgroundColor: ['#f86c6b','#20a8d8', '#63c2de','#A8B3C5'],
+      borderWidth: 1,
+    }
+  ];
   currentValue1: number;
   currentValue2: number;
   currentValue3: number;
@@ -181,6 +208,9 @@ export class UserdashboardComponent implements OnInit {
     this.getlessonbyissue();
     this.getlessonbypractice();
     this.getlessonbymonth();
+    this.getdefaultproject();
+    this.getdefaultmilestones();
+    this.getdefaultprojectphase();
     this.titleService.setTitle("Lighthouse | Dashboard");
 
   }
@@ -234,6 +264,36 @@ export class UserdashboardComponent implements OnInit {
     localStorage.setItem("tabID", projecttabselection);
 
 
+  }
+  getdefaultproject(){
+    this.userService.getdefaultproject().subscribe((data) => {
+      if (data) {
+        this.projectpieChartLabels = data.label;
+        this.projectpieChartData = data.data;
+      }
+    });
+  }
+  // selected ivd as a project type  
+getdefaultmilestones(){
+    this.userService.getdefaultmilestones().subscribe((data) => {
+      if (data) {
+        data.data.push(0);
+
+        this.milespieChartLabels = data.label;
+        this.milespieChartData = data.data;
+      }
+    });
+  }
+  // selected ivd as a project type  
+getdefaultprojectphase(){
+    this.userService.getdefaultprojectphase().subscribe((data) => {
+      if (data) {
+        data.data.push(0);
+        this.barChartLabels = data.label;
+        this.barChartData = data.data;
+      }
+
+    });
   }
   // getBarchart() {
   //   this.userService.getlessonsBarChart().subscribe((data) => {
@@ -338,6 +398,7 @@ export class UserdashboardComponent implements OnInit {
   getfunctionPiechart() {
     this.userService.getfunctionPiechart().subscribe((data) => {
       if (data) {
+        data.data.push(0);
         this.funpieChartLabels = data.label;
         this.funpieChartData = data.data;
       }

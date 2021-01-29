@@ -24,9 +24,9 @@
                 Requests</span><span *ngIf="isPendingUser" class="badge">{{pendingUserCount}}</span></a>
                 <div class="col-sm-5">
                   <div class="search-hero  has-search ">
-                    <span class="fa fa-search form-control-feedback" style="
-                    margin-left: 39%;"></span>
-                    <input type="text" class="form-control" style="
+                    <span class="fa fa-search form-control-feedback mediaforsmall" style="
+                    margin-left: 39%;"></span> 
+                    <input type="text" class="form-control mediaforsmall" style="
                     margin-left: 45%; height: 1%;" placeholder="Search"
                       [(ngModel)]="searchedUser">
                   </div>
@@ -148,7 +148,7 @@
       </div>
     </div>
 
-    <button type="submit" [disabled]="createAccBtnDis" class="btn btn-block btn-primary centerbtn">Create Account</button>
+    <button type="submit" class="btn btn-block btn-primary centerbtn">Create Account</button>
 
   </form>
 </div>
@@ -233,7 +233,7 @@
         </thead>
         <tbody>
 
-          <tr *ngFor="let penUser of getAllPenUser | paginate: { itemsPerPage: 5, currentPage: p1 }; let i = index">
+          <tr *ngFor="let penUser of getAllPenUser | paginate: { itemsPerPage: 5, currentPage: p1, id: 'first'}; let i = index">
             <td>{{penUser.Email}}</td>
             <td>{{penUser.CreatedDate | date}}</td>
             <td>
@@ -242,8 +242,18 @@
                     aria-hidden="true"></i></span></a>
               <a href="#" (click)=pendingUserDelete(i,penUser) class="delete" title="" data-toggle="tooltip"
                 data-original-title="Delete"><i class="fa fa-user-times fa-lg reject-icon" aria-hidden="true"></i></a>
+                <!-- <div class="d-flex justify-content-center">
+                  <div class="spinner-border" role="status" >
+                    <span class="sr-only" id="spinner"></span>
+                  </div>
+                </div> -->
             </td>
           </tr>
+          <div class="d-flex justify-content-center">
+            <div class="dot-pulse" *ngIf="showLoader" role="status" >
+              <span class="sr-only"  id="loading"></span>
+            </div>
+          </div>
         </tbody>
       </table>
       <div *ngIf="noDataPendingUser" class="text-center">
@@ -253,9 +263,8 @@
 
     <!-- Modal footer -->
     <div class="modal-footer">
-      <pagination-controls class="mr-auto" (pageChange)="p1 = $event"></pagination-controls>
+      <pagination-controls class="mr-auto" (pageChange)="p1 = $event" id="first"></pagination-controls>
       <button type="button" class="btn btn-danger pagination-footer" (click)="closePendingModal()">Close</button>
-
     </div>
   </div>
 </div>

@@ -159,14 +159,15 @@
                            <div class="row">
                               <div class="col-sm-6">
                                  <div class="form-group row">
-                                    <label class="col-md-3 col-form-label" for="textarea-input">Description <span
+                                    <label class="col-md-3 col-form-label" for="textarea-input">Description<span
                                           class="danger">*</span></label>
                                     <div class="col-md-9">
                                        <textarea class="form-control" (blur)="lessonFormFields()" id="textarea-input"
                                           [(ngModel)]="issuedescription"
                                           [ngClass]="{'has-error is-invalid': isSubmitted && processFormControls.issuedescription.errors }"
                                           formControlName="issuedescription" placeholder="Description..."
-                                          rows="6"></textarea>
+                                          rows="6" #description></textarea>
+                                          <label class="float-left remaning">{{description.value.length}}/{{maxChars}}</label>
                                        <div
                                           *ngIf="lessonProcessForm.controls['issuedescription'].invalid && (lessonProcessForm.controls['issuedescription'].dirty || lessonProcessForm.controls['issuedescription'].touched)"
                                           class="custom-errMsg">
@@ -189,7 +190,9 @@
                                        <textarea class="form-control" (blur)="lessonFormFields()" id="textarea-input"
                                           [ngClass]="{'has-error is-invalid': isSubmitted && processFormControls.rootcause.errors }"
                                           [(ngModel)]="rootcause" formControlName="rootcause"
-                                          placeholder="Root cause..." rows="6" maxlength="250"></textarea>
+                                          placeholder="Root cause..." rows="6" maxlength="250" #root></textarea>
+                                          <label class="float-left remaning" >{{root.value.length}}/{{maxChars}}</label>
+
                                        <div
                                           *ngIf="lessonProcessForm.controls['rootcause'].invalid && (lessonProcessForm.controls['rootcause'].dirty || lessonProcessForm.controls['rootcause'].touched)"
                                           class="custom-errMsg">
@@ -210,7 +213,9 @@
                                           [(ngModel)]="Recommendation"
                                           [ngClass]="{'has-error is-invalid': isSubmitted && processFormControls.Recommendation.errors }"
                                           formControlName="Recommendation" placeholder="Recommendation..." rows="6"
-                                          maxlength="250"></textarea>
+                                          maxlength="250" #recommendation></textarea>
+                                          <label class="float-left remaning" >{{recommendation.value.length}}/{{maxChars}}</label>
+
                                        <div
                                           *ngIf="lessonProcessForm.controls['Recommendation'].invalid && (lessonProcessForm.controls['Recommendation'].dirty || lessonProcessForm.controls['Recommendation'].touched)"
                                           class="custom-errMsg">
@@ -258,7 +263,9 @@
                                           [(ngModel)]="issuedescription"
                                           [ngClass]="{'has-error is-invalid': isSubmitted && lessonProcessForm.issuedescription.errors }"
                                           formControlName="issuedescription" placeholder="Description..." rows="6"
-                                          maxlength="250"></textarea>
+                                          maxlength="250" #description></textarea>
+                                          <label class="float-left remaning" >{{description.value.length}}/{{maxChars}}</label>
+
                                        <div
                                           *ngIf="lessonProcessForm.controls['issuedescription'].invalid && (lessonProcessForm.controls['issuedescription'].dirty || lessonProcessForm.controls['issuedescription'].touched)"
                                           class="custom-errMsg">
@@ -282,7 +289,9 @@
                                           [(ngModel)]="Recommendation"
                                           [ngClass]="{'has-error is-invalid': isSubmitted && processFormControls.Recommendation.errors }"
                                           formControlName="Recommendation" placeholder="Recommendation..." rows="6"
-                                          maxlength="250"></textarea>
+                                          maxlength="250" #recommendation></textarea>
+                                          <label class="float-left remaning" >{{recommendation.value.length}}/{{maxChars}}</label>
+
                                        <div
                                           *ngIf="lessonProcessForm.controls['Recommendation'].invalid && (lessonProcessForm.controls['Recommendation'].dirty || lessonProcessForm.controls['Recommendation'].touched)"
                                           class="custom-errMsg">

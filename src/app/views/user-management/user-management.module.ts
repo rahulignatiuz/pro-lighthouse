@@ -10,6 +10,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
+
 @NgModule({
   imports: [
     CommonModule,
@@ -23,6 +24,8 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     Ng2SearchPipeModule,
     ModalModule.forRoot(),
   ],
-  declarations: [ UserManagementComponent ]
+  declarations: [ UserManagementComponent
+    
+  ]
 })
 export class UserManagementModule { }

@@ -96,6 +96,27 @@ float: left;
   }
 
 }
+@media (max-width: 1535px){
+  .tabs label {
+    display: block;
+    padding: 10px 30px;
+    border-radius: 2px 2px 0 0;
+    color:white;
+    // font-size: 24px;
+    font-weight: normal;
+    background:#9ea0a1;
+    cursor: pointer;
+    position: relative;
+    // top: 3px;
+    top: 0px; 
+    -webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+    border-right: 1px solid white;
+    font-size: 12px;
+  }
+}
 .svgmargin{
   margin-bottom: 2px;
 }

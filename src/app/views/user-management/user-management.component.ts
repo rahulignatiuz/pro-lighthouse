@@ -39,7 +39,7 @@ export class UserManagementComponent implements OnInit {
   public status: number;
   public notifications: number;
   public p: any;
-  public p1: any;
+  public p1: number[] = [];
   public getAllPenUser: any[];
   public editData: any;
   public noDataPendingUser: boolean = false;
@@ -49,6 +49,8 @@ export class UserManagementComponent implements OnInit {
   public isPendingUser: boolean = false;
   public requestEmail: string;
   public searchedUser: any;
+  showLoader: boolean = false;
+
   // public _user: any = JSON.parse(localStorage.getItem('currentUser'));
   @ViewChild('registrationForm', { static: false }) public registrationForm: ModalDirective;
   @ViewChild('accountSetting', { static: false }) public accountSetting: ModalDirective;
@@ -149,10 +151,21 @@ export class UserManagementComponent implements OnInit {
       }
     });
   }
+  reloadfunction() {
+    setTimeout(function () {
+      window.location.reload();
+    }, 4500);
+
+  }
   pendingUserDelete(index, penUser) {
+    this.showLoader = true;
     this.userService.pendingUserDelete(penUser.ID, penUser.Email).subscribe((data) => {
       if (data.status) {
+        // this.hideloader();
+        this.showLoader = false;
+
         this.getAllPenUser.splice(index, 1);
+
         if (!this.getAllPenUser.length) {
           this.noDataPendingUser = true;
         }
@@ -160,6 +173,10 @@ export class UserManagementComponent implements OnInit {
         //this.pendingUser.show();
       }
     });
+    this.reloadfunction();
+  }
+  hideloader() {
+    document.getElementById('loading').style.display = 'none';
   }
   getAllUser() {
     this.userService.getAllUser().subscribe((data) => {
@@ -179,6 +196,8 @@ export class UserManagementComponent implements OnInit {
   }
   closePendingModal() {
     this.pendingUser.hide();
+    // window.location.reload();
+
   }
   userRegister() {
     this.isSubmitted = false;
@@ -253,7 +272,7 @@ export class UserManagementComponent implements OnInit {
     if (this.accountSettingForm.valid) {
       this.userService.addAccountSetting(obj).subscribe((data) => {
         window.location.reload();
-  
+
       });
     }
   }

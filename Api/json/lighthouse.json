@@ -9,7 +9,9 @@
     "ALLOW_DOMAIN": [
         "ardentinfotech.com",
         "ignatiuz.com",
-        "gmail.com"
+        "gmail.com",
+        "contractors.roche.com"
+
     ],
     "SMTP_HOST": "smtp.gmail.com",
     "SMTP_POST": 465,

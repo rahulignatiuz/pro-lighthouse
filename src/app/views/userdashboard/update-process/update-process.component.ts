@@ -17,6 +17,8 @@ export class UpdateProcessComponent implements OnInit {
   @ViewChild('attachments', { static: false }) public attachments: ElementRef;
 
   public projectsAsObjects: any;
+  maxChars = 250;
+
   public projectsAsType: any;
   public projectsPhaseAsObjects: any;
   public projectsPhaseMilestoneAsObjects: any;

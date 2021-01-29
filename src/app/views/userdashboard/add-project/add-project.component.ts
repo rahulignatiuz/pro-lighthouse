@@ -16,6 +16,8 @@ export class AddLessonComponent implements OnInit {
   @ViewChild('myModal', { static: false }) public myModal: ModalDirective;
   @ViewChild('bulkimport', { static: false }) public bulkimport: ModalDirective;
 
+
+  maxChars = 250;
   public projectsAsObjects: any;
   public projectsAsType: any;
   public projectsPhaseAsObjects: any;
