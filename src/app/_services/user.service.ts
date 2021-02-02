@@ -199,8 +199,8 @@ export class UserService {
   getAllFilterLessonsProcess(o: object) {
     return this.http.post<any>(`${this._baseURL}/lessons/process/filter`, o);
   }
-  getProjectByID(projectID) {
-    return this.http.post<any>(`${this._baseURL}/projects/projectgetbyid`, { projectID: projectID });
+  getProjectByID(ID) {
+    return this.http.post<any>(`${this._baseURL}/projects/projectgetbyid`, { ID: ID });
   }
   updateLPN(id, lpn) {
     return this.http.post<any>(`${this._baseURL}/projects/update`, { ID: id, LPN: lpn });

@@ -507,7 +507,7 @@ export class AddLessonComponent implements OnInit {
     this.lessonFormFields();
   }
 
-  updateLNP(ID) {
+  updateLPN(ID) {
     let id = ID.toString();
     this.userService.getProjectByID(id).subscribe((data) => {
       let lpn = this.projectNumber;
@@ -517,10 +517,17 @@ export class AddLessonComponent implements OnInit {
       }
     });
   }
+  // updateLPN(ID) {
+  //   let id = ID.toString();
+  //    let lpn = this.projectNumber;
+  //      this.userService.updateLPN(id, lpn).subscribe((data) => {
+  //       })
+  //     }
 
   addLesson(form: NgForm) {
     this.isSubmitted = true;
-    this.updateLNP(form.value._projectname[0].ID);
+     this.updateLPN(form.value._projectname[0].ID);
+    // this.updateLNP(form.value.projectNumber);
     let _user: any = JSON.parse(localStorage.getItem('currentUser'));
     console.log("this._Keywords", this._Keywords);
     console.log(form)
@@ -543,6 +550,7 @@ export class AddLessonComponent implements OnInit {
       keywords: this._Keywords,
       Recommendation: this.Recommendation,
       CreatedBy: _user.ID,
+      LPN:this.projectNumber,
       IsEnabled: 1
     };
     this.isupdate = false;

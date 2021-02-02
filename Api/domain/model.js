@@ -754,10 +754,9 @@ class User {
 
         return sql;
     }
-    static getprojectbyid(ID) {
-        let sql = `select ID,Name,Description,Indexing from ${lighthouseJson.database}.project  where ID='${ID}'`;
-
-        return sql;
+    static getProjectByID(ID) {
+        let sql = `select ID,Name,Description,LPN,Indexing from ${lighthouseJson.database}.project  where ID='${ID}'`;
+       return sql;
     }
     static getprocessbyid(ID) {
         let sql = `select ID,Name,Description,Indexing from ${lighthouseJson.database}.process  where ID='${ID}'`;

@@ -518,7 +518,7 @@ router.post('/bulkupload', uploadCSV.single('bulkcsv'), (req, res) => {
                     results.then(function (result) {
                         if (i === rows.length - 1) {
                             const frontICPath = filePath.replace(/\\/g, "\\\\");
-                            db.query(Model.addBulkImportSQL(fileName, frontICPath, successRow.length, errorcell.length, ModelID), (err, data) => {
+                            db.query(Model.addBulkImportSQL(fileName, frontICPath, successRow.length, errorcell.length, UserID), (err, data) => {
                                 if (!err) {
                                     errorcell.forEach((errcell) => {
                                         db.query(Model.mappingBulkImportAndErrorSQL(data.insertId, errcell.errorID), (err, data) => {

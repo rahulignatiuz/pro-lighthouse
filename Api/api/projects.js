@@ -26,11 +26,11 @@ router.get("/", (req, res, next) => {
 });
 //http://localhost:6001/api/projects/projectgetbyid
 router.post('/projectgetbyid', function (req, res) {
-    var p = {};
-    p.ID = req.body.projectID;
+  
+    ID = req.body.ID;
 
     //console.log(db.query(Model.updateProjectsSQL(p)))
-    db.query(Model.getProjectByID(req.body), (err, data) => {
+    db.query(Model.getProjectByID(ID), (err, data) => {
 
         if (!err) {
             if (data && data.length > 0) {
