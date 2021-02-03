@@ -7,7 +7,8 @@ var db = require("../db/database");
 // router.get("/", middleware.checkToken, (req, res, next) =>{
 router.get("/", (req, res, next) => {
     // console.log(Model.getAllKeywordsSQL());
-    db.query(Model.getAllFunctionsSQL(), (err, data) => {
+    db.query(Model.getAllFunctionsSQL(), (err, result) => {
+        let data = result[0];
         if (!err) {
             if (data && data.length > 0) {
                 res.status(200).json({
@@ -35,8 +36,8 @@ router.post('/add', function (req, res) {
     f.UpdatedBy = req.body.UpdatedBy;
     //console.log(f)
     //console.log(db.query(Model.addalldepartmentsSQL(d)))
-    db.query(Model.AddAllfunctionsSQL(f), (err, results) => {
-
+    db.query(Model.AddAllfunctionsSQL(f), (err, result) => {
+        let results = result[1][0];
         if (err) {
             res.send({ status: false, result: results, message: 'not-added' })
         }
@@ -86,7 +87,8 @@ router.post('/updatename', (req, res, next) => {
 //http://localhost:6001/api/functions/id
 router.post("/id", (req, res, next) => {
     ID = req.body.ID;
-    db.query(Model.getfunctionsbyid(ID), (err, data) => {
+    db.query(Model.getfunctionsbyid(ID), (err, result) => {
+        let data = result[0];
         if (!err) {
             if (data && data.length > 0) {
                 res.status(200).json({
@@ -106,7 +108,9 @@ router.post("/id", (req, res, next) => {
 });
 //http://localhost:6001/api/functions/functionschart
 router.get("/functionschart", (req, res, next) => {
-    db.query(Model.getfunctionsByUserPieChartSQL(req.body), (err, data) => {
+    db.query(Model.getfunctionsByUserPieChartSQL(), (err, result) => {
+        console.log("getfunctionsByUserPieChartSQL+++++++", result);
+        let data = result[0];
         if (!err) {
             let dataObj = [];
             let labelObj = [];

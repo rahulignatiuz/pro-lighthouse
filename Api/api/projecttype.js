@@ -5,7 +5,8 @@ var db = require("../db/database");
 
 //http://localhost:6001/api/projecttype
 router.get("/", (req, res, next) => {
-    db.query(Model.getAllProjecttypeSQL(), (err, data) => {
+    db.query(Model.getAllProjecttypeSQL(), (err, result) => {
+        let data = result[0];
         if (!err) {
             if (data && data.length > 0) {
                 res.status(200).json({
@@ -31,7 +32,8 @@ router.post('/add', (req, res, next) => {
     p.CreatedBy = req.body.CreatedBy;
     p.UpdatedBy = req.body.UpdatedBy;
     //console.log(p);
-    db.query(Model.AddAllProjecttypeSQL(p), (err, results) => {
+    db.query(Model.AddAllProjecttypeSQL(p), (err, result) => {
+        let results = result[1][0];
         if (err) {
             res.send({ status: false, result: results, message: 'not-added' });
         }
@@ -83,7 +85,8 @@ router.post('/updatename', (req, res, next) => {
 //http://localhost:6001/api/projecttype/id
 router.post("/id", (req, res, next) => {
     ID = req.body.ID;
-    db.query(Model.getprojecttypebyid(ID), (err, data) => {
+    db.query(Model.getprojecttypebyid(ID), (err, result) => {
+        let data = result[0];
         if (!err) {
             if (data && data.length > 0) {
                 res.status(200).json({

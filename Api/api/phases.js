@@ -5,7 +5,8 @@ var db = require("../db/database");
 
 //http://localhost:6001/api/phases
 router.get("/", (req, res, next) => {
-    db.query(Model.getAllphaseSQL(), (err, data) => {
+    db.query(Model.getAllphaseSQL(), (err, result) => {
+        let data = result[0];
         if (!err) {
             if (data && data.length > 0) {
                 res.status(200).json({
@@ -31,7 +32,8 @@ router.post('/add', (req, res, next) => {
     p.CreatedBy = req.body.CreatedBy;
     p.UpdatedBy = req.body.UpdatedBy;
     //console.log(p);
-    db.query(Model.AddAllphasesSQL(p), (err, results) => {
+    db.query(Model.AddAllphasesSQL(p), (err, result) => {
+        let results = result[1][0];
         if (err) {
             res.send({ status: false, result: results, message: 'not-added' })
         }
@@ -78,7 +80,8 @@ router.post('/updatename', (req, res, next) => {
 //http://localhost:6001/api/phases/id
 router.post("/id", (req, res, next) => {
     ID = req.body.ID;
-    db.query(Model.getphasesbyid(ID), (err, data) => {
+    db.query(Model.getphasesbyid(ID), (err, result) => {
+        let data = result[0];
         if (!err) {
             if (data && data.length > 0) {
                 res.status(200).json({
@@ -100,7 +103,8 @@ router.post("/id", (req, res, next) => {
 //http://localhost:6001/api/phases/phasebarchart
 router.post("/phasebarchart", (req, res, next) => {
     ID = req.body.ID;
-    db.query(Model.getphaseBybarchartSQL(req.body), (err, data) => {
+    db.query(Model.getphaseBybarchartSQL(req.body), (err, result) => {
+        let data = result[0];
         if (!err) {
             let dataObj = [];
             let labelObj = [];

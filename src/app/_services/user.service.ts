@@ -101,9 +101,6 @@ export class UserService {
   getmilestonePiechart(ID) {
     return this.http.post<any>(`${this._baseURL}/milestones/milestonechart`, { ID });
   }
-  getdefaultmilestones() {
-    return this.http.post<any>(`${this._baseURL}/milestones/milestonechart`, { ID:1 });
-  }
   getfunctionPiechart() {
     return this.http.get<any>(`${this._baseURL}/functions/functionschart`);
   }
@@ -134,15 +131,9 @@ export class UserService {
   getprojectPiechart(ID) {
     return this.http.post<any>(`${this._baseURL}/projects/projectpiechart`, { ID });
   }
-  getdefaultproject() {
-    return this.http.post<any>(`${this._baseURL}/projects/projectpiechart`, { ID:1 });
-  }
 
   getphasebarchart(ID) {
     return this.http.post<any>(`${this._baseURL}/phases/phasebarchart`, { ID });
-  }
-  getdefaultprojectphase() {
-    return this.http.post<any>(`${this._baseURL}/phases/phasebarchart`, { ID:1 });
   }
   getdepartbarchart() {
     return this.http.get<any>(`${this._baseURL}/departments/departmentbarchart`);
@@ -181,7 +172,7 @@ export class UserService {
   }
 
   getlessonbyProjectID(ID: number) {
-    console.log(ID, "getlessonbyProjectID");
+    console.log(ID, "getlessonbyPojectID");
     return this.http.post<any>(`${this._baseURL}/lessons/porject/id`, { ID })
       .pipe(
         timeout(5000) //5 seconds
@@ -240,7 +231,7 @@ export class UserService {
   getlessontype() {
     return this.http.get<any>(`${this._baseURL}/lessons/type`);
   }
-  getAllkeywordsByID(LessonID) {
+  getAllKeywordsByID(LessonID) {
     return this.http.post<any>(`${this._baseURL}/lessons/keywords/id`, { ID: LessonID });
   }
   deleteAlluserlikeSQL(ID) {
@@ -458,5 +449,29 @@ export class UserService {
   }
   pendingUserDelete(ID, Email) {
     return this.http.post<any>(`${this._baseURL}/user/pending/account/delete`, { ID: ID, Email: Email });
+  }
+  getFrequency() {
+    return this.http.get<any>(`${this._baseURL}/notification/frequency`);
+  }
+  addNotification(obj) {
+    return this.http.post<any>(`${this._baseURL}/notification/add`, obj);
+  }
+  getAllNotification(UserID) {
+    return this.http.post<any>(`${this._baseURL}/notification`,{UserID:UserID});
+  }
+  getdefaultproject() {
+    return this.http.post<any>(`${this._baseURL}/projects/projectpiechart`, { ID:1 });
+  }
+  getdefaultmilestones() {
+    return this.http.post<any>(`${this._baseURL}/milestones/milestonechart`, { ID:1 });
+  }
+  getdefaultprojectphase() {
+    return this.http.post<any>(`${this._baseURL}/phases/phasebarchart`, { ID:1 });
+  }
+  deleteNotification(NtfID){
+    return this.http.post<any>(`${this._baseURL}/notification/delete`,{NtfID:NtfID});
+  }
+  editNotification(obj) {
+    return this.http.post<any>(`${this._baseURL}/notification/edit`, obj);
   }
 }

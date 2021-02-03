@@ -7,7 +7,8 @@ var db = require("../db/database");
 router.post("/", (req, res, next) => {
 
     ProjecttypeID = req.body.ProjecttypeID;
-    db.query(Model.getAllMappingprojectprojectypeSQL(ProjecttypeID), (err, data) => {
+    db.query(Model.getAllMappingprojectprojectypeSQL(ProjecttypeID), (err, result) => {
+        let data = result[0];
         if (!err) {
             if (data && data.length > 0) {
                 res.status(200).json({
@@ -32,7 +33,8 @@ router.post('/add', (req, res, next) => {
     p.ProjecttypeID = req.body.ProjecttypeID;
 
     //console.log(p);
-    db.query(Model.AddAllmappingprojectprojecttypeSQL(p), (err, results) => {
+    db.query(Model.AddAllmappingprojectprojecttypeSQL(p), (err, result) => {
+        let results = result[1][0];
         if (err) {
             res.send({ status: false, result: results, message: 'not-added' })
         }

@@ -16,11 +16,9 @@ export class lessonComponent implements OnInit {
   public _baseURL: string;
   URLlessonID: number;
   projectname: string;
-  firstname :string;
-  lastname:string;
   Email: string;
   issuedescription: string;
-  rootcause: string;
+  rootcouse: string;
   Recommendation: string;
   impactcategory: string;
   impactlevel: string;
@@ -92,16 +90,14 @@ export class lessonComponent implements OnInit {
       this.likes = data.result[0].likes;
       this.UserID = JSON.parse(localStorage.getItem('currentUser')).ID;
       this.useruseful = data.result[0].useruseful;
-      this.rootcause = data.result[0].RootCause;
+      this.rootcouse = data.result[0].RootCause;
       this.LessonID = data.result[0].LessonID;
       this.functions = data.result[0].functions;
       this.department = data.result[0].department;
       this.lifecycle = data.result[0].lifecycle;
       this.projectname = data.result[0].projectname;
-      this.firstname = data.result[0].firstname;
-      this.lastname  = data.result[0].lastname;
       this.Email = data.result[0].Email;
-      if (this.rootcause == "undefined") {
+      if (this.rootcouse == "undefined") {
         this.showrootcouse = false;
       }
       if (this.useruseful == null || this.useruseful == "") {
@@ -141,7 +137,7 @@ export class lessonComponent implements OnInit {
       }
 
     });
-    this.userService.getAllkeywordsByID(ID).subscribe((data) => {
+    this.userService.getAllKeywordsByID(ID).subscribe((data) => {
       if (data.status) {
         this.keyName = data.result;
       }
@@ -184,7 +180,9 @@ export class lessonComponent implements OnInit {
  
 
     this.userService.adduserlikes(lessonid, UserID, Likes).subscribe((data) => {
-      console.log(data,data.result[0].ID);
+      console.log("data***************--------",data);
+      console.log("data.result***************--------",data.result);
+     // console.log(data,data.result[0].ID);
       if (data.status) {
         console.log(data.result);
         this.getuserlikes = data.result;

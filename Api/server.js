@@ -24,6 +24,7 @@ const login =require("./api/login");
  const lifecycle = require ("./api/lifecycle");
  const processtype = require("./api/process");
  const userApi = require("./api/user");
+ const notification = require("./api/notification");
  
 var bodyparser = require("body-parser");
 var cors       = require("cors");
@@ -61,6 +62,7 @@ app.use("/api/functions",functions);
 app.use("/api/process",processtype);
 app.use("/api/lifecycle",lifecycle)
 app.use("/api/user",userApi)
+app.use("/api/notification",notification)
 
 
 //if we are here then the specified request is not found

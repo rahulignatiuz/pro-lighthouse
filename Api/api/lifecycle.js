@@ -5,7 +5,8 @@ var db = require("../db/database");
 
 //http://localhost:6001/api/lifecycle
 router.get("/", (req, res, next) => {
-    db.query(Model.getAllLifecycleSQL(), (err, data) => {
+    db.query(Model.getAllLifecycleSQL(), (err, result) => {
+        let data = result[0];
         if (!err) {
             if (data && data.length > 0) {
                 res.status(200).json({
@@ -31,7 +32,8 @@ router.post('/add', (req, res, next) => {
     m.CreatedBy = req.body.CreatedBy;
     m.UpdatedBy = req.body.UpdatedBy;
     //console.log(p);
-    db.query(Model.AddAlllifecycleSQL(m), (err, results) => {
+    db.query(Model.AddAlllifecycleSQL(m), (err, result) => {
+        let results = result[1][0];
         if (err) {
             res.send({ status: false, result: results, message: 'not-added' })
         }
@@ -83,7 +85,8 @@ router.post('/updatename', (req, res, next) => {
 //http://localhost:6001/api/lifecycle/id
 router.post("/id", (req, res, next) => {
     ID = req.body.ID;
-    db.query(Model.getlifecyclebyid(ID), (err, data) => {
+    db.query(Model.getlifecyclebyid(ID), (err, result) => {
+        let data = result[0];
         if (!err) {
             if (data && data.length > 0) {
                 res.status(200).json({

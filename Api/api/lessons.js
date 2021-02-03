@@ -12,7 +12,7 @@ var storage = new MulterAzureStorage({
     containerName: lighthouseJson.containerName,
     containerSecurity: 'blob',
     fileName: function (file) {
-        console.log(file);
+      //  console.log(file);
         return file.mimetype + '/' + Date.now() + '_' + file.originalname;
     }
 });
@@ -27,12 +27,12 @@ var storageCSV = multer.diskStorage({
 var upload = multer({ storage: storage });
 var uploadCSV = multer({ storage: storageCSV });
 const fs = require("fs");
-const { data } = require("jquery");
 const router = express.Router();
 
 // get all lessons url-http://localhost:6001/api/lessons/project
 router.get("/project", (req, res, next) => {
-    db.query(Model.getAllLessonProjectSQL(), (err, data) => {
+    db.query(Model.getAllLessonProjectSQL(), (err, result) => {
+        let data = result[0];
         console.log(data);
         if (!err) {
             if (data && data.length > 0) {
@@ -53,7 +53,8 @@ router.get("/project", (req, res, next) => {
 });
 // get all lessons url-http://localhost:6001/api/lessons/process
 router.get("/process", (req, res, next) => {
-    db.query(Model.getAllLessonProcessSQL(), (err, data) => {
+    db.query(Model.getAllLessonProcessSQL(), (err, result) => {
+        let data = result[0];
         console.log(data);
         if (!err) {
             if (data && data.length > 0) {
@@ -90,18 +91,21 @@ router.post("/add", (req, res, next) => {
     o.Title = req.body.Title;
     o.IssueDescription = req.body.IssueDescription;
     o.RootCause = req.body.RootCause;
-    o.keywords = req.body.keywords;
+    o.Keywords = req.body.Keywords;
     o.Recommendation = req.body.Recommendation;
     o.CreatedBy = req.body.CreatedBy;
     o.IsEnabled = req.body.IsEnabled;
-    saveData(o, res, req.body.keywords);
+   // console.log("kaywords----------------",req.body.Keywords);
+    saveData(o, res, req.body.Keywords);
 });
 
 function saveData(o, res, keywords) {
     let response = [];
-    db.query(Model.addLessonSQL(o), (err, data) => {
+    db.query(Model.addLessonSQL(o), (err, result) => {
+        let data = result[1][0];
+        console.log("963258745555555555555555---", data.insertId);
         if (!err) {
-            addkeywords(data.insertId, keywords);
+            addKaywords(data.insertId, keywords);
             response.push(data);
             res.status(200).json({
                 status: true,
@@ -119,17 +123,20 @@ function saveData(o, res, keywords) {
 
     });
 }
-function addkeywords(lessonID, keywords) {
-    for (kayword of keywords) {
-        if (kayword.ID) {
-            db.query(Model.addkeywordsByMappingLessonSQL(lessonID, kayword.ID), (err, results) => {
+function addKaywords(lessonID, keywords) {
+
+    for (keyword of keywords) {
+        if (keyword.ID) {
+            db.query(Model.addKaywordsByMappingLessonSQL(lessonID, keyword.ID), (err, result) => {
+                let data = result[1][0];
 
             });
         } else {
-            db.query(Model.addkeywordsBySQL(kayword.display), (err, kaywordResults) => {
-                if (kaywordResults.insertId) {
-                    db.query(Model.addkeywordsByMappingLessonSQL(lessonID, kaywordResults.insertId), (err, mappingResults) => {
-
+            db.query(Model.addKaywordsBySQL(keyword.display), (err, keywordResultsResult) => {
+                let keywordResults = keywordResultsResult[1][0];
+                if (keywordResults.insertId) {
+                    db.query(Model.addKaywordsByMappingLessonSQL(lessonID, keywordResults.insertId), (err, mappingResults) => {
+                        let data = mappingResults[1][0];
                     });
                 }
             });
@@ -169,7 +176,7 @@ router.post('/delete', function (req, res) {
 
 router.post('/update', function (req, res) {
     var o = {};
-    console.log(req.body.keywords);
+    console.log(req.body.Kaywords);
     o.ID = req.body.ID;
     o.UserID = req.body.UserID;
     o.LessonTypeID = req.body.LessonTypeID;
@@ -185,7 +192,7 @@ router.post('/update', function (req, res) {
     o.LifeCycleID = req.body.LifeCycleID;
     o.DepartmentID = req.body.DepartmentID;
     o.Title = req.body.Title;
-    o.keywords = req.body.keywords;
+    o.Kaywords = req.body.Kaywords;
     o.IssueDescription = req.body.IssueDescription;
     o.RootCause = req.body.RootCause;
     o.Recommendation = req.body.Recommendation;
@@ -196,24 +203,25 @@ router.post('/update', function (req, res) {
         if (err) {
             res.send({ status: false, result: data, message: 'not-updated' });
         } else {
-            updatekeywords(req.body.ID, req.body.keywords);
+            updateKaywords(req.body.ID, req.body.Kaywords);
             return res.send({ status: true, result: data, message: 'Updated' });
         }
 
     });
 });
-function updatekeywords(lessonID, keywords) {
-    db.query(Model.deleteAllkeywordsByID(lessonID), (err, deleteResults) => {
-        for (kayword of keywords) {
+function updateKaywords(lessonID, kaywords) {
+    db.query(Model.deleteAllKaywordsByID(lessonID), (err, deleteResults) => {
+        for (kayword of kaywords) {
             if (kayword.ID) {
-                db.query(Model.addkeywordsByMappingLessonSQL(lessonID, kayword.ID), (err, addResults) => {
-
+                db.query(Model.addKaywordsByMappingLessonSQL(lessonID, kayword.ID), (err, addResults) => {
+                    let data = addResults[1][0];
                 });
             } else {
-                db.query(Model.addkeywordsBySQL(kayword.Name), (err, kaywordResults) => {
+                db.query(Model.addKaywordsBySQL(kayword.Name), (err, kaywordResultsResult) => {
+                    let kaywordResults = kaywordResultsResult[1][0];
                     if (kaywordResults.insertId) {
-                        db.query(Model.addkeywordsByMappingLessonSQL(lessonID, kaywordResults.insertId), (err, mappingResults) => {
-
+                        db.query(Model.addKaywordsByMappingLessonSQL(lessonID, kaywordResults.insertId), (err, mappingResults) => {
+                            let data = mappingResults[1][0];
                         });
                     }
                 });
@@ -224,7 +232,8 @@ function updatekeywords(lessonID, keywords) {
 //http://localhost:6001/api/lessons/porject/id
 router.post("/porject/id", (req, res, next) => {
     ID = req.body.ID;
-    db.query(Model.getlessonProject(ID), (err, data) => {
+    db.query(Model.getlessonProject(ID), (err, result) => {
+        let data = result[0];
         if (!err) {
             if (data && data.length > 0) {
                 res.status(200).json({
@@ -245,7 +254,8 @@ router.post("/porject/id", (req, res, next) => {
 //http://localhost:6001/api/lessons/process/id
 router.post("/process/id", (req, res, next) => {
     ID = req.body.ID;
-    db.query(Model.getlessonProcess(ID), (err, data) => {
+    db.query(Model.getlessonProcess(ID), (err, result) => {
+        let data = result[0];
         if (!err) {
             if (data && data.length > 0) {
                 res.status(200).json({
@@ -310,7 +320,8 @@ router.post('/attachment', upload.single('attachment'), (req, res) => {
     console.log(req.file);
     try {
         //res.send(req.file);
-        db.query(Model.AddAllAttachmentSQL(req.file), (err, data) => {
+        db.query(Model.AddAllAttachmentSQL(req.file), (err, result) => {
+            let data = result[1][0];
             if (err) {
                 res.send({ status: false, data: data, message: 'not-updated' });
             } else {
@@ -326,7 +337,8 @@ router.post('/mappingattachment', (req, res) => {
     console.log(req.body);
     try {
         //res.send(req.file);
-        db.query(Model.AddMappingLessonAttachmentSQL(req.body), (err, data) => {
+        db.query(Model.AddMappingLessonAttachmentSQL(req.body), (err, result) => {
+            let data = result[1][0];
             if (err) {
                 res.send({ status: false, data: data, message: 'not-updated' });
             } else {
@@ -342,7 +354,8 @@ router.post('/getattachment', (req, res) => {
     console.log(req.body);
     try {
         //res.send(req.file);
-        db.query(Model.getLessonAttachmentSQL(req.body.ID), (err, data) => {
+        db.query(Model.getLessonAttachmentSQL(req.body.ID), (err, result) => {
+            let data = result[0];
             if (!err) {
                 if (data && data.length > 0) {
                     res.status(200).json({
@@ -385,7 +398,8 @@ router.post("/freesearch", (req, res, next) => {
     // d.Milestone = req.body.Milestone;
     // d.Impactlevel = req.body.Impactlevel;
     // d.Impactcategory =req.body.Impactcategory; 
-    db.query(Model.getfreesearchByFilterSQL(data), (err, data) => {
+    db.query(Model.getfreesearchByFilterSQL(data), (err, result) => {
+        let data = result[0];
         if (!err) {
             if (data && data.length > 0) {
                 res.status(200).json({
@@ -406,7 +420,8 @@ router.post("/freesearch", (req, res, next) => {
 //http://localhost:6001/api/lessons/type
 //type of lesson
 router.get("/type", (req, res, next) => {
-    db.query(Model.getalltypeoflessonSql(), (err, data) => {
+    db.query(Model.getalltypeoflessonSql(), (err, result) => {
+        let data = result[0];
         if (!err) {
             if (data && data.length > 0) {
                 res.status(200).json({
@@ -428,18 +443,19 @@ router.get("/type", (req, res, next) => {
 //http://localhost:6001/api/lessons/keywords/id
 router.post("/keywords/id", (req, res, next) => {
     var ID = req.body.ID;
-    db.query(Model.getAllkeywordsByID(ID), (err, data) => {
+    db.query(Model.getAllKeywordsByID(ID), (err, result) => {
+        let data = result[0];
         if (!err) {
             if (data && data.length > 0) {
                 res.status(200).json({
                     status: true,
-                    message: "keywords get successfully.",
+                    message: "kaywords get successfully.",
                     result: data
                 });
             } else {
                 res.status(200).json({
                     status: false,
-                    message: "keywords not get successfully.",
+                    message: "kaywords not get successfully.",
                     result: data
                 });
             }
@@ -449,7 +465,8 @@ router.post("/keywords/id", (req, res, next) => {
 //http://localhost:6001/api/lessons/attachment/lessonid
 router.post('/attachment/lessonid', function (req, res) {
     var d = {};
-    db.query(Model.getAttachmentNameByID(req.body), (err, data) => {
+    db.query(Model.getAttachmentNameByID(req.body), (err, result) => {
+        let data = result[0];
         if (!err) {
             if (data && data.length > 0) {
                 res.status(200).json({
@@ -511,21 +528,26 @@ router.post('/bulkupload', uploadCSV.single('bulkcsv'), (req, res) => {
                 o.RootCause = "undefined";
             }
 
-            db.query(Model.addLessonSQLBulk(o), (err, data) => {
+            db.query(Model.addLessonSQLBulk(o), (err, result) => {
+                let data = result[1][0];
                 if (!err) {
                     LessonID = data.insertId;
                     var results = addLessonByExcle(LessonID, rowdata, index, res);
                     results.then(function (result) {
                         if (i === rows.length - 1) {
                             const frontICPath = filePath.replace(/\\/g, "\\\\");
-                            db.query(Model.addBulkImportSQL(fileName, frontICPath, successRow.length, errorcell.length, UserID), (err, data) => {
+                            db.query(Model.addBulkImportSQL(fileName, frontICPath, successRow.length, errorcell.length, UserID), (err, resultBulk) => {
+                                let data = resultBulk[1][0];
                                 if (!err) {
                                     errorcell.forEach((errcell) => {
-                                        db.query(Model.mappingBulkImportAndErrorSQL(data.insertId, errcell.errorID), (err, data) => {
-
+                                        db.query(Model.mappingBulkImportAndErrorSQL(data.insertId, errcell.errorID), (err, result) => {
+                                            let data = result[1][0];
 
                                         });
                                     });
+                                }else{
+
+                                    console.log("UnhandledPromiseRejectionWarning: ReferenceError: ModelID is not defined +++++++++++++++",err);
                                 }
                                 responseCount(res, data.insertId, errorcell.length);
                             });
@@ -564,7 +586,7 @@ async function addLessonByExcle(LessonID, row, Index, res) {
             let errorMessageProject = "Given Project '" + row[4] + "' not exist. Please check once again.";
             var returnValue = await AddBulkImport(Index, row, row[4], 4, index, errorMessageProject);
             //   errorrows.push({ key: Index, value: row, error: row[4], rowIndex: 4, columnIndex: index, errorMessage: errorMessageProject, cellAddress: cellPosition });
-            console.log("----------Project-----------", Project);
+           // console.log("----------Project-----------", Project);
             errorcell.push({ error: row[4], errorID: returnValue });
             lessonID = null;
         }
@@ -620,7 +642,7 @@ async function addLessonByExcle(LessonID, row, Index, res) {
             const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
             //  let cellPosition = "row 2  column " + index + 1
             const isEmailValidate = re.test(String(Email).toLowerCase());
-            console.log("++++++++++++++++++isEmailValidate++++++++++", isEmailValidate);
+          //  console.log("++++++++++++++++++isEmailValidate++++++++++", isEmailValidate);
             if (!isEmailValidate) {
                 errorMessageEmail = "Given Email '" + row[1] + "' not validate. Please check once again.";
             }
@@ -698,7 +720,7 @@ async function addLessonByExcle(LessonID, row, Index, res) {
         }
     }
     if (lessonID) {
-        await addkeywordsInBulk(KeywordsArr, LessonID);
+        await addKaywordsInBulk(KeywordsArr, LessonID);
         var finalResults = await updateDataBulk(lessonID, o);
         successRow.push(finalResults);
     }
@@ -714,8 +736,15 @@ function responseCount(res, importID, errorCount) {
 }
 async function AddBulkImport(index, row, errorF, rowIndex, columnIndex, errorMessage) {
     const finalResults = await new Promise((resolve, reject) => {
-        db.query(Model.addBulkErrorImportSQL(index, row, errorF, rowIndex, columnIndex, errorMessage), (err, data) => {
-            resolve(data.insertId);
+        db.query(Model.addBulkErrorImportSQL(index, row, errorF, rowIndex, columnIndex, errorMessage), (err, result) => {
+            if (err) {
+
+                console.log("Cannot read property '1' of undefined +++++++++++", err);
+            } else {
+                let data = result[1][0];
+                resolve(data.insertId);
+            }
+
         });
 
     });
@@ -731,19 +760,21 @@ async function updateDataBulk(lessonID, o) {
     });
     return finalResults;
 }
-function addkeywordsInBulk(KeywordsArr, LessonID) {
+function addKaywordsInBulk(KeywordsArr, LessonID) {
     KeywordsArr.forEach(key => {
-        db.query(Model.checkKeywordIDByName(key), (keyerr, keydata) => {
+        db.query(Model.checkKeywordIDByName(key), (keyerr, keydataResult) => {
+            let keydata = keydataResult[0];
             if (!keyerr) {
                 if (keydata.length) {
-                    db.query(Model.addkeywordsByMappingLessonSQL(LessonID, keydata[0].ID), (err, results) => {
-
+                    db.query(Model.addKaywordsByMappingLessonSQL(LessonID, keydata[0].ID), (err, results) => {
+                        let data = results[1][0];
                     });
                 } else {
-                    db.query(Model.addkeywordsBySQL(key), (err, kaywordResults) => {
+                    db.query(Model.addKaywordsBySQL(key), (err, kaywordResultsResult) => {
+                        let kaywordResults = kaywordResultsResult[1][0];
                         if (kaywordResults.insertId) {
-                            db.query(Model.addkeywordsByMappingLessonSQL(LessonID, kaywordResults.insertId), (err, mappingResults) => {
-
+                            db.query(Model.addKaywordsByMappingLessonSQL(LessonID, kaywordResults.insertId), (err, mappingResults) => {
+                                let data = mappingResults[1][0];
                             });
                         }
                     });
@@ -754,7 +785,8 @@ function addkeywordsInBulk(KeywordsArr, LessonID) {
 }
 function getProjectCallback(Project, lessonID) {
     return new Promise((resolve, reject) => {
-        db.query(Model.getProjectIDByName(Project), (err, data) => {
+        db.query(Model.getProjectIDByName(Project), (err, result) => {
+            let data = result[0];
             if (data.length > 0) {
                 //console.log(err);
                 return err ? reject(err) : resolve(data[0].ID);
@@ -769,7 +801,8 @@ function getProjectCallback(Project, lessonID) {
 }
 function getProjectTypeCallback(ProjectType, lessonID) {
     return new Promise((resolve, reject) => {
-        db.query(Model.getProjectTypeIDByName(ProjectType), (err, data) => {
+        db.query(Model.getProjectTypeIDByName(ProjectType), (err, result) => {
+            let data = result[0];
             if (data.length > 0) {
                 //console.log(err);
                 return err ? reject(err) : resolve(data[0].ID);
@@ -784,7 +817,8 @@ function getProjectTypeCallback(ProjectType, lessonID) {
 }
 function getPhaseCallback(Phase, lessonID) {
     return new Promise((resolve, reject) => {
-        db.query(Model.getPhaseIDByName(Phase), (err, data) => {
+        db.query(Model.getPhaseIDByName(Phase), (err, result) => {
+            let data = result[0];
             if (data.length > 0) {
                 //console.log(err);
                 return err ? reject(err) : resolve(data[0].ID);
@@ -799,7 +833,8 @@ function getPhaseCallback(Phase, lessonID) {
 }
 function getMilestoneCallback(Milestone, lessonID) {
     return new Promise((resolve, reject) => {
-        db.query(Model.getMilestoneIDByName(Milestone), (err, data) => {
+        db.query(Model.getMilestoneIDByName(Milestone), (err, result) => {
+            let data = result[0];
             if (data.length > 0) {
                 //console.log(err);
                 return err ? reject(err) : resolve(data[0].ID);
@@ -814,7 +849,8 @@ function getMilestoneCallback(Milestone, lessonID) {
 }
 function getProcessCallback(Process, lessonID) {
     return new Promise((resolve, reject) => {
-        db.query(Model.getProcessIDByName(Process), (err, data) => {
+        db.query(Model.getProcessIDByName(Process), (err, result) => {
+            let data = result[0];
             if (data.length > 0) {
                 //console.log(err);
                 return err ? reject(err) : resolve(data[0].ID);
@@ -829,7 +865,8 @@ function getProcessCallback(Process, lessonID) {
 }
 function getTypeCallback(Type, lessonID) {
     return new Promise((resolve, reject) => {
-        db.query(Model.getTypeIDByName(Type), (err, data) => {
+        db.query(Model.getTypeIDByName(Type), (err, result) => {
+            let data = result[0];
             if (data.length > 0) {
                 //console.log(err);
                 return err ? reject(err) : resolve(data[0].ID);
@@ -845,7 +882,8 @@ function getTypeCallback(Type, lessonID) {
 }
 function getImpactCategoryCallback(ImpactCategory, lessonID) {
     return new Promise((resolve, reject) => {
-        db.query(Model.getImpactCategoryIDByName(ImpactCategory), (err, data) => {
+        db.query(Model.getImpactCategoryIDByName(ImpactCategory), (err, result) => {
+            let data = result[0];
             if (data.length > 0) {
                 //console.log(err);
                 return err ? reject(err) : resolve(data[0].ID);
@@ -860,7 +898,8 @@ function getImpactCategoryCallback(ImpactCategory, lessonID) {
 }
 function getImpactLevelCallback(ImpactLevel, lessonID) {
     return new Promise((resolve, reject) => {
-        db.query(Model.getImpactLevelIDByName(ImpactLevel), (err, data) => {
+        db.query(Model.getImpactLevelIDByName(ImpactLevel), (err, result) => {
+            let data = result[0];
             if (data.length > 0) {
                 //console.log(err);
                 return err ? reject(err) : resolve(data[0].ID);
@@ -875,7 +914,8 @@ function getImpactLevelCallback(ImpactLevel, lessonID) {
 }
 function getFunctionCallback(Function, lessonID) {
     return new Promise((resolve, reject) => {
-        db.query(Model.getFunctionIDByName(Function), (err, data) => {
+        db.query(Model.getFunctionIDByName(Function), (err, result) => {
+            let data = result[0];
             if (data.length > 0) {
                 //console.log(err);
                 return err ? reject(err) : resolve(data[0].ID);
@@ -890,7 +930,8 @@ function getFunctionCallback(Function, lessonID) {
 }
 function getDepartmentCallback(Department, lessonID) {
     return new Promise((resolve, reject) => {
-        db.query(Model.getDepartmentIDByName(Department), (err, data) => {
+        db.query(Model.getDepartmentIDByName(Department), (err, result) => {
+            let data = result[0];
             if (data.length > 0) {
                 //console.log(err);
                 return err ? reject(err) : resolve(data[0].ID);
@@ -905,7 +946,8 @@ function getDepartmentCallback(Department, lessonID) {
 }
 function getLifeCycleCallback(LifeCycle, lessonID) {
     return new Promise((resolve, reject) => {
-        db.query(Model.getLifeCycleIDByName(LifeCycle), (err, data) => {
+        db.query(Model.getLifeCycleIDByName(LifeCycle), (err, result) => {
+            let data = result[0];
             if (data.length > 0) {
                 //console.log(err);
                 return err ? reject(err) : resolve(data[0].ID);
@@ -920,7 +962,8 @@ function getLifeCycleCallback(LifeCycle, lessonID) {
 }
 function getEmailCallback(Email, lessonID) {
     return new Promise((resolve, reject) => {
-        db.query(Model.getUserIDByEmail(Email), (err, data) => {
+        db.query(Model.getUserIDByEmail(Email), (err, result) => {
+            let data = result[0];
             if (data.length > 0) {
                 //console.log(err);
                 return err ? reject(err) : resolve(data[0].ID);
@@ -1004,13 +1047,14 @@ async function addDataOnExcle(ID, worksheet, workbook) {
     });
     let cellIndex = 0;
     const finalResults = await new Promise((resolve, reject) => {
-        db.query(Model.getBulkImportErrorData(ID), (err, data) => {
+        db.query(Model.getBulkImportErrorData(ID), (err, result) => {
+            let data = result[0];
             if (data) {
                 resolve(data);
             }
             data.forEach((row, index) => {
                 cellIndex = index + 2;
-                console.log("In for loop index", cellIndex);
+              //  console.log("In for loop index", cellIndex);
                 worksheet.cell(cellIndex, 1).string(row.ErrorMessage).style(style);
                 worksheet.cell(cellIndex, 2).number(row.RowField + 1).style(style);
                 worksheet.cell(cellIndex, 3).number(row.ColumnField + 1).style(style);
@@ -1115,7 +1159,7 @@ async function addDataOnExcle(ID, worksheet, workbook) {
                 } else {
                     worksheet.cell(cellIndex, 20).string(row.Keywords).style(style);
                 }
-                console.log("row.LifeCycle ++++++++++", row.LifeCycle);
+               // console.log("row.LifeCycle ++++++++++", row.LifeCycle);
                 if (row.LifeCycle == row.ErrorField) {
                     worksheet.cell(cellIndex, 21).string(row.LifeCycle).style(errStyle);
                 } else {
@@ -1128,7 +1172,8 @@ async function addDataOnExcle(ID, worksheet, workbook) {
 }
 //http://localhost:6001/api/lessons/bulk
 router.get("/bulk", (req, res, next) => {
-    db.query(Model.getallbulkSql(), (err, data) => {
+    db.query(Model.getallbulkSql(), (err, result) => {
+        let data = result[0];
         if (!err) {
             if (data && data.length > 0) {
                 res.status(200).json({
@@ -1150,7 +1195,8 @@ router.get("/bulk", (req, res, next) => {
 // pie chart lesson type (issue or best practice)
 //http://localhost:6001/api/lessons/typepiechart
 router.get("/typepiechart", (req, res, next) => {
-    db.query(Model.gettypeBypiechartSQL(req.body), (err, data) => {
+    db.query(Model.gettypeBypiechartSQL(req.body), (err, result) => {
+        let data = result[0];
         if (!err) {
             let dataObj = [];
             let labelObj = [];
@@ -1185,8 +1231,8 @@ router.get("/typepiechart", (req, res, next) => {
 //http://localhost:6001/api/lessons/countlessontype
 router.post("/countlessontype", (req, res, next) => {
     let id = req.body.id;
-
-    db.query(Model.getcountlessontype(id), (err, data) => {
+    db.query(Model.getcountlessontype(id), (err, result) => {
+        let data = result[0];
         if (!err) {
             if (data && data.length > 0) {
                 res.status(200).json({
@@ -1209,7 +1255,8 @@ router.post("/countlessontype", (req, res, next) => {
 router.post("/counttype", (req, res, next) => {
     let id = req.body.id;
 
-    db.query(Model.getcounttype(id), (err, data) => {
+    db.query(Model.getcounttype(id), (err, result) => {
+        let data = result[0];
         if (!err) {
             if (data && data.length > 0) {
                 res.status(200).json({
@@ -1230,7 +1277,8 @@ router.post("/counttype", (req, res, next) => {
 
 //http://localhost:6001/api/lessons/monthdata
 router.get("/monthdata", (req, res, next) => {
-    db.query(Model.getcountlessonbymonth(), (err, data) => {
+    db.query(Model.getcountlessonbymonth(), (err, result) => {
+        let data = result[0];
         if (!err) {
             if (data && data.length > 0) {
                 res.status(200).json({

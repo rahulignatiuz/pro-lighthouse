@@ -31,8 +31,8 @@ router.post('/add', function (req, res) {
     m.KeywordID = req.body.KeywordID
 
     //console.log(m)
-    db.query(Model.Mappingkeywordlesson(m), (err, results) => {
-
+    db.query(Model.Mappingkeywordlesson(m), (err, result) => {
+        let results = result[1][0];
         if (err) {
             res.send({ status: false, result: results, message: 'not-added' })
         }

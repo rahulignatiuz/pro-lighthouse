@@ -70,10 +70,23 @@ export class MylessonProcessComponent implements OnInit {
   public implemented: string;
   public show: boolean = true;
   public hasuser = false;
+  public lessonID:any;
 
   constructor(private router: Router, private userService: UserService, private titleService: Title) {
+    this.router.routerState.root.queryParams.subscribe(params => {
+      var lessonProcesstID = params['lessonid'];
+      console.log("================",lessonProcesstID);
+      if(lessonProcesstID){
+        this.lessonID = lessonProcesstID.replace(/,\s*$/, "");
+        console.log("========if========",this.lessonID);
+        this.getLessonsByFilter();
+      }else{
+        console.log("======else==========",lessonProcesstID);
+        this.getUserLessons();
+      }
+    });
     this._baseURL = Constant.baseURL;
-    this.getUserLessons();
+   // this.getUserLessons();
     this.getcategories();
     this.getimpactlevel();
     this.getdepartments();
@@ -275,6 +288,7 @@ export class MylessonProcessComponent implements OnInit {
       SortBy: this.SortBy ? this.SortBy : "DESC",
       KeywordsIDList: this.keywordsIDList ? this.keywordsIDList : "",
       flag: this.flag ? this.flag : "",
+      LessonsID: this.lessonID ? this.lessonID : "",
     };
 
     this.userService.getAllFilterLessonsProcess(obj).subscribe((data) => {

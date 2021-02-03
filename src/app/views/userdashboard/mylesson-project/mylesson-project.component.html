@@ -253,9 +253,6 @@
                            <option value="" selected>Select Implementation</option>
                            <option value="flag">Implemented</option>
                            <option value="flag1">Not Implemented</option>
-                           
-                          
-      
                         </select>
                         </div>
                      </div>
@@ -288,7 +285,6 @@
       </mat-accordion>
    </div>
 </div>
-
 <div class="col-12 col-lg-12"
    *ngFor="let lesson of results | filter:searchedKeyword | paginate: { itemsPerPage: 5, currentPage: p }">
    <div class="card" style="border-radius: 10px;">

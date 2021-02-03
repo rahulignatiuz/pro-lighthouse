@@ -7,7 +7,8 @@ var db         = require("../db/database");
 router.post("/",  (req, res, next)=>{
     
     ProjectID=req.body.ProjectID;
-    db.query(Model.getAllMappingprojectmilestonesSQL(ProjectID), (err, data)=> {
+    db.query(Model.getAllMappingprojectmilestonesSQL(ProjectID), (err, result)=> {
+        let data = result[0];
         if(!err) {
             if(data && data.length > 0) {
                 res.status(200).json({

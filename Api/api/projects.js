@@ -6,7 +6,8 @@ var db = require("../db/database");
 //http://localhost:6001/api/projects
 router.get("/", (req, res, next) => {
 
-    db.query(Model.getAllProjectsSQL(), (err, data) => {
+    db.query(Model.getAllProjectsSQL(), (err, result) => {
+        let data = result[0];
         if (!err) {
             if (data && data.length > 0) {
                 res.status(200).json({
@@ -26,12 +27,11 @@ router.get("/", (req, res, next) => {
 });
 //http://localhost:6001/api/projects/projectgetbyid
 router.post('/projectgetbyid', function (req, res) {
-  
     ID = req.body.ID;
 
     //console.log(db.query(Model.updateProjectsSQL(p)))
-    db.query(Model.getProjectByID(ID), (err, data) => {
-
+    db.query(Model.getProjectByID(ID), (err, result) => {
+        let data = result[0];
         if (!err) {
             if (data && data.length > 0) {
                 res.status(200).json({
@@ -76,7 +76,9 @@ router.post('/add', (req, res, next) => {
     p.CreatedBy = req.body.CreatedBy;
     p.UpdatedBy = req.body.UpdatedBy;
     //console.log(d);
-    db.query(Model.AddAllProjectsSQL(p), (err, results) => {
+    db.query(Model.AddAllProjectsSQL(p), (err, result) => {
+        let results = result[1][0];
+        // console.log("2212121",results);
         if (err) {
             res.send({ status: false, result: results, message: 'not-added' })
         }
@@ -128,7 +130,8 @@ router.post('/updatename', (req, res, next) => {
 //http://localhost:6001/api/projects/id
 router.post("/id", (req, res, next) => {
     ID = req.body.ID;
-    db.query(Model.getprojectbyid(ID), (err, data) => {
+    db.query(Model.getprojectbyid(ID), (err, result) => {
+        let data = result[0];
         if (!err) {
             if (data && data.length > 0) {
                 res.status(200).json({
@@ -149,7 +152,8 @@ router.post("/id", (req, res, next) => {
 //http://localhost:6001/api/projects/projectpiechart
 router.post("/projectpiechart", (req, res, next) => {
     ID = req.body.ID;
-    db.query(Model.getprojectBypiechartSQL(req.body), (err, data) => {
+    db.query(Model.getprojectBypiechartSQL(req.body), (err, result) => {
+        let data = result[0];
         if (!err) {
             let dataObj = [];
             let labelObj = [];

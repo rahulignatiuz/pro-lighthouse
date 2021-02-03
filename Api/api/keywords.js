@@ -5,7 +5,8 @@ var db         = require("../db/database");
 
 //http://localhost:6001/api/keywords
 router.get("/",  (req, res, next)=>{
-    db.query(Model.getAllKeywordsSQL(), (err, data)=> {
+    db.query(Model.getAllKeywordsSQL(), (err, result)=> {
+        let data = result[0];
         if(!err) {
             if(data && data.length > 0) {
                 res.status(200).json({
@@ -31,7 +32,8 @@ router.get("/",  (req, res, next)=>{
         k.CreatedBy = req.body.CreatedBy;
         k.UpdatedBy = req.body.UpdatedBy;
         //console.log(d);
-        db.query(Model.AddAllKeywordsSQL(k),(err,results)=>{
+        db.query(Model.AddAllKeywordsSQL(k),(err,result)=>{
+            let results = result[1][0];
             if(err){
                 res.send({status:false,result:results,message:'not-added'})
             }

@@ -16,7 +16,7 @@ export class ButtonsComponent implements OnInit {
   public _baseURL : string;
   URLlessonID: number;
   issuedescription:string;
-  rootcause:string;
+  rootcouse:string;
   Recommendation:string;
   impactcategory:string;
   impactlevel:string;
@@ -63,7 +63,7 @@ export class ButtonsComponent implements OnInit {
     this.projectNumber = data.result[0].LPN;
     this._projectPhase = data.result[0].phase;
     this.issuedescription = data.result[0].IssueDescription;
-    this.rootcause = data.result[0].RootCause;
+    this.rootcouse = data.result[0].RootCause;
     this.Recommendation = data.result[0].Recommendation;
     this.impactcategory = data.result[0].impactcategory;
     this.milestones = data.result[0].milestones;

@@ -200,7 +200,7 @@ export class UpdateProcessComponent implements OnInit {
         this.showIssues = true;
         this.showPractice = false;
       }
-      this.userService.getAllkeywordsByID(ID).subscribe((data) => {
+      this.userService.getAllKeywordsByID(ID).subscribe((data) => {
         //  console.log(data);
         if (data.status) {
           this.lessonProcessForm.controls['_Keywords'].setValue(data.result);

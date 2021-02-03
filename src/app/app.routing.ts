@@ -94,6 +94,10 @@ export const routes: Routes = [
         loadChildren: () => import('./views/masterlists/masterlists.module').then(m => m.MasterlistsModule)
       },
       {
+        path: 'notification',
+        loadChildren: () => import('./views/notification/notification.module').then(m => m.NotificationModule)
+      },
+      {
         path: 'notifications',
         loadChildren: () => import('./views/notifications/notifications.module').then(m => m.NotificationsModule)
       },

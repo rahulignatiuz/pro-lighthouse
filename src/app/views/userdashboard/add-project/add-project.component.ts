@@ -517,19 +517,12 @@ export class AddLessonComponent implements OnInit {
       }
     });
   }
-  // updateLPN(ID) {
-  //   let id = ID.toString();
-  //    let lpn = this.projectNumber;
-  //      this.userService.updateLPN(id, lpn).subscribe((data) => {
-  //       })
-  //     }
 
   addLesson(form: NgForm) {
     this.isSubmitted = true;
-     this.updateLPN(form.value._projectname[0].ID);
-    // this.updateLNP(form.value.projectNumber);
+    this.updateLPN(form.value._projectname[0].ID);
     let _user: any = JSON.parse(localStorage.getItem('currentUser'));
-    console.log("this._Keywords", this._Keywords);
+    console.log("this._Keywords----------------", this._Keywords);
     console.log(form)
     let o: any = {
       UserID: _user.ID,
@@ -547,7 +540,7 @@ export class AddLessonComponent implements OnInit {
       FunctionID: form.value.function[0].ID,
       IssueDescription: this.issuedescription,
       RootCause: this.rootcause,
-      keywords: this._Keywords,
+      Keywords: this._Keywords,
       Recommendation: this.Recommendation,
       CreatedBy: _user.ID,
       LPN:this.projectNumber,

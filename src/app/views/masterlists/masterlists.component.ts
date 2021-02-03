@@ -629,7 +629,7 @@ export class MasterlistsComponent implements OnInit {
       if (data.status) {
         this.projectid = data.data.insertId;
 
-        this.userService.AddProjects(data).subscribe((data) => { });
+        // this.userService.AddProjects(data).subscribe((data) => { });
         console.log(this.projectid)
         this.userService.addmappingprojectprojecttype(this.projectid, this.fetechprojectTypeId).subscribe((data) => {
           if (data.status) {
@@ -748,7 +748,7 @@ export class MasterlistsComponent implements OnInit {
       if (data.status) {
         this.milestoneid = data.data.insertId;
 
-        this.userService.Addmilestones(data).subscribe((data) => { });
+        // this.userService.Addmilestones(data).subscribe((data) => { });
         console.log(this.milestoneid)
         this.userService.addmappingprojectypemilestone(this.fetechprojectTypeId, this.milestoneid).subscribe((data) => {
           if (data.status) {
@@ -785,7 +785,7 @@ export class MasterlistsComponent implements OnInit {
       if (data.status) {
         this.phaseid = data.data.insertId;
 
-        this.userService.Addmilestones(data).subscribe((data) => { });
+        // this.userService.Addmilestones(data).subscribe((data) => { });
         console.log(this.phaseid)
         this.userService.addmappingprojectypephase(this.fetechprojectTypeId, this.phaseid).subscribe((data) => {
           if (data.status) {

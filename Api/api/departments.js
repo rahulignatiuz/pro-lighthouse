@@ -8,7 +8,8 @@ var db = require("../db/database");
 // router.get("/", middleware.checkToken, (req, res, next) =>{
 router.get("/", (req, res, next) => {
     // console.log(Model.getAllKeywordsSQL());
-    db.query(Model.getAllDepartmentsSQL(), (err, data) => {
+    db.query(Model.getAllDepartmentsSQL(), (err, result) => {
+        let data = result[0];
         if (!err) {
             if (data && data.length > 0) {
                 res.status(200).json({
@@ -36,8 +37,13 @@ router.post('/add', function (req, res) {
     d.UpdatedBy = req.body.UpdatedBy;
     console.log(d)
     //console.log(db.query(Model.addalldepartmentsSQL(d)))
-    db.query(Model.AddAllDepartmentsSQL(d), (err, results) => {
-
+    db.query(Model.AddAllDepartmentsSQL(d), (err, result) => {
+        let results = result[1][0];
+       // console.log("----------------+++++++++++++++", results); 
+        console.log("----------------+++++++++++++++", results);   
+        // if(results.constructor.name == 'RowDataPacket') { 
+        //     console.log("----------------+++++++++++++++", results);          
+        // }
         if (err) {
             res.send({ status: false, result: results, message: 'not-added' })
         }
@@ -87,7 +93,8 @@ router.post('/updatename', (req, res, next) => {
 //http://localhost:6001/api/departments/id
 router.post("/id", (req, res, next) => {
     ID = req.body.ID;
-    db.query(Model.getdepartmentsbyid(ID), (err, data) => {
+    db.query(Model.getdepartmentsbyid(ID), (err, result) => {
+        let data = result[0];
         if (!err) {
             if (data && data.length > 0) {
                 res.status(200).json({
@@ -107,7 +114,8 @@ router.post("/id", (req, res, next) => {
 });
 //http://localhost:6001/api/departments/departmentbarchart
 router.get("/departmentbarchart", (req, res, next) => {
-    db.query(Model.getdepartmentBybarchartSQL(req.body), (err, data) => {
+    db.query(Model.getdepartmentBybarchartSQL(req.body), (err, result) => {
+        let data = result[0];
         if (!err) {
             let dataObj = [];
             let labelObj = [];
@@ -139,11 +147,12 @@ router.get("/departmentbarchart", (req, res, next) => {
 });
 //http://localhost:6001/api/departments/departmentbar
 router.get("/departmentbar", (req, res, next) => {
-    db.query(Model.getdepartmentBybarSQL(req.body), (err, data) => {
+    db.query(Model.getdepartmentBybarSQL(req.body), (err, result) => {
+        let data = result[0];
         if (!err) {
             let dataObj = [];
             let labelObj = [];
-           // let totalObj = [];
+            // let totalObj = [];
             if (data && data.length > 0) {
                 for (let i = 0; i < data.length; i++) {
                     // dataObj.push(data[i].total);

@@ -296,11 +296,11 @@ export const navItems: NavData[] = [
         url: '/user-management',
         icon: 'icon-people'
       },
-      // {
-      //   name: 'Projects',
-      //   url: '/admin/lessons2',
-      //   icon: 'icon-folder-alt'
-      // },
+      {
+        name: 'Notification',
+        url: '/notification',
+        icon: 'icon-bell'
+      },
       {
         name: 'Master Lists',
         url: '/masterlists',
@@ -343,11 +343,11 @@ export const navItems: NavData[] = [
         url: '/user-management',
         icon: 'icon-people'
       },
-      // {
-      //   name: 'Projects',
-      //   url: '/admin/lessons2',
-      //   icon: 'icon-folder-alt'
-      // },
+      {
+        name: 'Notification',
+        url: '/notification',
+        icon: 'icon-bell'
+      },
       // {
       //   name: 'System Settings',
       //   url: '/admin/lessons',
@@ -373,11 +373,11 @@ export const navItems: NavData[] = [
       //   url: '/user/lessons1',
       //   icon: 'icon-user'
       // },
-      // {
-      //   name: 'Notification',
-      //   url: '/user/lessons2',
-      //   icon: 'icon-bell'
-      // } 
+      {
+        name: 'Notification',
+        url: '/notification',
+        icon: 'icon-bell'
+      } 
     ] 
   } 
 ];

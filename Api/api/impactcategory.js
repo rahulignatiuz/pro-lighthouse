@@ -8,7 +8,8 @@ var db = require("../db/database");
 //http://localhost:6001/api/impactcategory
 router.get("/", (req, res, next) => {
 
-    db.query(Model.getAllimpactcategorySQL(), (err, data) => {
+    db.query(Model.getAllimpactcategorySQL(), (err, result) => {
+        let data = result[0];
         if (!err) {
             if (data && data.length > 0) {
                 res.status(200).json({
@@ -34,7 +35,8 @@ router.post('/add', (req, res, next) => {
     i.CreatedBy = req.body.CreatedBy;
     i.UpdatedBy = req.body.UpdatedBy;
     //console.log(p);
-    db.query(Model.AddAllimpactcategorySQL(i), (err, results) => {
+    db.query(Model.AddAllimpactcategorySQL(i), (err, result) => {
+        let results = result[1][0];
         if (err) {
             res.send({ status: false, result: results, message: 'not-added' })
         }
@@ -86,7 +88,8 @@ router.post('/updatename', (req, res, next) => {
 //http://localhost:6001/api/impactcategory/id
 router.post("/id", (req, res, next) => {
     ID = req.body.ID;
-    db.query(Model.getimpactcategorybyid(ID), (err, data) => {
+    db.query(Model.getimpactcategorybyid(ID), (err, result) => {
+        let data = result[0];
         if (!err) {
             if (data && data.length > 0) {
                 res.status(200).json({
@@ -106,7 +109,8 @@ router.post("/id", (req, res, next) => {
 });
 //http://localhost:6001/api/impactcategory/impactcategorybarchart
 router.get("/impactcategorybarchart", (req, res, next) => {
-    db.query(Model.getimpactcategoryBybarchartSQL(req.body), (err, data) => {
+    db.query(Model.getimpactcategoryBybarchartSQL(req.body), (err, result) => {
+        let data = result[0];
         if (!err) {
             let dataObj = [];
             let labelObj = [];

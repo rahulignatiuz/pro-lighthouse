@@ -13,12 +13,10 @@ import { FormBuilder, FormGroup, Validators, NgForm } from '@angular/forms';
 export class LessonProcessComponent implements OnInit {
 
   results: any[];
-  firstname :string;
-  lastname:string;
   public _baseURL: string;
   URLlessonID: number;
   issuedescription: string;
-  rootcause: string;
+  rootcouse: string;
   Recommendation: string;
   impactcategory: string;
   impactlevel: string;
@@ -86,15 +84,13 @@ export class LessonProcessComponent implements OnInit {
       this.likes = data.result[0].likes;
       this.UserID = JSON.parse(localStorage.getItem('currentUser')).ID;
       this.useruseful = data.result[0].useruseful;
-      this.rootcause = data.result[0].RootCause;
+      this.rootcouse = data.result[0].RootCause;
       this.LessonID = data.result[0].LessonID;
       this.functions = data.result[0].functions;
       this.department = data.result[0].department;
       this.lifecycle = data.result[0].lifecycle;
-      this.firstname = data.result[0].firstname;
-      this.lastname  = data.result[0].lastname;
       this.Email = data.result[0].Email;
-      if (this.rootcause == "undefined") {
+      if (this.rootcouse == "undefined") {
         this.showrootcouse = false;
       }
       if (this.useruseful == null || this.useruseful == "") {
@@ -124,7 +120,7 @@ export class LessonProcessComponent implements OnInit {
       }
 
     });
-    this.userService.getAllkeywordsByID(ID).subscribe((data) => {
+    this.userService.getAllKeywordsByID(ID).subscribe((data) => {
       if (data.status) {
         this.keyName = data.result;
       }

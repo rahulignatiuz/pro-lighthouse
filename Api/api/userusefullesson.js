@@ -5,7 +5,8 @@ var db = require("../db/database");
 
 //http://localhost:6001/api/userusefullesson
 router.get("/", (req, res, next) => {
-    db.query(Model.getAllUserusefulllessonsSQL(), (err, data) => {
+    db.query(Model.getAllUserusefulllessonsSQL(), (err, result) => {
+        let data = result[0];
         if (!err) {
             if (data && data.length > 0) {
                 res.status(200).json({
@@ -33,8 +34,9 @@ router.post("/add", (req, res, next) => {
     l.flag = req.body.flag;
     console.log(l);
     //console.log(db.query(User.AddUserusefullessonsSQL(l)));
-    db.query(Model.AddUserusefullessonsSQL(l), (err, results) => {
+    db.query(Model.AddUserusefullessonsSQL(l), (err, result) => {
         //console.log(results)
+        let results = result[1][0];
         if (err) {
             res.send({ status: false, result: results, message: 'not-added' })
         }
@@ -49,7 +51,8 @@ router.post("/add", (req, res, next) => {
 router.post("/countbyid", (req, res, next) => {
     let id = req.body.id;
 
-    db.query(Model.getallcountuserusefulSQL(id), (err, data) => {
+    db.query(Model.getallcountuserusefulSQL(id), (err, result) => {
+        let data = result[0];
         if (!err) {
             if (data && data.length > 0) {
                 res.status(200).json({
@@ -70,7 +73,8 @@ router.post("/countbyid", (req, res, next) => {
 //User Pie chart API for lessons
 router.post("/puserlessonchart", (req, res, next) => {
     let id = req.body.id;
-    db.query(Model.getuserusefulByUserPieChartSQL(id), (err, data) => {
+    db.query(Model.getuserusefulByUserPieChartSQL(id), (err, result) => {
+        let data = result[0];
         if (!err) {
             let dataObj = [];
             let labelObj = [];

@@ -46,29 +46,29 @@ export class LoginComponent {
     if (this.loginForm.invalid) {
       return;
     }
-    this.authService.login(this.formControls.username.value, this.formControls.password.value).subscribe((data) => {
-      if (data.status) {
-        localStorage.setItem('currentUser', JSON.stringify(data.result[0]));
-        //this.router.navigateByUrl('/dashboard');
-        let userData = data.result[0];
-        console.log(userData);
-        if (userData && userData.roleid == '1') {
-          this.router.navigate(['/admin']);
-        } else if (userData && userData.roleid == '2') {
-          this.router.navigate(['/pm']);
-        } else if (userData && userData.roleid == '3') {
-          this.router.navigate(['/user']);
-        } else {
-          this.router.navigate(['/dashboard']);
-        }
-        return data;
-      } else {
-        this.errForms = true;
-        //err message
-        this.message = data.message
+    // this.authService.login(this.formControls.username.value, this.formControls.password.value).subscribe((data) => {
+    //   if (data.status) {
+    //     localStorage.setItem('currentUser', JSON.stringify(data.result[0]));
+    //     //this.router.navigateByUrl('/dashboard');
+    //     let userData = data.result[0];
+    //     console.log(userData);
+    //     if (userData && userData.roleid == '1') {
+    //       this.router.navigate(['/admin']);
+    //     } else if (userData && userData.roleid == '2') {
+    //       this.router.navigate(['/pm']);
+    //     } else if (userData && userData.roleid == '3') {
+    //       this.router.navigate(['/user']);
+    //     } else {
+    //       this.router.navigate(['/dashboard']);
+    //     }
+    //     return data;
+    //   } else {
+    //     this.errForms = true;
+    //     //err message
+    //     this.message = data.message
 
-      }
-    });
+    //   }
+    // });
   }
   googleLogin() {
     this.authService.googleLoginURL().subscribe((data) => {

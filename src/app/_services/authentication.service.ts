@@ -22,9 +22,9 @@ export class AuthenticationService {
   // login(username: string, password: string) {       
   //return this.http.post<any>(`${this._baseURL}/users/login`, { username:username, password:password });
   //}
-  login(Username: string, Password: string) {
-    return this.http.post<any>(`${this._baseURL}/login`, { Username: Username, Password: Password });
-  }
+  // login(Username: string, Password: string) {
+  //   return this.http.post<any>(`${this._baseURL}/login`, { Username: Username, Password: Password });
+  // }
   googleLoginURL() {
     return this.http.get<any>(`${this._baseURL}/login/google`);
   }

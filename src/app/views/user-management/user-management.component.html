@@ -41,7 +41,7 @@
             <th>Email</th>
             <th>Role</th>
             <th>Status</th>
-            <th>Notification Email</th>
+            <th>User Request Email</th>
             <th>Date Created</th>
             <th>Action</th>
           </tr>
@@ -148,7 +148,7 @@
       </div>
     </div>
 
-    <button type="submit" class="btn btn-block btn-primary centerbtn">Create Account</button>
+    <button type="submit" [disabled]="createAccBtnDis" class="btn btn-block btn-primary centerbtn">Create Account</button>
 
   </form>
 </div>
@@ -193,7 +193,7 @@
       </select>
     </div>
     <div class="form-group">
-      <label for="roles">Notification Emails</label>
+      <label for="roles">User Request Email</label>
       <select class="form-control" [(ngModel)]="notifications" formControlName="notifications" name="notifications"
         required>
         <option value="0">Inactive</option>

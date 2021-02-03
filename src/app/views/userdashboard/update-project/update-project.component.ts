@@ -276,7 +276,7 @@ export class UpdateProjectComponent implements OnInit {
 
       this.test = ([this.editData.projectname]);
       this.lessonForm.controls['_projectname'].setValue(this.test);
-      this.userService.getAllkeywordsByID(ID).subscribe((data) => {
+      this.userService.getAllKeywordsByID(ID).subscribe((data) => {
         //  console.log(data);
         if (data.status) {
 

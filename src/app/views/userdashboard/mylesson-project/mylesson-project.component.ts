@@ -81,10 +81,22 @@ export class MylessonsProjectComponent implements OnInit {
   public implemented: string;
   public show: boolean = true;
   public hasuser = false;
-
+  public lessonID:any;
   constructor(private router: Router, private userService: UserService, private titleService: Title) {
+    this.router.routerState.root.queryParams.subscribe(params => {
+      var lessonProjectID = params['lessonid'];
+      console.log("================",lessonProjectID);
+      if(lessonProjectID){
+        this.lessonID = lessonProjectID.replace(/,\s*$/, "");
+        console.log("========if========",this.lessonID);
+        this.getLessonsByFilter();
+      }else{
+        console.log("======else==========",lessonProjectID);
+        this.getUserLessons();
+      }
+    });
     this._baseURL = Constant.baseURL;
-    this.getUserLessons();
+
     this.getProjecttype();
     this.getcategories();
     this.getimpactlevel();
@@ -222,7 +234,11 @@ export class MylessonsProjectComponent implements OnInit {
 
   getUserLessons() {
     this.userService.getUserLessons().subscribe((data) => {
-      this.results = data.result;
+      console.log("+++++++++++++++++++getUserLessons++++++++++",data);
+      if(data.status){
+        this.results = data.result;
+      }
+     
     });
   }
   getKeywords() {
@@ -305,10 +321,12 @@ export class MylessonsProjectComponent implements OnInit {
       SortBy: this.SortBy ? this.SortBy : "DESC",
       KeywordsIDList: this.keywordsIDList ? this.keywordsIDList : "",
       flag: this.flag ? this.flag : "",
+      LessonsID: this.lessonID ? this.lessonID : "",
     };
 
     this.userService.getAllFilterLessons(obj).subscribe((data) => {
       if (data.status) {
+        console.log("=========data=======",data);
         this.noResult = false;
         this.results = data.result;
       } else {
@@ -333,6 +351,7 @@ export class MylessonsProjectComponent implements OnInit {
     this.selectedMilestone = "";
     this.flag = "";
     this.implemented = "";
+    this.lessonID = "";
     this.userusefullessonAsObjects = "";
     this.projectsAsType = [];
     this.departmentAsObjects = [];
@@ -397,9 +416,7 @@ export class MylessonsProjectComponent implements OnInit {
     this.userService.getMappingProjectAndMilestone(this.ProjecttypeID).subscribe((data) => {
       if (data.status) {
         this.milestoneDropdownList = data.result;
-
         //this.mappingProjectAndMilestone = data.result;
-
       }
     });
 

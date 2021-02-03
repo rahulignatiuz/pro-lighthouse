@@ -5,7 +5,8 @@ var db = require("../db/database");
 
 //http://localhost:6001/api/process
 router.get("/", (req, res, next) => {
-    db.query(Model.getAllProcessSQL(), (err, data) => {
+    db.query(Model.getAllProcessSQL(), (err, result) => {
+        let data = result[0];
         if (!err) {
             if (data && data.length > 0) {
                 res.status(200).json({
@@ -31,7 +32,8 @@ router.post('/add', (req, res, next) => {
     i.CreatedBy = req.body.CreatedBy;
     i.UpdatedBy = req.body.UpdatedBy;
     //console.log(p);
-    db.query(Model.AddAllprocessSQL(i), (err, results) => {
+    db.query(Model.AddAllprocessSQL(i), (err, result) => {
+        let results = result[1][0];
         if (err) {
             res.send({ status: false, result: results, message: 'not-added' });
         }
@@ -84,7 +86,8 @@ router.post('/updatename', (req, res, next) => {
 //http://localhost:6001/api/process/id
 router.post("/id", (req, res, next) => {
     ID = req.body.ID;
-    db.query(Model.getprocessbyid(ID), (err, data) => {
+    db.query(Model.getprocessbyid(ID), (err, result) => {
+        let data = result[0];
         if (!err) {
             if (data && data.length > 0) {
                 res.status(200).json({

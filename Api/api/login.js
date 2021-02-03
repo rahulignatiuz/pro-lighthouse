@@ -13,7 +13,6 @@ const CLIENT_SECRET = lighthouseJson.CLIENT_SECRET;
 const REDIRECT_URL = lighthouseJson.REDIRECT_URL;
 
 const oAuth2Client = new google.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URL);
-var authed = false;
 
 var transport = nodemailer.createTransport({
     host: lighthouseJson.SMTP_HOST,
@@ -27,22 +26,22 @@ var transport = nodemailer.createTransport({
 
 
 //handles url http://localhost:6001/api/login
-router.post("/", (req, res, next) => {
-    //console.log(Model.getUserLoginSQL(req.body.Username,req.body.Password));    
-    db.query(Model.getUserLoginSQL(req.body.Username, req.body.Password), (err, data) => {
-        if (data.length == 0) {
-            var status = false, msg = "Invalid Username or Password.";
-        } else {
-            msg = "Login successfully";
-            status = true;
-        }
-        res.status(200).json({
-            status: status,
-            message: msg,
-            result: data
-        });
-    });
-});
+// router.post("/", (req, res, next) => {
+//     //console.log(Model.getUserLoginSQL(req.body.Username,req.body.Password));    
+//     db.query(Model.getUserLoginSQL(req.body.Username, req.body.Password), (err, data) => {
+//         if (data.length == 0) {
+//             var status = false, msg = "Invalid Username or Password.";
+//         } else {
+//             msg = "Login successfully";
+//             status = true;
+//         }
+//         res.status(200).json({
+//             status: status,
+//             message: msg,
+//             result: data
+//         });
+//     });
+// });
 //handles url http://localhost:6001/api/login/google
 router.get('/google', (req, res) => {
     const scope = [
@@ -59,39 +58,7 @@ router.get('/google', (req, res) => {
     res.status(200).json({
         url: url
     });
-    // if (!authed) {
-    //     const scope = [
-    //         'https://www.googleapis.com/auth/plus.me', // request access here
-    //         'https://www.googleapis.com/auth/userinfo.email',
-    //     ];
-    //     // Generate an OAuth URL and redirect there
-    //     const url = oAuth2Client.generateAuthUrl({
-    //         access_type: 'offline',
-    //         scope: scope
-    //     });
-    //     // res.redirect(url);
-    //     res.status(200).json({
-    //         url: url
-    //     });
-    // } else {
-    //     const gmail = google.gmail({ version: 'v1', auth: oAuth2Client });
-    //     gmail.users.labels.list({
-    //         userId: 'me',
-    //     }, (err, res) => {
-    //         if (err) return console.log('The API returned an error: ' + err);
-    //         const labels = res.data.labels;
-    //         console.log(labels);
-    //         if (labels.length) {
-    //             console.log('Labels:');
-    //             labels.forEach((label) => {
-    //                 console.log(`- ${label.name}`);
-    //             });
-    //         } else {
-    //             console.log('No labels found.');
-    //         }
-    //     });
-    //     res.send('Logged in')
-    // }
+    
 });
 
 router.get('/auth/google/callback', function (req, res) {
@@ -105,8 +72,6 @@ router.get('/auth/google/callback', function (req, res) {
                 let url = lighthouseJson.GOOGLE_USER_INFO + tokens.access_token;
                 fetch(url, { method: "Get" }).then(res => res.json()).then((json) => {
                     // do something with JSON
-                    console.log(json);
-                    console.log(json.email);
                     const email = json.email;
                     const address = email.split('@').pop();
                     const allowDomain = lighthouseJson.ALLOW_DOMAIN;
@@ -114,16 +79,15 @@ router.get('/auth/google/callback', function (req, res) {
                     console.log(findCommonEmailDomain(allowDomain, loginDomain));
                     console.log(address);
                     if (findCommonEmailDomain(allowDomain, loginDomain)) {
-                        db.query(Model.authUserByEmail(json.email), (emailErr, emailData) => {
-                           // console.log("rrrrrrrrrrrrrrrrrrrrrreeeeee=>", emailData);
+                        db.query(Model.authUserByEmail(json.email), (emailErr, emailDataResult) => {
+                            let emailData = emailDataResult[0];
                             if (!emailErr) {
-                                // console.log("emailData[0].IsEnabled=>",emailData[0].IsEnabled);
-
                                 if (emailData.length) {
                                     if (emailData[0].IsEnabled == 1) {
                                         let IsEnabled = 1;
                                         // googleLoginCallback(json.email)
-                                        db.query(Model.getGoogleUser(json.email, IsEnabled), (checkGoogleErr, checkGoogleData) => {
+                                        db.query(Model.getGoogleUser(json.email, IsEnabled), (checkGoogleErr, checkGoogleDataResult) => {
+                                            let checkGoogleData = checkGoogleDataResult[0];
                                             if (!checkGoogleErr) {
                                                 if (checkGoogleData.length) {
                                                     // res.redirect(lighthouseJson.BASE_URL + "/#/social-auth?email=" + json.email);
@@ -132,7 +96,8 @@ router.get('/auth/google/callback', function (req, res) {
                                                     });
 
                                                 } else {
-                                                    db.query(Model.googleUser(json, IsEnabled), (err, data) => {
+                                                    db.query(Model.googleUser(json, IsEnabled), (err, result) => {
+                                                        let data = result[1][0];
                                                         console.log(data);
                                                         res.redirect(lighthouseJson.BASE_URL + "/#/social-auth?email=" + json.email);
                                                     });
@@ -145,7 +110,8 @@ router.get('/auth/google/callback', function (req, res) {
                                     }
                                 } else {
                                     let IsEnabled = 0;
-                                    db.query(Model.getGoogleUserBYEmail(json.email, IsEnabled), (checkGoogleErr, checkGoogleData) => {
+                                    db.query(Model.getGoogleUserBYEmail(json.email, IsEnabled), (checkGoogleErr, checkGoogleDataResult) => {
+                                        let checkGoogleData = checkGoogleDataResult[0];
                                         if (!checkGoogleErr) {
                                             if (checkGoogleData.length) {
                                                 res.redirect(lighthouseJson.BASE_URL + "/#/social-auth?request-pending=" + json.email);
@@ -154,10 +120,7 @@ router.get('/auth/google/callback', function (req, res) {
                                             }
                                         }
                                     });
-
                                 }
-
-
                             }
                         });
                     } else {
@@ -188,10 +151,8 @@ function findCommonEmailDomain(allowDomain, loginDomain) {
 }
 //handles url http://localhost:6001/api/login/google/auth
 router.post('/google/auth', function (req, res) {
-    db.query(Model.authUserByEmail(req.body.email), (err, data) => {
-        console.log(err);
-        console.log(data);
-        console.log(data.length);
+    db.query(Model.authUserByEmail(req.body.email), (err, result) => {
+        let data = result[0];
         if (data.length == 0) {
             var status = false, msg = "Invalid not exist.";
         } else {
@@ -208,7 +169,8 @@ router.post('/google/auth', function (req, res) {
 //handles url http://localhost:6001/api/login/google/auth/user
 router.post('/google/auth/user', function (req, res) {
     let IsEnabled = 1;
-    db.query(Model.getGoogleUser(req.body.email, IsEnabled), (err, data) => {
+    db.query(Model.getGoogleUser(req.body.email, IsEnabled), (err, result) => {
+        let data = result[0];
         if (!err) {
             if (data.length == 0) {
                 var status = false, msg = "Invalid email";
@@ -228,8 +190,8 @@ router.post('/google/auth/user', function (req, res) {
 //handles url http://localhost:6001/api/login/google/auth/pending/user
 router.get('/google/auth/pending/user', function (req, res) {
 
-    db.query(Model.getAllPendingUser(), (err, data) => {
-
+    db.query(Model.getAllPendingUser(), (err, result) => {
+        let data = result[0];
         if (!err) {
             if (data.length == 0) {
                 var status = false, msg = "Pending user not exist";
@@ -243,13 +205,12 @@ router.get('/google/auth/pending/user', function (req, res) {
                 result: data
             });
         }
-
     });
-
 });
 //handles url http://localhost:6001/api/login/google/auth/pending/user/id
 router.post('/google/auth/pending/user/id', function (req, res) {
-    db.query(Model.getPendingUserByID(req.body.ID), (err, data) => {
+    db.query(Model.getPendingUserByID(req.body.ID), (err, result) => {
+        let data = result[0];
         if (!err) {
             if (data.length == 0) {
                 var status = false, msg = "Pending user not exist";
@@ -272,32 +233,30 @@ router.post('/google/admin/email', function (req, res) {
     let IsEnabled = 0;
 
     fetch(url, { method: "Get" }).then(res => res.json()).then((json) => {
-        db.query(Model.getGoogleUserBYEmail(json.email, IsEnabled), (checkGoogleErr, checkGoogleData) => {
+        db.query(Model.getGoogleUserBYEmail(json.email, IsEnabled), (checkGoogleErr, checkGoogleDataResult) => {
+            let checkGoogleData = checkGoogleDataResult[0];
             if (!checkGoogleErr) {
-                if (checkGoogleData.length) {
-
-																
+                if (checkGoogleData.length) {												
                     res.status(200).json({
                         status: false,
                         result: checkGoogleData
                     });
                 } else {
-                    db.query(Model.googleUser(json, IsEnabled), (err, data) => {
+                    db.query(Model.googleUser(json, IsEnabled), (err, result) => {
+                        let data = result[1][0];
                         if (!err) {
                             db.query(Model.getUserEmailForNotification(), (err, notificationEmail) => {
                                 if (!err) {
                                     notificationEmail.forEach((emails, index) => {
-                                        console.log("+654+987", notificationEmail);
                                         var mailOptions = {
                                             from: lighthouseJson.SMTP_USER,
                                             to: emails.Email,
                                             subject: 'A new account has been requested',
-                                            text: `Hello Admin, 
-                                                 \nA new account has been requested at ${lighthouseJson.BASE_URL} using ${json.email} email address. 
-                                                 \nTo confirm your new account, please go to this web address:
-                                                 \n${lighthouseJson.BASE_URL}/#/dashboard?request-email=${json.email}\nIn most mail programs, this should appear as a blue link which you can just click on. If that doesnt work, then cut and paste the address into the address line at the top of your web browser window.
-                                                        
-                                                 \nThanks`
+                                            html: `<b>Dear Admin,</b><br><br>
+                                            A new user has requested to access the Lighthouse Tool. The email address of the user is: <br>
+                                            ${json.email}<br><br>
+                                            Please click  <a href="${lighthouseJson.BASE_URL}/#/dashboard?request-email=${json.email}">here</a> to approve/reject the request.<br><br>
+                                            Thank you`
                                         };
                                         transport.sendMail(mailOptions, function (error, info) {
                                             if (!error) {
@@ -312,17 +271,13 @@ router.post('/google/admin/email', function (req, res) {
                                         status: true,
                                         result: data
                                     });
-
                                 }
 
                             });
                         }
-
-
                     });
                 }
             }
-
         });
 
     });

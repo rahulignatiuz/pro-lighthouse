@@ -29,7 +29,8 @@ router.post("/checklike", (req, res, next) => {
     let l = {};
     l.UserID = req.body.UserID;
     l.LessonID = req.body.LessonID;
-    db.query(Model.checkAlluserlikeSQL(l), (err, data) => {
+    db.query(Model.checkAlluserlikeSQL(l), (err, result) => {
+        let data = result[0];
         if (!err) {
             if (data && data.length > 0) {
                 res.status(200).json({
@@ -54,12 +55,14 @@ router.post("/add", (req, res, next) => {
     l.LessonID = req.body.LessonID;
     l.Likes = req.body.Likes;
     console.log(l);
-    db.query(Model.checkAlluserlikeSQL(l), (err, rows) => {
+    db.query(Model.checkAlluserlikeSQL(l), (err, rowsResult) => {
+        let rows = rowsResult[0];
         if (err) {
             return console.log(err);
         }
         if (!rows.length) {
-            db.query(Model.addAlluserlikeSQL(l), (err, data) => {
+            db.query(Model.addAlluserlikeSQL(l), (err, result) => {
+                let data = result[1][0];
                 console.log(data);
                 if (!err) {
                     if (data) {
