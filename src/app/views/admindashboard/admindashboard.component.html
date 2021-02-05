@@ -129,7 +129,11 @@
           <!-- <circle-progress [percent]="currentValue4" [radius]="60" [space]="-20" [unitsFontSize]="12" [animation]="true"
           [animationDuration]="1300" [backgroundStrokeWidth]="10" subtitleFontSize="23" subtitleColor="black" backgroundPadding="-14" outerStrokeWidth="21" titleFontSize="20" innerStrokeWidth="19" [clockwise]="false" outerStrokeColor="#f64846"
           outerStrokeColor="#f64846" outerStrokeGradientStopColor="#f64846"></circle-progress> -->
-
+          <div class="d-flex justify-content-center">
+            <div class="dot-pulse" *ngIf="showLoader" role="status" >
+              <span class="sr-only"  id="loading"></span>
+            </div>
+          </div>
           <circle-progress [percent]="currentValue4" [radius]="60" [space]="-20" subtitleFontSize="12" [unitsFontSize]="12" [animation]="true"
           [animationDuration]="1300" [backgroundStrokeWidth]="38" [clockwise]="false" outerStrokeColor="#f64846"
           outerStrokeColor="#f64846" outerStrokeGradientStopColor="#f64846"  titleFontSize="24" subtitle= "Issue"></circle-progress>
@@ -178,6 +182,11 @@
      </span>
       </div>
       <div class="card-body">
+        <div class="d-flex justify-content-center">
+          <div class="dot-pulse" *ngIf="showLoaderfordepartment" role="status" >
+            <span class="sr-only"  id="loading"></span>
+          </div>
+        </div>
         <div class="chart-wrapper" *ngIf="barChartDatafordepartment && barChartDatafordepartment.length > 0">
           <canvas baseChart class="chart smallscreen" [data]="barChartDatafordepartment" [labels]="barChartLabelsfordepartment"
             [colors]="lineChartColours" [options]="barChartOptions" [legend]="barChartLegend"
@@ -191,6 +200,11 @@
     <div class="card">
       <div class="card-header">
         Lesson by Months
+      </div>
+      <div class="d-flex justify-content-center">
+        <div class="dot-pulse" *ngIf="showLoaderforpyramid" role="status" >
+          <span class="sr-only"  id="loading"></span>
+        </div>
       </div>
       <ejs-accumulationchart id="chart-container" class="abc cssforsmallscreen" [legendSettings]='trianglelegent' 
         [tooltip]='Triangulartooltipsettings' [background]='background'>
@@ -229,6 +243,11 @@
           {{projectype.Name}}</option>
       </select> -->
       <div class="card-body">
+        <div class="d-flex justify-content-center">
+          <div class="dot-pulse" *ngIf="showLoaderforproject" role="status" >
+            <span class="sr-only"  id="loading"></span>
+          </div>
+        </div>
         <div class="chart-wrapper" *ngIf="projectpieChartData && projectpieChartData.length > 0">
           <canvas baseChart class="chart marginforsmall" [data]="projectpieChartData" [labels]="projectpieChartLabels"
             [chartType]="projectpieChartType" (chartHover)="chartHovered($event)" [colors]="chartColors"
@@ -250,6 +269,11 @@
         <!-- <span style="margin-left: 32%;"> Process</span> -->
       </div>
       <div class="card-body marginforlarger">
+        <div class="d-flex justify-content-center">
+          <div class="dot-pulse" *ngIf="showLoaderforprocessandproject" role="status" >
+            <span class="sr-only"  id="loading"></span>
+          </div>
+        </div>
         <circle-progress [percent]="currentValue2" [radius]="80" [space]="-20" subtitleFontSize="12" [unitsFontSize]="12" [animation]="true"
           [animationDuration]="1300" [backgroundStrokeWidth]="38" [clockwise]="false" outerStrokeColor="#4882c2"
           outerStrokeColor="#4882c2" outerStrokeGradientStopColor="#4882c2"  titleFontSize="24" subtitle= "Projects"></circle-progress>
@@ -276,6 +300,11 @@
       </select>
       <div class="card-body">
         <div class="chart-wrapper" *ngIf="barChartData && barChartData.length > 0">
+          <div class="d-flex justify-content-center">
+            <div class="dot-pulse" *ngIf="showLoaderforphase" role="status" >
+              <span class="sr-only"  id="loading"></span>
+            </div>
+          </div>
           <canvas baseChart class="chart smallscreenprojectphase" [data]="barChartData" [labels]="barChartLabels" [colors]="lineChartColours"
             [options]="barChartOptions" [legend]="barChartLegend" [chartType]="barChartTypeforphase"
             (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
@@ -305,6 +334,11 @@
         <!-- <span style="margin-left: 32%;"> Process</span> -->
       </div>
       <div class="card-body largescreenimplemented">
+        <div class="d-flex justify-content-center">
+          <div class="dot-pulse" *ngIf="showLoaderforimplemented" role="status" >
+            <span class="sr-only"  id="loading"></span>
+          </div>
+        </div>
         <circle-progress [percent]="currentValue" [radius]="80" [space]="-20" subtitleFontSize="12" [unitsFontSize]="12" [animation]="true"
           [animationDuration]="1300" [backgroundStrokeWidth]="38" [clockwise]="false" 
             titleFontSize="24" subtitle= "Implemented"></circle-progress>
@@ -324,6 +358,11 @@
         Lessons by Impact Category 
       </div>
       <div class="card-body">
+        <div class="d-flex justify-content-center">
+          <div class="dot-pulse" *ngIf="showLoaderforimpactcategory" role="status" >
+            <span class="sr-only"  id="loading"></span>
+          </div>
+        </div>
         <div class="chart-wrapper" *ngIf="barChartDataforcategory && barChartDataforcategory.length > 0">
           <canvas baseChart class="chart impactcssforsmallscreen" [data]="barChartDataforcategory" [labels]="barChartLabelsforcategory" style="margin-top: 13px;"
             [colors]="chartColors1" [options]="barChartOptions" [legend]="barChartLegend"
@@ -350,6 +389,11 @@
         </option>
       </select>
       <div class="card-body">
+        <div class="d-flex justify-content-center">
+          <div class="dot-pulse" *ngIf="showLoaderformilestone" role="status" >
+            <span class="sr-only"  id="loading"></span>
+          </div>
+        </div>
         <div class="chart-wrapper" *ngIf="milespieChartData && milespieChartData.length > 0">
           <!-- <canvas baseChart class="chart" [data]="milespieChartData" [labels]="milespieChartLabels"
             [chartType]="milespieChartType" (chartHover)="chartHovered($event)"
@@ -406,6 +450,11 @@
      </span>
       </div>
       <div class="card-body">
+        <div class="d-flex justify-content-center">
+          <div class="dot-pulse" *ngIf="showLoaderforfunction" role="status" >
+            <span class="sr-only"  id="loading"></span>
+          </div>
+        </div>
         <div class="chart-wrapper" *ngIf="funpieChartData && funpieChartData.length > 0">
           <canvas baseChart class="chart" [data]="funpieChartData" [labels]="funpieChartLabels" [colors]="lineChartColours"
           [options]="barChartOptions" [legend]="barChartLegend" [chartType]="funpieChartType"

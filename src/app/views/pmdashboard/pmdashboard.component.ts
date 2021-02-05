@@ -23,7 +23,16 @@ export class PmdashboardComponent implements OnInit {
   public mappingProjectAndMilestone: any;
   public mappingProjectAndPhase: any;
   public MappingProjectTypeAndPhase: any;
-
+  showLoader: boolean = true;
+  showLoaderfordepartment: boolean = true;
+  showLoaderforpyramid: boolean = true;
+  showLoaderforproject: boolean = true;
+  showLoaderforprocessandproject: boolean = true;
+  showLoaderforphase: boolean = true;
+  showLoaderforimplemented: boolean = true;
+  showLoaderforimpactcategory: boolean = true;
+  showLoaderformilestone: boolean = true;
+  showLoaderforfunction: boolean = true;
   //barchart
   public barChartOptions: any = {
     scaleShowVerticalLines: false,
@@ -270,6 +279,7 @@ export class PmdashboardComponent implements OnInit {
         if (data) {
           this.projectpieChartLabels = data.label;
           this.projectpieChartData = data.data;
+          this.showLoaderforproject=false;
         }
       });
     }
@@ -281,6 +291,7 @@ export class PmdashboardComponent implements OnInit {
   
           this.milespieChartLabels = data.label;
           this.milespieChartData = data.data;
+          this.showLoaderformilestone=false; 
         }
       });
     }
@@ -291,6 +302,7 @@ export class PmdashboardComponent implements OnInit {
           data.data.push(0);
           this.barChartLabels = data.label;
           this.barChartData = data.data;
+          this.showLoaderforphase=false;
         }
   
       });
@@ -401,6 +413,7 @@ export class PmdashboardComponent implements OnInit {
         data.data.push(0);
         this.funpieChartLabels = data.label;
         this.funpieChartData = data.data;
+        this.showLoaderforfunction=false;
       }
     });
   }
@@ -432,7 +445,7 @@ export class PmdashboardComponent implements OnInit {
         data.data.push(0);
         this.barChartLabelsfordepartment = data.label;
         this.barChartDatafordepartment = data.data;
-
+        this.showLoaderfordepartment=false;
         console.log(data);
       }
 
@@ -444,7 +457,7 @@ export class PmdashboardComponent implements OnInit {
         data.data.push(0);
         this.barChartLabelsforcategory = data.label;
         this.barChartDataforcategory = data.data;
-
+        this.showLoaderforimpactcategory=false;
         console.log(data);
       }
 
@@ -536,6 +549,7 @@ export class PmdashboardComponent implements OnInit {
       const totallesson = data.result[0].totallesson;
       const percent = totalimplement / totallesson * 100;
       this.currentValue = percent;
+      this.showLoaderforimplemented=false;
       console.log('=======>>>>>>>2222222222222222222222222', data, totalimplement, totallesson, percent);
 
     });
@@ -559,6 +573,7 @@ export class PmdashboardComponent implements OnInit {
       const totallesson = data.result[0].totallesson;
       const percent = totalproject / totallesson * 100;
       this.currentValue2 = percent;
+      this.showLoaderforprocessandproject=false;
     });
   }
   getlessonbyprocess() {
@@ -580,6 +595,7 @@ export class PmdashboardComponent implements OnInit {
       const totallesson = data.result[0].totallesson;
       const percent = totalissue / totallesson * 100;
       this.currentValue4 = percent;
+      this.showLoader = false;
     });
   }
   getlessonbypractice() {
@@ -609,6 +625,7 @@ export class PmdashboardComponent implements OnInit {
         { x: '3-5 Months', y: lastfivemonth, text: '3-5 Months' },
         { x: '10 Months', y: lasttenmonth, text: '10 Months' }
       ];
+      this.showLoaderforpyramid=false;
     });
     // setTimeout(function () {
     //   var pyramidcss = document.getElementById("chart-container_border");

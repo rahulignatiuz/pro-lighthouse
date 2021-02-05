@@ -16,7 +16,7 @@ export class BulkImportComponent implements OnInit {
   constructor(private userService: UserService, private route: ActivatedRoute, private titleService: Title) {
     this.getAllBulk();
     this.titleService.setTitle("Lighthouse | Import-History");
-    this._baseURL = Constant.baseURLForbulk;
+    this._baseURL = Constant.baseURL;
 
   }
 

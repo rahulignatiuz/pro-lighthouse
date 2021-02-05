@@ -71,6 +71,7 @@ router.get('/auth/google/callback', function (req, res) {
                 oAuth2Client.setCredentials(tokens);
                 let url = lighthouseJson.GOOGLE_USER_INFO + tokens.access_token;
                 fetch(url, { method: "Get" }).then(res => res.json()).then((json) => {
+                    console.log("googleUser---------------",json);
                     // do something with JSON
                     const email = json.email;
                     const address = email.split('@').pop();

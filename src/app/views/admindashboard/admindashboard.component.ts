@@ -24,6 +24,18 @@ export class AdmindashboardComponent implements OnInit {
   public mappingProjectAndMilestone: any;
   public mappingProjectAndPhase: any;
   public MappingProjectTypeAndPhase: any;
+  showLoader: boolean = true;
+  showLoaderfordepartment: boolean = true;
+  showLoaderforpyramid: boolean = true;
+  showLoaderforproject: boolean = true;
+  showLoaderforprocessandproject: boolean = true;
+  showLoaderforphase: boolean = true;
+  showLoaderforimplemented: boolean = true;
+  showLoaderforimpactcategory: boolean = true;
+  showLoaderformilestone: boolean = true;
+  showLoaderforfunction: boolean = true;
+
+
 
   //barchart
   public barChartOptions: any = {
@@ -199,15 +211,15 @@ export class AdmindashboardComponent implements OnInit {
     this.getCountimpactlevelhigh();
     this.getCountimpactlevellow();
     this.getCountimpactlevelmedium();
-    this.getProjecttype()
+    this.getProjecttype();
     this.getdepartmentbarchart();
     this.getcategorybarchart();
     this.getimplemented();
-    this.getnotimplemented();
+    // this.getnotimplemented();
     this.getlessonbyproject();
-    this.getlessonbyprocess();
+    // this.getlessonbyprocess();
     this.getlessonbyissue();
-    this.getlessonbypractice();
+    // this.getlessonbypractice();
     this.getlessonbymonth();
     this.getdefaultproject();
     this.getdefaultmilestones();
@@ -328,6 +340,7 @@ export class AdmindashboardComponent implements OnInit {
       if (data) {
         this.projectpieChartLabels = data.label;
         this.projectpieChartData = data.data;
+        this.showLoaderforproject=false;
       }
     });
   }
@@ -339,6 +352,7 @@ getdefaultmilestones(){
 
         this.milespieChartLabels = data.label;
         this.milespieChartData = data.data;
+        this.showLoaderformilestone=false; 
       }
     });
   }
@@ -349,6 +363,7 @@ getdefaultprojectphase(){
         data.data.push(0);
         this.barChartLabels = data.label;
         this.barChartData = data.data;
+        this.showLoaderforphase=false;
       }
 
     });
@@ -411,6 +426,7 @@ getdefaultprojectphase(){
         data.data.push(0);
         this.funpieChartLabels = data.label;
         this.funpieChartData = data.data;
+        this.showLoaderforfunction=false;
       }
     });
   }
@@ -448,7 +464,7 @@ getdefaultprojectphase(){
         data.data.push(0);
         this.barChartLabelsfordepartment = data.label;
         this.barChartDatafordepartment = data.data;
-
+        this.showLoaderfordepartment=false;
         console.log(data);
       }
 
@@ -461,6 +477,7 @@ getdefaultprojectphase(){
         data.data.push(0);
         this.barChartLabelsforcategory = data.label;
         this.barChartDataforcategory = data.data;
+        this.showLoaderforimpactcategory=false;
 
         console.log(data);
       }
@@ -553,21 +570,22 @@ getdefaultprojectphase(){
       const totallesson = data.result[0].totallesson;
       const percent = totalimplement / totallesson * 100;
       this.currentValue = percent;
+      this.showLoaderforimplemented=false;
       console.log('=======>>>>>>>2222222222222222222222222', data, totalimplement, totallesson, percent);
 
     });
   }
   //flag=0 ->non implemented(id=0) flag=1 -> Implemented(id=1)
-  getnotimplemented() {
-    this.userService.getnotimplemented().subscribe((data) => {
-      this.getallnotimplemented = data.result;
-      const totalimplement = data.result[0].total;
-      const totallesson = data.result[0].totallesson;
-      const percent = totalimplement / totallesson * 100;
-      this.currentValue1 = percent;
+  // getnotimplemented() {
+  //   this.userService.getnotimplemented().subscribe((data) => {
+  //     this.getallnotimplemented = data.result;
+  //     const totalimplement = data.result[0].total;
+  //     const totallesson = data.result[0].totallesson;
+  //     const percent = totalimplement / totallesson * 100;
+  //     this.currentValue1 = percent;
 
-    });
-  }
+  //   });
+  // }
   // id =1 ->project and id =2 ->process
   getlessonbyproject() {
     this.userService.getlessonbyproject().subscribe((data) => {
@@ -576,18 +594,19 @@ getdefaultprojectphase(){
       const totallesson = data.result[0].totallesson;
       const percent = totalproject / totallesson * 100;
       this.currentValue2 = percent;
+      this.showLoaderforprocessandproject=false;
     });
   }
-  getlessonbyprocess() {
-    this.userService.getlessonbyprocess().subscribe((data) => {
-      this.getalllessonbyprocess = data.result;
-      const totalprocess = data.result[0].total;
-      const totallesson = data.result[0].totallesson;
-      const percent = totalprocess / totallesson * 100;
-      this.currentValue3 = percent;
+  // getlessonbyprocess() {
+  //   this.userService.getlessonbyprocess().subscribe((data) => {
+  //     this.getalllessonbyprocess = data.result;
+  //     const totalprocess = data.result[0].total;
+  //     const totallesson = data.result[0].totallesson;
+  //     const percent = totalprocess / totallesson * 100;
+  //     this.currentValue3 = percent;
 
-    });
-  }
+  //   });
+  // }
 
 
   getlessonbyissue() {
@@ -597,17 +616,18 @@ getdefaultprojectphase(){
       const totallesson = data.result[0].totallesson;
       const percent = totalissue / totallesson * 100;
       this.currentValue4 = percent;
+      this.showLoader = false;
     });
   }
-  getlessonbypractice() {
-    this.userService.getlessonbypractice().subscribe((data) => {
-      this.getalllessonbypractice = data.result;
-      const totalpractice = data.result[0].total;
-      const totallesson = data.result[0].totallesson;
-      const percent = totalpractice / totallesson * 100;
-      this.currentValue5 = percent;
-    });
-  }
+  // getlessonbypractice() {
+  //   this.userService.getlessonbypractice().subscribe((data) => {
+  //     this.getalllessonbypractice = data.result;
+  //     const totalpractice = data.result[0].total;
+  //     const totallesson = data.result[0].totallesson;
+  //     const percent = totalpractice / totallesson * 100;
+  //     this.currentValue5 = percent;
+  //   });
+  // }
   getlessonbymonth() {
     this.userService.getlessonbymonth().subscribe((data) => {
       this.getalllessonbymonth = data.result;
@@ -622,6 +642,7 @@ getdefaultprojectphase(){
         { x: '3-5 Months', y: lastfivemonth, text: '3-5 Months' },
         { x: '10 Months', y: lasttenmonth, text: '10 Months' }
       ];
+      this.showLoaderforpyramid=false;
     });
     // setTimeout(function () {
     //   var pyramidcss = document.getElementById("chart-container_border");
