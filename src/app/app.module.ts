@@ -84,7 +84,7 @@ import { SocialAuthComponent } from './views/social-auth/social-auth.component';
     P500Component,
     LoginComponent,
     LoadingComponent,
-    SocialAuthComponent
+    SocialAuthComponent,
   ],
   providers: [{
     provide: LocationStrategy,

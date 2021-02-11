@@ -167,7 +167,7 @@
         <p class="marginhe bor"><a [href]="attUrl" target="_blank" rel="noopener noreferrer" *ngIf="showattachment"
             download>{{attOriginalName}}({{fileExtension}})</a></p>
         <div class="row" style="margin-left: 75%;">
-          <p class="float-right" style="margin-right: 1%;">Did you find this lesson helpfull?</p>
+          <p class="float-right" style="margin-right: 1%;">Did you find this lesson helpful?</p>
           <i (click)="adduserlikes(UserID,LessonID,Likes);" style="font-size:20px;color:#0f69c4;">
             <button (click)="enableDisableRule($event)" [ngClass]="{'black' : toggle, 'blue': !toggle}"
               class="fa fa-thumbs-up mar float-right cus focus">

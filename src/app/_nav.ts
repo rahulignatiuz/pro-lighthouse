@@ -306,6 +306,11 @@ export const navItems: NavData[] = [
         url: '/masterlists',
         icon: 'icon-notebook'
       },
+      {
+        name: 'How Do I',
+        url: '/howdoi',
+        icon: 'icon-bulb'
+      },
       // {
       //   name: 'System Settings',
       //   url: '/buttons1',
@@ -331,7 +336,8 @@ export const navItems: NavData[] = [
         name: 'Record Lesson',
         url: '/user/add-project',
         icon: 'icon-plus'
-      },        
+      },
+          
 
       // {
       //   name: 'Profile management',
@@ -348,6 +354,11 @@ export const navItems: NavData[] = [
         url: '/notification',
         icon: 'icon-bell'
       },
+      {
+        name: 'How Do I',
+        url: '/howdoi',
+        icon: 'icon-bulb'
+      }
       // {
       //   name: 'System Settings',
       //   url: '/admin/lessons',

@@ -48,6 +48,7 @@ router.get('/google', (req, res) => {
         //'https://www.googleapis.com/auth/gmail.readonly'
         'https://www.googleapis.com/auth/plus.me', // request access here
         'https://www.googleapis.com/auth/userinfo.email',
+        'https://www.googleapis.com/auth/userinfo.profile'
     ];
     // Generate an OAuth URL and redirect there
     const url = oAuth2Client.generateAuthUrl({
@@ -71,7 +72,6 @@ router.get('/auth/google/callback', function (req, res) {
                 oAuth2Client.setCredentials(tokens);
                 let url = lighthouseJson.GOOGLE_USER_INFO + tokens.access_token;
                 fetch(url, { method: "Get" }).then(res => res.json()).then((json) => {
-                    console.log("googleUser---------------",json);
                     // do something with JSON
                     const email = json.email;
                     const address = email.split('@').pop();
