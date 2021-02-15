@@ -95,7 +95,7 @@ router.post("/add", (req, res, next) => {
     o.Recommendation = req.body.Recommendation;
     o.CreatedBy = req.body.CreatedBy;
     o.IsEnabled = req.body.IsEnabled;
-   // console.log("kaywords----------------",req.body.Keywords);
+   // console.log("Keywords----------------",req.body.Keywords);
     saveData(o, res, req.body.Keywords);
 });
 
@@ -105,7 +105,7 @@ function saveData(o, res, keywords) {
         let data = result[1][0];
         console.log("963258745555555555555555---", data.insertId);
         if (!err) {
-            addKaywords(data.insertId, keywords);
+            addKeywords(data.insertId, keywords);
             response.push(data);
             res.status(200).json({
                 status: true,
@@ -123,19 +123,19 @@ function saveData(o, res, keywords) {
 
     });
 }
-function addKaywords(lessonID, keywords) {
+function addKeywords(lessonID, keywords) {
 
     for (keyword of keywords) {
         if (keyword.ID) {
-            db.query(Model.addKaywordsByMappingLessonSQL(lessonID, keyword.ID), (err, result) => {
+            db.query(Model.addKeywordsByMappingLessonSQL(lessonID, keyword.ID), (err, result) => {
                 let data = result[1][0];
 
             });
         } else {
-            db.query(Model.addKaywordsBySQL(keyword.display), (err, keywordResultsResult) => {
+            db.query(Model.addKeywordsBySQL(keyword.display), (err, keywordResultsResult) => {
                 let keywordResults = keywordResultsResult[1][0];
                 if (keywordResults.insertId) {
-                    db.query(Model.addKaywordsByMappingLessonSQL(lessonID, keywordResults.insertId), (err, mappingResults) => {
+                    db.query(Model.addKeywordsByMappingLessonSQL(lessonID, keywordResults.insertId), (err, mappingResults) => {
                         let data = mappingResults[1][0];
                     });
                 }
@@ -176,7 +176,7 @@ router.post('/delete', function (req, res) {
 
 router.post('/update', function (req, res) {
     var o = {};
-    console.log(req.body.Kaywords);
+    console.log(req.body.Keywords);
     o.ID = req.body.ID;
     o.UserID = req.body.UserID;
     o.LessonTypeID = req.body.LessonTypeID;
@@ -192,7 +192,7 @@ router.post('/update', function (req, res) {
     o.LifeCycleID = req.body.LifeCycleID;
     o.DepartmentID = req.body.DepartmentID;
     o.Title = req.body.Title;
-    o.Kaywords = req.body.Kaywords;
+    // o.Keywords = req.body.keywords;
     o.IssueDescription = req.body.IssueDescription;
     o.RootCause = req.body.RootCause;
     o.Recommendation = req.body.Recommendation;
@@ -203,24 +203,26 @@ router.post('/update', function (req, res) {
         if (err) {
             res.send({ status: false, result: data, message: 'not-updated' });
         } else {
-            updateKaywords(req.body.ID, req.body.Kaywords);
+            updateKeywords(req.body.ID, req.body.keywords);
             return res.send({ status: true, result: data, message: 'Updated' });
         }
 
     });
 });
-function updateKaywords(lessonID, kaywords) {
-    db.query(Model.deleteAllKaywordsByID(lessonID), (err, deleteResults) => {
-        for (kayword of kaywords) {
-            if (kayword.ID) {
-                db.query(Model.addKaywordsByMappingLessonSQL(lessonID, kayword.ID), (err, addResults) => {
+function updateKeywords(lessonID, Keywords) {
+    db.query(Model.deleteAllKeywordsByID(lessonID), (err, deleteResults) => {
+      
+        for (Keyword of Keywords) {
+          
+            if (Keyword.ID) {
+                db.query(Model.addKeywordsByMappingLessonSQL(lessonID, Keyword.ID), (err, addResults) => {
                     let data = addResults[1][0];
                 });
             } else {
-                db.query(Model.addKaywordsBySQL(kayword.Name), (err, kaywordResultsResult) => {
-                    let kaywordResults = kaywordResultsResult[1][0];
-                    if (kaywordResults.insertId) {
-                        db.query(Model.addKaywordsByMappingLessonSQL(lessonID, kaywordResults.insertId), (err, mappingResults) => {
+                db.query(Model.addKeywordsBySQL(Keyword.Name), (err, KeywordResultsResult) => {
+                    let KeywordResults = KeywordResultsResult[1][0];
+                    if (KeywordResults.insertId) {
+                        db.query(Model.addKeywordsByMappingLessonSQL(lessonID, KeywordResults.insertId), (err, mappingResults) => {
                             let data = mappingResults[1][0];
                         });
                     }
@@ -449,13 +451,13 @@ router.post("/keywords/id", (req, res, next) => {
             if (data && data.length > 0) {
                 res.status(200).json({
                     status: true,
-                    message: "kaywords get successfully.",
+                    message: "Keywords get successfully.",
                     result: data
                 });
             } else {
                 res.status(200).json({
                     status: false,
-                    message: "kaywords not get successfully.",
+                    message: "Keywords not get successfully.",
                     result: data
                 });
             }
@@ -720,7 +722,7 @@ async function addLessonByExcle(LessonID, row, Index, res) {
         }
     }
     if (lessonID) {
-        await addKaywordsInBulk(KeywordsArr, LessonID);
+        await addKeywordsInBulk(KeywordsArr, LessonID);
         var finalResults = await updateDataBulk(lessonID, o);
         successRow.push(finalResults);
     }
@@ -760,20 +762,20 @@ async function updateDataBulk(lessonID, o) {
     });
     return finalResults;
 }
-function addKaywordsInBulk(KeywordsArr, LessonID) {
+function addKeywordsInBulk(KeywordsArr, LessonID) {
     KeywordsArr.forEach(key => {
         db.query(Model.checkKeywordIDByName(key), (keyerr, keydataResult) => {
             let keydata = keydataResult[0];
             if (!keyerr) {
                 if (keydata.length) {
-                    db.query(Model.addKaywordsByMappingLessonSQL(LessonID, keydata[0].ID), (err, results) => {
+                    db.query(Model.addKeywordsByMappingLessonSQL(LessonID, keydata[0].ID), (err, results) => {
                         let data = results[1][0];
                     });
                 } else {
-                    db.query(Model.addKaywordsBySQL(key), (err, kaywordResultsResult) => {
-                        let kaywordResults = kaywordResultsResult[1][0];
-                        if (kaywordResults.insertId) {
-                            db.query(Model.addKaywordsByMappingLessonSQL(LessonID, kaywordResults.insertId), (err, mappingResults) => {
+                    db.query(Model.addKeywordsBySQL(key), (err, KeywordResultsResult) => {
+                        let KeywordResults = KeywordResultsResult[1][0];
+                        if (KeywordResults.insertId) {
+                            db.query(Model.addKeywordsByMappingLessonSQL(LessonID, KeywordResults.insertId), (err, mappingResults) => {
                                 let data = mappingResults[1][0];
                             });
                         }

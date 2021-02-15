@@ -528,15 +528,15 @@ class User {
         return sql;
     }
     // used to add keyword through mapping by lesson id and keywordid
-    static addKaywordsByMappingLessonSQL(lessonID, kaywordID) {
-        let sql = `call addKaywordsByMappingLessonSQL(${lessonID},${kaywordID},@LID); select @LID as insertId;`;
+    static addKeywordsByMappingLessonSQL(lessonID, keywordID) {
+        let sql = `call addKeywordsByMappingLessonSQL(${lessonID},${keywordID},@LID); select @LID as insertId;`;
         // let sql = ` INSERT INTO lighthouse.mappinglessonkeyword ( LessonID,KeywordID) \
         // VALUES( '${lessonID}','${kaywordID}')`;
         return sql;
     }
     //used to add keywords data
-    static addKaywordsBySQL(value) {
-        let sql = `call addKaywordsBySQL('${value}',@LID); select @LID as insertId;`;
+    static addKeywordsBySQL(value) {
+        let sql = `call addKeywordsBySQL('${value}',@LID); select @LID as insertId;`;
         // let sql = ` INSERT INTO lighthouse.keyword ( Name,Description) \
         // VALUES( '${value}','${value}')`;
         return sql;
@@ -550,8 +550,8 @@ class User {
         return sql;
     }
     // used to dalete all keywords data in mapping table by lesson id
-    static deleteAllKaywordsByID(ID) {
-        let sql = `call deleteAllKaywordsByID(${ID})`;
+    static deleteAllKeywordsByID(ID) {
+        let sql = `call deleteAllKeywordsByID(${ID})`;
         //   let sql = `DELETE FROM lighthouse.mappinglessonkeyword where LessonID = ${ID};`
         return sql;
     }

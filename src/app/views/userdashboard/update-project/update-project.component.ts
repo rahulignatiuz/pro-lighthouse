@@ -678,6 +678,7 @@ export class UpdateProjectComponent implements OnInit {
     } else {
       this.projectNameID = this.editData.projectID;
     }
+    
     const o: any = {
       UserID: _user.ID,
       ID: this.URLlessonID,
@@ -701,6 +702,7 @@ export class UpdateProjectComponent implements OnInit {
       UpdatedBy: _user.ID,
       IsEnabled: 1
     };
+   console.log(o)
     this.showLoader = true;
     if (this.attachmentFiles) {
       const formData = new FormData();

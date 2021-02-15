@@ -79,9 +79,9 @@
     color: #c8ced3;
 }
 
-:host ::ng-deep .modal {
-    top:30% !important;
-}
+// :host ::ng-deep .modal {
+//     top:30% !important;
+// }
 
 :host ::ng-deep .Iconsuccess {
 color: #4dbd74;
@@ -372,4 +372,11 @@ content: none !important;
     position:absolute;
     bottom: 3px;
     right:28px;
-    }
+}
+
+.bulkimport-form{
+    width: 30%;
+    height: 160px;
+    left: 36%;
+    top: 30%;
+}
