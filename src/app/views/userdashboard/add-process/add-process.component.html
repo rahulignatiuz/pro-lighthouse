@@ -1,3 +1,14 @@
+<div class="alert alert-info alert-dismissible" *ngIf="bulkImporing">
+   <a href="#" (click)="bulkImportClose()" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+   <strong>Your import is processing.</strong> We will notify you when your import is finished.
+</div>
+<div [ngClass]="bulkErrorCount === 0 ? 'alert alert-success alert-dismissible' : 'alert alert-danger alert-dismissible'"
+   *ngIf="bulkImportSuccess">
+   <a href="#" (click)="bulkImportSuccessClose()" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+   Your import "{{xlFileNameWithoutExt}}" is ready with {{bulkErrorCount}} error. <a href="#"
+      (click)="gotoBuklImport(importID)" class="alert-link"> Click here to
+      view.</a>.
+</div>
 <!--/.row-->
 <div class="row">
    <!--/.row-->
@@ -6,9 +17,10 @@
          <div class="card-header">
             <span class="centerposition">
                <i class="icon-plus"></i> Record a new process lesson
-              </span>
-            <button class="btn btn-primary borderbtn float-right" type="button"
-               onclick="document.getElementById('id04').style.display='block'">Upload <i
+            </span>
+            <button class="btn btn-primary borderbtn float-right" type="button" (click)="importBulkFileHistory()">
+               History <i class="fa fa-history"></i></button>
+            <button class="btn btn-primary borderbtn float-right" type="button" (click)="importBulkFile()">Import <i
                   class="fa fa-upload"></i></button>
          </div>
          <div class="card-header">
@@ -28,31 +40,6 @@
                   <tabset>
                      <tab heading="Process Details" [active]="projectTab" [disabled]="projectdTab">
                         <div class="row">
-                           <!-- <div class="col-sm-6">
-                              <div class="form-group row">
-                                 <label class="col-md-3 col-form-label" for="text-input">Process Name <span
-                                       class="danger">*</span></label>
-                                 <div class="col-md-9"> -->
-                           <!-- <tag-input [(ngModel)]="_projectName" [theme]="'minimal'" class="" [ngClass]="{'has-error is-invalid': isSubmitted && formControls._projectname.errors }"   (onAdd)="onselectProject($event)" (onRemove)="onProjectRemoved($event)" [maxItems]="1" formControlName="_projectname"  [secondaryPlaceholder]="'Select Project'">
-                                  <tag-input-dropdown   
-                                      [showDropdownIfEmpty]="true"                                             
-                                      [autocompleteItems]="projectsAsObjects"
-                                      [displayBy]="'projectName'"
-                                      [identifyBy]="'projectId'"                                                
-                                      >                                                                                               
-                                  </tag-input-dropdown>                                           
-                                  <i class="cui-magnifying-glass icons font-2xl d-block mt-4 searchIcon"></i>
-                                  </tag-input> -->
-                           <!--- <input class="form-control" id="text-input" name="text-input" placeholder="Project name" type="text"> -->
-                           <!-- <select class="form-control">
-                                       <option value="">Process Name</option>
-                                       <option value="">Process 1</option>
-                                       <option value="">Process 2</option>
-                                       <option value="">Process 3</option>
-                                    </select>
-                                 </div>
-                              </div>
-                           </div> -->
                            <div class="col-sm-6">
                               <div class="form-group row">
                                  <label class="col-md-3 col-form-label" for="text-input">Process <span
@@ -61,7 +48,7 @@
                                     <!-- <input class="form-control" id="text-input" name="impectlevel" placeholder="Impact level" type="text"> -->
                                     <select class="form-control"
                                        [ngClass]="{'has-error is-invalid': isSubmitted && processFormControls.process.errors } "
-                                       formControlName="process" id="process" >
+                                       formControlName="process" id="process">
                                        <option value="">Process Name</option>
                                        <option *ngFor="let process of processAsObjects" value="{{process.ID}}">
                                           {{process.Name}}</option>
@@ -158,7 +145,8 @@
                            </div>
                            <div class="form-actions col-sm-12 text-right">
                               <button class="btn btn-primary borderbtn" type="button" (click)="tabChange(2)"
-                                 [disabled]="( !processFormControls.department.value || !processFormControls.process.value || !processFormControls.function.value)"> Next <i class="fa fa-angle-double-right"></i></button>
+                                 [disabled]="( !processFormControls.department.value || !processFormControls.process.value || !processFormControls.function.value)">
+                                 Next <i class="fa fa-angle-double-right"></i></button>
                            </div>
                         </div>
                      </tab>
@@ -220,9 +208,10 @@
                                        <textarea class="form-control" (blur)="lessonFormFields()" id="textarea-input"
                                           [(ngModel)]="issuedescription"
                                           [ngClass]="{'has-error is-invalid': isSubmitted && processFormControls.issuedescription.errors}"
-                                          formControlName="issuedescription" placeholder="Description..." [maxlength]="maxChars"
-                                          rows="6" #description ></textarea>
-                                          <label class="float-left remaning" >{{description.value.length}}/{{maxChars}}</label>
+                                          formControlName="issuedescription" placeholder="Description..."
+                                          [maxlength]="maxChars" rows="6" #description></textarea>
+                                       <label
+                                          class="float-left remaning">{{description.value.length}}/{{maxChars}}</label>
                                        <div
                                           *ngIf="lessonProcessForm.controls['issuedescription'].invalid && (lessonProcessForm.controls['issuedescription'].dirty || lessonProcessForm.controls['issuedescription'].touched)"
                                           class="custom-errMsg float-right">
@@ -246,7 +235,7 @@
                                           [ngClass]="{'has-error is-invalid': isSubmitted && processFormControls.rootcause.errors }"
                                           [(ngModel)]="rootcause" formControlName="rootcause"
                                           placeholder="Root cause..." rows="6" maxlength="250" #root></textarea>
-                                          <label class="float-left remaning" >{{root.value.length}}/{{maxChars}}</label>
+                                       <label class="float-left remaning">{{root.value.length}}/{{maxChars}}</label>
 
                                        <div
                                           *ngIf="lessonProcessForm.controls['rootcause'].invalid && (lessonProcessForm.controls['rootcause'].dirty || lessonProcessForm.controls['rootcause'].touched)"
@@ -269,7 +258,8 @@
                                           [ngClass]="{'has-error is-invalid': isSubmitted && processFormControls.Recommendation.errors }"
                                           formControlName="Recommendation" placeholder="Recommendation..." rows="6"
                                           maxlength="250" #recommendation></textarea>
-                                          <label class="float-left remaning" >{{recommendation.value.length}}/{{maxChars}}</label>
+                                       <label
+                                          class="float-left remaning">{{recommendation.value.length}}/{{maxChars}}</label>
 
                                        <div
                                           *ngIf="lessonProcessForm.controls['Recommendation'].invalid && (lessonProcessForm.controls['Recommendation'].dirty || lessonProcessForm.controls['Recommendation'].touched)"
@@ -307,10 +297,11 @@
                               </div>
                            </div>
                            <div class="form-actions col-sm-12 text-right">
-                              <button class="btn btn-secondary borderbtn" type="button"
-                                 (click)="tabChange(1)"><i class="fa fa-angle-double-left"></i> Back</button>
+                              <button class="btn btn-secondary borderbtn" type="button" (click)="tabChange(1)"><i
+                                    class="fa fa-angle-double-left"></i> Back</button>
                               <button class="btn btn-primary borderbtn" type="button" (click)="tabChange(3)"
-                                 [disabled]="(!processFormControls._Keywords.value || !processFormControls.issuedescription.value || !processFormControls.title.value || !processFormControls.Recommendation.value || !processFormControls.typeoflesson.value || !processFormControls.rootcause.value)">Next <i class="fa fa-angle-double-right"></i></button>
+                                 [disabled]="(!processFormControls._Keywords.value || !processFormControls.issuedescription.value || !processFormControls.title.value || !processFormControls.Recommendation.value || !processFormControls.typeoflesson.value || !processFormControls.rootcause.value)">Next
+                                 <i class="fa fa-angle-double-right"></i></button>
                            </div>
                         </div>
                         <div *ngIf="showPractice">
@@ -325,7 +316,8 @@
                                           [ngClass]="{'has-error is-invalid': isSubmitted && lessonProcessForm.issuedescription.errors }"
                                           formControlName="issuedescription" placeholder="Description..." rows="6"
                                           maxlength="250" #description></textarea>
-                                          <label class="float-left remaning" >{{description.value.length}}/{{maxChars}}</label>
+                                       <label
+                                          class="float-left remaning">{{description.value.length}}/{{maxChars}}</label>
 
                                        <div
                                           *ngIf="lessonProcessForm.controls['issuedescription'].invalid && (lessonProcessForm.controls['issuedescription'].dirty || lessonProcessForm.controls['issuedescription'].touched)"
@@ -351,7 +343,8 @@
                                           [ngClass]="{'has-error is-invalid': isSubmitted && processFormControls.Recommendation.errors }"
                                           formControlName="Recommendation" placeholder="Recommendation..." rows="6"
                                           maxlength="250" #recommendation></textarea>
-                                          <label class="float-left remaning" >{{recommendation.value.length}}/{{maxChars}}</label>
+                                       <label
+                                          class="float-left remaning">{{recommendation.value.length}}/{{maxChars}}</label>
 
                                        <div
                                           *ngIf="lessonProcessForm.controls['Recommendation'].invalid && (lessonProcessForm.controls['Recommendation'].dirty || lessonProcessForm.controls['Recommendation'].touched)"
@@ -389,10 +382,11 @@
                               </div>
                            </div>
                            <div class="form-actions col-sm-12 text-right">
-                              <button class="btn btn-secondary borderbtn" type="button"
-                                 (click)="tabChange(1)"><i class="fa fa-angle-double-left"></i> Back</button>
+                              <button class="btn btn-secondary borderbtn" type="button" (click)="tabChange(1)"><i
+                                    class="fa fa-angle-double-left"></i> Back</button>
                               <button class="btn btn-primary borderbtn" type="button" (click)="tabChange(3)"
-                                 [disabled]="( !processFormControls._Keywords.value || !processFormControls.issuedescription.value || !processFormControls.title.value || !processFormControls.Recommendation.value || !processFormControls.typeoflesson.value)">Next <i class="fa fa-angle-double-right"></i></button>
+                                 [disabled]="( !processFormControls._Keywords.value || !processFormControls.issuedescription.value || !processFormControls.title.value || !processFormControls.Recommendation.value || !processFormControls.typeoflesson.value)">Next
+                                 <i class="fa fa-angle-double-right"></i></button>
                            </div>
                         </div>
 
@@ -614,8 +608,8 @@
                            </div>
                         </div>
                         <div class="form-actions col-sm-12 text-right">
-                           <button class="btn btn-secondary borderbtn" type="button"
-                              (click)="tabChange(2)"><i class="fa fa-angle-double-left"></i> Back</button>
+                           <button class="btn btn-secondary borderbtn" type="button" (click)="tabChange(2)"><i
+                                 class="fa fa-angle-double-left"></i> Back</button>
                            <button class="btn btn-primary borderbtn" type="submit"
                               [disabled]="( !processFormControls.impectcategory.value || !processFormControls.impectlevel.value)"><span
                                  class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
@@ -696,6 +690,30 @@
             <button type="button" onclick="document.getElementById('id04').style.display='none'"
                class="cancelbtn btn btn-primary float-right borderbtn">Cancel</button>
          </div>
+      </div>
+   </form>
+</div>
+<div bsModal #bulkimport="bs-modal" class="modal bulkimport" >
+   <form class="modal-content row bulkimport-form" (ngSubmit)="addBulk(fileInput)">
+      <div class="container">
+         <div class="form-group row">
+            <label class="col-md-12 col-form-label" for="file-input">Attachment (excel only) </label>
+            <div class="col-md-12">
+               <!-- <input id="attachments" (change)="onFileChangeBulkProject($event)"
+                     [ngClass]="{'has-error is-invalid': isSubmitted && formControls.attachments.errors }"  type="file"
+                     accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"> -->
+               <div class="custom-file mb-3">
+                  <input #fileInput type="file" (change)="onFileChangeBulkProject($event)"
+                     (click)="fileInput.value = null" class="custom-file-input" 
+                     accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
+                     <p id=remove style="display: none; color: red;">Please Choose file</p>
+                  <label class="custom-file-label" for="customFile">{{xlFileName ? xlFileName : 'Choose file'}}</label>
+               </div>
+            </div>
+         </div>
+         <button type="submit" class="deletebtn btn btn-danger float-right borderbtn" > Submit</button>
+         <button type="button" (click)="closeBulkImportModule()"
+            class="cancelbtn btn btn-primary float-right borderbtn">Cancel</button>
       </div>
    </form>
 </div>

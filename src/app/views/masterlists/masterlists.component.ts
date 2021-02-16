@@ -617,9 +617,9 @@ export class MasterlistsComponent implements OnInit {
     console.log('1212', this.fetechprojectTypeId)
     let o: any = {
       ProjectTypeID: form.value._projectType,
-      Name: form.value.projectName,
+      Name: form.value.projectName.trim(),
       LPN: form.value.projectNumber,
-      Description: form.value.projectDescription,
+      Description: form.value.projectDescription.trim(),
       CreatedBy: _user.ID,
       UpdatedBy: _user.ID,
       IsEnabled: 1
@@ -675,9 +675,9 @@ export class MasterlistsComponent implements OnInit {
     this.isSubmitted = true;
       let _user: any = JSON.parse(localStorage.getItem('currentUser'));
       let o: any = {
-  
-        Name: form.value.projecttypeName,
-        Description: form.value.projecttypeDescription,
+
+        Name: form.value.projecttypeName.trim(),
+        Description: form.value.projecttypeDescription.trim(),
         CreatedBy: _user.ID,
         UpdatedBy: _user.ID,
         IsEnabled: 1
@@ -693,9 +693,7 @@ export class MasterlistsComponent implements OnInit {
   
         }
       });
-      this.reloadfunction();  
-    
-   
+      this.reloadfunction();     
 
   
   }
@@ -737,8 +735,8 @@ export class MasterlistsComponent implements OnInit {
     let o: any = {
       ProjectTypeID: form.value._projectType,
       // Name: this.milestoneName[0].value,
-      Name: form.value.milestoneName,
-      Description: form.value.milestoneDescription,
+      Name: form.value.milestoneName.trim(),
+      Description: form.value.milestoneDescription.trim(),
       CreatedBy: _user.ID,
       UpdatedBy: _user.ID,
       IsEnabled: 1
@@ -774,8 +772,8 @@ export class MasterlistsComponent implements OnInit {
     let o: any = {
       ProjectTypeID: form.value._projectType,
       // Name: this.phaseName[0].value,
-      Name: form.value.phaseName,
-      Description: form.value.phaseDescription,
+      Name: form.value.phaseName.trim(),
+      Description: form.value.phaseDescription.trim(),
       CreatedBy: _user.ID,
       UpdatedBy: _user.ID,
       IsEnabled: 1
@@ -805,8 +803,8 @@ export class MasterlistsComponent implements OnInit {
     let _user: any = JSON.parse(localStorage.getItem('currentUser'));
     let o: any = {
       // Name: form.value.lifecycleName[0].value,
-      Name: form.value.lifecycleName,
-      Description: form.value.lifecycleDescription,
+      Name: form.value.lifecycleName.trim(),
+      Description: form.value.lifecycleDescription.trim(),
       CreatedBy: _user.ID,
       UpdatedBy: _user.ID,
       IsEnabled: 1
@@ -1441,8 +1439,8 @@ export class MasterlistsComponent implements OnInit {
     let _user: any = JSON.parse(localStorage.getItem('currentUser'));
     let o: any = {
       // Name: form.value.function[0].value,
-      Name: form.value.function,
-      Description: form.value.functionDescription,
+      Name: form.value.function.trim(),
+      Description: form.value.functionDescription.trim(),
       CreatedBy: _user.ID,
       UpdatedBy: _user.ID,
       IsEnabled: 1
@@ -1467,8 +1465,8 @@ export class MasterlistsComponent implements OnInit {
     let o: any = {
 
       // Name: form.value.departmentName[0].value,
-      Name: form.value.departmentName,
-      Description: form.value.departmentDescription,
+      Name: form.value.departmentName.trim(),
+      Description: form.value.departmentDescription.trim(),
       CreatedBy: _user.ID,
       UpdatedBy: _user.ID,
       IsEnabled: 1
@@ -1495,8 +1493,8 @@ export class MasterlistsComponent implements OnInit {
     let o: any = {
 
       // Name: form.value.ImpactcategoryName[0].value,
-      Name: form.value.ImpactcategoryName,
-      Description: form.value.ImpactcategoryDescription,
+      Name: form.value.ImpactcategoryName.trim(),
+      Description: form.value.ImpactcategoryDescription.trim(),
       CreatedBy: _user.ID,
       UpdatedBy: _user.ID,
       IsEnabled: 1
@@ -1522,8 +1520,8 @@ export class MasterlistsComponent implements OnInit {
     let o: any = {
 
       // Name: form.value.ImpactcategoryName[0].value,
-      Name: form.value.ImpactcategoryName,
-      Description: form.value.ImpactcategoryDescription,
+      Name: form.value.ImpactcategoryName.trim(),
+      Description: form.value.ImpactcategoryDescription.trim(),
       CreatedBy: _user.ID,
       UpdatedBy: _user.ID,
       IsEnabled: 1
@@ -1546,8 +1544,8 @@ export class MasterlistsComponent implements OnInit {
     let _user: any = JSON.parse(localStorage.getItem('currentUser'));
     let o: any = {
       // Name: form.value.processName[0].value,
-      Name: form.value.processName,
-      Description: form.value.processDescription,
+      Name: form.value.processName.trim(),
+      Description: form.value.processDescription.trim(),
       CreatedBy: _user.ID,
       UpdatedBy: _user.ID,
       IsEnabled: 1

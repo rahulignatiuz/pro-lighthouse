@@ -388,7 +388,12 @@ export const navItems: NavData[] = [
         name: 'Notification',
         url: '/notification',
         icon: 'icon-bell'
-      } 
+      },
+      {
+        name: 'How Do I',
+        url: '/howdoi',
+        icon: 'icon-bulb'
+      }
     ] 
   } 
 ];

@@ -13,6 +13,7 @@ import { IDropdownSettings } from 'ng-multiselect-dropdown';
 })
 export class AddProcessComponent implements OnInit {
   @ViewChild('myModal', { static: false }) public myModal: ModalDirective;
+  @ViewChild('bulkimport', { static: false }) public bulkimport: ModalDirective;
 
   public projectsAsObjects: any;
   public projectsAsType: any;
@@ -82,6 +83,13 @@ export class AddProcessComponent implements OnInit {
   processAsObjects: any;
   public dropdownSettings: IDropdownSettings = {};
   public lessontypeAsObjects: any;
+  public importID: number = 0;
+  public bulkImporing: boolean = false;
+  public bulkImportSuccess: boolean = false;
+  public xlFileName: string;
+  public xlFileNameWithoutExt: string;
+  public bulkErrorCount: number = 0;
+  public bulkAttachment: File = null;
 
   maxChars = 250;
   constructor(private router: Router, private formBuilder: FormBuilder, private userService: UserService, private route: ActivatedRoute, private titleService: Title) {
@@ -155,7 +163,68 @@ export class AddProcessComponent implements OnInit {
 
     });
   }
+  importBulkFileHistory() {
+    this.router.navigate(['/user/bulk-import/' + this.importID]);
 
+    
+  }
+  importBulkFile() {
+    this.bulkErrorCount = 0;
+    this.bulkImporing = false;
+    this.bulkImportSuccess = false;
+    this.bulkAttachment = null;
+    this.xlFileName = '';
+    this.importID = 0;
+    this.bulkimport.show();
+    // this.modalService.show(bulkimport);
+    // document.getElementById('id04').style.display='block';
+  }
+  onFileChangeBulkProject(event) {
+    this.xlFileName = '';
+    if (event.target.files && event.target.files.length > 0) {
+      let file = event.target.files[0];
+      this.bulkAttachment = file;
+      this.xlFileName = this.bulkAttachment.name;
+    }
+  }
+  addBulk(e) {
+    var bulkuploadvalue = document.getElementById('remove'); 
+    bulkuploadvalue.style.display="flex";
+    console.log(e.value);
+    if(e.value != ""){
+    e.value = '';
+    var bulkuploadvalue = document.getElementById('remove'); 
+    bulkuploadvalue.style.display= "none";
+    this.bulkimport.hide();
+    this.bulkImporing = true;
+    const formData = new FormData();
+    this.xlFileNameWithoutExt = this.bulkAttachment.name.split('.').slice(0, -1).join('.');
+    let User: any = JSON.parse(localStorage.getItem('currentUser'));
+    formData.append('bulkcsv', this.bulkAttachment);
+    formData.append('UserID', User.ID);
+    this.userService.uploadbulkFile(formData).subscribe((data) => {
+      if (data.status) {
+        this.bulkErrorCount = data.result.errorCount;
+        this.importID = data.result.importID
+        this.bulkImporing = false;
+        this.bulkImportSuccess = true;
+      }
+      // document.getElementById('id04').style.display='none';
+    });
+  }
+  }
+  closeBulkImportModule() {
+    this.bulkimport.hide();
+  }
+  bulkImportClose() {
+    this.bulkImporing = false;
+  }
+  bulkImportSuccessClose() {
+    this.bulkImportSuccess = false;
+  }
+  gotoBuklImport(importID) {
+    this.router.navigate(['/user/bulk-import/' + importID]);
+  }
   AddStatusFilter(e) {
     let target = e.target;
     let selectedIndex = target.selectedIndex;

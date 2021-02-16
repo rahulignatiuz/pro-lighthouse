@@ -836,8 +836,8 @@
      </div>
    </div>
  </div> -->
-<div bsModal #bulkimport="bs-modal" class="modal bulkimport">
-   <form class="modal-content row bulkimport-form" (ngSubmit)="addBulk()">
+ <div bsModal #bulkimport="bs-modal" class="modal bulkimport" >
+   <form class="modal-content row bulkimport-form" (ngSubmit)="addBulk(fileInput)">
       <div class="container">
          <div class="form-group row">
             <label class="col-md-12 col-form-label" for="file-input">Attachment (excel only) </label>
@@ -847,13 +847,14 @@
                      accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"> -->
                <div class="custom-file mb-3">
                   <input #fileInput type="file" (change)="onFileChangeBulkProject($event)"
-                     (click)="fileInput.value = null" class="custom-file-input"
+                     (click)="fileInput.value = null" class="custom-file-input" 
                      accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
+                     <p id=remove style="display: none; color: red;">Please Choose file</p>
                   <label class="custom-file-label" for="customFile">{{xlFileName ? xlFileName : 'Choose file'}}</label>
                </div>
             </div>
          </div>
-         <button type="submit" class="deletebtn btn btn-danger float-right borderbtn"> Submit</button>
+         <button type="submit" class="deletebtn btn btn-danger float-right borderbtn" > Submit</button>
          <button type="button" (click)="closeBulkImportModule()"
             class="cancelbtn btn btn-primary float-right borderbtn">Cancel</button>
       </div>

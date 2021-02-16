@@ -144,6 +144,7 @@ export class AddLessonComponent implements OnInit {
       _projectType: ['', Validators.required],
       department: ['', Validators.required],
       function: ['', Validators.required],
+      bulk1: ['', Validators.required],
       attachments: null
     })
     this.dropdownSettings = {
@@ -202,7 +203,14 @@ export class AddLessonComponent implements OnInit {
     }
   }
 
-  addBulk() {
+  addBulk(e) {
+    var bulkuploadvalue = document.getElementById('remove'); 
+    bulkuploadvalue.style.display="flex";
+    console.log(e.value);
+    if(e.value != ""){
+    e.value = '';
+    var bulkuploadvalue = document.getElementById('remove'); 
+    bulkuploadvalue.style.display= "none";
     this.bulkimport.hide();
     this.bulkImporing = true;
     const formData = new FormData();
@@ -220,6 +228,9 @@ export class AddLessonComponent implements OnInit {
       // document.getElementById('id04').style.display='none';
     });
   }
+  }
+
+
   bulkImportClose() {
     this.bulkImporing = false;
   }

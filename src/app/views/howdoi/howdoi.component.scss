@@ -42,3 +42,42 @@ a:hover {
 //   text-decoration: underline;
   
 // }
+
+
+@media (max-width: 2000px ){
+
+  .forlargescreen{
+    margin-left: 30%;
+  }
+  .forlargescreenmasterlist{
+    margin-left:40% ;
+  }
+  .forlargescreenfilter{
+    margin-left:53% ;
+  }
+  .forlargescreenlesson{
+    margin-left:46% ;
+  }
+  .forlargescreenuser{
+    margin-left:22% ;
+  }
+}
+
+@media (max-width: 1800px ){
+
+  .forsmallscreen{
+    margin-left: 11%;
+  }
+  .forsmallscreenmasterlist{
+    margin-left:21% ;
+  }
+  .forsmallscreenfilter{
+    margin-left:40% ;
+  }
+  .forsmallscreenlesson{
+    margin-left:34% ;
+  }
+  .forsmallscreenuser{
+    margin-left:-1% ;
+  }
+}
