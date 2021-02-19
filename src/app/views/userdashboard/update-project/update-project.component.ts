@@ -230,12 +230,18 @@ export class UpdateProjectComponent implements OnInit {
       this.show = false;
     }
   }
-
+reload(){
+  debugger;
+  setTimeout(function () {
+  
+  }, 4500);
+}
   // form fill with getlessonid api
   getlessonbyid(ID) {
 
     this.isupdate = true;
     this.isLoader = true;
+    
     this.userService.getlessonbyProjectID(ID).subscribe((data) => {
       // console.log(data.result[0])
       // console.log(data.result)

@@ -746,8 +746,8 @@ class User {
         return sql;
     }
     static updateprocessSQL(i) {
-        let sql = `Call  updateprocessSQL('${i.Name}',${i.ID})`;
-        //  let sql = `update lighthouse.process SET Name='${i.Name}' where ID='${i.ID}'`;
+         let sql = `Call  updateprocessSQL('${i.Name}',${i.ID})`;
+        // let sql = `update lighthouse.process SET Name='${i.Name}' where ID='${i.ID}'`;
         return sql;
     }
     static updatephasesSQL(i) {
@@ -778,7 +778,7 @@ class User {
     }
     static updatelifecycleSQL(i) {
         let sql = `Call  updatelifecycleSQL('${i.Name}',${i.ID})`;
-        // let sql = `update lighthouse.lifecycle SET Name='${i.Name}' where ID='${i.ID}'`;
+       //  let sql = `update lighthouse.lifecycle SET Name='${i.Name}' where ID='${i.ID}'`;
         return sql;
     }
     static updatemilestonesSQL(i) {
@@ -791,7 +791,7 @@ class User {
         //  let sql = `select ID,Name,Description,Indexing from lighthouse.projecttype  where ID='${ID}'`;
         return sql;
     }
-    static getProjectByID(ID) {
+    static getprojectbyid(ID) {
         let sql = `Call  getprojectbyid(${ID})`;
         // let sql = `select ID,Name,Description,LPN,Indexing from lighthouse.project  where ID='${ID}'`;
         return sql;

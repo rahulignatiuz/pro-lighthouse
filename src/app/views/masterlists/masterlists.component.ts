@@ -491,6 +491,7 @@ export class MasterlistsComponent implements OnInit {
       }
     });
   }
+  
   getfunctions() {
     this.userService.getfunctions().subscribe((data) => {
       console.log(data);
@@ -1103,7 +1104,7 @@ export class MasterlistsComponent implements OnInit {
   }
   onDrop24(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.MappingProjectTypeAndPhase, event.previousIndex, event.currentIndex);
-    let currentindex =  this.mappingProjectAndMilestone[event.currentIndex+1].Indexing;
+    let currentindex =  this.MappingProjectTypeAndPhase[event.currentIndex+1].Indexing;
      let mapid =  this.MappingProjectTypeAndPhase[event.currentIndex+1].mid;
     let currentindex1 =  this.MappingProjectTypeAndPhase[event.currentIndex+1].Indexing+1;
     //  console.log(currentindex);
@@ -1373,20 +1374,49 @@ export class MasterlistsComponent implements OnInit {
       }
     });
   }
+  // public onselectProjecttype1(e) {
+  //   //console.log(this.projectName)
+  //   // console.log(e.target.value)
+  //   this._projectName = '';
+  //   this.mappingProjectTypeAndProject = [];
+  //   //  this.projectsPhaseAsObjects = [];
+  //   // this.mappingProjectAndMilestone = [];
+  //   this.getMappingProjectTypeAndProject(e.target.value);
+  //   this.mappingProjectAndMilestone = [];
+  //   this.mappingProjectAndPhase = [];
+  //   this.getMappingProjectAndMilestone(e.target.value);
+  //   this.getMappingProjectTypeAndPhase(e.target.value);
+
+
+
+  // }
+
   public onselectProjecttype1(e) {
+    this._projectName = '';
+    this.mappingProjectTypeAndProject = [];
+    this.getMappingProjectTypeAndProject(e.target.value);
+  }
+
+  public onselectProjecttype2(e) {
     //console.log(this.projectName)
     // console.log(e.target.value)
     this._projectName = '';
-    this.mappingProjectTypeAndProject = [];
-    //  this.projectsPhaseAsObjects = [];
-    // this.mappingProjectAndMilestone = [];
-    this.getMappingProjectTypeAndProject(e.target.value);
-    this.mappingProjectAndMilestone = [];
+    this.mappingProjectTypeAndProject = [];    
     this.mappingProjectAndPhase = [];
-    this.getMappingProjectAndMilestone(e.target.value);
     this.getMappingProjectTypeAndPhase(e.target.value);
 
+  }
 
+  public onselectProjecttype3(e) {
+    //console.log(this.projectName)
+    // console.log(e.target.value)
+    this._projectName = '';
+    // this.mappingProjectTypeAndProject = [];  
+    this.mappingProjectAndMilestone = [];
+    this.getMappingProjectAndMilestone(e.target.value);
+
+    // this.mappingProjectAndPhase = [];
+    // this.getMappingProjectTypeAndPhase(e.target.value);
 
   }
 
@@ -1584,7 +1614,9 @@ export class MasterlistsComponent implements OnInit {
     
   }
   updateprojecttypebyid(ID,Name){
-    this.userService.updateprojecttypebyid(ID,Name).subscribe((data)=>{
+    // console.log(Name.trim());
+    var trimname = Name.trim();
+    this.userService.updateprojecttypebyid(ID,trimname).subscribe((data)=>{
     this.updateprojecttypebyIdAsobjects =data.result;
     });
    console.log(ID,Name);
@@ -1607,7 +1639,9 @@ export class MasterlistsComponent implements OnInit {
     
   }
   updateprojectbyid(ID,Name){
-    this.userService.updateprojectbyid(ID,Name).subscribe((data)=>{
+    var trimname = Name.trim();
+
+    this.userService.updateprojectbyid(ID,trimname).subscribe((data)=>{
     this.updateprojectbyIdAsobjects =data.result;
     });
    console.log(ID,Name);
@@ -1628,8 +1662,9 @@ export class MasterlistsComponent implements OnInit {
     
   }
   updatephasesbyid(ID,Name){
+    var trimname = Name.trim();
     
-    this.userService.updatephasesbyid(ID,Name).subscribe((data)=>{
+    this.userService.updatephasesbyid(ID,trimname).subscribe((data)=>{
     this.updatephasesbyIdAsobjects =data.result;
     });
    console.log(ID,Name);
@@ -1650,8 +1685,9 @@ export class MasterlistsComponent implements OnInit {
     
   }
   updatemilestonesbyid(ID,Name){
+    var trimname = Name.trim();
     
-    this.userService.updatemilestonesbyid(ID,Name).subscribe((data)=>{
+    this.userService.updatemilestonesbyid(ID,trimname).subscribe((data)=>{
     this.updatemilestonesbyIdAsobjects =data.result;
     });
    console.log(ID,Name);
@@ -1673,8 +1709,9 @@ export class MasterlistsComponent implements OnInit {
     
   }
   updatelifecyclebyid(ID,Name){
+    var trimname = Name.trim();
     
-    this.userService.updatelifecyclebyid(ID,Name).subscribe((data)=>{
+    this.userService.updatelifecyclebyid(ID,trimname).subscribe((data)=>{
     this.updatelifecyclebyIdAsobjects =data.result;
     });
    console.log(ID,Name);
@@ -1695,8 +1732,9 @@ export class MasterlistsComponent implements OnInit {
   
   }
   updatefunctionsbyid(ID,Name){
+    var trimname = Name.trim();
     
-    this.userService.updatefunctionsbyid(ID,Name).subscribe((data)=>{
+    this.userService.updatefunctionsbyid(ID,trimname).subscribe((data)=>{
     this.updatefunctionsbyIdAsobjects =data.result;
     });
    console.log(ID,Name);
@@ -1717,8 +1755,9 @@ export class MasterlistsComponent implements OnInit {
   
   }
   updatedepartmentsbyid(ID,Name){
+    var trimname = Name.trim();
     
-    this.userService.updatedepartmentsbyid(ID,Name).subscribe((data)=>{
+    this.userService.updatedepartmentsbyid(ID,trimname).subscribe((data)=>{
     this.updatedepartmentsbyIdAsobjects =data.result;
     });
    console.log(ID,Name);
@@ -1739,8 +1778,9 @@ export class MasterlistsComponent implements OnInit {
   
   }
   updateimpactcategorybyid(ID,Name){
+    var trimname = Name.trim();
     
-    this.userService.updateimpactcategorybyid(ID,Name).subscribe((data)=>{
+    this.userService.updateimpactcategorybyid(ID,trimname).subscribe((data)=>{
     this.updateimpactcategorybyIdAsobjects =data.result;
     });
    console.log(ID,Name);
@@ -1762,7 +1802,9 @@ export class MasterlistsComponent implements OnInit {
   }
   updateimpactlevelbyid(ID,Name){
     // debugger;
-    this.userService.updateimpactlevelbyid(ID,Name).subscribe((data)=>{
+    var trimname = Name.trim();
+
+    this.userService.updateimpactlevelbyid(ID,trimname).subscribe((data)=>{
     this.updateimpactlevelbyIdAsobjects =data.result;
     });
    console.log(ID,Name);
@@ -1784,7 +1826,9 @@ export class MasterlistsComponent implements OnInit {
   }
   updateprocessbyid(ID,Name){
     // debugger;
-    this.userService.updateprocessbyid(ID,Name).subscribe((data)=>{
+    var trimname = Name.trim();
+
+    this.userService.updateprocessbyid(ID,trimname).subscribe((data)=>{
     this.updateprocessbyIdAsobjects =data.result;
     });
    console.log(ID,Name);
@@ -1792,4 +1836,12 @@ export class MasterlistsComponent implements OnInit {
     window.location.reload();
   }
   
+
+   myFunction() {
+    if (confirm('Are you sure you want to submit')) {
+      
+    } else {
+        return false;
+    }
+}
 }

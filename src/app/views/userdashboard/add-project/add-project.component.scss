@@ -30,6 +30,15 @@
 :host ::ng-deep .ng2-tag-input__text-input {
     height: 33px !important;
     font-size: 0.785rem !important;
+    width: 340%;
+}
+@media (max-width: 1800px){
+
+    :host ::ng-deep .ng2-tag-input__text-input {
+        height: 33px !important;
+        font-size: 0.785rem !important;
+        width: 240%;
+    }
 }
 :host ::ng-deep select {
     font-size: 0.875rem !important;

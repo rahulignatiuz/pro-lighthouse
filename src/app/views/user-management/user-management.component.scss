@@ -18,7 +18,7 @@
   padding-bottom: 12px;
   text-align: left;
   background-color:#0f69c4;
-  color: white;
+  color: #ffffff;
 }
 .switch {
   position: relative;
@@ -40,7 +40,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #ccc;
+  background-color: #cccccc;
   -webkit-transition: .4s;
   transition: .4s;
 }
@@ -52,7 +52,7 @@
   width: 26px;
   left: 4px;
   bottom: 4px;
-  background-color: white;
+  background-color: #ffffff;
   -webkit-transition: .4s;
   transition: .4s;
 }
@@ -91,7 +91,7 @@ a.btn.btn-secondary{
   padding: 15px;
 }
 .table-title .btn {
-  color:white;
+  color:#ffffff;
   float: right;
   font-size: 13px;
   background: #20a8d8;
@@ -133,8 +133,8 @@ position: absolute;
 top: -10px;
 padding: 5px 8px;
 border-radius: 50%;
-background-color: red;
-color: white;
+background-color: #ff0000;
+color: #ffffff;
 
 }
 
@@ -226,42 +226,59 @@ color: white;
     animation: dotPulseAfter 1.5s infinite linear;
     animation-delay: .5s;
   }
-  
+  a.settings.manager{
+    pointer-events: none; 
+    display: inline-block;
+    color: #666666;
+
+  }
+  a.delete.manager{
+    pointer-events: none;
+    display: inline-block; 
+    color: #666666;
+
+  }
+  .msetting:hover{
+    cursor: not-allowed;
+  }
+  a.delete.admin{
+    color:#ff0000;
+  }
   @keyframes dotPulseBefore {
     0% {
-      box-shadow: 9984px 0 0 -5px black;
+      box-shadow: 9984px 0 0 -5px #000000;
     }
     30% {
-      box-shadow: 9984px 0 0 2px black;
+      box-shadow: 9984px 0 0 2px #000000;
     }
     60%,
     100% {
-      box-shadow: 9984px 0 0 -5px black;
+      box-shadow: 9984px 0 0 -5px #000000;
     }
   }
   
   @keyframes dotPulse {
     0% {
-      box-shadow: 9999px 0 0 -5px black;
+      box-shadow: 9999px 0 0 -5px #000000;
     }
     30% {
-      box-shadow: 9999px 0 0 2px black;
+      box-shadow: 9999px 0 0 2px #000000;
     }
     60%,
     100% {
-      box-shadow: 9999px 0 0 -5px black;
+      box-shadow: 9999px 0 0 -5px #000000;
     }
   }
   
   @keyframes dotPulseAfter {
     0% {
-      box-shadow: 10014px 0 0 -5px black;
+      box-shadow: 10014px 0 0 -5px #000000;
     }
     30% {
-      box-shadow: 10014px 0 0 2px black;
+      box-shadow: 10014px 0 0 2px #000000;
     }
     60%,
     100% {
-      box-shadow: 10014px 0 0 -5px black;
+      box-shadow: 10014px 0 0 -5px #000000;
     }
   }

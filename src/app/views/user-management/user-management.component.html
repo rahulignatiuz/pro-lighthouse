@@ -6,31 +6,20 @@
           <div class="col-sm-6">
             <h4 style="font-weight: 500;">User Management </h4>
           </div>
-          <!-- <div class="col-sm-3">
-            <div class="col-sm-12">
-              <div class="search-hero">
-                <input type="text" class="form-control" placeholder="Enter name or email to search user..."
-                  [(ngModel)]="searchedUser">
-              </div>
-
-            </div>
-          </div> -->
-
           <div class="col-sm-6">
             <a href="#" (click)="userRegister()" class="btn btn-secondary"><i
                 class="	fa fa-plus-circle fa-fw"></i><span>Add
                 User</span></a>
             <a href="#" (click)="userPending()" class="btn btn-secondary pending-user"><span>Pending
                 Requests</span><span *ngIf="isPendingUser" class="badge">{{pendingUserCount}}</span></a>
-                <div class="col-sm-5">
-                  <div class="search-hero  has-search ">
-                    <span class="fa fa-search form-control-feedback mediaforsmall" style="
-                    margin-left: 39%;"></span> 
-                    <input type="text" class="form-control mediaforsmall" style="
-                    margin-left: 45%; height: 1%;" placeholder="Search"
-                      [(ngModel)]="searchedUser">
-                  </div>
-                </div>
+            <div class="col-sm-5">
+              <div class="search-hero  has-search ">
+                <span class="fa fa-search form-control-feedback mediaforsmall" style="
+                    margin-left: 39%;"></span>
+                <input type="text" class="form-control mediaforsmall" style="
+                    margin-left: 45%; height: 1%;" placeholder="Search" [(ngModel)]="searchedUser">
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -61,13 +50,19 @@
             <td *ngIf="user.EmailNotification === 1">Active</td>
             <td *ngIf="user.EmailNotification === 0">Inactive</td>
             <td>{{user.CreatedDate | date}}</td>
-            <td>
+            <td *ngIf="(userRole === 2 && user.roleid != 1) || userRole === 1">
               <a href="#"
                 (click)="userSettings(user.FirstName,user.LastName,user.Email, user.ID, user.roleid, user.EmailNotification, user.IsEnabled)"
-                class="settings" title="" data-toggle="tooltip" data-original-title="Settings"><i
+                class="settings admin" title="" data-toggle="tooltip" data-original-title="Settings"><i
                   class="fa fa-cog icon fa-fw" aria-hidden="true"></i></a>
-              <a href="#" (click)=userDelete(user.ID) class="delete" title="" data-toggle="tooltip"
-                data-original-title="Delete"><i class="fa fa-remove icon" style="color:red"></i></a>
+              <a href="#" (click)=userDelete(user.ID) class="delete admin" title="" data-toggle="tooltip"
+                data-original-title="Delete"><i class="fa fa-remove icon"></i></a>
+            </td>
+            <td *ngIf="userRole === 2 && user.roleid === 1" class="msetting">
+              <a href="#" class="settings manager" title="" data-toggle="tooltip" data-original-title="Settings"><i
+                  class="fa fa-cog icon fa-fw" aria-hidden="true"></i></a>
+              <a href="#" class="delete manager" title="" data-toggle="tooltip" data-original-title="Delete" disabled><i
+                  class="fa fa-remove icon"></i></a>
             </td>
           </tr>
         </tbody>
@@ -135,7 +130,7 @@
         [ngClass]="{'has-error is-invalid': (isSubmitted || userRegistrationForm.controls['roles'].touched) && registrationFormControls.roles.errors }"
         formControlName="roles" name="role" required>
         <option value="null" disabled> Select Role</option>
-        <option value="1">Admin</option>
+        <option *ngIf="userRole === 1" value="1">Admin</option>
         <option value="2">Project Manager</option>
         <option value="3">User</option>
       </select>
@@ -148,7 +143,8 @@
       </div>
     </div>
 
-    <button type="submit" [disabled]="createAccBtnDis" class="btn btn-block btn-primary centerbtn">Create Account</button>
+    <button type="submit" [disabled]="createAccBtnDis" class="btn btn-block btn-primary centerbtn">Create
+      Account</button>
 
   </form>
 </div>
@@ -159,7 +155,8 @@
       <label for="firstName">First Name</label>
       <input type="text" [(ngModel)]="sett_firstName"
         [ngClass]="{'has-error is-invalid': (isSettingSubmitted || accountSettingForm.controls['sett_firstName'].touched) && accountSettingFormControls.sett_firstName.errors }"
-        formControlName="sett_firstName" class="form-control" placeholder="First Name" autocomplete="first-name" required>
+        formControlName="sett_firstName" class="form-control" placeholder="First Name" autocomplete="first-name"
+        required>
       <div
         *ngIf="accountSettingForm.controls['sett_firstName'].invalid && (isSubmitted || accountSettingForm.controls['sett_firstName'].dirty || accountSettingForm.controls['sett_firstName'].touched)"
         class="text-danger">
@@ -170,19 +167,27 @@
     </div>
     <div class="form-group">
       <label for="lastName">Last Name</label>
-      <input type="text" [(ngModel)]="sett_lastName" formControlName="sett_lastName" class="form-control" placeholder="Last Name"
-        autocomplete="last-name">
+      <input type="text" [(ngModel)]="sett_lastName" formControlName="sett_lastName" class="form-control"
+        placeholder="Last Name" autocomplete="last-name">
     </div>
     <div class="form-group">
       <label for="email">Email</label>
-      <input type="text" [(ngModel)]="sett_email" formControlName="sett_email" class="form-control" placeholder="Email" autocomplete="email" disabled>
+      <input type="text" [(ngModel)]="sett_email" formControlName="sett_email" class="form-control" placeholder="Email"
+        autocomplete="email" disabled>
     </div>
-    <div  class="form-group">
+    <div class="form-group" *ngIf="userRole === 1">
       <label for="roles">Roles</label>
       <select class="form-control" [(ngModel)]="settRoles" formControlName="settRoles" name="settRoles" required>
         <option value="1">Admin</option>
         <option value="2">Project Manager</option>
-        <option  value="3">User</option>
+        <option value="3">User</option>
+      </select>
+    </div>
+    <div class="form-group" *ngIf="userRole === 2">
+      <label for="roles">Roles</label>
+      <select class="form-control" [(ngModel)]="settRoles" formControlName="settRoles" name="settRoles" required>
+        <option value="2">Project Manager</option>
+        <option value="3">User</option>
       </select>
     </div>
     <div class="form-group">
@@ -233,7 +238,8 @@
         </thead>
         <tbody>
 
-          <tr *ngFor="let penUser of getAllPenUser | paginate: { itemsPerPage: 5, currentPage: p1, id: 'first'}; let i = index">
+          <tr
+            *ngFor="let penUser of getAllPenUser | paginate: { itemsPerPage: 5, currentPage: p1, id: 'first'}; let i = index">
             <td>{{penUser.Email}}</td>
             <td>{{penUser.CreatedDate | date}}</td>
             <td>
@@ -242,7 +248,7 @@
                     aria-hidden="true"></i></span></a>
               <a href="#" (click)=pendingUserDelete(i,penUser) class="delete" title="" data-toggle="tooltip"
                 data-original-title="Delete"><i class="fa fa-user-times fa-lg reject-icon" aria-hidden="true"></i></a>
-                <!-- <div class="d-flex justify-content-center">
+              <!-- <div class="d-flex justify-content-center">
                   <div class="spinner-border" role="status" >
                     <span class="sr-only" id="spinner"></span>
                   </div>
@@ -250,8 +256,8 @@
             </td>
           </tr>
           <div class="d-flex justify-content-center">
-            <div class="dot-pulse" *ngIf="showLoader" role="status" >
-              <span class="sr-only"  id="loading"></span>
+            <div class="dot-pulse" *ngIf="showLoader" role="status">
+              <span class="sr-only" id="loading"></span>
             </div>
           </div>
         </tbody>
@@ -301,7 +307,7 @@
         [ngClass]="{'has-error is-invalid': (isSubmitted || pendingRegistrationForm.controls['p_roles'].touched) && pendingRegistrationFormControls.p_roles.errors }"
         formControlName="p_roles" name="p_role" required>
         <option value="null" disabled> Select Role</option>
-        <option value="1">Admin</option>
+        <option *ngIf="userRole === 1" value="1">Admin</option>
         <option value="2">Project Manager</option>
         <option value="3">User</option>
       </select>
@@ -313,8 +319,6 @@
         </div>
       </div>
     </div>
-
     <button type="submit" [disabled]="approveBtnDis" class="btn btn-block btn-primary">Approve</button>
-
   </form>
 </div>

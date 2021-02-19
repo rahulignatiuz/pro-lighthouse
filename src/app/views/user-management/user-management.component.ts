@@ -14,7 +14,6 @@ import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 })
 export class UserManagementComponent implements OnInit {
   public results: any[];
-  public show: boolean = true;
   private _user = localStorage.getItem('currentUser') ? JSON.parse(localStorage.getItem('currentUser')) : [{ roled: 0 }];
   public avatarImg: string = '';
   public userRegistrationForm: FormGroup;
@@ -50,7 +49,8 @@ export class UserManagementComponent implements OnInit {
   public isPendingUser: boolean = false;
   public requestEmail: string;
   public searchedUser: any;
-  showLoader: boolean = false;
+  public showLoader: boolean = false;
+  public userRole:number = this._user.roleid;
 
   // public _user: any = JSON.parse(localStorage.getItem('currentUser'));
   @ViewChild('registrationForm', { static: false }) public registrationForm: ModalDirective;
@@ -62,7 +62,7 @@ export class UserManagementComponent implements OnInit {
   public constructor(private titleService: Title, private userService: UserService, private router: Router, private formBuilder: FormBuilder) {
     this.titleService.setTitle("Lighthouse | User Management");
     this.getAllUser();
-    // this.iconhide();
+
     this.router.routerState.root.queryParams.subscribe(params => {
       this.requestEmail = params['request-email'];
       if (this.requestEmail) {
@@ -234,6 +234,7 @@ export class UserManagementComponent implements OnInit {
   get accountSettingFormControls() { return this.accountSettingForm.controls; }
   get pendingRegistrationFormControls() { return this.pendingRegistrationForm.controls; }
   registration() {
+    console.log("++++++++++this._user+++++++++",this._user.roleid);
     this.isSubmitted = true;
     this.createAccBtnDis = true;
     let obj: any = {
@@ -245,19 +246,19 @@ export class UserManagementComponent implements OnInit {
       EmailNotification: 0,
       IsEnabled: 1
     };
-    // console.log("this.isValidated",this.userRegistrationForm.valid);
-    if (this.userRegistrationForm.valid) {
-      this.userService.addUserRegistration(obj).subscribe((data) => {
-        if (data.status) {
-          console.log(data);
-          window.location.reload();
-          //this.router.navigate(['/dashboard']);
-        } else {
-          this.registrationForm.hide();
-          this.userExists.show();
-        }
-      });
-    }
+     console.log("this.isValidated",this.userRegistrationForm.valid);
+    // if (this.userRegistrationForm.valid) {
+    //   this.userService.addUserRegistration(obj).subscribe((data) => {
+    //     if (data.status) {
+    //       console.log(data);
+    //       window.location.reload();
+    //       //this.router.navigate(['/dashboard']);
+    //     } else {
+    //       this.registrationForm.hide();
+    //       this.userExists.show();
+    //     }
+    //   });
+    // }
   }
   userAccountSetting() {
     this.isSettingSubmitted = true;
@@ -305,16 +306,6 @@ export class UserManagementComponent implements OnInit {
     localStorage.setItem("tabID", projecttabselection);
 
 
-  }
-  iconhide() {
-    const user: any = JSON.parse(localStorage.getItem('currentUser'));
-    const id = user.roleid
-    console.log('curent user', id);
-    // debugger;
-    if (id == 2) {
-      this.show = false;
-      
-    }
   }
 }
 
