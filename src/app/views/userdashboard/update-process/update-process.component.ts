@@ -17,7 +17,7 @@ export class UpdateProcessComponent implements OnInit {
   @ViewChild('attachments', { static: false }) public attachments: ElementRef;
 
   public projectsAsObjects: any;
-  maxChars = 250;
+  public maxChars = 250;
 
   public projectsAsType: any;
   public projectsPhaseAsObjects: any;
@@ -28,7 +28,6 @@ export class UpdateProcessComponent implements OnInit {
   public phaseAsObjects: any;
   public lifecycleAsObjects: any;
   public impactlevelAsObjects: any;
-  private keywordData: string[] = [];
   public mappingProjectAndMilestone: any;
   public MappingProjectTypeAndPhase: any;
   public mappingProjectTypeAndProject: any;
@@ -42,56 +41,56 @@ export class UpdateProcessComponent implements OnInit {
   public departmentAsObjects: any;
   public functionAsObjects: any;
 
-  lessonFormbtn: boolean = false;
-  additionalFormbtn: boolean = false;
-  showIssues: boolean = true;
-  showPractice: boolean = false;
-  projectNameValue: string;
-  projectPhaseValue: string;
+  public lessonFormbtn: boolean = false;
+  public additionalFormbtn: boolean = false;
+  public showIssues: boolean = true;
+  public showPractice: boolean = false;
+  public projectNameValue: string;
+  public projectPhaseValue: string;
 
-  projectName: string;
-  projectNumber: string;
-  projectPahse: string;
-  projectPahseMilestone: string;
+  public projectName: string;
+  public projectNumber: string;
+  public projectPahse: string;
+  public projectPahseMilestone: string;
 
-  _projectName: string;
-  _projectType: string;
-  _projectPhase: string;
-  lifecycle: string = '';
-  URLlessonID: number;
-  typeoflesson: string;
-  issuedescription: string;
-  title: string;
-  rootcause: string;
-  Recommendation: string;
-  _Keywords: string[] = [];
-  impectcategory: string = '';
-  impectlevel: string = '';
-  isupdate: boolean = false;
+  public _projectName: string;
+  public _projectType: string;
+  public _projectPhase: string;
+  public lifecycle: string = '';
+  public URLlessonID: number;
+  public typeoflesson: string;
+  public issuedescription: string;
+  public title: string;
+  public rootcause: string;
+  public Recommendation: string;
+  public _Keywords: string[] = [];
+  public impectcategory: string = '';
+  public impectlevel: string = '';
+  public isupdate: boolean = false;
   // lessonForm: FormGroup;
-  lessonProcessForm: FormGroup;
-  isSubmitted = false;
-  errForms: boolean = false;
-  uploadedFiles: Array<File>;
+  public lessonProcessForm: FormGroup;
+  public isSubmitted = false;
+  public errForms: boolean = false;
+  public uploadedFiles: Array<File>;
   // isProject: boolean = true;
-  isProcess: boolean = true;
-  projectNumberDisabled: boolean;
-  lf: string;
-  results: any[];
-  lessonID: number;
-  _projectname: String;
-  _projectphasemilestone: string;
-  attachmentFiles;
-  attachmentID: number;
-  showLoader: boolean = false;
-  processAsObjects: any;
-  URLlessonPoccessID: number;
-  editData: any;
-  isLoader: boolean = true;
-  isProject: boolean = true;
+  public isProcess: boolean = true;
+  public projectNumberDisabled: boolean;
+  public lf: string;
+  public results: any[];
+  public lessonID: number;
+  public _projectname: String;
+  public _projectphasemilestone: string;
+  public attachmentFiles;
+  public attachmentID: number;
+  public showLoader: boolean = false;
+  public processAsObjects: any;
+  public URLlessonPoccessID: number;
+  public editData: any;
+  public isLoader: boolean = true;
+  public isProject: boolean = true;
   public dropdownSettings: IDropdownSettings = {};
-  selectedItems = [];
-  functionItems = [];
+  public department: any = [];
+  public function: any = [];
   public currentFileUrl: any;
   public currentFileName: any;
   public IsAttachmentExists: boolean = false;
@@ -111,13 +110,28 @@ export class UpdateProcessComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.isupdate == true) {
-      this.selectedItems = [
+    if (this.isupdate) {
+      this.department = [
         { ID: this.editData.departmentID, Name: this.editData.department }
       ];
-      this.functionItems = [
+      this.function = [
         { ID: this.editData.functionID, Name: this.editData.functions }
       ];
+    } else {
+      this.route.params.subscribe(routeParams => {
+        // console.log('routeParams 1', routeParams);
+        if (routeParams && routeParams.id) {
+          const rid = routeParams.id;
+          this.URLlessonPoccessID = rid;
+
+          if (this.URLlessonPoccessID) {
+            setTimeout(() => {
+              this.getLessonProccessByID(this.URLlessonPoccessID);
+            }, 1000);
+          }
+        }
+      });
+      this.processFormInit();
     }
     this.dropdownSettings = {
       singleSelection: true,
@@ -130,21 +144,6 @@ export class UpdateProcessComponent implements OnInit {
 
     };
 
-    // form fill with getlessonid api
-    if (this.isupdate == false) {
-      this.route.params.subscribe(routeParams => {
-        // console.log('routeParams 1', routeParams);
-        if (routeParams && routeParams.id) {
-          const rid = routeParams.id;
-          this.URLlessonPoccessID = rid;
-
-          if (this.URLlessonPoccessID) {
-            this.getLessonProccessByID(this.URLlessonPoccessID);
-          }
-        }
-      });
-      this.processFormInit();
-    }
   }
   processFormInit() {
     this.lessonProcessForm = this.formBuilder.group({

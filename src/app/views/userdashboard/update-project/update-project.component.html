@@ -51,7 +51,7 @@
                                  <div class="col-md-9">
 
                                     <tag-input (onAdd)="onselectProject($event)" (onRemove)="onProjectRemoved($event)"
-                                       [(ngModel)]="_projectName" [theme]="'minimal'" class=""
+                                       [(ngModel)]="_projectName" [theme]="'minimal'" class="" 
                                        [ngClass]="{'has-error is-invalid': isSubmitted && formControls._projectname.errors }"
                                        formControlName="_projectname" id="ppn" secondaryPlaceholder="Project Name">
                                        <tag-input-dropdown [showDropdownIfEmpty]="true"

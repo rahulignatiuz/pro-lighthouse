@@ -32,7 +32,7 @@ function executeQuery(sql, callback) {
 function query(sql, callback) {
     console.log("+-+-+-+", sql);
     executeQuery(sql, function (err, result) {
-        // console.log("+-+-data+-result+", result);
+      //  console.log("+-+-data+-result+", result);
 
       //  console.log("+-+-data+-+",result[0].affectedRows); 
         if (err) {

@@ -172,11 +172,8 @@ export class UserService {
   }
 
   getlessonbyProjectID(ID: number) {
-    // console.log(ID, "getlessonbyPojectID");
-    return this.http.post<any>(`${this._baseURL}/lessons/porject/id`, { ID })
-      .pipe(
-        timeout(5000) //5 seconds
-      );
+    console.log(ID, "getlessonbyPojectID");
+    return this.http.post<any>(`${this._baseURL}/lessons/porject/id`, { ID });
   }
 
   getlessonbyProcessID(ID: number) {
@@ -473,5 +470,24 @@ export class UserService {
   }
   editNotification(obj) {
     return this.http.post<any>(`${this._baseURL}/notification/edit`, obj);
+  }
+  getAllUserOrderByName(orderName){
+    return this.http.post<any>(`${this._baseURL}/user/ordername`, { orderName: orderName });
+  }
+  getAllUserOrderByDate(orderDate){
+    return this.http.post<any>(`${this._baseURL}/user/orderdate`, { orderDate: orderDate });
+
+  }
+  getAllUserOrderByRole(orderRole){
+    return this.http.post<any>(`${this._baseURL}/user/orderrole`, { orderRole: orderRole });
+
+  }
+  getAllUserOrderByStatus(orderStatus){
+    return this.http.post<any>(`${this._baseURL}/user/orderstatus`, { orderStatus: orderStatus });
+
+  }
+  getAllUserOrderByURE(orderURE){
+    return this.http.post<any>(`${this._baseURL}/user/orderure`, { orderURE: orderURE });
+
   }
 }

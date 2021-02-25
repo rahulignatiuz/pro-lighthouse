@@ -92,6 +92,8 @@ export class MasterlistsComponent implements OnInit {
   projectid: number;
   milestoneid: number;
   phaseid: number;
+  message: string;
+  errForms: boolean = false;
   fetechprojectTypeId: string;
   public projectAsObjects: any;
   public isSubmitted = false;
@@ -612,6 +614,8 @@ export class MasterlistsComponent implements OnInit {
   AddProjects(form  ) {
 
     console.log(545454); 
+    document.getElementById('id22858888').style.display='block';
+
 
     let _user: any = JSON.parse(localStorage.getItem('currentUser'));
     this.fetechprojectTypeId = form.value._projectType;
@@ -637,14 +641,22 @@ export class MasterlistsComponent implements OnInit {
             console.log(data, this.projectid, this.fetechprojectTypeId)
 
             this.projectsAsType = data.result;
-
+            this.reloadfunction();
           }
         });
+      }
+      else{
+        if(data.result == "ER_DUP_ENTRY"){
+          document.getElementById('id22858888').style.display='none';
+          document.getElementById('id33322222').style.display='block';
+          console.log('5555555555555555555555555555',data);
+        }
+     
       }
       // console.log(data.data.insertId)
       this.projectsAsObjects = data.result;
     });
-    this.reloadfunction();
+    
   
   }
   getProjects() {
@@ -672,6 +684,7 @@ export class MasterlistsComponent implements OnInit {
   //   });
   // }
   AddProjecttype(form  ) {
+    document.getElementById('id22858888').style.display='block';
 
     this.isSubmitted = true;
       let _user: any = JSON.parse(localStorage.getItem('currentUser'));
@@ -691,10 +704,18 @@ export class MasterlistsComponent implements OnInit {
   
           console.log(data)
           this.projecttypeAndproject = data.result;
-  
+    this.reloadfunction();  
+        }
+        else{
+          if(data.result == "ER_DUP_ENTRY"){
+            document.getElementById('id22858888').style.display='none';
+            document.getElementById('id33322222').style.display='block';
+            console.log('5555555555555555555555555555',data);
+          }
+       
         }
       });
-      this.reloadfunction();     
+       
 
   
   }
@@ -728,6 +749,7 @@ export class MasterlistsComponent implements OnInit {
     });
   }
   Addmilestones(form  ) {
+    document.getElementById('id22858888').style.display='block';
 
     console.log(545454);
     let _user: any = JSON.parse(localStorage.getItem('currentUser'));
@@ -744,11 +766,15 @@ export class MasterlistsComponent implements OnInit {
     };
     // console.log(this.milestoneName[0].value);
     this.userService.Addmilestones(o).subscribe((data) => {
+      console.log('6555555555',data)
       if (data.status) {
+     
+
         this.milestoneid = data.data.insertId;
 
         // this.userService.Addmilestones(data).subscribe((data) => { });
-        console.log(this.milestoneid)
+       // console.log(this.milestoneid)
+       
         this.userService.addmappingprojectypemilestone(this.fetechprojectTypeId, this.milestoneid).subscribe((data) => {
           if (data.status) {
             console.log(data, this.milestoneid, this.fetechprojectTypeId)
@@ -758,13 +784,24 @@ export class MasterlistsComponent implements OnInit {
           }
         });
       }
+      else{
+        if(data.result == "ER_DUP_ENTRY"){
+          document.getElementById('id22858888').style.display='none';
+          document.getElementById('id33322222').style.display='block';
+          console.log('5555555555555555555555555555',data);
+        }
+     
+      }
       // console.log(data.data.insertId)
       this.milestonesAsobject = data.result;
     });
     this.reloadfunction();
   
   }
+
+
   Addphases(form  ) {
+    document.getElementById('id22858888').style.display='block';
 
     console.log(545454);
     let _user: any = JSON.parse(localStorage.getItem('currentUser'));
@@ -790,17 +827,28 @@ export class MasterlistsComponent implements OnInit {
           if (data.status) {
             //console.log(data,this.milestoneid,this.phaseid)
             this.projecttypephaseAsobject = data.result;
+            this.reloadfunction();
           }
         });
+      }
+      else{
+        if(data.result == "ER_DUP_ENTRY"){
+          document.getElementById('id22858888').style.display='none';
+          document.getElementById('id33322222').style.display='block';
+          console.log('5555555555555555555555555555',data);
+        }
+     
       }
       // console.log(data.data.insertId)
       this.phasesAsobject = data.result;
     });
-    this.reloadfunction();
+    
   
   }
 
   Addlifecycle(form  ) {
+    document.getElementById('id22858888').style.display='block';
+
     let _user: any = JSON.parse(localStorage.getItem('currentUser'));
     let o: any = {
       // Name: form.value.lifecycleName[0].value,
@@ -818,10 +866,18 @@ export class MasterlistsComponent implements OnInit {
 
         console.log(data)
         this.lifecycleAsobject = data.result;
-
+        this.reloadfunction();
+      }
+      else{
+        if(data.result == "ER_DUP_ENTRY"){
+          document.getElementById('id22858888').style.display='none';
+          document.getElementById('id33322222').style.display='block';
+          console.log('5555555555555555555555555555',data);
+        }
+     
       }
     })
-    this.reloadfunction();
+    
   
 
   }
@@ -1466,6 +1522,8 @@ export class MasterlistsComponent implements OnInit {
   // }
 
   Addfunction(form  ) {
+    document.getElementById('id22858888').style.display='block';
+
     let _user: any = JSON.parse(localStorage.getItem('currentUser'));
     let o: any = {
       // Name: form.value.function[0].value,
@@ -1483,14 +1541,24 @@ export class MasterlistsComponent implements OnInit {
 
         console.log(data)
         this.functionAsobject = data.result;
-
+        this.reloadfunction();
+      }
+      else{
+        if(data.result == "ER_DUP_ENTRY"){
+          document.getElementById('id22858888').style.display='none';
+          document.getElementById('id33322222').style.display='block';
+          console.log('5555555555555555555555555555',data);
+        }
+     
       }
     })
-    this.reloadfunction();
+    
   
   }
 
   Adddepartment(form  ) {
+    document.getElementById('id22858888').style.display='block';
+
     let _user: any = JSON.parse(localStorage.getItem('currentUser'));
     let o: any = {
 
@@ -1503,22 +1571,31 @@ export class MasterlistsComponent implements OnInit {
     };
 
     console.log(form);
+    // debugger;
     this.userService.Adddepartment(o).subscribe((data) => {
-
-      if (data.status) {
-
-        console.log(data)
+      console.log('sssssssssssddddddddddddddddddddddddddddddddd',data);
+      if (data.status) { 
         this.departmentAsobject = data.result;
-
+        this.reloadfunction();
+      }
+      else{
+        if(data.result == "ER_DUP_ENTRY"){
+          document.getElementById('id22858888').style.display='none';
+          document.getElementById('id33322222').style.display='block';
+          console.log('5555555555555555555555555555',data);
+        }
+     
       }
     })
-    this.reloadfunction();
+  // this.reloadfunction();
   
 
   }
 
 
   Addimpactcategory(form) {
+    document.getElementById('id22858888').style.display='block';
+
     let _user: any = JSON.parse(localStorage.getItem('currentUser'));
     let o: any = {
 
@@ -1537,15 +1614,25 @@ export class MasterlistsComponent implements OnInit {
 
         console.log(data)
         this.impactcategoryAsobject = data.result;
-
+        this.reloadfunction();
+      }
+      else{
+        if(data.result == "ER_DUP_ENTRY"){
+          document.getElementById('id22858888').style.display='none';
+          document.getElementById('id33322222').style.display='block';
+          console.log('5555555555555555555555555555',data);
+        }
+     
       }
     })
-    this.reloadfunction();
+    
   
   }
 
 
   Addimpactlevel(form) {
+    document.getElementById('id22858888').style.display='block';
+
     let _user: any = JSON.parse(localStorage.getItem('currentUser'));
     let o: any = {
 
@@ -1564,13 +1651,23 @@ export class MasterlistsComponent implements OnInit {
 
         console.log(data)
         this.impactlevelAsobject = data.result;
-
+        this.reloadfunction();
+      }
+      else{
+        if(data.result == "ER_DUP_ENTRY"){
+          document.getElementById('id22858888').style.display='none';
+          document.getElementById('id33322222').style.display='block';
+          console.log('5555555555555555555555555555',data);
+        }
+     
       }
     })
-    this.reloadfunction();
+    
   
   }
   Addprocess(form) {
+    document.getElementById('id22858888').style.display='block';
+
     let _user: any = JSON.parse(localStorage.getItem('currentUser'));
     let o: any = {
       // Name: form.value.processName[0].value,
@@ -1588,10 +1685,18 @@ export class MasterlistsComponent implements OnInit {
 
         console.log(data)
         this.lifecycleAsobject = data.result;
-
+        this.reloadfunction();
+      }
+      else{
+        if(data.result == "ER_DUP_ENTRY"){
+          document.getElementById('id22858888').style.display='none';
+          document.getElementById('id33322222').style.display='block';
+          console.log('5555555555555555555555555555',data);
+        }
+     
       }
     })
-    this.reloadfunction();
+   
   
 
   }

@@ -34,8 +34,8 @@ router.post('/add', (req, res, next) => {
     p.MilestoneID = req.body.MilestoneID;
 
     //console.log(p);
-    db.query(Model.AddAllmappingprojecttypemilstonesSQL(p), (err, results) => {
-        // let results = result[1][0];
+    db.query(Model.AddAllmappingprojecttypemilstonesSQL(p), (err, result) => {
+        let results = result[1][0];
         if (err) {
             res.send({ status: false, result: results, message: 'not-added' });
         }

@@ -593,7 +593,7 @@ class User {
     }
     // used to add project data in project table 
     static AddAllProjectsSQL(p) {
-         let sql = `Call  addAllProjectsSQL('${p.Name}','${p.LPN}','${p.Description}',${p.CreatedBy},${p.UpdatedBy},@LID); select @LID as insertId;`;
+        let sql = `Call  addAllProjectsSQL('${p.Name}','${p.LPN}','${p.Description}',${p.CreatedBy},${p.UpdatedBy},@LID); select @LID as insertId;`;
         // let sql = `INSERT INTO  lighthouse.project(Name,LPN,Description,CreatedBy,UpdatedBy) \
         // VALUES( '${p.Name}','${p.LPN}','${p.Description}','${p.CreatedBy}','${p.UpdatedBy}')`;
         return sql;
@@ -629,9 +629,9 @@ class User {
         return sql;
     }
     static AddAllmappingprojecttypemilstonesSQL(p) {
-        // let sql = `Call  addAllmappingprojecttypemilstonesSQL(${p.ProjecttypeID},${p.MilestoneID},@LID); select @LID as insertId;`;
-        let sql = `INSERT INTO  lighthouse.mappingprojecttypemilestones(ProjecttypeID,MilestoneID) \
-        VALUES( '${p.ProjecttypeID}','${p.MilestoneID}')`;
+        let sql = `Call  addAllmappingprojecttypemilstonesSQL(${p.ProjecttypeID},${p.MilestoneID},@LID); select @LID as insertId;`;
+        // let sql = `INSERT INTO  lighthouse.mappingprojecttypemilestones(ProjecttypeID,MilestoneID) \
+        // VALUES( '${p.ProjecttypeID}','${p.MilestoneID}')`;
         return sql;
     }
     static AddAllphasesSQL(p) {
@@ -746,8 +746,8 @@ class User {
         return sql;
     }
     static updateprocessSQL(i) {
-         let sql = `Call  updateprocessSQL('${i.Name}',${i.ID})`;
-        // let sql = `update lighthouse.process SET Name='${i.Name}' where ID='${i.ID}'`;
+        let sql = `Call  updateprocessSQL('${i.Name}',${i.ID})`;
+        //  let sql = `update lighthouse.process SET Name='${i.Name}' where ID='${i.ID}'`;
         return sql;
     }
     static updatephasesSQL(i) {
@@ -778,7 +778,7 @@ class User {
     }
     static updatelifecycleSQL(i) {
         let sql = `Call  updatelifecycleSQL('${i.Name}',${i.ID})`;
-       //  let sql = `update lighthouse.lifecycle SET Name='${i.Name}' where ID='${i.ID}'`;
+        // let sql = `update lighthouse.lifecycle SET Name='${i.Name}' where ID='${i.ID}'`;
         return sql;
     }
     static updatemilestonesSQL(i) {
@@ -793,7 +793,7 @@ class User {
     }
     static getprojectbyid(ID) {
         let sql = `Call  getprojectbyid(${ID})`;
-        // let sql = `select ID,Name,Description,LPN,Indexing from lighthouse.project  where ID='${ID}'`;
+        // let sql = `select ID,Name,Description,Indexing from lighthouse.project  where ID='${ID}'`;
         return sql;
     }
     static getprocessbyid(ID) {
@@ -1236,6 +1236,57 @@ class User {
     static editNotification(obj) {
         let sql = `call editNotification(${obj.ProjectType},${obj.Projectname},${obj.ProjectPhase},${obj.Process},${obj.Impectcategory},${obj.Impectlevel},${obj.Projectphasemilestone},${obj.Function},${obj.Department},${obj.Lifecycle},${obj.Frequency},${obj.ID})`;
         //let sql = `update lighthouse.notification SET ProjectTypeID = '${obj.ProjectType}',ProjectID='${obj.Projectname}',PhaseID='${obj.ProjectPhase}',ProcessID='${obj.Process}',ImpactCategoryID='${obj.Impectcategory}',ImpactLevelID='${obj.Impectlevel}',MilestoneID='${obj.Projectphasemilestone}',FunctionID='${obj.Function}', DepartmentID='${obj.Department}',LifeCycleID='${obj.Lifecycle}',Frequency='${obj.Frequency}',UpdatedDate=now() where ID=${obj.ID};`;
+        return sql;
+    }
+    static deleteMultiLessons(lessonsIDs) {
+        // let sql = `call deleteMultiLessons('${lessonsIDs}')`;
+        let sql = `DELETE from lighthouse.lesson where ID IN (${lessonsIDs})`;
+        return sql;
+
+    }
+    static getAllUserOrderByName(orderName) {
+        let sql = `call getAllUserOrderByName('${orderName}')`;
+        // let sql = `SELECT ul.ID,ul.FirstName,ul.LastName,ul.EmailNotification,ul.CreatedDate,ul.IsEnabled,ul.Email,murl.roleid, gu.Picture 
+        // FROM User ul 
+        // INNER JOIN MappingUserRole murl on ul.ID = murl.userid
+        // LEFT JOIN googleuser gu on ul.Email = gu.Email
+        // ORDER BY ul.FirstName ${orderName};`;
+        return sql;
+    }
+    static getAllUserOrderByDate(orderDate) {
+        let sql = `call getAllUserOrderByDate('${orderDate}')`;
+        // let sql = `SELECT ul.ID,ul.FirstName,ul.LastName,ul.EmailNotification,ul.CreatedDate,ul.IsEnabled,ul.Email,murl.roleid, gu.Picture 
+        // FROM User ul 
+        // INNER JOIN MappingUserRole murl on ul.ID = murl.userid
+        // LEFT JOIN googleuser gu on ul.Email = gu.Email
+        // ORDER BY ul.CreatedDate ${orderDate};`;
+        return sql;
+    }
+    static getAllUserOrderByRole(orderRole) {
+        let sql = `call getAllUserOrderByRole('${orderRole}')`;
+        // let sql = `SELECT ul.ID,ul.FirstName,ul.LastName,ul.EmailNotification,ul.CreatedDate,ul.IsEnabled,ul.Email,murl.roleid, gu.Picture 
+        // FROM User ul 
+        // INNER JOIN MappingUserRole murl on ul.ID = murl.userid
+        // LEFT JOIN googleuser gu on ul.Email = gu.Email
+        // ORDER BY  murl.roleid ${orderRole};`;
+        return sql;
+    }
+    static getAllUserOrderByStatus(orderStatus) {
+        let sql = `call getAllUserOrderByStatus('${orderStatus}')`;
+        // let sql = `SELECT ul.ID,ul.FirstName,ul.LastName,ul.EmailNotification,ul.CreatedDate,ul.IsEnabled,ul.Email,murl.roleid, gu.Picture 
+        // FROM User ul 
+        // INNER JOIN MappingUserRole murl on ul.ID = murl.userid
+        // LEFT JOIN googleuser gu on ul.Email = gu.Email
+        // ORDER BY  ul.IsEnabled ${orderStatus};`;
+        return sql;
+    }
+    static getAllUserOrderByURE(orderURE) {
+        let sql = `call getAllUserOrderByURE('${orderURE}')`;
+        // let sql = `SELECT ul.ID,ul.FirstName,ul.LastName,ul.EmailNotification,ul.CreatedDate,ul.IsEnabled,ul.Email,murl.roleid, gu.Picture 
+        // FROM User ul 
+        // INNER JOIN MappingUserRole murl on ul.ID = murl.userid
+        // LEFT JOIN googleuser gu on ul.Email = gu.Email
+        // ORDER BY  ul.EmailNotification ${orderURE};`;
         return sql;
     }
 }

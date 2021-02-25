@@ -23,15 +23,15 @@
           </div>
         </div>
       </div>
-      <table class="table table-hover shadow-lg bg-white">
+      <table class="table table-hover shadow-lg bg-white user-data">
         <thead>
           <tr>
-            <th>Name</th>
+            <th (click)="sortByName()">Name<i class="fa fa-fw fa-sort"></i></th>
             <th>Email</th>
-            <th>Role</th>
-            <th>Status</th>
-            <th>User Request Email</th>
-            <th>Date Created</th>
+            <th (click)="sortByRole()">Role<i class="fa fa-fw fa-sort"></i></th>
+            <th (click)="sortByStatus()">Status<i class="fa fa-fw fa-sort"></i></th>
+            <th (click)="sortByURE()">User Request Email<i class="fa fa-fw fa-sort"></i></th>
+            <th (click)="sortByDate()">Date Created <i class="fa fa-fw fa-sort"></i></th>
             <th>Action</th>
           </tr>
         </thead>
@@ -54,13 +54,13 @@
               <a href="#"
                 (click)="userSettings(user.FirstName,user.LastName,user.Email, user.ID, user.roleid, user.EmailNotification, user.IsEnabled)"
                 class="settings admin" title="" data-toggle="tooltip" data-original-title="Settings"><i
-                  class="fa fa-cog icon fa-fw" aria-hidden="true"></i></a>
+                  class="fa fa-edit icon fa-fw" aria-hidden="true"></i></a>
               <a href="#" (click)=userDelete(user.ID) class="delete admin" title="" data-toggle="tooltip"
                 data-original-title="Delete"><i class="fa fa-remove icon"></i></a>
             </td>
             <td *ngIf="userRole === 2 && user.roleid === 1" class="msetting">
               <a href="#" class="settings manager" title="" data-toggle="tooltip" data-original-title="Settings"><i
-                  class="fa fa-cog icon fa-fw" aria-hidden="true"></i></a>
+                  class="fa fa-edit icon fa-fw" aria-hidden="true"></i></a>
               <a href="#" class="delete manager" title="" data-toggle="tooltip" data-original-title="Delete" disabled><i
                   class="fa fa-remove icon"></i></a>
             </td>
@@ -248,11 +248,6 @@
                     aria-hidden="true"></i></span></a>
               <a href="#" (click)=pendingUserDelete(i,penUser) class="delete" title="" data-toggle="tooltip"
                 data-original-title="Delete"><i class="fa fa-user-times fa-lg reject-icon" aria-hidden="true"></i></a>
-              <!-- <div class="d-flex justify-content-center">
-                  <div class="spinner-border" role="status" >
-                    <span class="sr-only" id="spinner"></span>
-                  </div>
-                </div> -->
             </td>
           </tr>
           <div class="d-flex justify-content-center">

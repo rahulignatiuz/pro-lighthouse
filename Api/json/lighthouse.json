@@ -1,6 +1,6 @@
 {
-    "CLIENT_ID": "646877215941-se6r7brna8rr4vqukiaevkjs34247p5a.apps.googleusercontent.com",
-    "CLIENT_SECRET": "rv2oqltRJo5tD4G5nZQZmFHC",
+    "CLIENT_ID": "322244642666-kkgbp9q3rrh4jqrj65gb89nkt5o6651a.apps.googleusercontent.com",
+    "CLIENT_SECRET": "KnxrXhzA4CPjMalL8um4ljsU",
     "REDIRECT_URL": "http://localhost:6001/api/login/auth/google/callback",
     "BASE_URL": "http://localhost:4200",
     "GOOGLE_USER_INFO": "https://www.googleapis.com/oauth2/v3/userinfo?access_token=",

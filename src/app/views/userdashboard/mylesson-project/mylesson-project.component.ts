@@ -377,7 +377,6 @@ export class MylessonsProjectComponent implements OnInit {
 
   }
   getidinurl(ID) {
-    // setTimeout(()=>this.router.navigate(['/user/update-project/' + ID]),200);
     this.router.navigate(['/user/update-project/' + ID]);
   }
   getidinurlProccess(ID) {

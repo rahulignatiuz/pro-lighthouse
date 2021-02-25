@@ -6,6 +6,7 @@ import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
+import { TimeoutError } from 'rxjs';
 
 @Component({
   templateUrl: 'user-management.component.html',
@@ -50,7 +51,17 @@ export class UserManagementComponent implements OnInit {
   public requestEmail: string;
   public searchedUser: any;
   public showLoader: boolean = false;
-  public userRole:number = this._user.roleid;
+  public userRole: number = this._user.roleid;
+  public isAscendingName: boolean = true
+  public orderName: string;
+  public isAscendingDate: boolean = true;
+  public orderDate: string;
+  public isAscendingRole: boolean = true;
+  public orderRole: string;
+  public isAscendingStatus: boolean = true;
+  public orderStatus: string;
+  public isAscendingURE: boolean = true;
+  public orderURE: string;
 
   // public _user: any = JSON.parse(localStorage.getItem('currentUser'));
   @ViewChild('registrationForm', { static: false }) public registrationForm: ModalDirective;
@@ -183,7 +194,74 @@ export class UserManagementComponent implements OnInit {
     this.userService.getAllUser().subscribe((data) => {
       if (data.status) {
         this.results = data.result;
-        console.log(this.results);
+        // console.log(this.results);
+      }
+    });
+  }
+  sortByName() {
+    if (this.isAscendingName) {
+      this.orderName = "ASC";
+    } else {
+      this.orderName = "DESC";
+    }
+    this.userService.getAllUserOrderByName(this.orderName).subscribe((data) => {
+      if (data.status) {
+        this.results = data.result;
+        this.isAscendingName = !this.isAscendingName;
+      }
+    });
+
+  }
+  sortByRole() {
+    if (this.isAscendingRole) {
+      this.orderRole = "ASC";
+    } else {
+      this.orderRole = "DESC";
+    }
+    this.userService.getAllUserOrderByRole(this.orderRole).subscribe((data) => {
+      if (data.status) {
+        this.results = data.result;
+        this.isAscendingRole = !this.isAscendingRole;
+      }
+    });
+
+  }
+  sortByStatus() {
+    if (this.isAscendingStatus) {
+      this.orderStatus = "ASC";
+    } else {
+      this.orderStatus = "DESC";
+    }
+    this.userService.getAllUserOrderByStatus(this.orderStatus).subscribe((data) => {
+      if (data.status) {
+        this.results = data.result;
+        this.isAscendingStatus = !this.isAscendingStatus;
+      }
+    });
+  }
+  sortByURE() {
+    if (this.isAscendingURE) {
+      this.orderURE = "ASC";
+    } else {
+      this.orderURE = "DESC";
+    }
+    this.userService.getAllUserOrderByURE(this.orderURE).subscribe((data) => {
+      if (data.status) {
+        this.results = data.result;
+        this.isAscendingURE = !this.isAscendingURE;
+      }
+    });
+  }
+  sortByDate() {
+    if (this.isAscendingDate) {
+      this.orderDate = "ASC";
+    } else {
+      this.orderDate = "DESC";
+    }
+    this.userService.getAllUserOrderByDate(this.orderDate).subscribe((data) => {
+      if (data.status) {
+        this.results = data.result;
+        this.isAscendingDate = !this.isAscendingDate;
       }
     });
   }
@@ -234,7 +312,7 @@ export class UserManagementComponent implements OnInit {
   get accountSettingFormControls() { return this.accountSettingForm.controls; }
   get pendingRegistrationFormControls() { return this.pendingRegistrationForm.controls; }
   registration() {
-    console.log("++++++++++this._user+++++++++",this._user.roleid);
+    console.log("++++++++++this._user+++++++++", this._user.roleid);
     this.isSubmitted = true;
     this.createAccBtnDis = true;
     let obj: any = {
@@ -246,19 +324,19 @@ export class UserManagementComponent implements OnInit {
       EmailNotification: 0,
       IsEnabled: 1
     };
-     console.log("this.isValidated",this.userRegistrationForm.valid);
-    // if (this.userRegistrationForm.valid) {
-    //   this.userService.addUserRegistration(obj).subscribe((data) => {
-    //     if (data.status) {
-    //       console.log(data);
-    //       window.location.reload();
-    //       //this.router.navigate(['/dashboard']);
-    //     } else {
-    //       this.registrationForm.hide();
-    //       this.userExists.show();
-    //     }
-    //   });
-    // }
+    console.log("this.isValidated", this.userRegistrationForm.valid);
+    if (this.userRegistrationForm.valid) {
+      this.userService.addUserRegistration(obj).subscribe((data) => {
+        if (data.status) {
+          console.log(data);
+          window.location.reload();
+          //this.router.navigate(['/dashboard']);
+        } else {
+          this.registrationForm.hide();
+          this.userExists.show();
+        }
+      });
+    }
   }
   userAccountSetting() {
     this.isSettingSubmitted = true;

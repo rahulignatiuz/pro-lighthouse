@@ -30,7 +30,7 @@ router.post('/projectgetbyid', function (req, res) {
     ID = req.body.ID;
 
     //console.log(db.query(Model.updateProjectsSQL(p)))
-    db.query(Model.getProjectByID(ID), (err, result) => {
+    db.query(Model.getprojectbyid(ID), (err, result) => {
         let data = result[0];
         if (!err) {
             if (data && data.length > 0) {
@@ -77,25 +77,29 @@ router.post('/add', (req, res, next) => {
     p.UpdatedBy = req.body.UpdatedBy;
     //console.log(d);
     db.query(Model.AddAllProjectsSQL(p), (err, result) => {
-        let results = result[1][0];
-        // console.log("2212121",results);
-        if (err) {
-            res.send({ status: false, result: results, message: 'not-added' })
+        if (!err) {
+            let results = result[1][0];
+            console.log("----------------+++++++++++++++", results); 
+            res.status(200).json({
+                status: true,
+                message: "Projects added successfully.",
+                data: results
+            });
+        } else {
+            console.log("----------------+++++++++++++++", err.sqlMessage); 
+            res.status(200).json({
+                status: false,
+                message: err.sqlMessage,
+                result: err.code
+            });
         }
-        else {
-            return res.send({ status: true, data: results, message: 'added' });
-        }
-
-    });
-
+    })
 });
 //http://localhost:6001/api/projects/updateindex
 router.post('/updateindex', (req, res, next) => {
     let i = {};
     i.ID = req.body.ID;
     i.Indexing = req.body.Indexing;
-
-
     //console.log(p);
     db.query(Model.updateAllprojectsSQL(i), (err, results) => {
         if (err) {

@@ -9,6 +9,7 @@ import { UserManagementRoutingModule } from './user-management-routing.module';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     NgxPaginationModule,
     Ng2SearchPipeModule,
     ModalModule.forRoot(),
+    NgMultiSelectDropDownModule.forRoot(),
   ],
   declarations: [ UserManagementComponent
     

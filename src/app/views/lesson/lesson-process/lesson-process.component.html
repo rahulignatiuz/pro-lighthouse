@@ -147,12 +147,12 @@
           <div>
             <p id="IDLESSON3" style="margin-left: 0%;" *ngIf="!showuseruseful && show">Was this lesson implemented?</p>
           </div>
-          <a class="btn btn-primary btn-sm" onclick="document.getElementById('id01').style.display='block'"
-            style="border-radius: 4px; cursor: pointer; margin-left: 1%; height: 10%;" id="IDLESSON"
-            *ngIf="!showuseruseful && show">Yes</a>
-          <a class="btn btn-danger btn-sm" (click)="adduserusefullessonforNo(LessonID,UserID,data,titleInput.value)"
-            style="border-radius: 4px;margin-left: 3px; cursor: pointer; height: 10%;" id="IDLESSON1"
-            *ngIf="!showuseruseful && show">No</a>
+          <a class="" onclick="document.getElementById('id01').style.display='block'"
+          style="border-radius: 4px; cursor: pointer; margin-left: 2%; height: 10%; color:#20a8d8;" id="IDLESSON"
+          *ngIf="!showuseruseful && show">Yes</a>
+        <a class="" (click)="adduserusefullessonforNo(LessonID,UserID,data,titleInput.value)"
+          style="border-radius: 4px;margin-left: 3px; cursor: pointer; height: 10%; color: #20a8d8;" id="IDLESSON1"
+          *ngIf="!showuseruseful && show">/ No</a>
         </div>
         <br>
       </div>

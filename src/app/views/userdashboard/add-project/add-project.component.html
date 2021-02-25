@@ -9,6 +9,10 @@
       (click)="gotoBuklImport(importID)" class="alert-link"> Click here to
       view.</a>.
 </div>
+<div class="alert alert-danger alert-dismissible" *ngIf="somethingMissingError">
+   <a href="#" (click)="somethingMissingErrorClose()" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+   The required field is missing in the excel file, please check again.
+</div>
 <!--/.row-->
 <div class="row">
    <!--/.row-->
@@ -81,7 +85,7 @@
                                        *ngIf="lessonForm.controls['_projectname'].invalid && (lessonForm.controls['_projectname'].dirty || lessonForm.controls['_projectname'].touched)"
                                        class="custom-errMsg">
                                        <div *ngIf="lessonForm.controls['_projectname'].errors.required">
-                                          Project name is required.
+                                          Project Name is required.
                                        </div>
                                     </div>
                                  </div>

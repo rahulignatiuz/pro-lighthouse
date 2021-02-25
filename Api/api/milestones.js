@@ -36,15 +36,23 @@ router.post('/add', (req, res, next) => {
     m.UpdatedBy = req.body.UpdatedBy;
     //console.log(p);
     db.query(Model.AddAllmilestoneSQL(m), (err, result) => {
-        let results = result[1][0];
-        if (err) {
-            res.send({ status: false, result: results, message: 'not-added' });
+        if (!err) {
+            let results = result[1][0];
+            console.log("----------------+++++++++++++++", results); 
+            res.status(200).json({
+                status: true,
+                message: "milestones added successfully.",
+                data : results
+            });
+        } else {
+            console.log("----------------+++++++++++++++", err.sqlMessage); 
+            res.status(200).json({
+                status: false,
+                message: err.sqlMessage,
+                result: err.code
+            });
         }
-        else {
-            return res.send({ status: true, data: results, message: 'added' });
-        }
-
-    });
+    })
 
 });
 //http://localhost:6001/api/milestones/update

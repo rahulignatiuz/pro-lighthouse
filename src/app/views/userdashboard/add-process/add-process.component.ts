@@ -90,6 +90,7 @@ export class AddProcessComponent implements OnInit {
   public xlFileNameWithoutExt: string;
   public bulkErrorCount: number = 0;
   public bulkAttachment: File = null;
+  public somethingMissingError: boolean = false;
 
   maxChars = 250;
   constructor(private router: Router, private formBuilder: FormBuilder, private userService: UserService, private route: ActivatedRoute, private titleService: Title) {
@@ -140,12 +141,12 @@ export class AddProcessComponent implements OnInit {
       itemsShowLimit: 1,
       enableCheckAll: false,
       allowSearchFilter: true,
-      closeDropDownOnSelection:true
+      closeDropDownOnSelection: true
     };
 
 
     this.lf = 'Process';
-    this.typeoflesson ="";
+    this.typeoflesson = "";
 
   }
 
@@ -154,11 +155,11 @@ export class AddProcessComponent implements OnInit {
   reloadaction() {
     window.location.reload();
   }
-    // for issue or best practice
-  getlessontype(){
+  // for issue or best practice
+  getlessontype() {
     console.log('data');
     this.userService.getlessontype().subscribe((data) => {
-      
+
       this.lessontypeAsObjects = data.result;
 
     });
@@ -166,7 +167,7 @@ export class AddProcessComponent implements OnInit {
   importBulkFileHistory() {
     this.router.navigate(['/user/bulk-import/' + this.importID]);
 
-    
+
   }
   importBulkFile() {
     this.bulkErrorCount = 0;
@@ -188,30 +189,40 @@ export class AddProcessComponent implements OnInit {
     }
   }
   addBulk(e) {
-    var bulkuploadvalue = document.getElementById('remove'); 
-    bulkuploadvalue.style.display="flex";
+    var bulkuploadvalue = document.getElementById('remove');
+    bulkuploadvalue.style.display = "flex";
+    this.somethingMissingError = false;
     console.log(e.value);
-    if(e.value != ""){
-    e.value = '';
-    var bulkuploadvalue = document.getElementById('remove'); 
-    bulkuploadvalue.style.display= "none";
-    this.bulkimport.hide();
-    this.bulkImporing = true;
-    const formData = new FormData();
-    this.xlFileNameWithoutExt = this.bulkAttachment.name.split('.').slice(0, -1).join('.');
-    let User: any = JSON.parse(localStorage.getItem('currentUser'));
-    formData.append('bulkcsv', this.bulkAttachment);
-    formData.append('UserID', User.ID);
-    this.userService.uploadbulkFile(formData).subscribe((data) => {
-      if (data.status) {
-        this.bulkErrorCount = data.result.errorCount;
-        this.importID = data.result.importID
-        this.bulkImporing = false;
-        this.bulkImportSuccess = true;
-      }
-      // document.getElementById('id04').style.display='none';
-    });
+    if (e.value != "") {
+      e.value = '';
+      var bulkuploadvalue = document.getElementById('remove');
+      bulkuploadvalue.style.display = "none";
+      this.bulkimport.hide();
+      this.bulkImporing = true;
+      const formData = new FormData();
+      this.xlFileNameWithoutExt = this.bulkAttachment.name.split('.').slice(0, -1).join('.');
+      let User: any = JSON.parse(localStorage.getItem('currentUser'));
+      formData.append('bulkcsv', this.bulkAttachment);
+      formData.append('UserID', User.ID);
+      this.userService.uploadbulkFile(formData).subscribe((data) => {
+        if (data.status) {
+          this.bulkErrorCount = data.result.errorCount;
+          this.importID = data.result.importID
+          this.bulkImporing = false;
+          this.bulkImportSuccess = true;
+          this.somethingMissingError = false;
+        } else {
+          this.bulkImportSuccess = false;
+          this.bulkImporing = false;
+          this.somethingMissingError = true;
+        }
+        // document.getElementById('id04').style.display='none';
+      });
+    }
   }
+  somethingMissingErrorClose() {
+    this.somethingMissingError = false;
+
   }
   closeBulkImportModule() {
     this.bulkimport.hide();
@@ -476,7 +487,7 @@ export class AddProcessComponent implements OnInit {
       Title: this.title,
       IssueDescription: this.issuedescription,
       RootCause: this.rootcause,
-      keywords: this._Keywords,
+      Keywords: this._Keywords,
       DepartmentID: form.value.department[0].ID,
       FunctionID: form.value.function[0].ID,
       Recommendation: this.Recommendation,

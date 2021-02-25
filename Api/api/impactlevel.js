@@ -36,14 +36,22 @@ router.post('/add', (req, res, next) => {
     i.UpdatedBy = req.body.UpdatedBy;
     //console.log(p);
     db.query(Model.AddAllimpactlevelSQL(i), (err, result) => {
-        let results = result[1][0];
-        if (err) {
-            res.send({ status: false, result: results, message: 'not-added' })
+        if (!err) {
+            let results = result[1][0];
+            console.log("----------------+++++++++++++++", results); 
+            res.status(200).json({
+                status: true,
+                message: "impactlevel added successfully.",
+                result: results
+            });
+        } else {
+            console.log("----------------+++++++++++++++", err.sqlMessage); 
+            res.status(200).json({
+                status: false,
+                message: err.sqlMessage,
+                result: err.code
+            });
         }
-        else {
-            return res.send({ status: true, data: results, message: 'added' });
-        }
-
     })
 
 });

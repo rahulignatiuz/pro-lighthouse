@@ -33,14 +33,23 @@ router.post('/add', (req, res, next) => {
     p.UpdatedBy = req.body.UpdatedBy;
     //console.log(p);
     db.query(Model.AddAllphasesSQL(p), (err, result) => {
-        let results = result[1][0];
-        if (err) {
-            res.send({ status: false, result: results, message: 'not-added' })
+        if (!err) {
+            let results = result[1][0];
+            console.log("----------------+++++++++++++++", results); 
+            res.status(200).json({
+                status: true,
+                message: "phases added successfully.",
+                data: results
+            });
+        } else {
+            console.log("----------------+++++++++++++++", err.sqlMessage); 
+            res.status(200).json({
+                status: false,
+                message: err.sqlMessage,
+                result: err.code
+            });
         }
-        else {
-            return res.send({ status: true, data: results, message: 'added' });
-        }
-    });
+    })
 });
 //http://localhost:6001/api/phases/update
 router.post('/update', (req, res, next) => {

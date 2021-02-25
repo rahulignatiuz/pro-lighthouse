@@ -540,7 +540,8 @@ reload(){
     } else {
       this.projectNumber = '';
     }
-
+    const a = document.getElementsByClassName("ng2-tag-input__text-input")[0];
+    a.classList.remove("mystyle");
     // this.getMappingProjectAndMilestone()
     // this.getProjectPhase();
     // this.projectFormFields();
@@ -563,6 +564,8 @@ reload(){
     // this.projectsPhaseAsObjects = [];
     // this.mappingProjectAndMilestone = [];
     // this.projectFormFields();
+    const a = document.getElementsByClassName("ng2-tag-input__text-input")[0];
+    a.classList.add("mystyle");
   }
   public getProjectPhase() {
     this.userService.getProjectPhase().subscribe((data) => {

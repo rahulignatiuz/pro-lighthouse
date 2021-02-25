@@ -12,7 +12,7 @@ var storage = new MulterAzureStorage({
     containerName: lighthouseJson.containerName,
     containerSecurity: 'blob',
     fileName: function (file) {
-      //  console.log(file);
+        //  console.log(file);
         return file.mimetype + '/' + Date.now() + '_' + file.originalname;
     }
 });
@@ -91,12 +91,12 @@ router.post("/add", (req, res, next) => {
     o.Title = req.body.Title;
     o.IssueDescription = req.body.IssueDescription;
     o.RootCause = req.body.RootCause;
-    o.Keywords = req.body.Keywords;
     o.Recommendation = req.body.Recommendation;
     o.CreatedBy = req.body.CreatedBy;
     o.IsEnabled = req.body.IsEnabled;
-   // console.log("Keywords----------------",req.body.Keywords);
+    // console.log("keywords----------------",req.body.Keywords);
     saveData(o, res, req.body.Keywords);
+    
 });
 
 function saveData(o, res, keywords) {
@@ -176,7 +176,7 @@ router.post('/delete', function (req, res) {
 
 router.post('/update', function (req, res) {
     var o = {};
-    console.log(req.body.Keywords);
+    console.log(req.body.keywords);
     o.ID = req.body.ID;
     o.UserID = req.body.UserID;
     o.LessonTypeID = req.body.LessonTypeID;
@@ -192,7 +192,6 @@ router.post('/update', function (req, res) {
     o.LifeCycleID = req.body.LifeCycleID;
     o.DepartmentID = req.body.DepartmentID;
     o.Title = req.body.Title;
-    // o.Keywords = req.body.keywords;
     o.IssueDescription = req.body.IssueDescription;
     o.RootCause = req.body.RootCause;
     o.Recommendation = req.body.Recommendation;
@@ -209,20 +208,18 @@ router.post('/update', function (req, res) {
 
     });
 });
-function updateKeywords(lessonID, Keywords) {
+function updateKeywords(lessonID, keywords) {
     db.query(Model.deleteAllKeywordsByID(lessonID), (err, deleteResults) => {
-      
-        for (Keyword of Keywords) {
-          
-            if (Keyword.ID) {
-                db.query(Model.addKeywordsByMappingLessonSQL(lessonID, Keyword.ID), (err, addResults) => {
+        for (keyword of keywords) {
+            if (keyword.ID) {
+                db.query(Model.addKeywordsByMappingLessonSQL(lessonID, keyword.ID), (err, addResults) => {
                     let data = addResults[1][0];
                 });
             } else {
-                db.query(Model.addKeywordsBySQL(Keyword.Name), (err, KeywordResultsResult) => {
-                    let KeywordResults = KeywordResultsResult[1][0];
-                    if (KeywordResults.insertId) {
-                        db.query(Model.addKeywordsByMappingLessonSQL(lessonID, KeywordResults.insertId), (err, mappingResults) => {
+                db.query(Model.addKeywordsBySQL(keyword.Name), (err, keywordResultsResult) => {
+                    let keywordResults = keywordResultsResult[1][0];
+                    if (keywordResults.insertId) {
+                        db.query(Model.addKeywordsByMappingLessonSQL(lessonID, keywordResults.insertId), (err, mappingResults) => {
                             let data = mappingResults[1][0];
                         });
                     }
@@ -451,13 +448,13 @@ router.post("/keywords/id", (req, res, next) => {
             if (data && data.length > 0) {
                 res.status(200).json({
                     status: true,
-                    message: "Keywords get successfully.",
+                    message: "keywords get successfully.",
                     result: data
                 });
             } else {
                 res.status(200).json({
                     status: false,
-                    message: "Keywords not get successfully.",
+                    message: "keywords not get successfully.",
                     result: data
                 });
             }
@@ -491,6 +488,7 @@ var errorcell = [];
 alreadyExecuted = false;
 alreadyLoopEx = false;
 var totalRows = [];
+var lessonIDs = [];
 var i = 0;
 //http://localhost:6001/api/lessons/bulkupload
 router.post('/bulkupload', uploadCSV.single('bulkcsv'), (req, res) => {
@@ -501,6 +499,7 @@ router.post('/bulkupload', uploadCSV.single('bulkcsv'), (req, res) => {
     alreadyLoopEx = false;
     successRow = [];
     errorcell = [];
+    lessonIDs = [];
     i = 0;
     //  console.log("**********************",req.body.UserID);
     readXlsxFile(filePath).then((rows) => {
@@ -534,6 +533,7 @@ router.post('/bulkupload', uploadCSV.single('bulkcsv'), (req, res) => {
                 let data = result[1][0];
                 if (!err) {
                     LessonID = data.insertId;
+                    lessonIDs.push(LessonID)
                     var results = addLessonByExcle(LessonID, rowdata, index, res);
                     results.then(function (result) {
                         if (i === rows.length - 1) {
@@ -547,9 +547,9 @@ router.post('/bulkupload', uploadCSV.single('bulkcsv'), (req, res) => {
 
                                         });
                                     });
-                                }else{
+                                } else {
 
-                                    console.log("UnhandledPromiseRejectionWarning: ReferenceError: ModelID is not defined +++++++++++++++",err);
+                                    console.log("UnhandledPromiseRejectionWarning: ReferenceError: ModelID is not defined +++++++++++++++", err);
                                 }
                                 responseCount(res, data.insertId, errorcell.length);
                             });
@@ -588,7 +588,7 @@ async function addLessonByExcle(LessonID, row, Index, res) {
             let errorMessageProject = "Given Project '" + row[4] + "' not exist. Please check once again.";
             var returnValue = await AddBulkImport(Index, row, row[4], 4, index, errorMessageProject);
             //   errorrows.push({ key: Index, value: row, error: row[4], rowIndex: 4, columnIndex: index, errorMessage: errorMessageProject, cellAddress: cellPosition });
-           // console.log("----------Project-----------", Project);
+            // console.log("----------Project-----------", Project);
             errorcell.push({ error: row[4], errorID: returnValue });
             lessonID = null;
         }
@@ -644,7 +644,7 @@ async function addLessonByExcle(LessonID, row, Index, res) {
             const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
             //  let cellPosition = "row 2  column " + index + 1
             const isEmailValidate = re.test(String(Email).toLowerCase());
-          //  console.log("++++++++++++++++++isEmailValidate++++++++++", isEmailValidate);
+            //  console.log("++++++++++++++++++isEmailValidate++++++++++", isEmailValidate);
             if (!isEmailValidate) {
                 errorMessageEmail = "Given Email '" + row[1] + "' not validate. Please check once again.";
             }
@@ -655,6 +655,7 @@ async function addLessonByExcle(LessonID, row, Index, res) {
         }
         o.CreatedBy = o.UserID;
     }
+
     if (Type) {
         o.TypeID = await getTypeCallback(Type, lessonID);
         if (!o.TypeID) {
@@ -666,6 +667,7 @@ async function addLessonByExcle(LessonID, row, Index, res) {
             lessonID = null;
         }
     }
+
     if (Function) {
         o.FunctionID = await getFunctionCallback(Function, lessonID);
         if (!o.FunctionID) {
@@ -677,6 +679,7 @@ async function addLessonByExcle(LessonID, row, Index, res) {
             lessonID = null;
         }
     }
+
     if (ImpactLevel) {
         o.ImpactLevelID = await getImpactLevelCallback(ImpactLevel, lessonID);
         if (!o.ImpactLevelID) {
@@ -688,6 +691,7 @@ async function addLessonByExcle(LessonID, row, Index, res) {
             lessonID = null;
         }
     }
+
     if (ImpactCategory) {
         o.ImpactCategoryID = await getImpactCategoryCallback(ImpactCategory, lessonID);
         if (!o.ImpactCategoryID) {
@@ -699,6 +703,7 @@ async function addLessonByExcle(LessonID, row, Index, res) {
             lessonID = null;
         }
     }
+
     if (Department) {
         o.DepartmentID = await getDepartmentCallback(Department, lessonID);
         if (!o.DepartmentID) {
@@ -710,6 +715,7 @@ async function addLessonByExcle(LessonID, row, Index, res) {
             lessonID = null;
         }
     }
+
     if (LifeCycle) {
         o.LifeCycleID = await getLifeCycleCallback(LifeCycle, lessonID);
         if (!o.LifeCycleID) {
@@ -721,9 +727,10 @@ async function addLessonByExcle(LessonID, row, Index, res) {
             lessonID = null;
         }
     }
+
     if (lessonID) {
         await addKeywordsInBulk(KeywordsArr, LessonID);
-        var finalResults = await updateDataBulk(lessonID, o);
+        var finalResults = await updateDataBulk(lessonID, o, res);
         successRow.push(finalResults);
     }
     return successRow;
@@ -752,11 +759,22 @@ async function AddBulkImport(index, row, errorF, rowIndex, columnIndex, errorMes
     });
     return finalResults;
 }
-async function updateDataBulk(lessonID, o) {
+async function updateDataBulk(lessonID, o, res) {
     const finalResults = await new Promise((resolve, reject) => {
         db.query(Model.updateLessonBybulk(lessonID, o), (err, data) => {
             if (!err) {
                 resolve(data);
+            }else{
+                console.log("Cannot read property '22222' of undefined +++++++++++", err);
+                db.query(Model.deleteMultiLessons(lessonIDs), (err, data) => {
+                    console.log("Cannot rened +++++++++err++", err);
+                    console.log("Cannot rened +++++++++data++", data);
+                    res.status(200).json({
+                        status: false,
+                        message: "Deleted lesson",
+                        result: lessonIDs
+                    });
+                });
             }
         });
     });
@@ -772,10 +790,10 @@ function addKeywordsInBulk(KeywordsArr, LessonID) {
                         let data = results[1][0];
                     });
                 } else {
-                    db.query(Model.addKeywordsBySQL(key), (err, KeywordResultsResult) => {
-                        let KeywordResults = KeywordResultsResult[1][0];
-                        if (KeywordResults.insertId) {
-                            db.query(Model.addKeywordsByMappingLessonSQL(LessonID, KeywordResults.insertId), (err, mappingResults) => {
+                    db.query(Model.addKeywordsBySQL(key), (err, keywordResultsResult) => {
+                        let keywordResults = keywordResultsResult[1][0];
+                        if (keywordResults.insertId) {
+                            db.query(Model.addKeywordsByMappingLessonSQL(LessonID, keywordResults.insertId), (err, mappingResults) => {
                                 let data = mappingResults[1][0];
                             });
                         }
@@ -1056,7 +1074,7 @@ async function addDataOnExcle(ID, worksheet, workbook) {
             }
             data.forEach((row, index) => {
                 cellIndex = index + 2;
-              //  console.log("In for loop index", cellIndex);
+                //  console.log("In for loop index", cellIndex);
                 worksheet.cell(cellIndex, 1).string(row.ErrorMessage).style(style);
                 worksheet.cell(cellIndex, 2).number(row.RowField + 1).style(style);
                 worksheet.cell(cellIndex, 3).number(row.ColumnField + 1).style(style);
@@ -1161,7 +1179,7 @@ async function addDataOnExcle(ID, worksheet, workbook) {
                 } else {
                     worksheet.cell(cellIndex, 20).string(row.Keywords).style(style);
                 }
-               // console.log("row.LifeCycle ++++++++++", row.LifeCycle);
+                // console.log("row.LifeCycle ++++++++++", row.LifeCycle);
                 if (row.LifeCycle == row.ErrorField) {
                     worksheet.cell(cellIndex, 21).string(row.LifeCycle).style(errStyle);
                 } else {

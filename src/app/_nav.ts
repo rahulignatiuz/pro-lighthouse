@@ -344,15 +344,21 @@ export const navItems: NavData[] = [
       //   url: '/user/lessons1',
       //   icon: 'icon-user'
       // },
-      {
-        name: 'User Management',
-        url: '/user-management',
-        icon: 'icon-people'
-      },
+      // {
+      //   name: 'User Management',
+      //   url: '/user-management',
+      //   icon: 'icon-people'
+      // },
+      
       {
         name: 'Notification',
         url: '/notification',
         icon: 'icon-bell'
+      },
+      {
+        name: 'Master Lists',
+        url: '/masterlists',
+        icon: 'icon-notebook'
       },
       {
         name: 'How Do I',

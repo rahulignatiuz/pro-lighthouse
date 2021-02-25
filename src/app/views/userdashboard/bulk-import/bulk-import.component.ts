@@ -17,14 +17,13 @@ export class BulkImportComponent implements OnInit {
     this.getAllBulk();
     this.titleService.setTitle("Lighthouse | Import-History");
     this._baseURL = Constant.baseURL;
-
   }
 
   ngOnInit() {
     this.route.params.subscribe(routeParams => {
       if (routeParams && routeParams.id) {
         let rid = routeParams.id;
-        console.log("importID++", rid);
+       // console.log("importID++", rid);
         this.importID = rid;
         if (this.importID != 0) this.getImportbyid(this.importID);
       }
@@ -39,10 +38,10 @@ export class BulkImportComponent implements OnInit {
   }
   generateErrorFile(ID) {
     this.userService.generateErrorFile(ID).subscribe((data) => {
-      console.log('1', data);
-    //  let url = this._baseURL + '/' + data.result.filePath;
-     // window.open(url);
-      window.location.reload();
+      let url = this._baseURL + '/' + data.result.filePath;
+      window.open(url);
+      this.getAllBulk();
+     // window.location.reload();
     });
 
   }

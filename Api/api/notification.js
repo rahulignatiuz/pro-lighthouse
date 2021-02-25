@@ -95,17 +95,61 @@ router.post("/add", (req, res, next) => {
                 result: err
             });
         } else {
+            NotificationID = addMappingNotifications(obj, data.insertId);
             var status = true, msg = "Successfully added notification";
-            res.status(200).json({
-                status: status,
-                message: msg,
-                result: data
+            NotificationID.then(function (id) {
+                res.status(200).json({
+                    status: status,
+                    message: msg,
+                    result: id
+                });
             });
         }
-
     });
-
 });
+async function addMappingNotifications(obj, NotificationID) {
+    if (obj.Function.length) {
+        await getFunctionCallback(obj.Function, NotificationID);
+    }
+    if (obj.Department.length) {
+        await getDepartmentCallback(obj.Department, NotificationID);
+    }
+    if (obj.Lifecycle.length) {
+        await getLifeCycleCallback(obj.Lifecycle, NotificationID);
+    }
+    if (obj.Impectcategory.length) {
+        await getImpactCategoryCallback(obj.Impectcategory, NotificationID);
+    }
+    if (obj.Impectlevel.length) {
+        await getImpactLevelCallback(obj.Impectlevel, NotificationID);
+    }
+    return NotificationID;
+}
+function getFunctionCallback(Function, NotificationID) {
+    Function.forEach((Functions) => {
+        db.query(Model.addNotificationFunction(NotificationID, Functions.ID), (err, data) => { });
+    });
+}
+function getDepartmentCallback(Department, NotificationID) {
+    Department.forEach((Departments) => {
+        db.query(Model.addNotificationDepartment(NotificationID, Departments.ID), (err, data) => { });
+    });
+}
+function getLifeCycleCallback(LifeCycle, NotificationID) {
+    LifeCycle.forEach((LifeCycles) => {
+        db.query(Model.addNotificationLifecycle(NotificationID, LifeCycles.ID), (err, data) => { });
+    });
+}
+function getImpactCategoryCallback(ImpactCategory, NotificationID) {
+    ImpactCategory.forEach((ImpactCategorys) => {
+        db.query(Model.addNotificationImpactCategory(NotificationID, ImpactCategorys.ID), (err, data) => { });
+    });
+}
+function getImpactLevelCallback(ImpactLevel, NotificationID) {
+    ImpactLevel.forEach((ImpactLevels) => {
+        db.query(Model.addNotificationImpactLevel(NotificationID, ImpactLevels.ID), (err, data) => { });
+    });
+}
 var ifScheduled = true;
 var notificationLessons = [];
 var duration = "";
@@ -273,7 +317,7 @@ async function getNotificationData(notification, duration) {
 function getNotificationDataCallback(notification, duration) {
     return new Promise((resolve, reject) => {
         db.query(Model.getAllNotificationByDataWithLesson(notification, duration), (err, data) => {
-           // let data = result[0];
+            // let data = result[0];
             if (data.length > 0) {
                 return err ? reject(err) : resolve(data);
             }

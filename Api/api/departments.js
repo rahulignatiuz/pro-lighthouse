@@ -38,17 +38,48 @@ router.post('/add', function (req, res) {
     console.log(d)
     //console.log(db.query(Model.addalldepartmentsSQL(d)))
     db.query(Model.AddAllDepartmentsSQL(d), (err, result) => {
-        let results = result[1][0];
+        //let results = result[1][0];
        // console.log("----------------+++++++++++++++", results); 
-        console.log("----------------+++++++++++++++", results);   
+        //console.log("----------------+++++++++++++++", results);   
         // if(results.constructor.name == 'RowDataPacket') { 
         //     console.log("----------------+++++++++++++++", results);          
         // }
-        if (err) {
-            res.send({ status: false, result: results, message: 'not-added' })
-        }
-        else {
-            return res.send({ status: true, data: results, message: 'added' });
+        // if (err) {
+        //     res.send({ status: false, result: results, message: 'not-added' })
+        // }
+        // else {
+        //     return res.send({ status: true, data: results, message: 'added' });
+        // }
+        // if (!err) {
+        //     console.log("----------------+++++++++++++++", results); 
+        //     res.status(200).json({
+        //         status: true,
+        //         message: "Department added successfully.",
+        //         result: results
+        //     });
+        // } else {
+        //     console.log("----------------+++++++++++++++", err, result); 
+        //     res.status(200).json({
+        //         status: false,
+        //         message: "Department not added successfully.",
+        //         result: results
+        //     });
+        // }
+        if (!err) {
+            let results = result[1][0];
+            console.log("----------------+++++++++++++++", results); 
+            res.status(200).json({
+                status: true,
+                message: "Department added successfully.",
+                result: results
+            });
+        } else {
+            console.log("----------------+++++++++++++++", err.sqlMessage); 
+            res.status(200).json({
+                status: false,
+                message: err.sqlMessage,
+                result: err.code
+            });
         }
     })
 });

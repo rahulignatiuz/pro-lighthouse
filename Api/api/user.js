@@ -14,10 +14,7 @@ var transport = nodemailer.createTransport({
         pass: lighthouseJson.SMTP_PASSWORD
     }
 });
-
-
 //http://localhost:6001/api/user
-// router.get("/", middleware.checkToken, (req, res, next) =>{
 router.get("/", (req, res, next) => {
     // console.log(Model.getAllKeywordsSQL());
     db.query(Model.getAllUser(), (err, result) => {
@@ -39,6 +36,119 @@ router.get("/", (req, res, next) => {
         }
     });
 });
+//http://localhost:6001/api/user/ordername
+router.post("/ordername", (req, res, next) => {
+    // console.log(Model.getAllKeywordsSQL());
+    db.query(Model.getAllUserOrderByName(req.body.orderName), (err, result) => {
+        let data = result[0];
+        if (!err) {
+            if (data && data.length > 0) {
+                res.status(200).json({
+                    status: true,
+                    message: "user get successfully.",
+                    result: data
+                });
+            } else {
+                res.status(200).json({
+                    status: false,
+                    message: "user not get.",
+                    result: data
+                });
+            }
+        }
+    });
+});
+//http://localhost:6001/api/user/orderdate
+router.post("/orderdate", (req, res, next) => {
+    // console.log(Model.getAllKeywordsSQL());
+    db.query(Model.getAllUserOrderByDate(req.body.orderDate), (err, result) => {
+        let data = result[0];
+        if (!err) {
+            if (data && data.length > 0) {
+                res.status(200).json({
+                    status: true,
+                    message: "user get successfully.",
+                    result: data
+                });
+            } else {
+                res.status(200).json({
+                    status: false,
+                    message: "user not get.",
+                    result: data
+                });
+            }
+        }
+    });
+});
+//http://localhost:6001/api/user/orderrole
+router.post("/orderrole", (req, res, next) => {
+    // console.log(Model.getAllKeywordsSQL());
+    db.query(Model.getAllUserOrderByRole(req.body.orderRole), (err, result) => {
+
+        let data = result[0];
+        if (!err) {
+            if (data && data.length > 0) {
+                res.status(200).json({
+                    status: true,
+                    message: "user get successfully.",
+                    result: data
+                });
+            } else {
+                res.status(200).json({
+                    status: false,
+                    message: "user not get.",
+                    result: data
+                });
+            }
+        }
+    });
+});
+//http://localhost:6001/api/user/orderstatus
+router.post("/orderstatus", (req, res, next) => {
+    // console.log(Model.getAllKeywordsSQL());
+    db.query(Model.getAllUserOrderByStatus(req.body.orderStatus), (err, result) => {
+
+        let data = result[0];
+        if (!err) {
+            if (data && data.length > 0) {
+                res.status(200).json({
+                    status: true,
+                    message: "user get successfully.",
+                    result: data
+                });
+            } else {
+                res.status(200).json({
+                    status: false,
+                    message: "user not get.",
+                    result: data
+                });
+            }
+        }
+    });
+});
+//http://localhost:6001/api/user/orderure
+router.post("/orderure", (req, res, next) => {
+    // console.log(Model.getAllKeywordsSQL());
+    db.query(Model.getAllUserOrderByURE(req.body.orderURE), (err, result) => {
+
+        let data = result[0];
+        if (!err) {
+            if (data && data.length > 0) {
+                res.status(200).json({
+                    status: true,
+                    message: "user get successfully.",
+                    result: data
+                });
+            } else {
+                res.status(200).json({
+                    status: false,
+                    message: "user not get.",
+                    result: data
+                });
+            }
+        }
+    });
+});
 //http://localhost:6001/api/user/register
 router.post('/register', function (req, res) {
     let obj = {};
@@ -51,7 +161,6 @@ router.post('/register', function (req, res) {
     db.query(Model.getUserIDByEmail(req.body.Email), (err, userDetailsResult) => {
         let userDetails = userDetailsResult[0];
         if (!err) {
-            console.log("*9+-*9+-*9+-", userDetails);
             if (userDetails.length === 0) {
                 //new user logic
                 db.query(Model.userRegistration(obj), (err, userDataResult) => {
@@ -120,13 +229,11 @@ router.post('/account/settings', function (req, res) {
 //http://localhost:6001/api/user/account/delete
 router.post('/account/delete', function (req, res) {
     UserID = req.body.UserID;
-    console.log("failer delete user3 ---------userData[0].Email-------UserID---",UserID);
     db.query(Model.getUserByID(UserID), (err, userDataResult) => {
         let userData = userDataResult[0];
         if (!err) {
-            console.log("failer delete user3 ---------userData[0].Email----------",userData[0].Email);
             db.query(Model.deleteGoogleUser(userData[0].Email), (err, data) => {
-                
+
                 if (!err) {
 
                     db.query(Model.deleteUserSQL(UserID), (err, userData) => {
@@ -138,20 +245,20 @@ router.post('/account/delete', function (req, res) {
                                         status: true,
                                         message: "user delete successfully."
                                     });
-                                }else{
-                                    console.log("failer delete user3 -------------------",err);
+                                } else {
+                                    console.log("failer delete user3 -------------------", err);
                                 }
                             });
                         } else {
-                            console.log("failer delete user2 -------------------",err);
+                            console.log("failer delete user2 -------------------", err);
                             res.status(200).json({
                                 status: false,
                                 message: "user not delete successfully."
                             });
                         }
                     });
-                }else{
-                    console.log("failer delete user -------------------",err);
+                } else {
+                    console.log("failer delete user -------------------", err);
                 }
             });
 

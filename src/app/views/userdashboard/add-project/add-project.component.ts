@@ -42,52 +42,52 @@ export class AddLessonComponent implements OnInit {
   public departmentAsObjects: any;
   public functionAsObjects: any;
   public deletelesson: any;
-  lessonFormbtn: boolean = false;
-  additionalFormbtn: boolean = false;
-  showIssues: boolean = true;
-  showPractice: boolean = false;
-  projectNameValue: string;
-  projectPhaseValue: string;
+  public lessonFormbtn: boolean = false;
+  public additionalFormbtn: boolean = false;
+  public showIssues: boolean = true;
+  public showPractice: boolean = false;
+  public projectNameValue: string;
+  public projectPhaseValue: string;
 
   // projectName: string;
-  projectNumber: string;
-  projectPahse: string;
-  projectPahseMilestone: string;
+  public projectNumber: string;
+  public projectPahse: string;
+  public projectPahseMilestone: string;
 
-  _projectName: string;
-  _projectType: string;
-  _projectPhase: string;
+  public _projectName: string;
+  public _projectType: string;
+  public _projectPhase: string;
 
-  typeoflesson: string;
-  issuedescription: string;
-  title: string;
-  rootcause: string;
-  Recommendation: string;
-  _Keywords: any[] = [];
+  public typeoflesson: string;
+  public issuedescription: string;
+  public title: string;
+  public rootcause: string;
+  public Recommendation: string;
+  public _Keywords: any[] = [];
 
-  impectcategory: string = '';
-  lifecycle: string = '';
-  impectlevel: string = '';
+  public impectcategory: string = '';
+  public lifecycle: string = '';
+  public impectlevel: string = '';
 
-  lessonForm: FormGroup;
-  isSubmitted = false;
-  errForms: boolean = false;
-  uploadedFiles: Array<File>;
-  isProject: boolean = true;
-  isProcess: boolean = false;
-  projectNumberDisabled: boolean;
-  lf: string;
-  results: any[];
-  isupdate: boolean = false;
-  lessonID: number;
-  _projectname: String;
-  URLlessonID: number;
-  _projectphasemilestone: string;
-  attachmentFiles;
-  attachmentID: number;
-  keywordArr: any;
-  showLoader: boolean = false;
-  LPN: string;
+  public lessonForm: FormGroup;
+  public isSubmitted = false;
+  public errForms: boolean = false;
+  public uploadedFiles: Array<File>;
+  public isProject: boolean = true;
+  public isProcess: boolean = false;
+  public projectNumberDisabled: boolean;
+  public lf: string;
+  public results: any[];
+  public isupdate: boolean = false;
+  public lessonID: number;
+  public _projectname: String;
+  public URLlessonID: number;
+  public _projectphasemilestone: string;
+  public attachmentFiles;
+  public attachmentID: number;
+  public keywordArr: any;
+  public showLoader: boolean = false;
+  public LPN: string;
   public dropdownSettings: IDropdownSettings = {};
   public lessontypeAsObjects: any;
   public bulkAttachment: File = null;
@@ -97,6 +97,7 @@ export class AddLessonComponent implements OnInit {
   public xlFileNameWithoutExt: string;
   public bulkErrorCount: number = 0;
   public importID: number = 0;
+  public somethingMissingError: boolean = false;
 
   //columns: any[] = [];
 
@@ -204,30 +205,36 @@ export class AddLessonComponent implements OnInit {
   }
 
   addBulk(e) {
-    var bulkuploadvalue = document.getElementById('remove'); 
-    bulkuploadvalue.style.display="flex";
+    var bulkuploadvalue = document.getElementById('remove');
+    bulkuploadvalue.style.display = "flex";
     console.log(e.value);
-    if(e.value != ""){
-    e.value = '';
-    var bulkuploadvalue = document.getElementById('remove'); 
-    bulkuploadvalue.style.display= "none";
-    this.bulkimport.hide();
-    this.bulkImporing = true;
-    const formData = new FormData();
-    this.xlFileNameWithoutExt = this.bulkAttachment.name.split('.').slice(0, -1).join('.');
-    let User: any = JSON.parse(localStorage.getItem('currentUser'));
-    formData.append('bulkcsv', this.bulkAttachment);
-    formData.append('UserID', User.ID);
-    this.userService.uploadbulkFile(formData).subscribe((data) => {
-      if (data.status) {
-        this.bulkErrorCount = data.result.errorCount;
-        this.importID = data.result.importID
-        this.bulkImporing = false;
-        this.bulkImportSuccess = true;
-      }
-      // document.getElementById('id04').style.display='none';
-    });
-  }
+    if (e.value != "") {
+      e.value = '';
+      var bulkuploadvalue = document.getElementById('remove');
+      bulkuploadvalue.style.display = "none";
+      this.bulkimport.hide();
+      this.bulkImporing = true;
+      this.somethingMissingError = false;
+      const formData = new FormData();
+      this.xlFileNameWithoutExt = this.bulkAttachment.name.split('.').slice(0, -1).join('.');
+      let User: any = JSON.parse(localStorage.getItem('currentUser'));
+      formData.append('bulkcsv', this.bulkAttachment);
+      formData.append('UserID', User.ID);
+      this.userService.uploadbulkFile(formData).subscribe((data) => {
+        if (data.status) {
+          this.bulkErrorCount = data.result.errorCount;
+          this.importID = data.result.importID
+          this.bulkImporing = false;
+          this.bulkImportSuccess = true;
+          this.somethingMissingError = false;
+        } else {
+          this.bulkImportSuccess = false;
+          this.bulkImporing = false;
+          this.somethingMissingError = true;
+        }
+        // document.getElementById('id04').style.display='none';
+      });
+    }
   }
 
 
@@ -236,6 +243,10 @@ export class AddLessonComponent implements OnInit {
   }
   bulkImportSuccessClose() {
     this.bulkImportSuccess = false;
+  }
+  somethingMissingErrorClose() {
+    this.somethingMissingError = false;
+
   }
   gotoBuklImport(importID) {
     this.router.navigate(['/user/bulk-import/' + importID]);
@@ -554,7 +565,7 @@ export class AddLessonComponent implements OnInit {
       Keywords: this._Keywords,
       Recommendation: this.Recommendation,
       CreatedBy: _user.ID,
-      LPN:this.projectNumber,
+      LPN: this.projectNumber,
       IsEnabled: 1
     };
     this.isupdate = false;
@@ -591,6 +602,7 @@ export class AddLessonComponent implements OnInit {
   onSubmit(form: NgForm) {
     this.addLesson(form)
   }
+  
 }
 
 // export class Column {
