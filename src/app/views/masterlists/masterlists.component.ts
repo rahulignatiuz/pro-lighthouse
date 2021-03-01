@@ -771,7 +771,7 @@ export class MasterlistsComponent implements OnInit {
      
 
         this.milestoneid = data.data.insertId;
-
+        this.reloadfunction();
         // this.userService.Addmilestones(data).subscribe((data) => { });
        // console.log(this.milestoneid)
        
@@ -795,7 +795,7 @@ export class MasterlistsComponent implements OnInit {
       // console.log(data.data.insertId)
       this.milestonesAsobject = data.result;
     });
-    this.reloadfunction();
+  
   
   }
 
@@ -1701,8 +1701,19 @@ export class MasterlistsComponent implements OnInit {
 
   }
   updateprocess(ID,Indexing){
+    
     this.userService.updateprocess(ID,Indexing).subscribe((data) => {
+      if (data.status) {
       this.updateprocessAsObjects = data.result;
+      }
+      else{
+        if(data.result == "ER_DUP_ENTRY"){
+          document.getElementById('id22858888').style.display='none';
+          document.getElementById('id33322222').style.display='block';
+          console.log('5555555555555555555555555555',data);
+        }
+     
+      }
     });
   }
   getidinurl(ID) {

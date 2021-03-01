@@ -417,11 +417,18 @@ export class AddProcessComponent implements OnInit {
 
     });
   }
+  remove(){
+    var x = document.getElementById("id202");
+    x.classList.remove("top3");
+    
+  }
 
   public tabChange(index) {
     this.projectTab = false;
     this.lessonTab = false;
     this.additionalTab = false;
+    var x = document.getElementById("id202");
+    x.classList.add("top3");
 
     this.projectdTab = true;
     this.lessondTab = true;

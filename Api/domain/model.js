@@ -1289,5 +1289,16 @@ class User {
         // ORDER BY  ul.EmailNotification ${orderURE};`;
         return sql;
     }
+
+    static getuserusefulbylessonID(ID) {
+        //let sql = Call  getdepartmentsbyid(${ID});
+        let sql = 	`select * from lighthouse.userusefullesson  where LessonID='${ID}'`;
+        return sql;
+    }
+    static updateflag (p) {
+        //let sql = call updateProjectsSQL('${p.LPN}',${p.ID});
+        let sql = `update lighthouse.userusefullesson SET flag ='${p.flag}', Description='${p.Description}' where ID='${p.ID}'`;
+        return sql;
+    }
 }
 module.exports = User;

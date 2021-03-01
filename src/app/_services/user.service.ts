@@ -490,4 +490,10 @@ export class UserService {
     return this.http.post<any>(`${this._baseURL}/user/orderure`, { orderURE: orderURE });
 
   }
+  getallflags(LessonID){
+    return this.http.post<any>(`${this._baseURL}/userusefullesson/lessonid`,{ID:LessonID});
+  }
+  updateflag(flagID,flag,title){
+    return this.http.post<any>(`${this._baseURL}/userusefullesson/updateflag`,{ID:flagID,flag:flag,Description: title});
+  }
 }

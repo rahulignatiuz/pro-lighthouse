@@ -200,3 +200,15 @@
     text-decoration: underline;
     
   }
+
+  .removecss{
+    cursor: not-allowed !important;
+    background-color: rgb(80, 82, 82) !important;
+    color:white;
+    border-color: rgb(80, 82, 82) !important;
+  }
+  .urlid{
+    color: #ffffff;
+    font-weight: 500;
+    font-size: 20px;
+  }

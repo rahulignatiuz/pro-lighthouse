@@ -19,8 +19,9 @@
    <div class="col-lg-12">
       <div class="card">
          <div class="card-header">
-            <span class="centerposition">
-               <i class="icon-plus"></i> Record a new process lesson
+            <span class="centerposition" id="id202">
+               <!-- <i class="icon-plus"></i>  -->
+               Record a new process lesson
             </span>
             <button class="btn btn-primary borderbtn float-right" type="button" (click)="importBulkFileHistory()">
                History <i class="fa fa-history"></i></button>
@@ -301,9 +302,9 @@
                               </div>
                            </div>
                            <div class="form-actions col-sm-12 text-right">
-                              <button class="btn btn-secondary borderbtn" type="button" (click)="tabChange(1)"><i
+                              <button class="btn btn-secondary borderbtn" type="button" (click)="tabChange(1);remove();"><i
                                     class="fa fa-angle-double-left"></i> Back</button>
-                              <button class="btn btn-primary borderbtn" type="button" (click)="tabChange(3)"
+                              <button class="btn btn-primary borderbtn" type="button" (click)="tabChange(3);remove();"
                                  [disabled]="(!processFormControls._Keywords.value || !processFormControls.issuedescription.value || !processFormControls.title.value || !processFormControls.Recommendation.value || !processFormControls.typeoflesson.value || !processFormControls.rootcause.value)">Next
                                  <i class="fa fa-angle-double-right"></i></button>
                            </div>
@@ -386,9 +387,9 @@
                               </div>
                            </div>
                            <div class="form-actions col-sm-12 text-right">
-                              <button class="btn btn-secondary borderbtn" type="button" (click)="tabChange(1)"><i
+                              <button class="btn btn-secondary borderbtn" type="button" (click)="tabChange(1);remove();"><i
                                     class="fa fa-angle-double-left"></i> Back</button>
-                              <button class="btn btn-primary borderbtn" type="button" (click)="tabChange(3)"
+                              <button class="btn btn-primary borderbtn" type="button" (click)="tabChange(3);remove();"
                                  [disabled]="( !processFormControls._Keywords.value || !processFormControls.issuedescription.value || !processFormControls.title.value || !processFormControls.Recommendation.value || !processFormControls.typeoflesson.value)">Next
                                  <i class="fa fa-angle-double-right"></i></button>
                            </div>

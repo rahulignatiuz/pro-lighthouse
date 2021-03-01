@@ -67,7 +67,8 @@ export class lessonComponent implements OnInit {
       if (routeParams && routeParams.id) {
         let rid = routeParams.id;
         this.URLlessonID = rid;
-         this.getlessonbyid(this.URLlessonID);
+        this.getlessonbyid(this.URLlessonID);
+        //  this.getflag(this.URLlessonID);
       }
     });
     this.iconhide();
@@ -118,7 +119,7 @@ export class lessonComponent implements OnInit {
       // }
 
       this.userService.checkUserLike(ID, this.UserID).subscribe((data) => {
-        console.log("121212121",data);
+        console.log("121212121", data);
         if (data.status) {
           this.toggle = !this.toggle;
         } else {
@@ -146,15 +147,27 @@ export class lessonComponent implements OnInit {
   }
   adduserusefullesson(LessonID, UserID, data, title: string) {
 
-    //console.log('212',title)
-    // var x = document.getElementById("myDIV");
-
-    this.userService.adduserusefullesson(LessonID, UserID, title).subscribe((data) => {
-      this.getuserusefullesson = data.result;
-      console.log(data);
+    this.userService.getallflags(LessonID).subscribe((data) => {
+      this.results = data.result;
+      let flag = data.data[0].flag;
+      let flagID = data.data[0].ID;
+      console.log('45544444444444444444', data.data[0].ID, data.data[0].flag);
+      if (flag == 0) {
+        flag = 1;
+        this.userService.updateflag(flagID, flag, title).subscribe((data) => {
+          this.results = data.result;
+          console.log('services for flag 0', data);
+        });
+      }else {
+        this.userService.adduserusefullesson(LessonID, UserID, title).subscribe((data) => {
+          this.getuserusefullesson = data.result;
+          console.log(data);
+        });
+      }
     });
 
-
+    //console.log('212',title)
+    // var x = document.getElementById("myDIV");
     document.getElementById("id01").style.display = "none";
     window.location.reload();
 
@@ -168,21 +181,21 @@ export class lessonComponent implements OnInit {
     document.getElementById("IDLESSON1").style.display = "none";
     document.getElementById("IDLESSON3").style.display = "none";
 
-    // this.userService.adduserusefullessonforNo(LessonID, UserID, data, title).subscribe((data) => {
-    //   this.getuserusefullesson = data.result;
-    //   console.log(data);
-    // });
+    this.userService.adduserusefullessonforNo(LessonID, UserID, data, title).subscribe((data) => {
+      this.getuserusefullesson = data.result;
+      console.log(data);
+    });
 
 
     document.getElementById("id01").style.display = "none";
   }
   adduserlikes(lessonid, UserID, Likes) {
- 
+
 
     this.userService.adduserlikes(lessonid, UserID, Likes).subscribe((data) => {
-      console.log("data***************--------",data);
-      console.log("data.result***************--------",data.result);
-     // console.log(data,data.result[0].ID);
+      console.log("data***************--------", data);
+      console.log("data.result***************--------", data.result);
+      // console.log(data,data.result[0].ID);
       if (data.status) {
         console.log(data.result);
         this.getuserlikes = data.result;
@@ -217,8 +230,14 @@ export class lessonComponent implements OnInit {
 
   }
   sendit(data) {
-    //console.log("Value",data)
+    // console.log("Value",data)
     var x = document.getElementById("iditem");
+    if(data.length > 0){
+      x.classList.remove("removecss");
+    }else{
+      x.classList.add("removecss");
+
+    }
     if (x.onclick) {
       //this.adduserusefullesson(this.LessonID,this.UserID,data);
     }
@@ -239,6 +258,23 @@ export class lessonComponent implements OnInit {
     if (id == 3) {
       this.show = false;
     }
+  }
+  getflag(URLlessonID, title: string) {
+    //  debugger;
+    console.log('55546499444444444444444496465', URLlessonID);
+    this.userService.getallflags(URLlessonID).subscribe((data) => {
+      this.results = data.result;
+      let flag = data.data[0].flag;
+      let flagID = data.data[0].ID;
+      console.log('45544444444444444444', data.data[0].ID, data.data[0].flag);
+      if (flag == 0) {
+        flag = 1;
+        this.userService.updateflag(flagID, flag, title).subscribe((data) => {
+          this.results = data.result;
+          console.log('services for flag 0', data);
+        });
+      }
+    });
   }
 
 }

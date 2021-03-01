@@ -7,8 +7,11 @@
     <div class="container1">
       <div class="card">
         <div class="card-header " style="background-color: #0f69c4;">
-          <label for="fname" class="start" style="margin-top: -14px; color: white;">{{title}}</label>
+          <label for="fname" class="start" style="margin-top: -14px; color: white;">{{title}} </label>
 
+          <span class="float-right urlid" >
+            {{URLlessonID}}
+          </span>
         </div>
         <div class="row" style="margin-top: 2%;"></div>
         <div class="row">
@@ -73,8 +76,8 @@
           <div class="col-md-3">
             <label for="fname" class="start">Keywords Name</label>
           </div>
-          <p class="start col"><span
-              *ngFor="let keyword of keyName; let isLast=last">{{keyword.Name}}{{isLast ? '' : ', '}}</span></p>
+          <p class="start col"><span *ngFor="let keyword of keyName; let isLast=last">{{keyword.Name}}{{isLast ? '' : ',
+              '}}</span></p>
 
           <div class="col-md-3">
             <label for="fname" class="start">Impact Category</label>
@@ -206,7 +209,7 @@
         <button type="button" onclick="document.getElementById('id01').style.display='none'"
           style="border-radius: 4px;margin-left: 10px" class="cancelbtn btn btn-primary float-right">Cancel</button>
         <button type="button" (click)="adduserusefullesson(LessonID,UserID,data,titleInput.value)"
-          style="border-radius: 4px;" class="btn btn-primary float-right" id="iditem">Submit</button>
+          style="border-radius: 4px;" class="btn btn-primary float-right removecss" id="iditem">Submit</button>
 
 
       </div>

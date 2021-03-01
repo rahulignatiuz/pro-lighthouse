@@ -19,8 +19,9 @@
    <div class="col-lg-12">
       <div class="card">
          <div class="card-header">
-            <span class="centerposition">
-               <i class="icon-plus"></i> Record a new project lesson
+            <span class="centerposition" id="id202">
+               <!-- <i class="icon-plus"></i> -->
+                Record a new project lesson
    
               </span>
             <button class="btn btn-primary borderbtn float-right" type="button" (click)="importBulkFileHistory()">
@@ -275,7 +276,7 @@
                            </div>
                            <div class="form-actions col-sm-12 text-right">
                               <button class="btn btn-primary borderbtn" type="button" (click)="tabChange(2)"
-                                 [disabled]="(!formControls._projectType.value || !formControls._projectname.value || !formControls._projectPhase.value || !formControls._projectphasemilestone.value || !formControls.function.value|| !formControls.department.value)">Next <i class="fa fa-angle-double-right"></i></button>
+                                 [disabled]="(!formControls._projectType.value || !formControls._projectname.value || !formControls._projectPhase.value || !formControls._projectphasemilestone.value || !formControls.function.value|| !formControls.department.value || !formControls.lifecycle.value)">Next <i class="fa fa-angle-double-right"></i></button>
                            </div>
                         </div>
                      </tab>
@@ -462,8 +463,8 @@
                            </div>
                            <div class="form-actions col-sm-12 text-right">
                               <button class="btn btn-secondary borderbtn" type="button"
-                                 (click)="tabChange(1)"><i class="fa fa-angle-double-left"></i> Back</button>
-                              <button class="btn btn-primary borderbtn" type="button" (click)="tabChange(3)"
+                                 (click)="tabChange(1);remove();"><i class="fa fa-angle-double-left"></i> Back</button>
+                              <button class="btn btn-primary borderbtn" type="button" (click)="tabChange(3);remove();"
                                  [disabled]="( lessonForm.controls['_Keywords'].invalid || !formControls.title.value || !formControls.typeoflesson.value || !formControls.issuedescription.value || !formControls.Recommendation.value || !formControls.rootcause.value )">Next <i class="fa fa-angle-double-right"> </i></button>
 
                            </div>
@@ -546,8 +547,8 @@
                            </div>
                            <div class="form-actions col-sm-12 text-right">
                               <button class="btn btn-secondary borderbtn" type="button"
-                                 (click)="tabChange(1)"><i class="fa fa-angle-double-left"></i> Back</button>
-                              <button class="btn btn-primary borderbtn" type="button" (click)="tabChange(3)"
+                                 (click)="tabChange(1);remove();"><i class="fa fa-angle-double-left"></i> Back</button>
+                              <button class="btn btn-primary borderbtn" type="button" (click)="tabChange(3);remove();"
                                  [disabled]="(lessonForm.controls['_Keywords'].invalid || !formControls.title.value ||  !formControls.typeoflesson.value || !formControls.issuedescription.value || !formControls.Recommendation.value )">Next <i class="fa fa-angle-double-right"> </i></button>
                            </div>
                         </div>
@@ -853,6 +854,8 @@
                   <input #fileInput type="file" (change)="onFileChangeBulkProject($event)"
                      (click)="fileInput.value = null" class="custom-file-input" 
                      accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
+                     <input type="file" id="fname" name="fname"><br><br>
+
                      <p id=remove style="display: none; color: red;">Please Choose file</p>
                   <label class="custom-file-label" for="customFile">{{xlFileName ? xlFileName : 'Choose file'}}</label>
                </div>

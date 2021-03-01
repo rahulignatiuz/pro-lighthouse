@@ -49,7 +49,7 @@ export class LessonProcessComponent implements OnInit {
   keyName: string;
   getuserusefullesson: string;
   data: any;
-  sendit: any;
+  // sendit: any;
   showuseruseful: boolean = true;
   useruseful: string;
   show: boolean = true;
@@ -71,6 +71,7 @@ export class LessonProcessComponent implements OnInit {
     this.iconhide();
   }
 
+  
   getUserLessons() {
     this.userService.getUserLessons().subscribe((data) => {
       this.results = data.result;
@@ -147,17 +148,45 @@ export class LessonProcessComponent implements OnInit {
     this.toggle = !this.toggle;
     this.status = this.toggle ? '' : '';
   }
+  // adduserusefullesson(LessonID, UserID, data, title: string) {
+
+  //   //console.log('212',title)
+  //   // var x = document.getElementById("myDIV");
+
+  //   this.userService.adduserusefullesson(LessonID, UserID, title).subscribe((data) => {
+  //     this.getuserusefullesson = data.result;
+  //     console.log(data);
+  //   });
+
+
+  //   document.getElementById("id01").style.display = "none";
+  //   window.location.reload();
+
+  // }
+
   adduserusefullesson(LessonID, UserID, data, title: string) {
+
+    this.userService.getallflags(LessonID).subscribe((data) => {
+      this.results = data.result;
+      let flag = data.data[0].flag;
+      let flagID = data.data[0].ID;
+      console.log('45544444444444444444', data.data[0].ID, data.data[0].flag);
+      if (flag == 0) {
+        flag = 1;
+        this.userService.updateflag(flagID, flag, title).subscribe((data) => {
+          this.results = data.result;
+          console.log('services for flag 0', data);
+        });
+      }else {
+        this.userService.adduserusefullesson(LessonID, UserID, title).subscribe((data) => {
+          this.getuserusefullesson = data.result;
+          console.log(data);
+        });
+      }
+    });
 
     //console.log('212',title)
     // var x = document.getElementById("myDIV");
-
-    this.userService.adduserusefullesson(LessonID, UserID, title).subscribe((data) => {
-      this.getuserusefullesson = data.result;
-      console.log(data);
-    });
-
-
     document.getElementById("id01").style.display = "none";
     window.location.reload();
 
@@ -171,10 +200,10 @@ export class LessonProcessComponent implements OnInit {
     document.getElementById("IDLESSON1").style.display = "none";
     document.getElementById("IDLESSON3").style.display = "none";
 
-    // this.userService.adduserusefullessonforNo(LessonID, UserID, data, title).subscribe((data) => {
-    //   this.getuserusefullesson = data.result;
-    //   console.log(data);
-    // });
+    this.userService.adduserusefullessonforNo(LessonID, UserID, data, title).subscribe((data) => {
+      this.getuserusefullesson = data.result;
+      console.log(data);
+    });
 
 
     document.getElementById("id01").style.display = "none";
@@ -189,6 +218,23 @@ export class LessonProcessComponent implements OnInit {
       this.show = false;
     }
   }
+
+  sendit(data) {
+    // console.log("Value",data)
+    var x = document.getElementById("iditem");
+    if(data.length > 0){
+      x.classList.remove("removecss");
+    }else{
+      x.classList.add("removecss");
+
+    }
+    if (x.onclick) {
+      //this.adduserusefullesson(this.LessonID,this.UserID,data);
+    }
+
+  }
+
+  
 }
 
 

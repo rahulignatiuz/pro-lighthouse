@@ -402,6 +402,8 @@ export class AddLessonComponent implements OnInit {
     this.getMappingProjectTypeAndProject(e.target.value);
     this.getMappingProjectTypeAndPhase(e.target.value);
     this.getMappingProjectAndMilestone(e.target.value);
+    const a = document.getElementsByClassName("ng2-tag-input__text-input")[0];
+    a.classList.add("mystyle");
 
 
   }
@@ -478,7 +480,17 @@ export class AddLessonComponent implements OnInit {
     });
   }
 
+  remove(){
+    var x = document.getElementById("id202");
+    x.classList.remove("top3");
+    
+  }
+
   public tabChange(index) {
+
+    var x = document.getElementById("id202");
+    x.classList.add("top3");
+
     this.projectTab = false;
     this.lessonTab = false;
     this.additionalTab = false;

@@ -100,4 +100,36 @@ router.post("/puserlessonchart", (req, res, next) => {
         }
     });
 });
+
+
+//http://localhost:6001/api/userusefullesson/lessonid
+router.post("/lessonid", (req, res, next) => {
+    ID = req.body.ID;
+    db.query(Model.getuserusefulbylessonID(ID), (err,results,data)=>{
+        if(err) {
+            //console.log(err)
+            res.send({status:false,result:results,message:'no-data'});                        
+        } else {
+            return res.send({ status: true, data: results, message: 'data' });   
+        }
+
+    });
+});
+
+//http://localhost:6001/api/userusefullesson/updateflag
+router.post("/updateflag",(req, res, next) => {
+    var p ={};
+    p.flag = req.body.flag;
+    p.ID = req.body.ID;
+    p.Description = req.body.Description;	                         
+    
+    db.query(Model.updateflag(p),(err,results)=>{
+        if(err) {	
+           // console.log(err)		                         
+            res.send({status:false,result:results,message:'not-updated'});                        
+        } else {
+            return res.send({ status: true, data: results, message: 'Updated' });   
+        }
+    })
+});
 module.exports = router; 
