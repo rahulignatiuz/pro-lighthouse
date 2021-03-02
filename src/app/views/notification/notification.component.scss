@@ -40,6 +40,21 @@ td  {
   .nohover:hover{
     cursor:default !important;
   }
+  a.delete{
+
+    color:#ff0000
+  }
+  .modal.fade.bd-example-modal-lg{
+    overflow-x: hidden;
+    overflow-y: hidden;
+  }
+  .forms{
+    width: 33%;
+    height: auto;
+    left: 36%;
+    top: 15%;
+    padding: 15px;
+  }
   .centerposition{
     position: absolute;
     top: 4%

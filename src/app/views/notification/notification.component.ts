@@ -55,11 +55,12 @@ export class NotificationComponent implements OnInit {
   public isSubmitted: boolean = false;
   public user: any = JSON.parse(localStorage.getItem('currentUser'));
   public email: string = this.user.Email;
+  public isSuccessAddNotification: boolean = false;
   @ViewChild('notificationModal', { static: false }) public notificationModal: ModalDirective;
   @ViewChild('deleteNotification', { static: false }) public deleteNotification: ModalDirective;
   @ViewChild('notificationEditModal', { static: false }) public notificationEditModal: ModalDirective;
   constructor(private formBuilder: FormBuilder, private userService: UserService) {
-    
+
     this.getAllNotification();
     this.getdepartments();
     this.getcategories();
@@ -118,6 +119,26 @@ export class NotificationComponent implements OnInit {
     this.projectPhaseEdit = 0;
     this.processEdit = 0;
     this.projectphasemilestoneEdit = 0;
+  }
+  refreshNotification(){
+    this.notificationType = "Project";
+    this.department = 0;
+    this.impectlevel = 0;
+    this.impectcategory = 0;
+    this.process = 0;
+    this.projectType = 0;
+    this.projectPhase = 0;
+    this.projectphasemilestone = 0;
+    this.projectname = 0;
+    this.lifecycle = 0;
+    this.function = 0;
+    //this.frequency = null;
+    this.projectTypeEdit = 0;
+    this.projectnameEdit = 0;
+    this.projectPhaseEdit = 0;
+    this.processEdit = 0;
+    this.projectphasemilestoneEdit = 0;
+    this.isSubmitted = false;
   }
   onselectProjecttype(e) {
     this.getMappingProjectTypeAndProject(this.projectType);
@@ -221,11 +242,14 @@ export class NotificationComponent implements OnInit {
     });
   }
   addNotificationBtn() {
-
     this.notificationModal.show();
+    this.isSuccessAddNotification = false;
   }
   hideNotificationModul() {
     this.notificationModal.hide();
+  }
+  closeSuccessPop(){
+    this.isSuccessAddNotification = false; 
   }
   hideNotificationEditModul() {
     this.notificationEditModal.hide();
@@ -234,6 +258,7 @@ export class NotificationComponent implements OnInit {
   get notificationFormControls() { return this.notificationForm.controls; }
   notificationEdit(notifi) {
     console.log(" notifi.Phase-------", this.departmentEdit);
+     this.isSuccessAddNotification = false; 
     if (notifi.ProjectTypeID) {
       this.notificationEditType = "Project";
       this.projectTypeEdit = notifi.ProjectTypeID;
@@ -340,13 +365,19 @@ export class NotificationComponent implements OnInit {
       Frequency: this.frequency,
       IsEnabled: 1
     }
-   // console.log("---------*******", this.notificationForm.valid, this.notificationForm.controls['frequency'].valid);
+    // console.log("---------*******", this.notificationForm.valid, this.notificationForm.controls['department'].valid);
     if (this.notificationForm.valid) {
-      this.userService.addNotification(obj).subscribe((data) => {
-        if (data.status) {
-          window.location.reload();
-        }
-      });
+     
+        console.log("++++++++++++++++++++---------------IF");
+        this.userService.addNotification(obj).subscribe((data) => {
+          if (data.status) {
+            this.notificationModal.hide();
+            this.getAllNotification();
+            this.refreshNotification();
+            this.isSuccessAddNotification = true;
+           // window.location.reload();
+          }
+        });
     }
   }
   editNotification() {

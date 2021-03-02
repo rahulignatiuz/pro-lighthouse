@@ -20,10 +20,9 @@
       <div class="card">
          <div class="card-header">
             <span class="centerposition" id="id202">
-               <!-- <i class="icon-plus"></i> -->
-                Record a new project lesson
-   
-              </span>
+               <!-- <i class="icon-plus"></i>  -->
+               Record a new process lesson
+            </span>
             <button class="btn btn-primary borderbtn float-right" type="button" (click)="importBulkFileHistory()">
                History <i class="fa fa-history"></i></button>
             <button class="btn btn-primary borderbtn float-right" type="button" (click)="importBulkFile()">Import <i
@@ -60,7 +59,7 @@
                                        *ngIf="lessonForm.controls['_projectType'].invalid && (lessonForm.controls['_projectType'].dirty || lessonForm.controls['_projectType'].touched)"
                                        class="custom-errMsg">
                                        <div *ngIf="lessonForm.controls['_projectType'].errors.required">
-                                          Project type is required.
+                                          Project Type is required.
                                        </div>
                                     </div>
                                  </div>
@@ -234,15 +233,16 @@
                                     </select> -->
                                     <ng-multiselect-dropdown class="selectdiv cssformultiselect"
                                        [placeholder]="'Select Functions'" [data]="functionAsObjects"
+                                       (click)="onClickFunction()" (onSelect)="onFunctionSelect()"
                                        formControlName="function" [(ngModel)]="function" [settings]="dropdownSettings">
                                     </ng-multiselect-dropdown>
-                                    <!-- <div
-                                       *ngIf="lessonForm.controls['function'].invalid && (lessonForm.controls['function'].dirty || lessonForm.controls['function'].touched)"
+                                    <!-- <div>{{lessonForm.controls['function'].invalid}}</div> -->
+                                    <div *ngIf="lessonForm.controls['function'].invalid && isClickFunction"
                                        class="custom-errMsg">
                                        <div *ngIf="lessonForm.controls['function'].errors.required">
                                           Function is required.
                                        </div>
-                                    </div> -->
+                                    </div>
                                  </div>
                               </div>
                            </div>
@@ -262,21 +262,22 @@
                                     <ng-multiselect-dropdown class="selectdiv cssformultiselect"
                                        [placeholder]="'Select Departments'" [data]="departmentAsObjects"
                                        formControlName="department" [(ngModel)]="department"
+                                       (click)="onClickDepartment()" (onSelect)="onDepartmentSelect()"
                                        [settings]="dropdownSettings">
                                     </ng-multiselect-dropdown>
-                                    <!-- <div
-                                       *ngIf="lessonForm.controls['department'].invalid && (lessonForm.controls['department'].dirty || lessonForm.controls['department'].touched)"
+                                    <div *ngIf="lessonForm.controls['department'].invalid && isClickDepartment"
                                        class="custom-errMsg">
                                        <div *ngIf="lessonForm.controls['department'].errors.required">
                                           Department is required.
                                        </div>
-                                    </div> -->
+                                    </div>
                                  </div>
                               </div>
                            </div>
                            <div class="form-actions col-sm-12 text-right">
                               <button class="btn btn-primary borderbtn" type="button" (click)="tabChange(2)"
-                                 [disabled]="(!formControls._projectType.value || !formControls._projectname.value || !formControls._projectPhase.value || !formControls._projectphasemilestone.value || !formControls.function.value|| !formControls.department.value || !formControls.lifecycle.value)">Next <i class="fa fa-angle-double-right"></i></button>
+                                 [disabled]="(!formControls._projectType.value || !formControls._projectname.value || !formControls._projectPhase.value || !formControls._projectphasemilestone.value || !formControls.function.value|| !formControls.lifecycle.value || !formControls.department.value)">Next
+                                 <i class="fa fa-angle-double-right"></i></button>
                            </div>
                         </div>
                      </tab>
@@ -341,23 +342,20 @@
                                  <div class="form-group row">
                                     <label class="col-md-3 col-form-label" for="textarea-input">Description <span
                                           class="danger">*</span></label>
-                                    
-
                                     <div class="col-md-9">
                                        <textarea class="form-control" (blur)="lessonFormFields()" id="textarea-input"
                                           [(ngModel)]="issuedescription"
                                           [ngClass]="{'has-error is-invalid': isSubmitted && formControls.issuedescription.errors }"
-                                          formControlName="issuedescription" placeholder="Description"  [maxlength]="maxChars"
-                                          rows="6" #description ></textarea>
-                                          <label class="float-left remaning" >{{description.value.length}}/{{maxChars}}</label>
+                                          formControlName="issuedescription" placeholder="Description"
+                                          [maxlength]="maxChars" rows="6" #description></textarea>
+                                       <label
+                                          class="float-left remaning">{{description.value.length}}/{{maxChars}}</label>
                                        <div
                                           *ngIf="lessonForm.controls['issuedescription'].invalid && (lessonForm.controls['issuedescription'].dirty || lessonForm.controls['issuedescription'].touched)"
                                           class="custom-errMsg float-right">
                                           <div *ngIf="lessonForm.controls['issuedescription'].errors.required">
-                                             
                                              Description is required.
                                           </div>
-
                                           <div *ngIf="lessonForm.controls['issuedescription'].errors.maxlength">
                                              Maximum character is 250 !!!
                                           </div>
@@ -373,9 +371,8 @@
                                        <textarea class="form-control" (blur)="lessonFormFields()" id="textarea-input"
                                           [ngClass]="{'has-error is-invalid': isSubmitted && formControls.rootcause.errors }"
                                           [(ngModel)]="rootcause" formControlName="rootcause"
-                                          placeholder="Root cause..." rows="6" maxlength="250"
-                                          #root></textarea>
-                                          <label class="float-left remaning" >{{root.value.length}}/{{maxChars}}</label>
+                                          placeholder="Root cause..." rows="6" maxlength="250" #root></textarea>
+                                       <label class="float-left remaning">{{root.value.length}}/{{maxChars}}</label>
 
                                        <div
                                           *ngIf="lessonForm.controls['rootcause'].invalid && (lessonForm.controls['rootcause'].dirty || lessonForm.controls['rootcause'].touched)"
@@ -397,9 +394,9 @@
                                           [(ngModel)]="Recommendation"
                                           [ngClass]="{'has-error is-invalid': isSubmitted && formControls.Recommendation.errors }"
                                           formControlName="Recommendation" placeholder="Recommendation..." rows="6"
-                                          maxlength="250"
-                                          #recommendation></textarea>
-                                          <label class="float-left remaning" >{{recommendation.value.length}}/{{maxChars}}</label>
+                                          maxlength="250" #recommendation></textarea>
+                                       <label
+                                          class="float-left remaning">{{recommendation.value.length}}/{{maxChars}}</label>
 
                                        <div
                                           *ngIf="lessonForm.controls['Recommendation'].invalid && (lessonForm.controls['Recommendation'].dirty || lessonForm.controls['Recommendation'].touched)"
@@ -462,10 +459,11 @@
                               </div>
                            </div>
                            <div class="form-actions col-sm-12 text-right">
-                              <button class="btn btn-secondary borderbtn" type="button"
-                                 (click)="tabChange(1);remove();"><i class="fa fa-angle-double-left"></i> Back</button>
+                              <button class="btn btn-secondary borderbtn" type="button" (click)="tabChange(1);remove();"><i
+                                    class="fa fa-angle-double-left"></i> Back</button>
                               <button class="btn btn-primary borderbtn" type="button" (click)="tabChange(3);remove();"
-                                 [disabled]="( lessonForm.controls['_Keywords'].invalid || !formControls.title.value || !formControls.typeoflesson.value || !formControls.issuedescription.value || !formControls.Recommendation.value || !formControls.rootcause.value )">Next <i class="fa fa-angle-double-right"> </i></button>
+                                 [disabled]="( lessonForm.controls['_Keywords'].invalid || !formControls.title.value || !formControls.typeoflesson.value || !formControls.issuedescription.value || !formControls.Recommendation.value || !formControls.rootcause.value )">Next
+                                 <i class="fa fa-angle-double-right"> </i></button>
 
                            </div>
                         </div>
@@ -481,7 +479,8 @@
                                           [ngClass]="{'has-error is-invalid': isSubmitted && formControls.issuedescription.errors }"
                                           formControlName="issuedescription" placeholder="Description..." rows="6"
                                           maxlength="250" #description></textarea>
-                                          <label class="float-left remaning" >{{description.value.length}}/{{maxChars}}</label>
+                                       <label
+                                          class="float-left remaning">{{description.value.length}}/{{maxChars}}</label>
 
 
                                        <div
@@ -508,7 +507,8 @@
                                           [ngClass]="{'has-error is-invalid': isSubmitted && formControls.Recommendation.errors }"
                                           formControlName="Recommendation" placeholder="Recommendation..." rows="6"
                                           maxlength="250" #recommendation></textarea>
-                                          <label class="float-left remaning" >{{recommendation.value.length}}/{{maxChars}}</label>
+                                       <label
+                                          class="float-left remaning">{{recommendation.value.length}}/{{maxChars}}</label>
 
                                        <div
                                           *ngIf="lessonForm.controls['Recommendation'].invalid && (lessonForm.controls['Recommendation'].dirty || lessonForm.controls['Recommendation'].touched)"
@@ -546,10 +546,11 @@
                               </div>
                            </div>
                            <div class="form-actions col-sm-12 text-right">
-                              <button class="btn btn-secondary borderbtn" type="button"
-                                 (click)="tabChange(1);remove();"><i class="fa fa-angle-double-left"></i> Back</button>
+                              <button class="btn btn-secondary borderbtn" type="button" (click)="tabChange(1);remove();"><i
+                                    class="fa fa-angle-double-left"></i> Back</button>
                               <button class="btn btn-primary borderbtn" type="button" (click)="tabChange(3);remove();"
-                                 [disabled]="(lessonForm.controls['_Keywords'].invalid || !formControls.title.value ||  !formControls.typeoflesson.value || !formControls.issuedescription.value || !formControls.Recommendation.value )">Next <i class="fa fa-angle-double-right"> </i></button>
+                                 [disabled]="(lessonForm.controls['_Keywords'].invalid || !formControls.title.value ||  !formControls.typeoflesson.value || !formControls.issuedescription.value || !formControls.Recommendation.value )">Next
+                                 <i class="fa fa-angle-double-right"> </i></button>
                            </div>
                         </div>
 
@@ -573,7 +574,7 @@
                                        *ngIf="lessonForm.controls['impectcategory'].invalid && (lessonForm.controls['impectcategory'].dirty || lessonForm.controls['impectcategory'].touched)"
                                        class="custom-errMsg">
                                        <div *ngIf="lessonForm.controls['impectcategory'].errors.required">
-                                          Impact category is required.
+                                          Impact Category is required.
                                        </div>
                                     </div>
                                  </div>
@@ -596,7 +597,7 @@
                                        *ngIf="lessonForm.controls['impectlevel'].invalid && (lessonForm.controls['impectlevel'].dirty || lessonForm.controls['impectlevel'].touched)"
                                        class="custom-errMsg">
                                        <div *ngIf="lessonForm.controls['impectlevel'].errors.required">
-                                          Impact level is required.
+                                          Impact Level is required.
                                        </div>
                                     </div>
                                  </div>
@@ -778,8 +779,8 @@
                            </div>
                         </div>
                         <div class="form-actions col-sm-12 text-right">
-                           <button class="btn btn-secondary borderbtn" type="button"
-                              (click)="tabChange(2)"> <i class="fa fa-angle-double-left"> </i>Back</button>
+                           <button class="btn btn-secondary borderbtn" type="button" (click)="tabChange(2)"> <i
+                                 class="fa fa-angle-double-left"> </i>Back</button>
                            <button class="btn btn-primary borderbtn" type="submit"
                               [disabled]="(!formControls.impectcategory.value || !formControls.impectlevel.value)"><span
                                  class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
@@ -800,7 +801,8 @@
                         <br>
                         <br>
                         <button type="button" (click)="deletelesson(URLlessonID)"
-                           class="deletebtn btn btn-danger float-right borderbtn"> Delete <i class="fa fa-trash"></i></button>
+                           class="deletebtn btn btn-danger float-right borderbtn"> Delete <i
+                              class="fa fa-trash"></i></button>
                         <button type="button borderbtn" onclick="document.getElementById('id01').style.display='none'"
                            class="cancelbtn btn btn-primary float-right">Cancel <i class="fa fa-close"></i></button>
                      </div>
@@ -841,7 +843,7 @@
      </div>
    </div>
  </div> -->
- <div bsModal #bulkimport="bs-modal" class="modal bulkimport" >
+<div bsModal #bulkimport="bs-modal" class="modal bulkimport">
    <form class="modal-content row bulkimport-form" (ngSubmit)="addBulk(fileInput)">
       <div class="container">
          <div class="form-group row">
@@ -852,16 +854,14 @@
                      accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"> -->
                <div class="custom-file mb-3">
                   <input #fileInput type="file" (change)="onFileChangeBulkProject($event)"
-                     (click)="fileInput.value = null" class="custom-file-input" 
+                     (click)="fileInput.value = null" class="custom-file-input"
                      accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
-                     <input type="file" id="fname" name="fname"><br><br>
-
-                     <p id=remove style="display: none; color: red;">Please Choose file</p>
+                  <p id=remove >Please Choose file</p>
                   <label class="custom-file-label" for="customFile">{{xlFileName ? xlFileName : 'Choose file'}}</label>
                </div>
             </div>
          </div>
-         <button type="submit" class="deletebtn btn btn-danger float-right borderbtn" > Submit</button>
+         <button type="submit" class="deletebtn btn btn-danger float-right borderbtn"> Submit</button>
          <button type="button" (click)="closeBulkImportModule()"
             class="cancelbtn btn btn-primary float-right borderbtn">Cancel</button>
       </div>

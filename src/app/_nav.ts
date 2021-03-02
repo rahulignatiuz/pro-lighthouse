@@ -307,7 +307,7 @@ export const navItems: NavData[] = [
         icon: 'icon-notebook'
       },
       {
-        name: 'How Do I ?',
+        name: 'How Do I',
         url: '/howdoi',
         icon: 'icon-bulb'
       },
@@ -349,7 +349,6 @@ export const navItems: NavData[] = [
       //   url: '/user-management',
       //   icon: 'icon-people'
       // },
-      
       {
         name: 'Notification',
         url: '/notification',
@@ -361,7 +360,7 @@ export const navItems: NavData[] = [
         icon: 'icon-notebook'
       },
       {
-        name: 'How Do I ?',
+        name: 'How Do I',
         url: '/howdoi',
         icon: 'icon-bulb'
       }
@@ -396,7 +395,7 @@ export const navItems: NavData[] = [
         icon: 'icon-bell'
       },
       {
-        name: 'How Do I ?',
+        name: 'How Do I',
         url: '/howdoi',
         icon: 'icon-bulb'
       }

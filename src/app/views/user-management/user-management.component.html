@@ -227,7 +227,7 @@
   <div class="modal-content row forms">
     <!-- Modal Header -->
     <div class="modal-header border-0">
-      <h4 class="modal-title">Pending User</h4>
+      <h4 class="modal-title">Pending User Requests</h4>
     </div>
 
     <!-- Modal body -->
@@ -262,13 +262,13 @@
         </tbody>
       </table>
       <div *ngIf="noDataPendingUser" class="text-center">
-        No pending user available.
+        No Pending User Requests.
       </div>
     </div>
 
     <!-- Modal footer -->
     <div class="modal-footer">
-      <pagination-controls class="mr-auto" (pageChange)="p1 = $event" id="first"></pagination-controls>
+      <pagination-controls *ngIf="!noDataPendingUser" class="mr-auto" (pageChange)="p1 = $event" id="first"></pagination-controls>
       <button type="button" class="btn btn-danger pagination-footer" (click)="closePendingModal()">Close</button>
     </div>
   </div>

@@ -53,12 +53,12 @@ class User {
     }
     static updateLessonBybulk(lessonID, o) {
         if (o.ProjectID) {
-            console.log(o.ProjectID, "o.ProjectID");
+           // console.log(o.ProjectID, "o.ProjectID");
             let sql = `Call  updateProjectLessonBybulk(${o.UserID},${o.LessonTypeID},${o.LifeCycleID},${o.ProjectTypeID},${o.TypeID},${o.ProjectID},${o.PhaseID},${o.ImpactCategoryID},${o.ImpactLevelID},${o.MilestoneID},${o.FunctionID},${o.DepartmentID},${o.CreatedBy},${lessonID})`;
             // let sql = `update lighthouse.lesson SET UserID='${o.UserID}', LessonTypeID='${o.LessonTypeID}',LifeCycleID='${o.LifeCycleID}',ProjectTypeID='${o.ProjectTypeID}',TypeID='${o.TypeID}',ProjectID='${o.ProjectID}',PhaseID='${o.PhaseID}',ImpactCategoryID='${o.ImpactCategoryID}',ImpactLevelID='${o.ImpactLevelID}',MilestoneID='${o.MilestoneID}',FunctionID='${o.FunctionID}' ,DepartmentID='${o.DepartmentID}', CreatedBy='${o.CreatedBy}' where ID='${lessonID}'`;
             return sql;
         } else if (o.ProcessID) {
-            console.log(o.ProcessID, "o.ProcessID");
+          //  console.log(o.ProcessID, "o.ProcessID");
             let sql = `Call  updateProcessLessonBybulk(${o.UserID},${o.LessonTypeID},${o.LifeCycleID},${o.ProcessID},${o.TypeID},${o.ImpactCategoryID},${o.ImpactLevelID},${o.FunctionID},${o.DepartmentID},${o.CreatedBy},${lessonID})`;
             // let sql = `update lighthouse.lesson SET UserID='${o.UserID}', LessonTypeID='${o.LessonTypeID}',LifeCycleID='${o.LifeCycleID}',ProcessID='${o.ProcessID}',TypeID='${o.TypeID}',ImpactCategoryID='${o.ImpactCategoryID}',ImpactLevelID='${o.ImpactLevelID}',FunctionID='${o.FunctionID}',DepartmentID='${o.DepartmentID}', CreatedBy='${o.CreatedBy}' where ID='${lessonID}'`;
             return sql;
@@ -94,7 +94,7 @@ class User {
     }
     // to get project data
     static getAllProjectsSQL(projectTypeId) {
-        console.log(projectTypeId);
+       // console.log(projectTypeId);
         let sql = `call getAllProjectsSQL()`;
         //let sql = `SELECT ID,Name,LPN,Description,Indexing FROM lighthouse.project order by Indexing ASC`;
         //let sql =`SELECT lighthouse.project.ID, lighthouse.project.Name, lighthouse.project.LPN, lighthouse.project.Description FROM lighthouse.project INNER JOIN lighthouse.mappingprojectprojecttype ON lighthouse.project.ID = lighthouse.mappingprojectprojecttype.ProjectID where lighthouse.mappingprojectprojecttype.ProjecttypeID = "${projectTypeId}"  order by Name ASC`;
@@ -331,7 +331,7 @@ class User {
             sortby += " likes  DESC ";
         }
         if (LessonsID) {
-            console.log("================", LessonsID);
+           // console.log("================", LessonsID);
             str += " and les.ID IN (" + LessonsID + ")";
         }
         // if (Flag == "flag") {
@@ -424,7 +424,7 @@ class User {
             sortby += " likes  DESC ";
         }
         if (LessonsID) {
-            console.log("================", LessonsID);
+            //console.log("================", LessonsID);
             str += " and les.ID IN (" + LessonsID + ")";
         }
         let sql = `select COUNT(ul.Likes) as likes, les.Title, les.ID,pro.ID as ProcessID,pro.Name as Name,les.Recommendation,
@@ -988,9 +988,9 @@ class User {
         return sql;
     }
     static addBulkErrorImportSQL(index, row, errorF, rowIndex, columnIndex, errorMessage) {
-        let sql = `Call  addBulkErrorImportSQL("'${errorMessage}'",'${errorF}',${rowIndex},${columnIndex},'${row[0]}','${row[1]}','${row[2]}','${row[3]}','${row[4]}','${row[5]}','${row[6]}','${row[7]}','${row[8]}','${row[9]}','${row[10]}','${row[11]}','${row[12]}','${row[13]}','${row[14]}','${row[15]}','${row[16]}','${row[17]}',${index},@LID); select @LID as insertId;`;
+        let sql = `Call  addBulkErrorImportSQL("'${errorMessage}'",'${errorF}',${rowIndex},${columnIndex},'${row[0]}','${row[1]}','${row[2]}','${row[6]}','${row[3]}','${row[4]}','${row[5]}','${row[11]}','${row[16]}','${row[17]}','${row[8]}','${row[9]}','${row[10]}','${row[12]}','${row[13]}','${row[14]}','${row[15]}','${row[7]}',${index},@LID); select @LID as insertId;`;
         // let sql = `INSERT INTO lighthouse.bulkimporterrors (ErrorMessage,ErrorField,RowField,ColumnField,Name,Email,ProjectType,ProcessField,Project,Phase,Milestone,Type,ImpactCategory,ImpactLevel,FunctionField,Department,Title,Description,RootCause,Recommendation,Keywords,LifeCycle,IndexID) VALUES \
-        //     ("'${errorMessage}'",'${errorF}','${rowIndex}','${columnIndex}','${row[0]}','${row[1]}','${row[2]}','${row[3]}','${row[4]}','${row[5]}','${row[6]}','${row[7]}','${row[8]}','${row[9]}','${row[10]}','${row[11]}','${row[12]}','${row[13]}','${row[14]}','${row[15]}','${row[16]}','${row[17]}','${index}');`;
+        //     ("'${errorMessage}'",'${errorF}','${rowIndex}','${columnIndex}','${row[0]}','${row[1]}','${row[2]}','${row[6]}','${row[3]}','${row[4]}','${row[5]}','${row[11]}','${row[16]}','${row[17]}','${row[8]}','${row[9]}','${row[10]}','${row[12]}','${row[13]}','${row[14]}','${row[15]}','${row[7]}','${index}');`;
         return sql;
     }
     static addBulkImportSQL(fileName, filePath, successLength, errorLengthe, UserID) {
@@ -1223,8 +1223,9 @@ class User {
         return sql;
     }
     static getLessonByIDSQL(id) {
-        let sql = `call getLessonByIDSQL(${id})`;
-        // let sql = `SELECT ID,ProjectID,ProcessID,Title FROM lighthouse.lesson where ID in (${id});`;
+        //let sql = `call getLessonByIDSQL(${id})`;
+        console.log("id---", id);
+        let sql = `SELECT ID,ProjectID,ProcessID,Title FROM lighthouse.lesson where ID in (${id});`;
         return sql;
     }
     static deleteNotification(ID) {
@@ -1289,7 +1290,6 @@ class User {
         // ORDER BY  ul.EmailNotification ${orderURE};`;
         return sql;
     }
-
     static getuserusefulbylessonID(ID) {
         //let sql = Call  getdepartmentsbyid(${ID});
         let sql = 	`select * from lighthouse.userusefullesson  where LessonID='${ID}'`;

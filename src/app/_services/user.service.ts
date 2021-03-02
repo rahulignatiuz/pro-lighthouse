@@ -454,39 +454,39 @@ export class UserService {
     return this.http.post<any>(`${this._baseURL}/notification/add`, obj);
   }
   getAllNotification(UserID) {
-    return this.http.post<any>(`${this._baseURL}/notification`,{UserID:UserID});
+    return this.http.post<any>(`${this._baseURL}/notification`, { UserID: UserID });
   }
   getdefaultproject() {
-    return this.http.post<any>(`${this._baseURL}/projects/projectpiechart`, { ID:1 });
+    return this.http.post<any>(`${this._baseURL}/projects/projectpiechart`, { ID: 1 });
   }
   getdefaultmilestones() {
-    return this.http.post<any>(`${this._baseURL}/milestones/milestonechart`, { ID:1 });
+    return this.http.post<any>(`${this._baseURL}/milestones/milestonechart`, { ID: 1 });
   }
   getdefaultprojectphase() {
-    return this.http.post<any>(`${this._baseURL}/phases/phasebarchart`, { ID:1 });
+    return this.http.post<any>(`${this._baseURL}/phases/phasebarchart`, { ID: 1 });
   }
-  deleteNotification(NtfID){
-    return this.http.post<any>(`${this._baseURL}/notification/delete`,{NtfID:NtfID});
+  deleteNotification(NtfID) {
+    return this.http.post<any>(`${this._baseURL}/notification/delete`, { NtfID: NtfID });
   }
   editNotification(obj) {
     return this.http.post<any>(`${this._baseURL}/notification/edit`, obj);
   }
-  getAllUserOrderByName(orderName){
+  getAllUserOrderByName(orderName) {
     return this.http.post<any>(`${this._baseURL}/user/ordername`, { orderName: orderName });
   }
-  getAllUserOrderByDate(orderDate){
+  getAllUserOrderByDate(orderDate) {
     return this.http.post<any>(`${this._baseURL}/user/orderdate`, { orderDate: orderDate });
 
   }
-  getAllUserOrderByRole(orderRole){
+  getAllUserOrderByRole(orderRole) {
     return this.http.post<any>(`${this._baseURL}/user/orderrole`, { orderRole: orderRole });
 
   }
-  getAllUserOrderByStatus(orderStatus){
+  getAllUserOrderByStatus(orderStatus) {
     return this.http.post<any>(`${this._baseURL}/user/orderstatus`, { orderStatus: orderStatus });
 
   }
-  getAllUserOrderByURE(orderURE){
+  getAllUserOrderByURE(orderURE) {
     return this.http.post<any>(`${this._baseURL}/user/orderure`, { orderURE: orderURE });
 
   }

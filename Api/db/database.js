@@ -36,7 +36,7 @@ function query(sql, callback) {
 
       //  console.log("+-+-data+-+",result[0].affectedRows); 
         if (err) {
-            console.log(err)
+           // console.log(err)
             return callback(err);
         } else {
             callback(null, result);

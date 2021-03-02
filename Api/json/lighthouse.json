@@ -16,5 +16,6 @@
     "SMTP_SECURE": true,
     "SMTP_USER": "no-reply@ignatiuz.com",
     "SMTP_PASSWORD": "BizDev#007",
-    "PLATFORM_NAME": "lighthouse"
+    "PLATFORM_NAME": "lighthouse",
+    "ADMIN":"Prita.Jokhu@Roche.com"
 }

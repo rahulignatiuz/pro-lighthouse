@@ -106,15 +106,16 @@
                                     </select> -->
                                     <ng-multiselect-dropdown class="selectdiv cssformultiselect"
                                        [placeholder]="'Select Functions'" [data]="functionAsObjects"
+                                       (click)="onClickFunction()" (onSelect)="onFunctionSelect()"
                                        formControlName="function" [(ngModel)]="function" [settings]="dropdownSettings">
                                     </ng-multiselect-dropdown>
-                                    <!-- <div
-                                       *ngIf="lessonProcessForm.controls['function'].invalid && (lessonProcessForm.controls['function'].dirty || lessonProcessForm.controls['function'].touched)"
+
+                                    <div *ngIf="lessonProcessForm.controls['function'].invalid && isClickFunction"
                                        class="custom-errMsg">
                                        <div *ngIf="lessonProcessForm.controls['function'].errors.required">
                                           Function is required.
                                        </div>
-                                    </div> -->
+                                    </div>
                                  </div>
                               </div>
                            </div>
@@ -143,14 +144,21 @@
                                     <ng-multiselect-dropdown class="selectdiv cssformultiselect"
                                        [placeholder]="'Select Departments'" [data]="departmentAsObjects"
                                        formControlName="department" [(ngModel)]="department"
+                                       (click)="onClickDepartment()" (onSelect)="onDepartmentSelect()"
                                        [settings]="dropdownSettings">
                                     </ng-multiselect-dropdown>
+                                    <div *ngIf="lessonProcessForm.controls['department'].invalid && isClickDepartment"
+                                       class="custom-errMsg">
+                                       <div *ngIf="lessonProcessForm.controls['department'].errors.required">
+                                          Department is required.
+                                       </div>
+                                    </div>
                                  </div>
                               </div>
                            </div>
                            <div class="form-actions col-sm-12 text-right">
                               <button class="btn btn-primary borderbtn" type="button" (click)="tabChange(2)"
-                                 [disabled]="( !processFormControls.department.value || !processFormControls.process.value || !processFormControls.function.value)">
+                                 [disabled]="( !processFormControls.department.value || !processFormControls.process.value || !processFormControls.lifecycle.value || !processFormControls.function.value)">
                                  Next <i class="fa fa-angle-double-right"></i></button>
                            </div>
                         </div>
@@ -350,7 +358,6 @@
                                           maxlength="250" #recommendation></textarea>
                                        <label
                                           class="float-left remaning">{{recommendation.value.length}}/{{maxChars}}</label>
-
                                        <div
                                           *ngIf="lessonProcessForm.controls['Recommendation'].invalid && (lessonProcessForm.controls['Recommendation'].dirty || lessonProcessForm.controls['Recommendation'].touched)"
                                           class="custom-errMsg">
@@ -394,7 +401,6 @@
                                  <i class="fa fa-angle-double-right"></i></button>
                            </div>
                         </div>
-
                      </tab>
                      <tab heading="Additional Information" [active]="additionalTab" [disabled]="additionaldTab">
                         <div class="row">
@@ -438,7 +444,7 @@
                                        *ngIf="lessonProcessForm.controls['impectlevel'].invalid && (lessonProcessForm.controls['impectlevel'].dirty || lessonProcessForm.controls['impectlevel'].touched)"
                                        class="custom-errMsg">
                                        <div *ngIf="lessonProcessForm.controls['impectlevel'].errors.required">
-                                          Impectlevel is required.
+                                          Impact Level is required.
                                        </div>
                                     </div>
                                  </div>
@@ -698,7 +704,7 @@
       </div>
    </form>
 </div>
-<div bsModal #bulkimport="bs-modal" class="modal bulkimport" >
+<div bsModal #bulkimport="bs-modal" class="modal bulkimport">
    <form class="modal-content row bulkimport-form" (ngSubmit)="addBulk(fileInput)">
       <div class="container">
          <div class="form-group row">
@@ -709,14 +715,14 @@
                      accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"> -->
                <div class="custom-file mb-3">
                   <input #fileInput type="file" (change)="onFileChangeBulkProject($event)"
-                     (click)="fileInput.value = null" class="custom-file-input" 
+                     (click)="fileInput.value = null" class="custom-file-input"
                      accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
-                     <p id=remove style="display: none; color: red;">Please Choose file</p>
+                  <p id=remove style="display: none; color: red;">Please Choose file</p>
                   <label class="custom-file-label" for="customFile">{{xlFileName ? xlFileName : 'Choose file'}}</label>
                </div>
             </div>
          </div>
-         <button type="submit" class="deletebtn btn btn-danger float-right borderbtn" > Submit</button>
+         <button type="submit" class="deletebtn btn btn-danger float-right borderbtn"> Submit</button>
          <button type="button" (click)="closeBulkImportModule()"
             class="cancelbtn btn btn-primary float-right borderbtn">Cancel</button>
       </div>

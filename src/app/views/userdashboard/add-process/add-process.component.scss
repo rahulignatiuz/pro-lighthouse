@@ -97,7 +97,7 @@ font-size: 5rem !important;
 }
 
 :host ::ng-deep .danger {
-    color: red;
+    color: #ff0000;
 }
 
 
@@ -109,12 +109,12 @@ font-size: 5rem !important;
 button:disabled{
     cursor: not-allowed !important;
     background-color: rgb(80, 82, 82) !important;
-    color:white;
+    color:#ffffff;
     border-color: rgb(80, 82, 82) !important;
 }
 .custom-errMsg{
     font-size: 12px !important;
-    color:red;
+    color:#ff0000;
     text-align: right;
     margin-bottom: -10px;
 }
@@ -150,7 +150,7 @@ button:disabled{
     z-index: 50;
     text-align: left;
     background-color: #f0f3f5;
-    color:black;
+    color:#000000;
     padding: 20px;
     width: 300px;
     position: absolute;
@@ -198,7 +198,7 @@ button:disabled{
     z-index: 50;
     text-align: left;
     background-color: #f0f3f5;
-    color:black;
+    color:#000000;
     padding: 20px;
     width: 950px;
     position: absolute;
@@ -271,7 +271,7 @@ input[type=number] {
 :host::ng-deep .multiselect-dropdown .dropdown-btn .selected-item{    
     border-radius:0px;
     border: none !important;
-    background: white;
+    background: #ffffff;
     color:none;
 }
 :host::ng-deep .dropdown-down{
@@ -318,7 +318,7 @@ content: none !important;
 :host::ng-deep .multiselect-dropdown .dropdown-btn .selected-item{
     border: none !important;
     margin-right: 4px;
-    background: white !important; 
+    background: #ffffff !important; 
     padding: 0 5px;
     color:#737272 !important;
     border-radius: 2px;
@@ -379,6 +379,9 @@ content: none !important;
     height: 160px;
     left: 36%;
     top: 30%;
+}
+.modal.show .modal-dialog{
+    transform: translate(0, 200px);
 }
 .top3{
     position: absolute;

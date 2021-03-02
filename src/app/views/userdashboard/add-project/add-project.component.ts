@@ -28,7 +28,6 @@ export class AddLessonComponent implements OnInit {
   public phaseAsObjects: any;
   public impactlevelAsObjects: any;
   public lifecycleAsObjects: any;
-  private keywordData: string[] = [];
   public mappingProjectAndMilestone: any;
   public MappingProjectTypeAndPhase: any;
   public mappingProjectTypeAndProject: any;
@@ -98,6 +97,11 @@ export class AddLessonComponent implements OnInit {
   public bulkErrorCount: number = 0;
   public importID: number = 0;
   public somethingMissingError: boolean = false;
+  public function: any;
+  public isClickFunction: boolean = false;
+  public isClickDepartment: boolean = false;
+  // public isFunctionValid : boolean = false;
+  // public islifecycleValid : boolean = false;
 
   //columns: any[] = [];
 
@@ -160,7 +164,6 @@ export class AddLessonComponent implements OnInit {
     this.lf = 'project';
     this.typeoflesson = "";
     this.masterlistproject();
-
   }
   masterlistproject() {
     localStorage.removeItem("tabforprocess");
@@ -236,8 +239,18 @@ export class AddLessonComponent implements OnInit {
       });
     }
   }
-
-
+  onClickFunction() {
+    this.isClickFunction = true;
+  }
+  onFunctionSelect() {
+    this.isClickFunction = false;
+  }
+  onClickDepartment() {
+    this.isClickDepartment = true;
+  }
+  onDepartmentSelect() {
+    this.isClickDepartment = false;
+  }
   bulkImportClose() {
     this.bulkImporing = false;
   }
@@ -405,6 +418,10 @@ export class AddLessonComponent implements OnInit {
     const a = document.getElementsByClassName("ng2-tag-input__text-input")[0];
     a.classList.add("mystyle");
 
+  }
+  remove() {
+    var x = document.getElementById("id202");
+    x.classList.remove("top3");
 
   }
   //used to add lpn no.
@@ -417,6 +434,8 @@ export class AddLessonComponent implements OnInit {
     } else {
       this.projectNumber = "";
     }
+    const a = document.getElementsByClassName("ng2-tag-input__text-input")[0];
+    a.classList.remove("mystyle");
     //this.getMappingProjectAndMilestone()
     // this.getProjectPhase();
     // this.projectFormFields();
@@ -431,6 +450,8 @@ export class AddLessonComponent implements OnInit {
 
   public onProjectRemoved(tag) {
     this.projectNumber = '';
+    const a = document.getElementsByClassName("ng2-tag-input__text-input")[0];
+    a.classList.add("mystyle");
 
   }
 
@@ -480,21 +501,12 @@ export class AddLessonComponent implements OnInit {
     });
   }
 
-  remove(){
-    var x = document.getElementById("id202");
-    x.classList.remove("top3");
-    
-  }
-
   public tabChange(index) {
-
-    var x = document.getElementById("id202");
-    x.classList.add("top3");
-
     this.projectTab = false;
     this.lessonTab = false;
     this.additionalTab = false;
-
+    var x = document.getElementById("id202");
+    x.classList.add("top3");
     this.projectdTab = true;
     this.lessondTab = true;
     this.additionaldTab = true;
@@ -556,8 +568,6 @@ export class AddLessonComponent implements OnInit {
     this.isSubmitted = true;
     this.updateLPN(form.value._projectname[0].ID);
     let _user: any = JSON.parse(localStorage.getItem('currentUser'));
-    console.log("this._Keywords----------------", this._Keywords);
-    console.log(form)
     let o: any = {
       UserID: _user.ID,
       LessonTypeID: 1,
@@ -614,7 +624,6 @@ export class AddLessonComponent implements OnInit {
   onSubmit(form: NgForm) {
     this.addLesson(form)
   }
-  
 }
 
 // export class Column {

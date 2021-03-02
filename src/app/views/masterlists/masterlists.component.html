@@ -85,7 +85,7 @@
                         <div class="card-body p-4 clearfix" style=" width: 75%;margin-right: 10%;">
                            <div class="col-sm-9">
                               <div class="form-group row labeldata">
-                                 <label class="col-md-12 addformcsss" for="text-input">Project type</label>
+                                 <label class="col-md-12 addformcsss" for="text-input">Project Type</label>
                                  <div class="col-md-6">
                                     <!-- <input class="form-control" id="text-input"
                         formControlName="projectName" placeholder="Project Name" type="text"> -->
@@ -95,7 +95,7 @@
                                        *ngIf="projectForm.controls['projecttypeName'].invalid && (projectForm.controls['projecttypeName'].dirty || projectForm.controls['projecttypeName'].touched)"
                                        class="custom-errMsg">
                                        <div *ngIf="projectForm.controls['projecttypeName'].errors.required">
-                                          Project type is required.
+                                          Project Type is required.
                                        </div>
                                     </div>
                                  </div>
@@ -215,7 +215,7 @@
                                        *ngIf="projectForm.controls['_projectType'].invalid && (projectForm.controls['_projectType'].dirty || projectForm.controls['_projectType'].touched)"
                                        class="custom-errMsg">
                                        <div *ngIf="projectForm.controls['_projectType'].errors.required">
-                                          Project type is required.
+                                          Project Type is required.
                                        </div>
                                     </div>
                                  </div>
@@ -370,7 +370,7 @@
                                        *ngIf="projectForm.controls['_projectType'].invalid && (projectForm.controls['_projectType'].dirty || projectForm.controls['_projectType'].touched)"
                                        class="custom-errMsg">
                                        <div *ngIf="projectForm.controls['_projectType'].errors.required">
-                                          Project type is required.
+                                          Project Type is required.
                                        </div>
                                     </div>
                                  </div>
@@ -507,7 +507,7 @@
                                        *ngIf="projectForm.controls['_projectType'].invalid && (projectForm.controls['_projectType'].dirty || projectForm.controls['_projectType'].touched)"
                                        class="custom-errMsg">
                                        <div *ngIf="projectForm.controls['_projectType'].errors.required">
-                                          Project type is required.
+                                          Project Type is required.
                                        </div>
                                     </div>
                                  </div>
@@ -2264,11 +2264,11 @@
    
    <div bsModal id="id33322222" class="modal " style="top: 0% !important; background-color: rgba(0,0,0, 0.4);">
       <form class="modal-content row d-flex justify-content-center align-items-center"
-         style="width: 15%; height: 110px; left: 46%; top: 31%; margin-bottom: 0rem;" [formGroup]="projectForm">
+         style="width: 15%; height: 129px; left: 46%; top: 31%; margin-bottom: 0rem;" [formGroup]="projectForm">
          <div class="container">
             <!-- <h3 style="text-align: center; margin-top:2%">Modal popup</h3> -->
                   <!-- <label class="col-md-12 col-form-label" for="file-input">Attachments: </label> -->
-                  <label for="email"><b>Entered Name already exist </b></label>
+                  <label for="email"><b>Project type name already exist.</b></label>
             <div class="clearfix">
                <br>
                
@@ -2279,4 +2279,158 @@
          </div>
       </form>
    </div>
+   <div bsModal id="id33322221" class="modal " style="top: 0% !important; background-color: rgba(0,0,0, 0.4);">
+      <form class="modal-content row d-flex justify-content-center align-items-center"
+         style="width: 15%; height: 110px; left: 46%; top: 31%; margin-bottom: 0rem;" [formGroup]="projectForm">
+         <div class="container">
+            <!-- <h3 style="text-align: center; margin-top:2%">Modal popup</h3> -->
+                  <!-- <label class="col-md-12 col-form-label" for="file-input">Attachments: </label> -->
+                  <label for="email"><b>Project name already exist.</b></label>
+            <div class="clearfix">
+               <br>
+               
+       
+               <button type="button" onclick="document.getElementById('id33322221').style.display='none'"
+                  class="cancelbtn btn btn-primary float-right borderbtn">Ok</button>
+            </div>
+         </div>
+      </form>
+   </div>
+   <div bsModal id="id33322223" class="modal " style="top: 0% !important; background-color: rgba(0,0,0, 0.4);">
+      <form class="modal-content row d-flex justify-content-center align-items-center"
+         style="width: 15%; height: 110px; left: 46%; top: 31%; margin-bottom: 0rem;" [formGroup]="projectForm">
+         <div class="container">
+            <!-- <h3 style="text-align: center; margin-top:2%">Modal popup</h3> -->
+                  <!-- <label class="col-md-12 col-form-label" for="file-input">Attachments: </label> -->
+                  <label for="email"><b>Milestone name already exist.</b></label>
+            <div class="clearfix">
+               <br>
+               
+       
+               <button type="button" onclick="document.getElementById('id33322223').style.display='none'"
+                  class="cancelbtn btn btn-primary float-right borderbtn">Ok</button>
+            </div>
+         </div>
+      </form>
+   </div>
+   <div bsModal id="id33322224" class="modal " style="top: 0% !important; background-color: rgba(0,0,0, 0.4);">
+      <form class="modal-content row d-flex justify-content-center align-items-center"
+         style="width: 15%; height: 110px; left: 46%; top: 31%; margin-bottom: 0rem;" [formGroup]="projectForm">
+         <div class="container">
+            <!-- <h3 style="text-align: center; margin-top:2%">Modal popup</h3> -->
+                  <!-- <label class="col-md-12 col-form-label" for="file-input">Attachments: </label> -->
+                  <label for="email"><b>Phase name already exist.</b></label>
+            <div class="clearfix">
+               <br>
+               
+       
+               <button type="button" onclick="document.getElementById('id33322224').style.display='none'"
+                  class="cancelbtn btn btn-primary float-right borderbtn">Ok</button>
+            </div>
+         </div>
+      </form>
+   </div>
+   <div bsModal id="id33322225" class="modal " style="top: 0% !important; background-color: rgba(0,0,0, 0.4);">
+      <form class="modal-content row d-flex justify-content-center align-items-center"
+         style="width: 15%; height: 110px; left: 46%; top: 31%; margin-bottom: 0rem;" [formGroup]="projectForm">
+         <div class="container">
+            <!-- <h3 style="text-align: center; margin-top:2%">Modal popup</h3> -->
+                  <!-- <label class="col-md-12 col-form-label" for="file-input">Attachments: </label> -->
+                  <label for="email"><b>LifeCycle name already exist.</b></label>
+            <div class="clearfix">
+               <br>
+               
+       
+               <button type="button" onclick="document.getElementById('id33322225').style.display='none'"
+                  class="cancelbtn btn btn-primary float-right borderbtn">Ok</button>
+            </div>
+         </div>
+      </form>
+   </div>
+   <div bsModal id="id33322226" class="modal " style="top: 0% !important; background-color: rgba(0,0,0, 0.4);">
+      <form class="modal-content row d-flex justify-content-center align-items-center"
+         style="width: 15%; height: 110px; left: 46%; top: 31%; margin-bottom: 0rem;" [formGroup]="projectForm">
+         <div class="container">
+            <!-- <h3 style="text-align: center; margin-top:2%">Modal popup</h3> -->
+                  <!-- <label class="col-md-12 col-form-label" for="file-input">Attachments: </label> -->
+                  <label for="email"><b>Function name already exist.</b></label>
+            <div class="clearfix">
+               <br>
+               
+       
+               <button type="button" onclick="document.getElementById('id33322226').style.display='none'"
+                  class="cancelbtn btn btn-primary float-right borderbtn">Ok</button>
+            </div>
+         </div>
+      </form>
+   </div>
+   <div bsModal id="id33322227" class="modal " style="top: 0% !important; background-color: rgba(0,0,0, 0.4);">
+      <form class="modal-content row d-flex justify-content-center align-items-center"
+         style="width: 15%; height: 129px; left: 46%; top: 31%; margin-bottom: 0rem;" [formGroup]="projectForm">
+         <div class="container">
+            <!-- <h3 style="text-align: center; margin-top:2%">Modal popup</h3> -->
+                  <!-- <label class="col-md-12 col-form-label" for="file-input">Attachments: </label> -->
+                  <label for="email"><b>Department name already exist.</b></label>
+            <div class="clearfix">
+               <br>
+               
+       
+               <button type="button" onclick="document.getElementById('id33322227').style.display='none'"
+                  class="cancelbtn btn btn-primary float-right borderbtn">Ok</button>
+            </div>
+         </div>
+      </form>
+   </div>
+   <div bsModal id="id33322228" class="modal " style="top: 0% !important; background-color: rgba(0,0,0, 0.4);">
+      <form class="modal-content row d-flex justify-content-center align-items-center"
+         style="width: 15%; height: 129px; left: 46%; top: 31%; margin-bottom: 0rem;" [formGroup]="projectForm">
+         <div class="container">
+            <!-- <h3 style="text-align: center; margin-top:2%">Modal popup</h3> -->
+                  <!-- <label class="col-md-12 col-form-label" for="file-input">Attachments: </label> -->
+                  <label for="email"><b>Impact Category name already exist.</b></label>
+            <div class="clearfix">
+               <br>
+               
+       
+               <button type="button" onclick="document.getElementById('id33322228').style.display='none'"
+                  class="cancelbtn btn btn-primary float-right borderbtn">Ok</button>
+            </div>
+         </div>
+      </form>
+   </div>
+   <div bsModal id="id33322229" class="modal " style="top: 0% !important; background-color: rgba(0,0,0, 0.4);">
+      <form class="modal-content row d-flex justify-content-center align-items-center"
+         style="width: 15%; height: 129px; left: 46%; top: 31%; margin-bottom: 0rem;" [formGroup]="projectForm">
+         <div class="container">
+            <!-- <h3 style="text-align: center; margin-top:2%">Modal popup</h3> -->
+                  <!-- <label class="col-md-12 col-form-label" for="file-input">Attachments: </label> -->
+                  <label for="email"><b>Impact Level name already exist.</b></label>
+            <div class="clearfix">
+               <br>
+               
+       
+               <button type="button" onclick="document.getElementById('id33322229').style.display='none'"
+                  class="cancelbtn btn btn-primary float-right borderbtn">Ok</button>
+            </div>
+         </div>
+      </form>
+   </div>
+   <div bsModal id="id33322230" class="modal " style="top: 0% !important; background-color: rgba(0,0,0, 0.4);">
+      <form class="modal-content row d-flex justify-content-center align-items-center"
+         style="width: 15%; height: 110px; left: 46%; top: 31%; margin-bottom: 0rem;" [formGroup]="projectForm">
+         <div class="container">
+            <!-- <h3 style="text-align: center; margin-top:2%">Modal popup</h3> -->
+                  <!-- <label class="col-md-12 col-form-label" for="file-input">Attachments: </label> -->
+                  <label for="email"><b>Process name already exist.</b></label>
+            <div class="clearfix">
+               <br>
+               
+       
+               <button type="button" onclick="document.getElementById('id33322230').style.display='none'"
+                  class="cancelbtn btn btn-primary float-right borderbtn">Ok</button>
+            </div>
+         </div>
+      </form>
+   </div>
+   
 </div>

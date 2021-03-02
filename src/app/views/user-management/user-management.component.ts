@@ -138,8 +138,9 @@ export class UserManagementComponent implements OnInit {
         if (this.requestEmail) {
           this.pendingUser.show();
         }
-        console.log("index-------------/*", this.getAllPenUser.length);
+       // console.log("index----if---------/*", this.getAllPenUser.length);
       } else {
+      //  console.log("index----else---------/*");
         this.noDataPendingUser = true;
         // console.log(data.result.length);
       }
@@ -312,9 +313,9 @@ export class UserManagementComponent implements OnInit {
   get accountSettingFormControls() { return this.accountSettingForm.controls; }
   get pendingRegistrationFormControls() { return this.pendingRegistrationForm.controls; }
   registration() {
-    console.log("++++++++++this._user+++++++++", this._user.roleid);
+ //   console.log("++++++++++this._user+++++++++", this._user.roleid);
     this.isSubmitted = true;
-    this.createAccBtnDis = true;
+
     let obj: any = {
       UserID: this._user.ID,
       FirstName: this.firstName,
@@ -326,6 +327,7 @@ export class UserManagementComponent implements OnInit {
     };
     console.log("this.isValidated", this.userRegistrationForm.valid);
     if (this.userRegistrationForm.valid) {
+      this.createAccBtnDis = true;
       this.userService.addUserRegistration(obj).subscribe((data) => {
         if (data.status) {
           console.log(data);

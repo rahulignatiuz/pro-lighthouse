@@ -38,49 +38,48 @@ export class AddProcessComponent implements OnInit {
   public additionaldTab: boolean = true;
   public departmentAsObjects: any;
   public functionAsObjects: any;
-
-  lessonFormbtn: boolean = false;
-  additionalFormbtn: boolean = false;
-  showIssues: boolean = true;
-  showPractice: boolean = false;
-  projectNameValue: string;
-  projectPhaseValue: string;
-  projectName: string;
-  projectNumber: string;
-  projectPahse: string;
-  projectPahseMilestone: string;
-  _projectName: string;
-  _projectType: string;
-  _projectPhase: string;
-  typeoflesson: string;
-  issuedescription: string;
-  title: string;
-  rootcause: string;
-  Recommendation: string;
-  _Keywords: any[] = [];
-  deletelesson: any;
-  impectcategory: string = '';
-  impectlevel: string = '';
-  isupdate: boolean = false;
+  public lessonFormbtn: boolean = false;
+  public additionalFormbtn: boolean = false;
+  public showIssues: boolean = true;
+  public showPractice: boolean = false;
+  public projectNameValue: string;
+  public projectPhaseValue: string;
+  public projectName: string;
+  public projectNumber: string;
+  public projectPahse: string;
+  public projectPahseMilestone: string;
+  public _projectName: string;
+  public _projectType: string;
+  public _projectPhase: string;
+  public typeoflesson: string;
+  public issuedescription: string;
+  public title: string;
+  public rootcause: string;
+  public Recommendation: string;
+  public _Keywords: any[] = [];
+  public deletelesson: any;
+  public impectcategory: string = '';
+  public impectlevel: string = '';
+  public isupdate: boolean = false;
   // lessonForm: FormGroup;
-  lessonProcessForm: FormGroup;
-  isSubmitted = false;
-  errForms: boolean = false;
-  uploadedFiles: Array<File>;
+  public lessonProcessForm: FormGroup;
+  public isSubmitted = false;
+  public errForms: boolean = false;
+  public uploadedFiles: Array<File>;
   // isProject: boolean = true;
-  isProcess: boolean = true;
-  projectNumberDisabled: boolean;
-  lf: string;
-  results: any[];
-  lifecycle: string = '';
-  lessonID: number;
-  _projectname: String;
-  URLlessonID: number;
-  _projectphasemilestone: string;
-  attachmentFiles;
-  attachmentID: number;
-  showLoader: boolean = false;
-  processAsObjects: any;
+  public isProcess: boolean = true;
+  public projectNumberDisabled: boolean;
+  public lf: string;
+  public results: any[];
+  public lifecycle: string = '';
+  public lessonID: number;
+  public _projectname: String;
+  public URLlessonID: number;
+  public _projectphasemilestone: string;
+  public attachmentFiles;
+  public attachmentID: number;
+  public showLoader: boolean = false;
+  public processAsObjects: any;
   public dropdownSettings: IDropdownSettings = {};
   public lessontypeAsObjects: any;
   public importID: number = 0;
@@ -91,8 +90,9 @@ export class AddProcessComponent implements OnInit {
   public bulkErrorCount: number = 0;
   public bulkAttachment: File = null;
   public somethingMissingError: boolean = false;
-
-  maxChars = 250;
+  public maxChars = 250;
+  public isClickFunction: boolean = false;
+  public isClickDepartment: boolean = false;
   constructor(private router: Router, private formBuilder: FormBuilder, private userService: UserService, private route: ActivatedRoute, private titleService: Title) {
     TagInputModule.withDefaults({
       tagInput: {
@@ -149,7 +149,11 @@ export class AddProcessComponent implements OnInit {
     this.typeoflesson = "";
 
   }
-
+  remove(){
+    var x = document.getElementById("id202");
+    x.classList.remove("top3");
+    
+  }
   // get formControls() { return this.lessonForm.controls; }
   get processFormControls() { return this.lessonProcessForm.controls; }
   reloadaction() {
@@ -166,8 +170,18 @@ export class AddProcessComponent implements OnInit {
   }
   importBulkFileHistory() {
     this.router.navigate(['/user/bulk-import/' + this.importID]);
-
-
+  }
+  onClickFunction() {
+    this.isClickFunction = true;
+  }
+  onFunctionSelect() {
+    this.isClickFunction = false;
+  }
+  onClickDepartment() {
+    this.isClickDepartment = true;
+  }
+  onDepartmentSelect() {
+    this.isClickDepartment = false;
   }
   importBulkFile() {
     this.bulkErrorCount = 0;
@@ -222,7 +236,6 @@ export class AddProcessComponent implements OnInit {
   }
   somethingMissingErrorClose() {
     this.somethingMissingError = false;
-
   }
   closeBulkImportModule() {
     this.bulkimport.hide();
@@ -254,7 +267,6 @@ export class AddProcessComponent implements OnInit {
   }
   // used to navigate if user select project or process
   togglelessonFlow(e, lf) {
-
     let target = e.target;
     let value = target.value;
     if (lf == 'project') {
@@ -263,13 +275,9 @@ export class AddProcessComponent implements OnInit {
     } else if (lf == 'Process') {
       //console.log(LessonFlow);
       this.router.navigate(['/user/add-process']);
-
     }
-
   }
-
   onFileChangeProcess(event) {
-
     if (event.target.files && event.target.files.length > 0) {
       let file = event.target.files[0];
       this.attachmentFiles = file;
@@ -417,11 +425,6 @@ export class AddProcessComponent implements OnInit {
 
     });
   }
-  remove(){
-    var x = document.getElementById("id202");
-    x.classList.remove("top3");
-    
-  }
 
   public tabChange(index) {
     this.projectTab = false;
@@ -429,7 +432,6 @@ export class AddProcessComponent implements OnInit {
     this.additionalTab = false;
     var x = document.getElementById("id202");
     x.classList.add("top3");
-
     this.projectdTab = true;
     this.lessondTab = true;
     this.additionaldTab = true;

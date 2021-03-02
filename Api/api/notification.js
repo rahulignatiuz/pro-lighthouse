@@ -95,61 +95,17 @@ router.post("/add", (req, res, next) => {
                 result: err
             });
         } else {
-            NotificationID = addMappingNotifications(obj, data.insertId);
             var status = true, msg = "Successfully added notification";
-            NotificationID.then(function (id) {
-                res.status(200).json({
-                    status: status,
-                    message: msg,
-                    result: id
-                });
+            res.status(200).json({
+                status: status,
+                message: msg,
+                result: data
             });
         }
+
     });
+
 });
-async function addMappingNotifications(obj, NotificationID) {
-    if (obj.Function.length) {
-        await getFunctionCallback(obj.Function, NotificationID);
-    }
-    if (obj.Department.length) {
-        await getDepartmentCallback(obj.Department, NotificationID);
-    }
-    if (obj.Lifecycle.length) {
-        await getLifeCycleCallback(obj.Lifecycle, NotificationID);
-    }
-    if (obj.Impectcategory.length) {
-        await getImpactCategoryCallback(obj.Impectcategory, NotificationID);
-    }
-    if (obj.Impectlevel.length) {
-        await getImpactLevelCallback(obj.Impectlevel, NotificationID);
-    }
-    return NotificationID;
-}
-function getFunctionCallback(Function, NotificationID) {
-    Function.forEach((Functions) => {
-        db.query(Model.addNotificationFunction(NotificationID, Functions.ID), (err, data) => { });
-    });
-}
-function getDepartmentCallback(Department, NotificationID) {
-    Department.forEach((Departments) => {
-        db.query(Model.addNotificationDepartment(NotificationID, Departments.ID), (err, data) => { });
-    });
-}
-function getLifeCycleCallback(LifeCycle, NotificationID) {
-    LifeCycle.forEach((LifeCycles) => {
-        db.query(Model.addNotificationLifecycle(NotificationID, LifeCycles.ID), (err, data) => { });
-    });
-}
-function getImpactCategoryCallback(ImpactCategory, NotificationID) {
-    ImpactCategory.forEach((ImpactCategorys) => {
-        db.query(Model.addNotificationImpactCategory(NotificationID, ImpactCategorys.ID), (err, data) => { });
-    });
-}
-function getImpactLevelCallback(ImpactLevel, NotificationID) {
-    ImpactLevel.forEach((ImpactLevels) => {
-        db.query(Model.addNotificationImpactLevel(NotificationID, ImpactLevels.ID), (err, data) => { });
-    });
-}
 var ifScheduled = true;
 var notificationLessons = [];
 var duration = "";
@@ -157,15 +113,15 @@ var duration = "";
 // cron.schedule('*/30 * * * * *', function () {
 //     console.log('Running Cron Job - test');
 //     // endOfWeek();
-//     //console.log(endOfMonth());
-//     notificationLessons = [];
+//     //  console.log(endOfMonth());
+//      notificationLessons = [];
 //     if (ifScheduled) {
 //         duration = "day";
 //         getAllNotificationByDate(duration);
 //     }
 // });
 //Cron job run every day
-cron.schedule('0 8 * * *', function () {
+cron.schedule('0 9 * * *', function () {
     console.log('Running Cron Job - day');
     notificationLessons = [];
     if (ifScheduled) {
@@ -174,7 +130,7 @@ cron.schedule('0 8 * * *', function () {
     }
 });
 //Cron job run every monday
-cron.schedule('0 0 * * MON', function () {
+cron.schedule('0 9 * * MON', function () {
     console.log('Running Cron Job - week');
     notificationLessons = [];
     if (ifScheduled) {
@@ -183,7 +139,7 @@ cron.schedule('0 0 * * MON', function () {
     }
 });
 //Cron job run every first day of month 
-cron.schedule('0 0 1 * *', function () {
+cron.schedule('0 9 1 * *', function () {
     console.log('Running Cron Job - month');
     notificationLessons = [];
     if (ifScheduled) {
@@ -214,22 +170,21 @@ function getAllNotificationByDate(duration) {
                 obj[item.User].push(item.lsID);
                 return obj;
             }, {});
-
             var groups = Object.keys(group_to_values).map(function (key) {
                 return { User: key, lsID: group_to_values[key] };
             });
             if (duration == "week") {
                 fromLessonDate = "week ending " + endOfWeek();
-
             } else if (duration == "month") {
                 fromLessonDate = "month ending " + endOfMonth();
             } else if (duration == "day") {
-
                 fromLessonDate = "last day " + getTodayDate();
             }
             //  console.log("++++++result[key]++++++++", groups);
             groups.forEach(function (sendNotfications) {
                 var arrayItems = "";
+                var projectLesson = "";
+                var processLesson = "";
                 var lessonIDProject = "";
                 var lessonIDProcess = "";
                 //console.log("++++++result[key]++++++++2", sendNotfications);
@@ -241,7 +196,7 @@ function getAllNotificationByDate(duration) {
                         //console.log("++++++title++++++++2", email[0].Email, title);
                         for (x of title) {
                             //  console.log("369852147------2", x.Title);
-                            arrayItems += "<li>" + x.Title + "</li>";
+                            arrayItems += `<li><a href='${lighthouseJson.BASE_URL}/#/user/mylessons-project?lessonid=${x.ID}'>${x.Title}</a></li>`;
                             if (x.ProjectID) {
                                 lessonIDProject += x.ID + ",";
                             } else if (x.ProcessID) {
@@ -250,21 +205,23 @@ function getAllNotificationByDate(duration) {
                         }
                         if (!lessonIDProject) {
                             lessonIDProject = 0;
+                        } else {
+                            projectLesson = `<a href="${lighthouseJson.BASE_URL}/#/user/mylessons-project?lessonid=${lessonIDProject}">Project</a>`;
                         }
                         if (!lessonIDProcess) {
                             lessonIDProcess = 0;
+                        } else {
+                            processLesson = `and <a href="${lighthouseJson.BASE_URL}/#/user/mylessons-process?lessonid=${lessonIDProcess}">Process</a>`;
                         }
                         var mailOptions = {
                             from: lighthouseJson.SMTP_USER,
                             to: email[0].Email,
                             subject: 'New lesson added',
                             html: `<b>Hello ${email[0].FirstName}</b>, 
-                        <p>Below is the summary of the lessons for the  ${fromLessonDate}.</p>
-                        <ul>${arrayItems},</ul>
-                        <p>Click here to <a href="${lighthouseJson.BASE_URL}/#/user/mylessons-project?lessonid=${lessonIDProject}">Project</a> and <a href="${lighthouseJson.BASE_URL}/#/user/mylessons-process?lessonid=${lessonIDProcess}">Process</a> </p>
-                        <p>You are receiving this email because you subscribed to be notified when new lessons are added as per your selection criteria. To manage your notification settings, please click to <a href="${lighthouseJson.BASE_URL}/#/user/notification">here</a>. </p>
-                        <p>If you have any questions, please contact the administrator at Prita.Jhoku@Roche.com </p>
-                        <p>Thank you</p>`
+                        <p>Following new lessons have been added to the Lighthouse website today: </p>
+                        <ul>${arrayItems}</ul>
+                        <p>Please click here to view all the ${projectLesson} ${processLesson} lessons , If you have any questions, please contact the administrator at <a href="mailto:${lighthouseJson.ADMIN}">${lighthouseJson.ADMIN}</a></p>
+                        <p>This message was sent to ${email[0].Email} because your preferences are set to receive notifications like this. You can change it in your <a href="${lighthouseJson.BASE_URL}/#/user/notification">notification preferences</a>  page.</p>`
                         };
                         transport.sendMail(mailOptions, function (error, info) {
                             if (!error) {
@@ -336,8 +293,8 @@ function getUserByID(UserID) {
 }
 function getLessonByID(LessonID) {
     return new Promise((resolve, reject) => {
-        db.query(Model.getLessonByIDSQL(LessonID), (err, result) => {
-            let data = result[0];
+        db.query(Model.getLessonByIDSQL(LessonID), (err, data) => {
+            // let data = result[0];
             if (data.length > 0) {
                 return err ? reject(err) : resolve(data);
             }

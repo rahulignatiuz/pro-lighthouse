@@ -404,23 +404,25 @@ content: none !important;
     position: absolute;
     top: 4%
 }
-.top3{
-    position: absolute;
-    top: 3%
-}
-
 .remaning {
     position:absolute;
     bottom: 3px;
     right:28px;
     }
 
-.inputExpand{
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  margin: 0;
-  margin-left: 5%;
-  word-wrap: break-word;
-        word-break: break-all;
+p#remove{
+    display: none;
+    color: #ff0000;
+
 }
+label.custom-file-label{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: inline-block;
+}
+.top3{
+    position: absolute;
+    top: 3%
+}
+

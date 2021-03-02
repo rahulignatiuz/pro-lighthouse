@@ -13,9 +13,9 @@ import { TransitiveCompileNgModuleMetadata } from '@angular/compiler';
   styleUrls: ['./mylesson-project.component.scss']
 })
 export class MylessonsProjectComponent implements OnInit {
-  results: any[];
-  projecttype: any[];
-  isloading = false;
+  public results: any[];
+  public projecttype: any[];
+  public isloading = false;
   public searchname: string;
   public _baseURL: string;
   public projectsAsType: any;
@@ -61,7 +61,6 @@ export class MylessonsProjectComponent implements OnInit {
   public departments: string = "";
   public phaseID: string = "";
   public milestoneID: string = "";
-
   public noResult: boolean = false;
   public ProjecttypeID: string = "";
   public projectID: string = "";
@@ -85,13 +84,13 @@ export class MylessonsProjectComponent implements OnInit {
   constructor(private router: Router, private userService: UserService, private titleService: Title) {
     this.router.routerState.root.queryParams.subscribe(params => {
       var lessonProjectID = params['lessonid'];
-      console.log("================",lessonProjectID);
+     // console.log("================",lessonProjectID);
       if(lessonProjectID){
         this.lessonID = lessonProjectID.replace(/,\s*$/, "");
-        console.log("========if========",this.lessonID);
+        //console.log("========if========",this.lessonID);
         this.getLessonsByFilter();
       }else{
-        console.log("======else==========",lessonProjectID);
+       // console.log("======else==========",lessonProjectID);
         this.getUserLessons();
       }
     });
@@ -234,7 +233,7 @@ export class MylessonsProjectComponent implements OnInit {
 
   getUserLessons() {
     this.userService.getUserLessons().subscribe((data) => {
-      console.log("+++++++++++++++++++getUserLessons++++++++++",data);
+    //  console.log("+++++++++++++++++++getUserLessons++++++++++",data);
       if(data.status){
         this.results = data.result;
       }
@@ -326,7 +325,7 @@ export class MylessonsProjectComponent implements OnInit {
 
     this.userService.getAllFilterLessons(obj).subscribe((data) => {
       if (data.status) {
-        console.log("=========data=======",data);
+      //  console.log("=========data=======",data);
         this.noResult = false;
         this.results = data.result;
       } else {
@@ -351,6 +350,7 @@ export class MylessonsProjectComponent implements OnInit {
     this.selectedMilestone = "";
     this.flag = "";
     this.implemented = "";
+    this._Keywords = [];
     this.lessonID = "";
     this.userusefullessonAsObjects = "";
     this.projectsAsType = [];
@@ -371,10 +371,8 @@ export class MylessonsProjectComponent implements OnInit {
     this.getlessontype();
     this.getuserusefullesson();
     this.getlifecycle();
-
-
+    this.getKeywords();
     //window.location.reload();
-
   }
   getidinurl(ID) {
     this.router.navigate(['/user/update-project/' + ID]);
@@ -492,7 +490,7 @@ export class MylessonsProjectComponent implements OnInit {
   iconhide() {
     const user: any = JSON.parse(localStorage.getItem('currentUser'));
     const id = user.roleid
-    console.log('curent user', id);
+  //  console.log('curent user', id);
     // debugger;
     if (id == 3) {
       this.show = false;

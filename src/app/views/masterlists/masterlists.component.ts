@@ -648,7 +648,7 @@ export class MasterlistsComponent implements OnInit {
       else{
         if(data.result == "ER_DUP_ENTRY"){
           document.getElementById('id22858888').style.display='none';
-          document.getElementById('id33322222').style.display='block';
+          document.getElementById('id33322221').style.display='block';
           console.log('5555555555555555555555555555',data);
         }
      
@@ -787,7 +787,7 @@ export class MasterlistsComponent implements OnInit {
       else{
         if(data.result == "ER_DUP_ENTRY"){
           document.getElementById('id22858888').style.display='none';
-          document.getElementById('id33322222').style.display='block';
+          document.getElementById('id33322223').style.display='block';
           console.log('5555555555555555555555555555',data);
         }
      
@@ -834,7 +834,7 @@ export class MasterlistsComponent implements OnInit {
       else{
         if(data.result == "ER_DUP_ENTRY"){
           document.getElementById('id22858888').style.display='none';
-          document.getElementById('id33322222').style.display='block';
+          document.getElementById('id33322224').style.display='block';
           console.log('5555555555555555555555555555',data);
         }
      
@@ -871,7 +871,7 @@ export class MasterlistsComponent implements OnInit {
       else{
         if(data.result == "ER_DUP_ENTRY"){
           document.getElementById('id22858888').style.display='none';
-          document.getElementById('id33322222').style.display='block';
+          document.getElementById('id33322225').style.display='block';
           console.log('5555555555555555555555555555',data);
         }
      
@@ -1546,7 +1546,7 @@ export class MasterlistsComponent implements OnInit {
       else{
         if(data.result == "ER_DUP_ENTRY"){
           document.getElementById('id22858888').style.display='none';
-          document.getElementById('id33322222').style.display='block';
+          document.getElementById('id33322226').style.display='block';
           console.log('5555555555555555555555555555',data);
         }
      
@@ -1581,7 +1581,7 @@ export class MasterlistsComponent implements OnInit {
       else{
         if(data.result == "ER_DUP_ENTRY"){
           document.getElementById('id22858888').style.display='none';
-          document.getElementById('id33322222').style.display='block';
+          document.getElementById('id33322227').style.display='block';
           console.log('5555555555555555555555555555',data);
         }
      
@@ -1619,7 +1619,7 @@ export class MasterlistsComponent implements OnInit {
       else{
         if(data.result == "ER_DUP_ENTRY"){
           document.getElementById('id22858888').style.display='none';
-          document.getElementById('id33322222').style.display='block';
+          document.getElementById('id33322228').style.display='block';
           console.log('5555555555555555555555555555',data);
         }
      
@@ -1656,7 +1656,7 @@ export class MasterlistsComponent implements OnInit {
       else{
         if(data.result == "ER_DUP_ENTRY"){
           document.getElementById('id22858888').style.display='none';
-          document.getElementById('id33322222').style.display='block';
+          document.getElementById('id33322229').style.display='block';
           console.log('5555555555555555555555555555',data);
         }
      
@@ -1690,7 +1690,7 @@ export class MasterlistsComponent implements OnInit {
       else{
         if(data.result == "ER_DUP_ENTRY"){
           document.getElementById('id22858888').style.display='none';
-          document.getElementById('id33322222').style.display='block';
+          document.getElementById('id33322230').style.display='block';
           console.log('5555555555555555555555555555',data);
         }
      

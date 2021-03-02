@@ -24,7 +24,7 @@ export class UpdateProjectComponent implements OnInit {
   @ViewChild('myModal', { static: false }) public myModal: ModalDirective;
   @ViewChild('attachments', { static: false }) public attachments: ElementRef;
   public projectsAsObjects: any;
-  maxChars = 250;  
+  maxChars = 250;
   public projectsAsType: any;
   public projectsPhaseAsObjects: any;
   public projectsPhaseMilestoneAsObjects: any;
@@ -34,7 +34,6 @@ export class UpdateProjectComponent implements OnInit {
   public milestonesAsObjects: any;
   public phaseAsObjects: any;
   public impactlevelAsObjects: any;
-  private keywordData: string[] = [];
   public mappingProjectAndMilestone: any;
   public MappingProjectTypeAndPhase: any;
   public mappingProjectTypeAndProject: any;
@@ -49,57 +48,55 @@ export class UpdateProjectComponent implements OnInit {
   public functionAsObjects: any;
   public projectNameID: number;
   /* ----------- */
-  lessonFormbtn: boolean = false;
-  additionalFormbtn: boolean = false;
-  showIssues: boolean = true;
-  showPractice: boolean = false;
-  projectNameValue: string;
-  projectPhaseValue: string;
-  projectName: string;
-  test: any;
-  projectNumber: string;
-  projectPahse: string;
-  projectPahseMilestone: string;
-  showLoader: boolean = false;
-  _projectName: string;
-  _projectType: string;
-  _projectPhase: string;
-  typeoflesson: string = 'issue';
-  issuedescription: string;
-  show: boolean = false;
-  title: string;
-  rootcause: string;
-  Recommendation: string;
-  _Keywords: any[] = [];
-  impectcategory: string = '';
-  lifecycle: string = '';
-  impectlevel: string = '';
-  editData: any;
-  projectID: number;
-  attachmentFiles;
-  lessonForm: FormGroup;
-  lessonProcessForm: FormGroup;
-  isSubmitted = false;
-  errForms: boolean = false;
-  uploadedFiles: Array<File>;
-  isProject: boolean = true;
-  isProcess: boolean = false;
-  projectNumberDisabled: boolean;
-  lf: string;
-  results: any[];
-  isupdate: boolean = false;
-  lessonID: number;
-  _projectname: String;
-  URLlessonID: number;
-  _projectphasemilestone: string;
-  attachmentID: number;
-  isLoader: boolean = true;
-  department;
-  functions;
-  LPN: string;
+  public lessonFormbtn: boolean = false;
+  public additionalFormbtn: boolean = false;
+  public showIssues: boolean = true;
+  public showPractice: boolean = false;
+  public projectNameValue: string;
+  public projectPhaseValue: string;
+  public projectName: string;
+  public getProjectName: any;
+  public projectNumber: string;
+  public projectPahse: string;
+  public projectPahseMilestone: string;
+  public showLoader: boolean = false;
+  public _projectName: string;
+  public _projectType: string;
+  public _projectPhase: string;
+  public typeoflesson: string = 'issue';
+  public issuedescription: string;
+  public show: boolean = false;
+  public title: string;
+  public rootcause: string;
+  public Recommendation: string;
+  public _Keywords: any[] = [];
+  public impectcategory: string = '';
+  public lifecycle: string = '';
+  public impectlevel: string = '';
+  public editData: any;
+  public projectID: number;
+  public attachmentFiles;
+  public lessonForm: FormGroup;
+  public lessonProcessForm: FormGroup;
+  public isSubmitted = false;
+  public errForms: boolean = false;
+  public uploadedFiles: Array<File>;
+  public isProject: boolean = true;
+  public isProcess: boolean = false;
+  public projectNumberDisabled: boolean;
+  public lf: string;
+  public results: any[];
+  public isupdate: boolean = false;
+  public lessonID: number;
+  public _projectname: String;
+  public URLlessonID: number;
+  public _projectphasemilestone: string;
+  public attachmentID: number;
+  public isLoader: boolean = true;
+  public department: any;
+  public function: any;
+  public LPN: string;
   public dropdownSettings: IDropdownSettings = {};
-  selectedItems = [];
-  functionItems = [];
   public currentFileUrl: any;
   public currentFileName: any;
   public IsAttachmentExists: boolean = false;
@@ -108,7 +105,7 @@ export class UpdateProjectComponent implements OnInit {
 
 
   constructor(private router: Router, private formBuilder: FormBuilder, private userService: UserService, private route: ActivatedRoute, private titleService: Title) {
-
+    console.log("+++++++++++++++++++++++++++++++++++constructor+++++++++++++++++++++++++++++++++++++++++++");
     TagInputModule.withDefaults({
       tagInput: {
         placeholder: '',
@@ -119,7 +116,6 @@ export class UpdateProjectComponent implements OnInit {
         // add here other default values for tag-input-dropdown
       }
     });
-
     this.getcategories();
     this.getKeywords();
     this.getmilestones();
@@ -134,16 +130,31 @@ export class UpdateProjectComponent implements OnInit {
   }
 
   ngOnInit() {
-
-    if (this.isupdate == true) {
-      this.selectedItems = [
+    console.log("+++++++++++++++++++++++++++++++++++ngOnInit+++++++++++++++++++++++++++++++++++++++++++");
+    if (this.isupdate) {
+      this.department = [
         { ID: this.editData.departmentID, Name: this.editData.department }
       ];
-      this.functionItems = [
+      this.function = [
         { ID: this.editData.functionID, Name: this.editData.functions }
       ];
+    } else {
+      this.route.params.subscribe(routeParams => {
+        // console.log('routeParams 1', routeParams);
+        if (routeParams && routeParams.id) {
+          const rid = routeParams.id;
+          this.URLlessonID = rid;
+          if (this.URLlessonID) {
+            setTimeout(() => {
+              console.log("+++++++++++++++++++++++++++++++++++ngOnInit+++++++++++++++++Wait one second++++++++++++++++++++++++++", this.URLlessonID);
+              this.getlessonbyid(this.URLlessonID);
+            }, 1000);
+          }
+        }
+      });
+      this.lessonFormInit();
+      this.processFormInit();
     }
-
     // console.log(this.selectedItems);
     this.dropdownSettings = {
       singleSelection: true,
@@ -153,26 +164,7 @@ export class UpdateProjectComponent implements OnInit {
       enableCheckAll: false,
       allowSearchFilter: true,
       closeDropDownOnSelection: true
-
     };
-
-    //console.log(this.lessonForm);
-    // form fill with getlessonid api
-    if (this.isupdate == false) {
-      this.route.params.subscribe(routeParams => {
-        // console.log('routeParams 1', routeParams);
-        if (routeParams && routeParams.id) {
-          const rid = routeParams.id;
-          this.URLlessonID = rid;
-          if (this.URLlessonID) {
-            this.getlessonbyid(this.URLlessonID);
-          }
-        }
-      });
-      this.lessonFormInit();
-      this.processFormInit();
-    }
-
     this.lf = 'project';
   }
 
@@ -230,83 +222,78 @@ export class UpdateProjectComponent implements OnInit {
       this.show = false;
     }
   }
-reload(){
-  debugger;
-  setTimeout(function () {
-  
-  }, 4500);
-}
+
   // form fill with getlessonid api
   getlessonbyid(ID) {
-
     this.isupdate = true;
     this.isLoader = true;
-    
     this.userService.getlessonbyProjectID(ID).subscribe((data) => {
+      console.log("+++++++++++++++++++++++++++++++++++getlessonbyid+++++++++++++++++++++++++++++++++++++++++++");
       // console.log(data.result[0])
       // console.log(data.result)
-      console.log(data)
-      this.isLoader = false;
-      this.editData = data.result[0];
-      //  console.log(this.editData)
-      //  console.log(this.lessonForm);
-      this.projectTypeCheck(this.editData.projecttype);
-      this.lessonForm.controls['_projectType'].setValue(this.editData.projecttypeID);
-      this.lessonForm.controls['projectNumber'].setValue(this.editData.LPN);
-      this.lessonForm.controls['_projectPhase'].setValue(this.editData.phaseID);
-      this.lessonForm.controls['_projectphasemilestone'].setValue(this.editData.milestonesID);
-      this.lessonForm.controls['issuedescription'].setValue(this.editData.IssueDescription);
-      this.lessonForm.controls['title'].setValue(this.editData.Title);
-      this.lessonForm.controls['rootcause'].setValue(this.editData.RootCause);
-      this.lessonForm.controls['Recommendation'].setValue(this.editData.Recommendation);
-      this.lessonForm.controls['lifecycle'].setValue(this.editData.lifecycleID);
-      this.lessonForm.controls['impectcategory'].setValue(this.editData.impactcategoryID);
-      this.lessonForm.controls['impectlevel'].setValue(this.editData.impactlevelID);
-      this.lessonForm.controls['typeoflesson'].setValue(this.editData.TypeID);
-      this.lessonForm.controls['department'].setValue(this.editData.departmentID);
-      this.lessonForm.controls['function'].setValue(this.editData.functionID);
-      this.ngOnInit();
-      // console.log(this.lessonForm);
-      if (this.editData.TypeID == 2) {
-        this.showIssues = false;
-        this.showPractice = true;
-      } else {
-        this.showIssues = true;
-        this.showPractice = false;
-      }
-      if (this.editData.LPN) {
-        this.LPN = this.editData.LPN
-      }
-      //this._projectName =  this.editData.projectname;
-
-
-      this.test = ([this.editData.projectname]);
-      this.lessonForm.controls['_projectname'].setValue(this.test);
-      this.userService.getAllKeywordsByID(ID).subscribe((data) => {
-        //  console.log(data);
-        if (data.status) {
-
-          this.lessonForm.controls['_Keywords'].setValue(data.result);
+      //  
+      if (data.status) {
+        this.isLoader = false;
+        this.editData = data.result[0];
+        console.log("++++++++++++++++++data-----------------", data);
+        console.log("++++++++++++++++++this.editData.departmentID-----------------", this.editData.departmentID);
+        console.log("++++++++++++++++++this.editData.functionID-----------------", this.editData.functionID);
+        //  console.log(this.editData)
+        //  console.log(this.lessonForm);
+        this.projectTypeCheck(this.editData.projecttype);
+        this.lessonForm.controls['_projectType'].setValue(this.editData.projecttypeID);
+        this.lessonForm.controls['projectNumber'].setValue(this.editData.LPN);
+        this.lessonForm.controls['_projectPhase'].setValue(this.editData.phaseID);
+        this.lessonForm.controls['_projectphasemilestone'].setValue(this.editData.milestonesID);
+        this.lessonForm.controls['issuedescription'].setValue(this.editData.IssueDescription);
+        this.lessonForm.controls['title'].setValue(this.editData.Title);
+        this.lessonForm.controls['rootcause'].setValue(this.editData.RootCause);
+        this.lessonForm.controls['Recommendation'].setValue(this.editData.Recommendation);
+        this.lessonForm.controls['lifecycle'].setValue(this.editData.lifecycleID);
+        this.lessonForm.controls['impectcategory'].setValue(this.editData.impactcategoryID);
+        this.lessonForm.controls['impectlevel'].setValue(this.editData.impactlevelID);
+        this.lessonForm.controls['typeoflesson'].setValue(this.editData.TypeID);
+        this.lessonForm.controls['department'].setValue(this.editData.departmentID);
+        this.lessonForm.controls['function'].setValue(this.editData.functionID);
+        this.ngOnInit();
+        // console.log(this.lessonForm);
+        if (this.editData.TypeID == 2) {
+          this.showIssues = false;
+          this.showPractice = true;
+        } else {
+          this.showIssues = true;
+          this.showPractice = false;
         }
-      });
+        if (this.editData.LPN) {
+          this.LPN = this.editData.LPN
+        }
+        this.getProjectName = ([this.editData.projectname]);
+        this.lessonForm.controls['_projectname'].setValue(this.getProjectName);
+        this.userService.getAllKeywordsByID(ID).subscribe((data) => {
+          //  console.log(data);
+          if (data.status) {
+            this.lessonForm.controls['_Keywords'].setValue(data.result);
+          }
+        });
 
-      // this._projectname = this.editData.projectname;
-      // this.projectNumber = this.editData.LPN;
-      // this._projectPhase = this.editData.phase;
-      // this.issuedescription = this.editData.IssueDescription;
-      // this.title = this.editData.Title;
-      // this.rootcause = this.editData.RootCause;
-      // this.Recommendation = this.editData.Recommendation;
-      // this.impectcategory = this.editData.impactcategory;
-      // this.impectlevel = this.editData.impactlevel;
-      // this.department = this.editData.department;
-      // this.functions = this.editData.functions;
+        // this._projectname = this.editData.projectname;
+        // this.projectNumber = this.editData.LPN;
+        // this._projectPhase = this.editData.phase;
+        // this.issuedescription = this.editData.IssueDescription;
+        // this.title = this.editData.Title;
+        // this.rootcause = this.editData.RootCause;
+        // this.Recommendation = this.editData.Recommendation;
+        // this.impectcategory = this.editData.impactcategory;
+        // this.impectlevel = this.editData.impactlevel;
+        // this.department = this.editData.department;
+        // this.functions = this.editData.functions;
+      }
     });
     this.userService.getAttachmentNameByID(ID).subscribe((data) => {
-      console.log("file name", data)
+      //  console.log("file name", data)
       if (data.status) {
         this.IsAttachmentExists = true;
-        console.log("file name", data.result[0].OriginalName)
+        //  console.log("file name", data.result[0].OriginalName)
         this.currentFileName = data.result[0].OriginalName;
         this.currentFileUrl = data.result[0].Url;
       } else {
@@ -329,6 +316,7 @@ reload(){
   }
   //Check Project type 
   projectTypeCheck(projectType) {
+    console.log("++++++++projectsAsType+++++projectsAsType++++++projectsAsType", this.projectsAsType);
 
     let productID = this.projectsAsType.filter(product => product.Name === projectType).map(product => product.ID);
 
@@ -459,29 +447,35 @@ reload(){
   getcategories() {
     this.isLoader = false;
     this.userService.getcategories().subscribe((data) => {
-
-      this.categoriesAsObjects = data.result;
-
+      console.log("+++++++++++++++++++++++++++++++++++getcategories+++++++++++++++++++++++++++++++++++++++++++");
+      if (data.status) {
+        this.categoriesAsObjects = data.result;
+      }
     });
   }
   getlifecycle() {
     this.userService.getlifecycle().subscribe((data) => {
-      this.lifecycleAsObjects = data.result;
+      if (data.status) {
+        console.log("+++++++++++++++++++++++++++++++++++getlifecycle+++++++++++++++++++++++++++++++++++++++++++");
+        this.lifecycleAsObjects = data.result;
+      }
     });
   }
 
   getmilestones() {
     this.userService.getmilestones().subscribe((data) => {
       // console.log(data);
-
-      this.milestonesAsObjects = data.result;
-
+      if (data.status) {
+        console.log("+++++++++++++++++++++++++++++++++++getmilestones+++++++++++++++++++++++++++++++++++++++++++");
+        this.milestonesAsObjects = data.result;
+      }
     });
   }
 
   getKeywords() {
     this.userService.getKeywords().subscribe((data) => {
       if (data.status) {
+        console.log("+++++++++++++++++++++++++++++++++++getKeywords+++++++++++++++++++++++++++++++++++++++++++");
         this.keywordsAsObjects = data.result;
       }
     });
@@ -489,22 +483,28 @@ reload(){
   getimpactlevel() {
     this.userService.getimpactlevel().subscribe((data) => {
       // console.log(data);
-      this.impactlevelAsObjects = data.result;
-
+      if (data.status) {
+        console.log("+++++++++++++++++++++++++++++++++++getimpactlevel+++++++++++++++++++++++++++++++++++++++++++");
+        this.impactlevelAsObjects = data.result;
+      }
     });
   }
   getdepartments() {
     this.userService.getdepartments().subscribe((data) => {
       // console.log(data);
-      this.departmentAsObjects = data.result;
-
+      if (data.status) {
+        console.log("+++++++++++++++++++++++++++++++++++getdepartments+++++++++++++++++++++++++++++++++++++++++++");
+        this.departmentAsObjects = data.result;
+      }
     });
   }
   getfunctions() {
     this.userService.getfunctions().subscribe((data) => {
       // console.log(data);
-      this.functionAsObjects = data.result;
-
+      if (data.status) {
+        console.log("+++++++++++++++++++++++++++++++++++getfunctions+++++++++++++++++++++++++++++++++++++++++++");
+        this.functionAsObjects = data.result;
+      }
     });
   }
 
@@ -540,8 +540,7 @@ reload(){
     } else {
       this.projectNumber = '';
     }
-    const a = document.getElementsByClassName("ng2-tag-input__text-input")[0];
-    a.classList.remove("mystyle");
+
     // this.getMappingProjectAndMilestone()
     // this.getProjectPhase();
     // this.projectFormFields();
@@ -564,14 +563,14 @@ reload(){
     // this.projectsPhaseAsObjects = [];
     // this.mappingProjectAndMilestone = [];
     // this.projectFormFields();
-    const a = document.getElementsByClassName("ng2-tag-input__text-input")[0];
-    a.classList.add("mystyle");
   }
   public getProjectPhase() {
     this.userService.getProjectPhase().subscribe((data) => {
       // console.log(data);
-      this.projectsPhaseAsObjects = data.result;
-
+      if (data.status) {
+        console.log("+++++++++++++++++++++++++++++++++++getProjectPhase+++++++++++++++++++++++++++++++++++++++++++");
+        this.projectsPhaseAsObjects = data.result;
+      }
     });
   }
   public onselectProjectPhase(event) {
@@ -687,7 +686,6 @@ reload(){
     } else {
       this.projectNameID = this.editData.projectID;
     }
-    
     const o: any = {
       UserID: _user.ID,
       ID: this.URLlessonID,
@@ -711,7 +709,6 @@ reload(){
       UpdatedBy: _user.ID,
       IsEnabled: 1
     };
-   console.log(o)
     this.showLoader = true;
     if (this.attachmentFiles) {
       const formData = new FormData();
