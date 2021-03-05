@@ -443,3 +443,55 @@
       box-shadow: 10014px 0 0 -5px black;
     }
   }
+
+  @media screen and (max-width: 1680px) and (min-width: 1680px) {
+    .cssforsmal{
+      display: none !important;
+    }
+    .cssforsmallscreen{
+      margin-top: 7% !important;
+    }
+    .displayforscreen{
+      display: none;
+    }
+    .marginforsmall{
+      margin-top: 6% !important;
+    } 
+    .largescreenimplemented{
+      margin-top: 2% !important;
+    }
+  }
+  
+  
+  @media screen and (max-width: 1280px) and (min-width: 1280px) {
+    .smallscreen{
+      margin-top: 17% !important;
+    }
+    .cssforsmallscreen{
+      margin-top: 0% !important;
+    }
+    .displayforscreen{
+      display: none;
+    }
+    .marginforlarger{
+      margin-top: 6% !important;
+    }
+    .largescreenimplemented{
+      margin-top: 5% !important;
+    }
+  
+  }
+  
+  
+  @media screen and (max-width: 1440px) and (min-width: 1440px) {
+    .cssforsmallscreen{
+      margin-top: 12% !important;
+    }
+    .marginforlarger{
+      margin-top: 4% !important;
+    }
+    .largescreenimplemented{
+      margin-top: 8% !important;
+    }
+  }
+  
