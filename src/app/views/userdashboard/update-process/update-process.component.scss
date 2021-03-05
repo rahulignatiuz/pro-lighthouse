@@ -233,6 +233,57 @@ content: none !important;
     line-height: 21px;
     cursor: pointer;
 }
+@media (max-width: 1536px){
+    .help-tip{
+        position: absolute;
+        top: 6px;
+        right: -7px;
+        text-align: center;
+        background-color: #BCDBEA;
+        border-radius: 50%;
+        width: 17px;
+        height: 22px;
+        font-size: 13px;
+        line-height: 13px !important;
+        cursor: pointer;
+    }
+    .help-tip table{    /* The tooltip */
+        display: none;
+        z-index: 50;
+        text-align: left;
+        background-color: #f0f3f5;
+        color:black;
+        padding: 20px;
+        width: 1272px !important;
+        position: absolute;
+        border-radius: 3px;
+        box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+        right: -4px;
+        font-size: 13px;
+        // line-height: 0.4;
+        // bottom: 14px;
+    }
+    .cssforsmall{
+        margin-bottom: 0% !important;
+        margin-top: 18px;
+    }
+    .cssforsmallscreen{
+        margin-bottom: 16%;
+        margin-top: 5%;
+    }
+    .highcssforsmall{
+        margin-bottom: 5%;
+    }
+    .issueforsmall{
+        margin-top: -11%;
+    }
+    .relationforsmall{
+        margin-top: -2%;
+    }
+    .norelational{
+        margin-top: -7%;
+    }
+}
 
 .help-tip:before{
     content:'?';
@@ -306,7 +357,7 @@ content: none !important;
     background-color: #f0f3f5;
     color:black;
     padding: 20px;
-    width: 950px;
+    width: 1548px;
     position: absolute;
     border-radius: 3px;
     box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);

@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { UserService } from '../../_services/user.service';
 import { ModalDirective } from 'ngx-bootstrap/modal';
-
+import { Title } from '@angular/platform-browser';
 @Component({
   selector: 'app-notification',
   templateUrl: './notification.component.html',
@@ -59,8 +59,8 @@ export class NotificationComponent implements OnInit {
   @ViewChild('notificationModal', { static: false }) public notificationModal: ModalDirective;
   @ViewChild('deleteNotification', { static: false }) public deleteNotification: ModalDirective;
   @ViewChild('notificationEditModal', { static: false }) public notificationEditModal: ModalDirective;
-  constructor(private formBuilder: FormBuilder, private userService: UserService) {
-
+  constructor(private formBuilder: FormBuilder, private userService: UserService,private titleService: Title) {
+    this.titleService.setTitle("Lighthouse | Notification");
     this.getAllNotification();
     this.getdepartments();
     this.getcategories();

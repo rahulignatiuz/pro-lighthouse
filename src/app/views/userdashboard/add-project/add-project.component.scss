@@ -30,15 +30,15 @@
 :host ::ng-deep .ng2-tag-input__text-input {
     height: 33px !important;
     font-size: 0.785rem !important;
-    width: 333%;
 }
-@media (max-width: 1800px){
+:host ::ng-deep .mystyle{
+   width: 340%;
+}
 
-    :host ::ng-deep .ng2-tag-input__text-input {
-        height: 33px !important;
-        font-size: 0.785rem !important;
-        width: 227%;
-    }
+@media (max-width: 1800px){
+    :host ::ng-deep .mystyle{
+        width: 240%;
+     }
 }
 :host ::ng-deep select {
     font-size: 0.875rem !important;
@@ -152,6 +152,77 @@ input[type=number] {
     cursor: pointer;
 }
 
+
+@media (max-width: 1536px){
+    .help-tip{
+        position: absolute;
+        top: 6px;
+        right: -7px;
+        text-align: center;
+        background-color: #BCDBEA;
+        border-radius: 50%;
+        width: 17px;
+        height: 22px;
+        font-size: 13px;
+        line-height: 13px !important;
+        cursor: pointer;
+    }
+    .help-tip table{    /* The tooltip */
+        display: none;
+        z-index: 50;
+        text-align: left;
+        background-color: #f0f3f5;
+        color:black;
+        padding: 20px;
+        width: 1272px !important;
+        position: absolute;
+        border-radius: 3px;
+        box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+        right: -4px;
+        font-size: 13px;
+        // line-height: 0.4;
+        // bottom: 14px;
+    }
+    .cssforsmall{
+        margin-bottom: 0% !important;
+        margin-top: 18px;
+    }
+    .cssforsmallscreen{
+        margin-bottom: 16%;
+        margin-top: 5%;
+    }
+    .highcssforsmall{
+        margin-bottom: 5%;
+    }
+    .issueforsmall{
+        margin-top: -27%;
+    }
+    .relationforsmall{
+        margin-top: -2%;
+    }
+    .norelational{
+        margin-top: -7%;
+    }
+    .cssforproject{
+        margin-top: 0%;
+    }
+    .cssfordoc{
+        margin-top: 0%;
+
+    }
+    .cssfromsmall{
+        margin-top: -21%;
+    }
+    .negli{
+        margin-top: -23%;
+    }
+    .product{
+        margin-top: -22%;
+    }
+    .significant{
+        margin-top: -35%;
+    }
+}
 .help-tip:before{
     content:'?';
     font-weight: bold;
@@ -224,7 +295,7 @@ input[type=number] {
     background-color: #f0f3f5;
     color:black;
     padding: 20px;
-    width: 950px;
+    width: 1548px;
     position: absolute;
     border-radius: 3px;
     box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);

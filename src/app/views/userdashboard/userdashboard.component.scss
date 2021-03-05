@@ -1,106 +1,106 @@
 .form-control,.btn {
     border-radius: 0;    
-}
-.btn {
+  }
+  .btn {
     margin-left: 20px;
-}
-.minimal.ng2-tag-input {
+  }
+  .minimal.ng2-tag-input {
     border-bottom: none;
-} 
-
-:host ::ng-deep :focus {
+  } 
+  
+  :host ::ng-deep :focus {
     outline: none;
-}
-
-
-:host ::ng-deep .minimal.ng2-tag-input {
+  }
+  
+  
+  :host ::ng-deep .minimal.ng2-tag-input {
     padding:0px 0px 0px 0.35rem !important;
     border-bottom: none !important; 
     border: 1px solid #e4e7ea !important;
-}
-
-:host ::ng-deep tag {
+  }
+  
+  :host ::ng-deep tag {
     margin: 0px !important;
     font-size: 0.875rem !important;
     line-height:  30px !important;
-}
-
-:host ::ng-deep .ng2-tag-input__text-input {
+  }
+  
+  :host ::ng-deep .ng2-tag-input__text-input {
     height: 33px !important;
     font-size: 0.785rem !important;
-}
-:host ::ng-deep select {
+  }
+  :host ::ng-deep select {
     font-size: 0.875rem !important;
-}
-:host ::ng-deep .ng2-dropdown-menu { 
+  }
+  :host ::ng-deep .ng2-dropdown-menu { 
     box-shadow:0 1px 2px 0 transparent !important;
-}
-
-:host ::ng-deep .tag-wrapper {
- background: #efefef !important;
- padding: 0 0.2rem !important; 
-}
-
-:host ::ng-deep .minimal tag {
+  }
+  
+  :host ::ng-deep .tag-wrapper {
+  background: #efefef !important;
+  padding: 0 0.2rem !important; 
+  }
+  
+  :host ::ng-deep .minimal tag {
     background:transparent !important;   
     box-shadow: none !important;
     padding-left : 0px; 
-}
-
-.form-control:focus {
+  }
+  
+  .form-control:focus {
     box-shadow:none;
-}
-
-:host ::ng-deep .nav-tabs .nav-link.active {
+  }
+  
+  :host ::ng-deep .nav-tabs .nav-link.active {
     border-color: transparent !important;
     border-bottom-color: #007AC2 !important;
-}
-
-:host ::ng-deep .tab-content {
+  }
+  
+  :host ::ng-deep .tab-content {
      border-right-color: transparent !important;
      border-bottom-color: transparent !important;
      border-left-color: transparent !important;
-}
-
-:host ::ng-deep .nav-tabs .nav-link:hover, .nav-tabs .nav-link:focus {
+  }
+  
+  :host ::ng-deep .nav-tabs .nav-link:hover, .nav-tabs .nav-link:focus {
     border-color: transparent;
-}
-
-:host ::ng-deep .btn-primary {
+  }
+  
+  :host ::ng-deep .btn-primary {
     min-width: 80px;
-}
-
-:host ::ng-deep .searchIcon {
+  }
+  
+  :host ::ng-deep .searchIcon {
     position: absolute;
     right: 20px;
     top: -18px;
     color: #c8ced3;
-}
-
-:host ::ng-deep .modal {
+  }
+  
+  :host ::ng-deep .modal {
     top:30% !important;
-}
-
-:host ::ng-deep .Iconsuccess {
-color: #4dbd74;
-font-size: 5rem !important;
-}
-
-:host ::ng-deep .form-control.filellm {
+  }
+  
+  :host ::ng-deep .Iconsuccess {
+  color: #4dbd74;
+  font-size: 5rem !important;
+  }
+  
+  :host ::ng-deep .form-control.filellm {
     height: auto !important;
-}
-
-:host ::ng-deep .ng-invalid.has-error.is-invalid {
+  }
+  
+  :host ::ng-deep .ng-invalid.has-error.is-invalid {
     border: 1px solid #f86c6b;
-}
-
-:host ::ng-deep .clear-btn {
+  }
+  
+  :host ::ng-deep .clear-btn {
     margin-left: 0px;
-}
-.card-columns{
+  }
+  .card-columns{
     width: 90%;
-}
-body {
+  }
+  body {
     font-family: Arial, Helvetica, sans-serif;
   }
   
@@ -143,35 +143,76 @@ body {
     margin-top: -7%;
     color: white;
   }
-
-//   :host::ejs-deep .accumulationchart rect#chart-container_border{
-// fill: red;
-//   }
-
-//   :host::ejs-deep .accumulationchart rect{    
-//     fill: red;
-//   }
-svg{
+  
+  //   :host::ejs-deep .accumulationchart rect#chart-container_border{
+  // fill: red;
+  //   }
+  
+  //   :host::ejs-deep .accumulationchart rect{    
+  //     fill: red;
+  //   }
+  svg{
     fill: red;
-}
-.centerline{
+  }
+  .centerline{
     padding: 0;
-}
-.centerlineright{
+  }
+  .centerlineright{
     padding-right:0;
-}
-.rightmargin{
+  }
+  .rightmargin{
     padding-right: 0px;
-}
-.paddingright{
+  }
+  .paddingright{
     padding-left: 8px;
-}
-
-@media (max-width: 1800px){
+  }
+  // @media  screen and (max-width: 1600px) {
+  //   .cssforsmallscreen{
+  //     margin-top: 11% !important;
+  //   }
+  // }
+  @media screen and (max-width: 1600px) and (min-width: 1600px) {
+    .labelsforsmall{
+      margin-bottom: 3% !important;
+  }    
+  .cssforsmallscreen{
+      margin-top: 11% !important;
+  }
+  .cssforsmal{
+      display: none !important;
+  }
+  .smallscreen{
+      margin-top: 5% !important;
+  }
+  .largescreen{
+      display: flex !important;
+  }
+  .smallscreenprojectphase{
+      margin-top: 18% !important; 
+  }
+  .impactcssforsmallscreen{
+      margin-top: 21% !important;
+  }
+  .Milestonecssforsmall{
+      margin-top: 19% !important;
+  }
+  .projectphaseselect{
+      margin-top: -12% !important;
+  }
+  .marginforlarger{
+      margin-top: 4% !important;
+  }
+  .marginforsmall{
+      margin-top: 5% !important;
+  }
+  .largescreenimplemented{
+    margin-top: 7% !important;
+  }
+  }
+  @media (max-width: 1536px){
     .labelsforsmall{
         margin-bottom: 3% !important;
-    }
-    
+    }    
     .cssforsmallscreen{
         margin-top: 4% !important;
     }
@@ -202,8 +243,8 @@ svg{
     .marginforsmall{
         margin-top: 5% !important;
     }
-}
-@media (max-width: 2100px){
+  }
+  @media (max-width: 2100px){
     .largescreenimplemented{
         margin-top: 3%;
     }
@@ -234,14 +275,14 @@ svg{
     .Milestonecssforsmall{
         margin-top: -2px;
     }
-}
-.card{
+  }
+  .card{
     margin-bottom: 8px;
-}
-.card-header{
+  }
+  .card-header{
     background-color:#f1f1f1 !important;
-}
-.tooltip-toggle {
+  }
+  .tooltip-toggle {
     cursor: pointer;
     position: relative;
   
@@ -305,7 +346,7 @@ svg{
     -ms-user-select: none; /* IE 10 and IE 11 */
     user-select: none; /* Standard syntax */
   }
-
+  
   @media (max-width: 1535px ){
     .labelsforsmall{
         margin-bottom: 4% !important;
@@ -327,3 +368,78 @@ svg{
     }
   }
   
+  .dot-pulse {
+    position: relative;
+    left: -9999px;
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    background-color: #9880ff;
+    color: #9880ff;
+    box-shadow: 9999px 0 0 -5px #9880ff;
+    animation: dotPulse 1.5s infinite linear;
+    animation-delay: .25s;
+  }
+  
+  .dot-pulse::before, .dot-pulse::after {
+    content: '';
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    background-color: #9880ff;
+    color: #9880ff;
+  }
+  
+  .dot-pulse::before {
+    box-shadow: 9984px 0 0 -5px #9880ff;
+    animation: dotPulseBefore 1.5s infinite linear;
+    animation-delay: 0s;
+  }
+  
+  .dot-pulse::after {
+    box-shadow: 10014px 0 0 -5px #9880ff;
+    animation: dotPulseAfter 1.5s infinite linear;
+    animation-delay: .5s;
+  }
+  
+  @keyframes dotPulseBefore {
+    0% {
+      box-shadow: 9984px 0 0 -5px black;
+    }
+    30% {
+      box-shadow: 9984px 0 0 2px black;
+    }
+    60%,
+    100% {
+      box-shadow: 9984px 0 0 -5px black;
+    }
+  }
+  
+  @keyframes dotPulse {
+    0% {
+      box-shadow: 9999px 0 0 -5px black;
+    }
+    30% {
+      box-shadow: 9999px 0 0 2px black;
+    }
+    60%,
+    100% {
+      box-shadow: 9999px 0 0 -5px black;
+    }
+  }
+  
+  @keyframes dotPulseAfter {
+    0% {
+      box-shadow: 10014px 0 0 -5px black;
+    }
+    30% {
+      box-shadow: 10014px 0 0 2px black;
+    }
+    60%,
+    100% {
+      box-shadow: 10014px 0 0 -5px black;
+    }
+  }

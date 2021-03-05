@@ -254,7 +254,7 @@
                                           *ngIf="lessonProcessForm.controls['rootcause'].invalid && (lessonProcessForm.controls['rootcause'].dirty || lessonProcessForm.controls['rootcause'].touched)"
                                           class="custom-errMsg">
                                           <div *ngIf="lessonProcessForm.controls['rootcause'].errors.required">
-                                             Root cause is required.
+                                             Root Cause is required.
                                           </div>
                                        </div>
 
@@ -310,8 +310,8 @@
                               </div>
                            </div>
                            <div class="form-actions col-sm-12 text-right">
-                              <button class="btn btn-secondary borderbtn" type="button" (click)="tabChange(1);remove();"><i
-                                    class="fa fa-angle-double-left"></i> Back</button>
+                              <button class="btn btn-secondary borderbtn" type="button"
+                                 (click)="tabChange(1);remove();"><i class="fa fa-angle-double-left"></i> Back</button>
                               <button class="btn btn-primary borderbtn" type="button" (click)="tabChange(3);remove();"
                                  [disabled]="(!processFormControls._Keywords.value || !processFormControls.issuedescription.value || !processFormControls.title.value || !processFormControls.Recommendation.value || !processFormControls.typeoflesson.value || !processFormControls.rootcause.value)">Next
                                  <i class="fa fa-angle-double-right"></i></button>
@@ -394,8 +394,8 @@
                               </div>
                            </div>
                            <div class="form-actions col-sm-12 text-right">
-                              <button class="btn btn-secondary borderbtn" type="button" (click)="tabChange(1);remove();"><i
-                                    class="fa fa-angle-double-left"></i> Back</button>
+                              <button class="btn btn-secondary borderbtn" type="button"
+                                 (click)="tabChange(1);remove();"><i class="fa fa-angle-double-left"></i> Back</button>
                               <button class="btn btn-primary borderbtn" type="button" (click)="tabChange(3);remove();"
                                  [disabled]="( !processFormControls._Keywords.value || !processFormControls.issuedescription.value || !processFormControls.title.value || !processFormControls.Recommendation.value || !processFormControls.typeoflesson.value)">Next
                                  <i class="fa fa-angle-double-right"></i></button>
@@ -421,7 +421,7 @@
                                        *ngIf="lessonProcessForm.controls['impectcategory'].invalid && (lessonProcessForm.controls['impectcategory'].dirty || lessonProcessForm.controls['impectcategory'].touched)"
                                        class="custom-errMsg">
                                        <div *ngIf="lessonProcessForm.controls['impectcategory'].errors.required">
-                                          Impect Category is required.
+                                          Impact Category is required.
                                        </div>
                                     </div>
                                  </div>
@@ -451,9 +451,12 @@
                                  <div class="help-tip">
                                     <table>
                                        <tr>
-                                          <th class="textcenter">LOW</th>
-                                          <th class="textcenter">MEDIUM</th>
-                                          <th class="textcenter">HIGH</th>
+                                          <th style="text-align: center;">LOW</th>
+                                          <th style="text-align: center;">Low – Concise</th>
+                                          <th style="text-align: center;">MODERATE</th>
+                                          <th style="text-align: center;">Moderate - Concise</th>
+                                          <th style="text-align: center;">HIGH</th>
+                                          <th style="text-align: center;">High - Concise</th>
                                        </tr>
                                        <tr>
                                           <td>
@@ -461,6 +464,13 @@
                                                 <li>
                                                    Quality Mgmt system or process is in place and was followed for
                                                    design control and post launched products.
+                                                </li>
+                                             </ul>
+                                          </td>
+                                          <td>
+                                             <ul style="margin-bottom: -18%;">
+                                                <li>
+                                                   Low/no impact to final product performance and/or intended use.
                                                 </li>
                                              </ul>
                                           </td>
@@ -474,17 +484,34 @@
                                           </td>
 
                                           <td>
+                                             <ul class="cssforsmall" style="margin-bottom: -5%;">
+                                                <li>
+                                                   Moderate impact to final product performance and/or intended use.
+                                                </li>
+                                             </ul>
+                                          </td>
+
+
+                                          <td>
                                              <ul>
-                                                <li style="margin-bottom: 20%;">
+                                                <li class="cssforsmallscreen" style="margin-bottom: 16%;">
                                                    Failure of Quality Mgmt system or process.
                                                 </li>
                                              </ul>
                                           </td>
+                                          <td>
+                                             <ul class="highcssforsmall">
+                                                <li>
+                                                   High / Significant impact to final product performance and/or
+                                                   intended use.
+                                                </li>
+                                             </ul>
+                                          </td>
                                        </tr>
                                        <tr>
                                           <td>
                                              <ul>
-                                                <li>
+                                                <li class="issueforsmall">
                                                    The issue has no effect on product design/improvements,product
                                                    performance,the established products/customer requirements or
                                                    intended use
@@ -495,6 +522,13 @@
                                           <td>
                                              <ul>
                                                 <li>
+                                                   Documentation was considered compliant during review.
+                                                </li>
+                                             </ul>
+                                          </td>
+                                          <td>
+                                             <ul>
+                                                <li class="issueforsmall">
                                                    The issue has more than a negligible effect on product
                                                    design/improvements,product performance the established
                                                    product/customer
@@ -506,6 +540,15 @@
                                           <td>
                                              <ul>
                                                 <li>
+                                                   Documentation was found to have moderate insufficiencies that
+                                                   required update.
+                                                </li>
+                                             </ul>
+                                          </td>
+
+                                          <td>
+                                             <ul>
+                                                <li class="significant">
                                                    The issue has significant effect on product
                                                    design/improvements,product
                                                    performance,the established product/customer requirements or intended
@@ -514,11 +557,19 @@
                                                 </li>
                                              </ul>
                                           </td>
+                                          <td>
+                                             <ul>
+                                                <li>
+                                                   Documentation was found to be critically insufficient and required
+                                                   significant effort to bring into compliance.
+                                                </li>
+                                             </ul>
+                                          </td>
                                        </tr>
                                        <tr>
                                           <td>
                                              <ul>
-                                                <li>
+                                                <li class="product">
                                                    The issue has no effect on product design/improvements,product
                                                    performance,the established products/customer requirements or
                                                    intended use
@@ -527,8 +578,12 @@
                                              </ul>
                                           </td>
                                           <td>
+                                          </td>
+                                          <td>
+
+
                                              <ul>
-                                                <li>
+                                                <li class="negli">
                                                    The issue has more than a negligible effect on product
                                                    design/improvements,product performance the established
                                                    product/customer
@@ -536,10 +591,11 @@
                                                 </li>
                                              </ul>
                                           </td>
-
+                                          <td>
+                                          </td>
                                           <td>
                                              <ul>
-                                                <li>
+                                                <li class="cssfromsmall">
                                                    The issue has significant effect on product
                                                    design/improvements,product
                                                    performance,the established product/customer requirements or intended
@@ -547,6 +603,8 @@
                                                    of th finished product.
                                                 </li>
                                              </ul>
+                                          </td>
+                                          <td>
                                           </td>
                                        </tr>
                                        <tr>
@@ -558,45 +616,55 @@
                                              </ul>
                                           </td>
                                           <td>
+                                          </td>
+                                          <td>
                                              <ul>
-                                                <li>
+                                                <li class="cssfordoc">
                                                    Project activities and documentation are in place,but are not
                                                    compliant.
                                                 </li>
                                              </ul>
                                           </td>
-
+                                          <td>
+                                          </td>
                                           <td>
                                              <ul>
-                                                <li>
+                                                <li class="cssforproject">
                                                    Project activities and documentation are not in place.
                                                 </li>
                                              </ul>
+                                          </td>
+                                          <td>
                                           </td>
                                        </tr>
                                        <tr>
                                           <td>
                                              <ul>
-                                                <li>
+                                                <li class="relationforsmall">
                                                    Rational is provided for planned and unplanned project deviations.
                                                 </li>
                                              </ul>
                                           </td>
                                           <td>
+                                          </td>
+                                          <td>
                                              <ul>
-                                                <li>
+                                                <li class="relationforsmall">
                                                    Rational for planned and unplanned project deviations are provided
                                                    but considered insignificant for resultant outcome.
                                                 </li>
                                              </ul>
                                           </td>
-
+                                          <td>
+                                          </td>
                                           <td>
                                              <ul>
-                                                <li>
+                                                <li class="norelational">
                                                    No rational is provided for planned and unplanned project deviations.
                                                 </li>
                                              </ul>
+                                          </td>
+                                          <td>
                                           </td>
                                        </tr>
 

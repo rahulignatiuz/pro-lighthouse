@@ -196,11 +196,13 @@ function getAllNotificationByDate(duration) {
                         //console.log("++++++title++++++++2", email[0].Email, title);
                         for (x of title) {
                             //  console.log("369852147------2", x.Title);
-                            arrayItems += `<li><a href='${lighthouseJson.BASE_URL}/#/user/mylessons-project?lessonid=${x.ID}'>${x.Title}</a></li>`;
+                            
                             if (x.ProjectID) {
                                 lessonIDProject += x.ID + ",";
+                                arrayItems += `<li><a href='${lighthouseJson.BASE_URL}/#/user/mylessons-project?lessonid=${x.ID}'>${x.Title}</a></li>`;
                             } else if (x.ProcessID) {
                                 lessonIDProcess += x.ID + ",";
+                                arrayItems += `<li><a href='${lighthouseJson.BASE_URL}/#/user/mylessons-process?lessonid=${x.ID}'>${x.Title}</a></li>`;
                             }
                         }
                         if (!lessonIDProject) {
@@ -211,7 +213,13 @@ function getAllNotificationByDate(duration) {
                         if (!lessonIDProcess) {
                             lessonIDProcess = 0;
                         } else {
-                            processLesson = `and <a href="${lighthouseJson.BASE_URL}/#/user/mylessons-process?lessonid=${lessonIDProcess}">Process</a>`;
+                            if (!lessonIDProject) {
+                                processLesson = `<a href="${lighthouseJson.BASE_URL}/#/user/mylessons-process?lessonid=${lessonIDProcess}">Process</a>`;
+                            }else{
+                                processLesson = `and <a href="${lighthouseJson.BASE_URL}/#/user/mylessons-process?lessonid=${lessonIDProcess}">Process</a>`;
+                            }
+                            
+                            
                         }
                         var mailOptions = {
                             from: lighthouseJson.SMTP_USER,
@@ -221,7 +229,7 @@ function getAllNotificationByDate(duration) {
                         <p>Following new lessons have been added to the Lighthouse website today: </p>
                         <ul>${arrayItems}</ul>
                         <p>Please click here to view all the ${projectLesson} ${processLesson} lessons , If you have any questions, please contact the administrator at <a href="mailto:${lighthouseJson.ADMIN}">${lighthouseJson.ADMIN}</a></p>
-                        <p>This message was sent to ${email[0].Email} because your preferences are set to receive notifications like this. You can change it in your <a href="${lighthouseJson.BASE_URL}/#/user/notification">notification preferences</a>  page.</p>`
+                        <p>This message was sent to ${email[0].Email} because your preferences are set to receive notifications like this. You can change it in your <a href="${lighthouseJson.BASE_URL}/#/notification">notification preferences</a>  page.</p>`
                         };
                         transport.sendMail(mailOptions, function (error, info) {
                             if (!error) {
