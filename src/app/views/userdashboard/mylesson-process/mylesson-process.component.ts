@@ -310,6 +310,7 @@ export class MylessonProcessComponent implements OnInit {
     this.noResult = false;
     this.flag = "";
     this.implemented = "";
+    this._Keywords = [];
     this.userusefullessonAsObjects = "";
     this.selectedFunction = "";
     this.selectedlifecycle = "";
@@ -331,7 +332,7 @@ export class MylessonProcessComponent implements OnInit {
     this.getProcess();
     this.getuserusefullesson();
     this.getlifecycle();
-
+    this.getKeywords();
   }
   getidinurlProccess(ID) {
     this.router.navigate(['/user/update-process/' + ID]);

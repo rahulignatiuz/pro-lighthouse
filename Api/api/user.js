@@ -293,7 +293,7 @@ router.post('/pending/register', function (req, res) {
                                 Your request to access the Lighthouse Tool has been approved. 
                                 Please click <a href="${lighthouseJson.BASE_URL}/#/login">here</a> to access the website or <br> 
                                 logon to ${lighthouseJson.BASE_URL}/#/login using the google account you used to request access.<br><br>
-                                Please contact the administrator at – Prita.Jhoku@Roche.com if you need further assistance.<br><br>
+                                Please contact the administrator at – <a href="mailto:${lighthouseJson.ADMIN}">${lighthouseJson.ADMIN}</a> if you need further assistance.<br><br>
                                 
                                 Thank you`
                             };
