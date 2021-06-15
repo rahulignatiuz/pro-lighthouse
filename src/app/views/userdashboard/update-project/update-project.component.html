@@ -215,14 +215,16 @@
                                  <label class="col-md-3 col-form-label" for="textarea-input">Title <span
                                        class="danger">*</span></label>
                                  <div class="col-md-9">
-                                    <input class="form-control" id="text-input" formControlName="title"
-                                       placeholder="Title" type="text">
+                                    <input class="form-control charactercount" id="text-input" formControlName="title"
+                                       placeholder="Title" type="text"#title12 [maxlength]="maxCharacter">
+                                       <span
+                                       class="float-left remaning1">{{title12.value.length}}/{{maxCharacter}}</span>
                                  </div>
                               </div>
                            </div>
                            <div class="col-sm-6">
                               <div class="form-group row">
-                                 <label class="col-md-3 col-form-label" for="inline-radios">Type of Lesson </label>
+                                 <label class="col-md-3 col-form-label" for="inline-radios">Type of Lesson <span class="danger">*</span></label>
                                  <div class="col-md-9 col-form-label">
                                     <select class="form-control"
                                        [ngClass]="{'has-error is-invalid': isSubmitted && formControls.typeoflesson.errors }"

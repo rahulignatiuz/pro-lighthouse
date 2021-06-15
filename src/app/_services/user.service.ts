@@ -298,7 +298,7 @@ export class UserService {
     return this.http.post<any>(`${this._baseURL}/process/add`, o);
   }
   uploadbulkFile(bulkcsv) {
-
+    debugger;
     return this.http.post<any>(`${this._baseURL}/lessons/bulkupload`, bulkcsv);
   }
   getAllBulk() {
@@ -418,6 +418,15 @@ export class UserService {
   }
   getCountimpactlevellow() {
     return this.http.post<any>(`${this._baseURL}/impactlevel/countbyid`, { id: 1 });
+  }
+  getCountimpactlevelhighforprocess() {
+    return this.http.post<any>(`${this._baseURL}/impactlevel/forprocesscountbyid`, { id: 3 });
+  }
+  getCountimpactlevelmediumforprocess() {
+    return this.http.post<any>(`${this._baseURL}/impactlevel/forprocesscountbyid`, { id: 2 });
+  }
+  getCountimpactlevellowforprocess() {
+    return this.http.post<any>(`${this._baseURL}/impactlevel/forprocesscountbyid`, { id: 1 });
   }
   getAllUser() {
     return this.http.get<any>(`${this._baseURL}/user`);

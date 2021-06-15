@@ -79,7 +79,7 @@ import { SocialAuthComponent } from './views/social-auth/social-auth.component';
   ],
   declarations: [
     AppComponent,
-    ...APP_CONTAINERS,
+    APP_CONTAINERS,
     P404Component,
     P500Component,
     LoginComponent,

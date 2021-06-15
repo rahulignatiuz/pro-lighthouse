@@ -24,7 +24,8 @@ export class UpdateProjectComponent implements OnInit {
   @ViewChild('myModal', { static: false }) public myModal: ModalDirective;
   @ViewChild('attachments', { static: false }) public attachments: ElementRef;
   public projectsAsObjects: any;
-  maxChars = 250;
+  public maxChars = 250;
+  public maxCharacter =100;
   public projectsAsType: any;
   public projectsPhaseAsObjects: any;
   public projectsPhaseMilestoneAsObjects: any;

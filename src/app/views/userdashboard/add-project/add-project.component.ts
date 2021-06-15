@@ -17,7 +17,8 @@ export class AddLessonComponent implements OnInit {
   @ViewChild('bulkimport', { static: false }) public bulkimport: ModalDirective;
 
 
-  maxChars = 250;
+  public maxChars = 250;
+  public maxCharacter =100;
   public projectsAsObjects: any;
   public projectsAsType: any;
   public projectsPhaseAsObjects: any;
@@ -47,7 +48,7 @@ export class AddLessonComponent implements OnInit {
   public showPractice: boolean = false;
   public projectNameValue: string;
   public projectPhaseValue: string;
-
+  public getuserusefullesson: string;
   // projectName: string;
   public projectNumber: string;
   public projectPahse: string;
@@ -223,6 +224,7 @@ export class AddLessonComponent implements OnInit {
       let User: any = JSON.parse(localStorage.getItem('currentUser'));
       formData.append('bulkcsv', this.bulkAttachment);
       formData.append('UserID', User.ID);
+      console.log('--------------------------',formData)
       this.userService.uploadbulkFile(formData).subscribe((data) => {
         if (data.status) {
           this.bulkErrorCount = data.result.errorCount;
@@ -601,6 +603,14 @@ export class AddLessonComponent implements OnInit {
           this.attachmentID = data.data.insertId;
           this.userService.addLesson(o).subscribe((data) => {
             if (data.status) {
+              let LessonID = data.result[0].insertId;
+              let _user: any = JSON.parse(localStorage.getItem('currentUser'));
+              let UserID = _user.ID;
+              let title ="";
+              this.userService.adduserusefullessonforNo(LessonID, UserID, data, title).subscribe((data) => {
+                this.getuserusefullesson = data.result;
+                console.log(data);
+              });
               this.userService.addMappingLessonAttachmentSQL(data.result[0].insertId, this.attachmentID).subscribe((data) => {
                 //   console.log(data);
                 this.showLoader = false;
@@ -614,6 +624,14 @@ export class AddLessonComponent implements OnInit {
     } else {
       this.userService.addLesson(o).subscribe((data) => {
         if (data.status) {
+          let LessonID = data.result[0].insertId;
+          let _user: any = JSON.parse(localStorage.getItem('currentUser'));
+          let UserID = _user.ID;
+          let title ="";
+          this.userService.adduserusefullessonforNo(LessonID, UserID, data, title).subscribe((data) => {
+            this.getuserusefullesson = data.result;
+            console.log(data);
+          });
           this.showLoader = false;
           this.myModal.show();
           this.router.navigate(['/user/add-project']);

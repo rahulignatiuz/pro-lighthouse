@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { Routes,PreloadAllModules, RouterModule } from '@angular/router';
 
 // Import Containers
 import { DefaultLayoutComponent } from './containers';
@@ -119,7 +119,9 @@ export const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [ RouterModule.forRoot(routes) ],
+  imports: [ RouterModule.forRoot(routes,{
+    preloadingStrategy : PreloadAllModules
+  }) ],
   exports: [ RouterModule ]
 })
 export class AppRoutingModule {}

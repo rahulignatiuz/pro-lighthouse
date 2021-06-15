@@ -100,8 +100,10 @@ router.post("/add", (req, res, next) => {
 function saveData(o, res, keywords) {
     let response = [];
     db.query(Model.addLessonSQL(o), (err, result) => {
+        console.log("963258745555555555555555---", err);
         let data = result[1][0];
-        console.log("963258745555555555555555---", data.insertId);
+		setTimeout(() => {
+        
         if (!err) {
             addKeywords(data.insertId, keywords);
             response.push(data);
@@ -118,7 +120,7 @@ function saveData(o, res, keywords) {
                 result: response
             });
         }
-
+ }, 2000);
     });
 }
 function addKeywords(lessonID, keywords) {
@@ -532,10 +534,14 @@ router.post('/bulkupload', uploadCSV.single('bulkcsv'), (req, res) => {
             }
 
             db.query(Model.addLessonSQLBulk(o), (err, result) => {
+                console.log('---------------------------------------------',err);
+                console.log('888888888888888888888888888888888888',result)
                 if (!err) {
                     let data = result[1][0];
+
                     LessonID = data.insertId;
                     lessonIDs.push(LessonID)
+                    console.log('888888888888888888888888888888888888',data)
                     var results = addLessonByExcle(LessonID, rowdata, index, res);
                     results.then(function (result) {
                         if (i === rows.length - 1) {

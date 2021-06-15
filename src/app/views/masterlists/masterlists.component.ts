@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewChild,ElementRef} from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../_services/user.service';
 import { TagInputModule } from 'ngx-chips';
 import { moveItemInArray, CdkDragDrop} from "@angular/cdk/drag-drop";
+import { ModalDirective } from 'ngx-bootstrap/modal';
 @Component({
   selector: 'app-masterlists',
   templateUrl: './masterlists.component.html',
@@ -101,8 +102,19 @@ export class MasterlistsComponent implements OnInit {
   public selectedOption: string;
   public selectedOption2: string;
   projectNumberDisabled: boolean;
-
-
+  //@ViewChild('notificationModal', { static: false }) public notificationModal: ModalDirective;
+ // @ViewChild('myId', { static: false }) myId: ModalDirective;
+  @ViewChild('myId', { static: false }) public myId: ModalDirective;
+  @ViewChild('processalreadyexist', { static: false }) public processalreadyexist: ModalDirective;
+  @ViewChild('impactlevelalreadyexist', { static: false }) public impactlevelalreadyexist: ModalDirective;
+  @ViewChild('departmentalreadyexist', { static: false }) public departmentalreadyexist: ModalDirective;
+  @ViewChild('functionalreadyexist', { static: false }) public functionalreadyexist: ModalDirective;
+  @ViewChild('lifecyclealreadyexist', { static: false }) public lifecyclealreadyexist: ModalDirective;
+  @ViewChild('phasealreadyexist', { static: false }) public phasealreadyexist: ModalDirective;
+  @ViewChild('milestonealreadyexist', { static: false }) public milestonealreadyexist: ModalDirective;
+  @ViewChild('projectalreadyexist', { static: false }) public projectalreadyexist: ModalDirective;
+  @ViewChild('projecttypealreadyexist', { static: false }) public projecttypealreadyexist: ModalDirective;
+  @ViewChild('impactcategoryalreadyexist', { static: false }) public impactcategoryalreadyexist: ModalDirective;
   options = [
     { name: "two", value: 1, projectname: "Project type" },
     { name: "first", value: 2, projectname: "Project " },
@@ -153,13 +165,16 @@ export class MasterlistsComponent implements OnInit {
     this.titleService.setTitle("Lighthouse | Master List");
   }
 
+  //
+  //   console.log(this.notificationModal.nativeElement);
+  
 
   togglelessonFlow(e, lf) {
 
     let target = e.target;
     let value = target.value;
-    var filtersnav = document.getElementById("001");
-    var filtersnav1 = document.getElementById("002");
+    var filtersnav = document.getElementById("Projectid");
+    var filtersnav1 = document.getElementById("Processid");
 
     if (lf == 'project') {
       filtersnav.style.display = "block";
@@ -172,26 +187,34 @@ export class MasterlistsComponent implements OnInit {
     localStorage.setItem("tabforprocess",tab8);
 
   }
-  showaddform() {
-    var filtersnav = document.getElementById("007");
-    var filtersnav1 = document.getElementById("008");
+  showaddformforprojecttype() {
+    var filtersnav = document.getElementById("Projecttypeidforform");
+    var filtersnav1 = document.getElementById("Projecttypeidfortable");
     var tab = document.getElementById("tab1");
     filtersnav1.style.display = "none";
     filtersnav.style.display = "block";
   }
   showaddform55() {
-    var filtersnav = document.getElementById("007");
-    var filtersnav1 = document.getElementById("008");
+    var filtersnav = document.getElementById("Projecttypeidforform");
+    var filtersnav1 = document.getElementById("Projecttypeidfortable");
     // window.tab.reload();
-    var filtersnav2 = document.getElementById("456");
-    var filtersnav3 = document.getElementById("457");
-    var filtersnav4 = document.getElementById("458");
+    var filtersnav2 = document.getElementById("selectforphase");
+    var filtersnav3 = document.getElementById("selectforproject");
+    var filtersnav4 = document.getElementById("selectformilestone");
+   // console.log(this.myId.nativeElement);
     filtersnav2.style.display = "block";
     filtersnav3.style.display = "block";
     filtersnav4.style.display = "block";
     filtersnav1.style.display = "inline-table";
     filtersnav.style.display = "none";
-   
+    this.showaddform70(); 
+    this.showaddform56();
+    this.showaddform57(); 
+    this.showaddform58(); 
+    this.showaddform59(); 
+    this.showaddform61(); 
+    this.showaddform62(); 
+    this.showaddform63();
     //  localStorage.setItem("tabID8",String(tab8.id));
     // var tbid = localStorage.getItem("tabID");
     // console.log("printed tbid",tab.id);
@@ -300,186 +323,192 @@ export class MasterlistsComponent implements OnInit {
  
   }
  
-  showaddform1() {
-    var filtersnav = document.getElementById("06");
-    var filtersnav1 = document.getElementById("05");
-    var filtersnav2 = document.getElementById("457");
+  showaddformforprojectname() {
+    var filtersnav = document.getElementById("projectsidforform");
+    var filtersnav1 = document.getElementById("projectsidfortable");
+    var filtersnav2 = document.getElementById("selectforproject");
     filtersnav1.style.display = "none";
     filtersnav2.style.display = "none";
     filtersnav.style.display = "block";
   }
   showaddform56() {
-    var filtersnav = document.getElementById("06");
-    var filtersnav1 = document.getElementById("05");
+    var filtersnav = document.getElementById("projectsidforform");
+    var filtersnav1 = document.getElementById("projectsidfortable");
     filtersnav1.style.display = "inline-table";
+    
     if(filtersnav){
       filtersnav.style.display = "none";
 
     }
   }
-  showaddform2() {
-    var filtersnav1 = document.getElementById("10");
-    var filtersnav = document.getElementById("09");
+  showaddformforlifecyclename() {
+    var filtersnav1 = document.getElementById("LifeCycleidfortable");
+    var filtersnav = document.getElementById("LifeCycleidforform");
     filtersnav1.style.display = "none";
     filtersnav.style.display = "block";
   }
   showaddform64() {
-    var filtersnav1 = document.getElementById("23");
-    var filtersnav = document.getElementById("24");
+    var filtersnav1 = document.getElementById("processidfortable");
+    var filtersnav = document.getElementById("processidforform");
     filtersnav1.style.display = "inline-table";
     filtersnav.style.display = "none";
   }
   showaddform65() {
-    var filtersnav1 = document.getElementById("25");
-    var filtersnav = document.getElementById("26");
+    var filtersnav1 = document.getElementById("LifeCycleprocessidfortable");
+    var filtersnav = document.getElementById("LifeCycleprocessidforform");
     filtersnav1.style.display = "inline-table";
     filtersnav.style.display = "none";
+    this.showaddform64(); 
+    this.showaddform66(); 
+    this.showaddform67(); 
+    this.showaddform68(); 
+    this.showaddform69();
   }
   showaddform66() {
-    var filtersnav1 = document.getElementById("27");
-    var filtersnav = document.getElementById("28");
+    var filtersnav1 = document.getElementById("functionidforprocesstable");
+    var filtersnav = document.getElementById("functionidforprocessform");
     filtersnav1.style.display = "inline-table";
     filtersnav.style.display = "none";
   }
   showaddform67() {
-    var filtersnav1 = document.getElementById("29");
-    var filtersnav = document.getElementById("30");
+    var filtersnav1 = document.getElementById("departmentidforprocesstable");
+    var filtersnav = document.getElementById("departmentidforprocessform");
     filtersnav1.style.display = "inline-table";
     filtersnav.style.display = "none";
   }
   showaddform68() {
-    var filtersnav1 = document.getElementById("31");
-    var filtersnav = document.getElementById("32");
+    var filtersnav1 = document.getElementById("impactcategoryprocessidfortable");
+    var filtersnav = document.getElementById("impactcategoryprocessidforform");
     filtersnav1.style.display = "inline-table";
     filtersnav.style.display = "none";
   }
   showaddform69() {
-    var filtersnav1 = document.getElementById("33");
-    var filtersnav = document.getElementById("34");
+    var filtersnav1 = document.getElementById("impactlevelprocessidfortable");
+    var filtersnav = document.getElementById("impactlevelprocessidforform");
     filtersnav1.style.display = "inline-table";
     filtersnav.style.display = "none";
   }
   showaddform63() {
-    var filtersnav1 = document.getElementById("17");
-    var filtersnav = document.getElementById("18");
+    var filtersnav1 = document.getElementById("impactlevelidfortable");
+    var filtersnav = document.getElementById("impactlevelidforform");
     filtersnav1.style.display = "inline-table";
     filtersnav.style.display = "none";
   }
   showaddform62() {
-    var filtersnav1 = document.getElementById("15");
-    var filtersnav = document.getElementById("16");
+    var filtersnav1 = document.getElementById("impactcategoryidfortable");
+    var filtersnav = document.getElementById("impactcategoryidforform");
     filtersnav1.style.display = "inline-table";
     filtersnav.style.display = "none";
   }
   showaddform61() {
-    var filtersnav1 = document.getElementById("13");
-    var filtersnav = document.getElementById("14");
+    var filtersnav1 = document.getElementById("departmentidfortable");
+    var filtersnav = document.getElementById("departmentidforform");
     filtersnav1.style.display = "inline-table";
     filtersnav.style.display = "none";
   }
   showaddform60() {
     var filtersnav1 = document.getElementById("11");
-    var filtersnav = document.getElementById("12");
+    var filtersnav = document.getElementById("functionsidforform");
     filtersnav1.style.display = "inline-table";
     filtersnav.style.display = "none";
   }
   showaddform59() {
-    var filtersnav1 = document.getElementById("10");
-    var filtersnav = document.getElementById("09");
+    var filtersnav1 = document.getElementById("LifeCycleidfortable");
+    var filtersnav = document.getElementById("LifeCycleidforform");
     filtersnav1.style.display = "inline-table";
     filtersnav.style.display = "none";
   }
   showaddform57() {
-    var filtersnav1 = document.getElementById("19");
-    var filtersnav = document.getElementById("20");
+    var filtersnav1 = document.getElementById("phaseidfortable");
+    var filtersnav = document.getElementById("phaseidforfrom");
     filtersnav1.style.display = "inline-table";
     filtersnav.style.display = "none";
   }
   showaddform58() {
-    var filtersnav1 = document.getElementById("21");
-    var filtersnav = document.getElementById("22");
+    var filtersnav1 = document.getElementById("milestoneidfortable");
+    var filtersnav = document.getElementById("milestoneidforform");
     filtersnav1.style.display = "inline-table";
     filtersnav.style.display = "none";
   }
-  showaddform3() {
-    var filtersnav1 = document.getElementById("11");
-    var filtersnav = document.getElementById("12");
+  showaddformforfunctionname() {
+    var filtersnav1 = document.getElementById("functionsidfortable");
+    var filtersnav = document.getElementById("functionsidforform");
     filtersnav1.style.display = "none";
     filtersnav.style.display = "block";
   }
-  showaddform4() {
-    var filtersnav1 = document.getElementById("13");
-    var filtersnav = document.getElementById("14");
+  showaddformfordepartment() {
+    var filtersnav1 = document.getElementById("departmentidfortable");
+    var filtersnav = document.getElementById("departmentidforform");
     filtersnav1.style.display = "none";
     filtersnav.style.display = "block";
   }
-  showaddform5() {
-    var filtersnav1 = document.getElementById("15");
-    var filtersnav = document.getElementById("16");
+  showaddformforimpactcategory() {
+    var filtersnav1 = document.getElementById("impactcategoryidfortable");
+    var filtersnav = document.getElementById("impactcategoryidforform");
     filtersnav1.style.display = "none";
     filtersnav.style.display = "block";
   }
-  showaddform6() {
-    var filtersnav1 = document.getElementById("17");
-    var filtersnav = document.getElementById("18");
+  showaddformforimpactlevel() {
+    var filtersnav1 = document.getElementById("impactlevelidfortable");
+    var filtersnav = document.getElementById("impactlevelidforform");
     filtersnav1.style.display = "none";
     filtersnav.style.display = "block";
   }
-  showaddform7() {
-    var filtersnav1 = document.getElementById("19");
-    var filtersnav = document.getElementById("20");
-    var filtersnav2 = document.getElementById("456");
+  showaddformforphasename() {
+    var filtersnav1 = document.getElementById("phaseidfortable");
+    var filtersnav = document.getElementById("phaseidforfrom");
+    var filtersnav2 = document.getElementById("selectforphase");
     filtersnav2.style.display = "none";
     filtersnav1.style.display = "none";
     filtersnav.style.display = "block";
   }
-  showaddform8() {
-    var filtersnav1 = document.getElementById("21");
-    var filtersnav = document.getElementById("22");
+  showaddformformilestonename() {
+    var filtersnav1 = document.getElementById("milestoneidfortable");
+    var filtersnav = document.getElementById("milestoneidforform");
     filtersnav1.style.display = "none";
     filtersnav.style.display = "block";
-    var filtersnav2 = document.getElementById("458");
+    var filtersnav2 = document.getElementById("selectformilestone");
     filtersnav2.style.display = "none";
   }
-  showaddform9() {
-    var filtersnav = document.getElementById("24");
-    var filtersnav1 = document.getElementById("23");
+  showaddformforprocessname() {
+    var filtersnav = document.getElementById("processidforform");
+    var filtersnav1 = document.getElementById("processidfortable");
     filtersnav1.style.display = "none";
     filtersnav.style.display = "block";
   }
-  showaddform10() {
-    var filtersnav = document.getElementById("26");
-    var filtersnav1 = document.getElementById("25");
+  showaddformforprocesslifecycle() {
+    var filtersnav = document.getElementById("LifeCycleprocessidforform");
+    var filtersnav1 = document.getElementById("LifeCycleprocessidfortable");
     filtersnav1.style.display = "none";
     filtersnav.style.display = "block";
   }
-  showaddform11() {
-    var filtersnav = document.getElementById("28");
-    var filtersnav1 = document.getElementById("27");
+  showaddformforprocessfunctionname() {
+    var filtersnav = document.getElementById("functionidforprocessform");
+    var filtersnav1 = document.getElementById("functionidforprocesstable");
     filtersnav1.style.display = "none";
     filtersnav.style.display = "block";
   }
-  showaddform12() {
-    var filtersnav = document.getElementById("30");
-    var filtersnav1 = document.getElementById("29");
+  showaddformforprocessdepartment() {
+    var filtersnav = document.getElementById("departmentidforprocessform");
+    var filtersnav1 = document.getElementById("departmentidforprocesstable");
     filtersnav1.style.display = "none";
     filtersnav.style.display = "block";
   }
-  showaddform13() {
-    var filtersnav = document.getElementById("32");
-    var filtersnav1 = document.getElementById("31");
+  showaddformforprocessimpactcategory() {
+    var filtersnav = document.getElementById("impactcategoryprocessidforform");
+    var filtersnav1 = document.getElementById("impactcategoryprocessidfortable");
     filtersnav1.style.display = "none";
     filtersnav.style.display = "block";
   }
-  showaddform14() {
-    var filtersnav = document.getElementById("34");
-    var filtersnav1 = document.getElementById("33");
+  showaddformforprocessimpactlevel() {
+    var filtersnav = document.getElementById("impactlevelprocessidforform");
+    var filtersnav1 = document.getElementById("impactlevelprocessidfortable");
     filtersnav1.style.display = "none";
     filtersnav.style.display = "block";
   }
   showaddform70() {
-    var filtersnav1 = document.getElementById("11");
-    var filtersnav = document.getElementById("12");
+    var filtersnav1 = document.getElementById("functionsidfortable");
+    var filtersnav = document.getElementById("functionsidforform");
     filtersnav1.style.display = "inline-table";
     filtersnav.style.display = "none";
   }
@@ -599,8 +628,8 @@ export class MasterlistsComponent implements OnInit {
     var toggle = localStorage.getItem("tabforprocess");
     console.log(toggle);
     // document.getElementById(toggle).click();
-    var filtersnav = document.getElementById("001");
-    var filtersnav1 = document.getElementById("002");
+    var filtersnav = document.getElementById("Projectid");
+    var filtersnav1 = document.getElementById("Processid");
     this.ngOnInit();
     if (toggle == 'project') {
       filtersnav.style.display = "block";
@@ -614,7 +643,7 @@ export class MasterlistsComponent implements OnInit {
   AddProjects(form  ) {
 
     console.log(545454); 
-    document.getElementById('id22858888').style.display='block';
+    document.getElementById('circularloader').style.display='block';
 
 
     let _user: any = JSON.parse(localStorage.getItem('currentUser'));
@@ -647,9 +676,11 @@ export class MasterlistsComponent implements OnInit {
       }
       else{
         if(data.result == "ER_DUP_ENTRY"){
-          document.getElementById('id22858888').style.display='none';
-          document.getElementById('id33322221').style.display='block';
+          document.getElementById('circularloader').style.display='none';
+          //document.getElementById('projectalreadyexist').style.display='block';
           console.log('5555555555555555555555555555',data);
+          this.projectalreadyexist.show();
+          
         }
      
       }
@@ -684,7 +715,7 @@ export class MasterlistsComponent implements OnInit {
   //   });
   // }
   AddProjecttype(form  ) {
-    document.getElementById('id22858888').style.display='block';
+    document.getElementById('circularloader').style.display='block';
 
     this.isSubmitted = true;
       let _user: any = JSON.parse(localStorage.getItem('currentUser'));
@@ -708,9 +739,10 @@ export class MasterlistsComponent implements OnInit {
         }
         else{
           if(data.result == "ER_DUP_ENTRY"){
-            document.getElementById('id22858888').style.display='none';
-            document.getElementById('id33322222').style.display='block';
+            document.getElementById('circularloader').style.display='none';
+           // document.getElementById('projecttypealreadyexist').style.display='block';
             console.log('5555555555555555555555555555',data);
+            this.projecttypealreadyexist.show();
           }
        
         }
@@ -749,7 +781,7 @@ export class MasterlistsComponent implements OnInit {
     });
   }
   Addmilestones(form  ) {
-    document.getElementById('id22858888').style.display='block';
+    document.getElementById('circularloader').style.display='block';
 
     console.log(545454);
     let _user: any = JSON.parse(localStorage.getItem('currentUser'));
@@ -786,9 +818,10 @@ export class MasterlistsComponent implements OnInit {
       }
       else{
         if(data.result == "ER_DUP_ENTRY"){
-          document.getElementById('id22858888').style.display='none';
-          document.getElementById('id33322223').style.display='block';
+          document.getElementById('circularloader').style.display='none';
+         // document.getElementById('milestonealreadyexist').style.display='block';
           console.log('5555555555555555555555555555',data);
+          this.milestonealreadyexist.show();
         }
      
       }
@@ -801,7 +834,7 @@ export class MasterlistsComponent implements OnInit {
 
 
   Addphases(form  ) {
-    document.getElementById('id22858888').style.display='block';
+    document.getElementById('circularloader').style.display='block';
 
     console.log(545454);
     let _user: any = JSON.parse(localStorage.getItem('currentUser'));
@@ -833,9 +866,10 @@ export class MasterlistsComponent implements OnInit {
       }
       else{
         if(data.result == "ER_DUP_ENTRY"){
-          document.getElementById('id22858888').style.display='none';
-          document.getElementById('id33322224').style.display='block';
+          document.getElementById('circularloader').style.display='none';
+          //document.getElementById('phasealreadyexist').style.display='block';
           console.log('5555555555555555555555555555',data);
+          this.phasealreadyexist.show();
         }
      
       }
@@ -847,7 +881,7 @@ export class MasterlistsComponent implements OnInit {
   }
 
   Addlifecycle(form  ) {
-    document.getElementById('id22858888').style.display='block';
+    document.getElementById('circularloader').style.display='block';
 
     let _user: any = JSON.parse(localStorage.getItem('currentUser'));
     let o: any = {
@@ -870,9 +904,10 @@ export class MasterlistsComponent implements OnInit {
       }
       else{
         if(data.result == "ER_DUP_ENTRY"){
-          document.getElementById('id22858888').style.display='none';
-          document.getElementById('id33322225').style.display='block';
+          document.getElementById('circularloader').style.display='none';
+          //document.getElementById('lifecyclealreadyexist').style.display='block';
           console.log('5555555555555555555555555555',data);
+          this.lifecyclealreadyexist.show();
         }
      
       }
@@ -1522,7 +1557,7 @@ export class MasterlistsComponent implements OnInit {
   // }
 
   Addfunction(form  ) {
-    document.getElementById('id22858888').style.display='block';
+    document.getElementById('circularloader').style.display='block';
 
     let _user: any = JSON.parse(localStorage.getItem('currentUser'));
     let o: any = {
@@ -1545,9 +1580,10 @@ export class MasterlistsComponent implements OnInit {
       }
       else{
         if(data.result == "ER_DUP_ENTRY"){
-          document.getElementById('id22858888').style.display='none';
-          document.getElementById('id33322226').style.display='block';
+          document.getElementById('circularloader').style.display='none';
+        //  document.getElementById('functionalreadyexist').style.display='block';
           console.log('5555555555555555555555555555',data);
+          this.functionalreadyexist.show();  
         }
      
       }
@@ -1557,7 +1593,7 @@ export class MasterlistsComponent implements OnInit {
   }
 
   Adddepartment(form  ) {
-    document.getElementById('id22858888').style.display='block';
+    document.getElementById('circularloader').style.display='block';
 
     let _user: any = JSON.parse(localStorage.getItem('currentUser'));
     let o: any = {
@@ -1580,9 +1616,10 @@ export class MasterlistsComponent implements OnInit {
       }
       else{
         if(data.result == "ER_DUP_ENTRY"){
-          document.getElementById('id22858888').style.display='none';
-          document.getElementById('id33322227').style.display='block';
+          document.getElementById('circularloader').style.display='none';
+         // document.getElementById('departmentalreadyexist').style.display='block';
           console.log('5555555555555555555555555555',data);
+          this.departmentalreadyexist.show();  
         }
      
       }
@@ -1594,7 +1631,7 @@ export class MasterlistsComponent implements OnInit {
 
 
   Addimpactcategory(form) {
-    document.getElementById('id22858888').style.display='block';
+    document.getElementById('circularloader').style.display='block';
 
     let _user: any = JSON.parse(localStorage.getItem('currentUser'));
     let o: any = {
@@ -1618,9 +1655,10 @@ export class MasterlistsComponent implements OnInit {
       }
       else{
         if(data.result == "ER_DUP_ENTRY"){
-          document.getElementById('id22858888').style.display='none';
-          document.getElementById('id33322228').style.display='block';
+          document.getElementById('circularloader').style.display='none';
+          //document.getElementById('impactcategoryalreadyexist').style.display='block';
           console.log('5555555555555555555555555555',data);
+          this.impactcategoryalreadyexist.show();  
         }
      
       }
@@ -1631,7 +1669,7 @@ export class MasterlistsComponent implements OnInit {
 
 
   Addimpactlevel(form) {
-    document.getElementById('id22858888').style.display='block';
+    document.getElementById('circularloader').style.display='block';
 
     let _user: any = JSON.parse(localStorage.getItem('currentUser'));
     let o: any = {
@@ -1655,9 +1693,10 @@ export class MasterlistsComponent implements OnInit {
       }
       else{
         if(data.result == "ER_DUP_ENTRY"){
-          document.getElementById('id22858888').style.display='none';
-          document.getElementById('id33322229').style.display='block';
+          document.getElementById('circularloader').style.display='none';
+         // document.getElementById('impactlevelalreadyexist').style.display='block';
           console.log('5555555555555555555555555555',data);
+          this.impactlevelalreadyexist.show();  
         }
      
       }
@@ -1666,7 +1705,7 @@ export class MasterlistsComponent implements OnInit {
   
   }
   Addprocess(form) {
-    document.getElementById('id22858888').style.display='block';
+    document.getElementById('circularloader').style.display='block';
 
     let _user: any = JSON.parse(localStorage.getItem('currentUser'));
     let o: any = {
@@ -1689,15 +1728,30 @@ export class MasterlistsComponent implements OnInit {
       }
       else{
         if(data.result == "ER_DUP_ENTRY"){
-          document.getElementById('id22858888').style.display='none';
-          document.getElementById('id33322230').style.display='block';
+          document.getElementById('circularloader').style.display='none';
+          //document.getElementById('processalreadyexist').style.display='block';
           console.log('5555555555555555555555555555',data);
-        }
+          //console.log(this.myId.nativeElement);
+          this.processalreadyexist.show();        }
      
       }
     })
    
   
+
+  }
+  hidemodal(){
+    this.processalreadyexist.hide();
+    this.impactlevelalreadyexist.hide();
+    this.impactcategoryalreadyexist.hide();  
+    this.projecttypealreadyexist.hide();  
+    this.projectalreadyexist.hide();  
+    this.milestonealreadyexist.hide();  
+    this.phasealreadyexist.hide();  
+    this.lifecyclealreadyexist.hide();  
+    this.functionalreadyexist.hide();  
+    this.departmentalreadyexist.hide();  
+    
 
   }
   updateprocess(ID,Indexing){
@@ -1708,8 +1762,8 @@ export class MasterlistsComponent implements OnInit {
       }
       else{
         if(data.result == "ER_DUP_ENTRY"){
-          document.getElementById('id22858888').style.display='none';
-          document.getElementById('id33322222').style.display='block';
+          document.getElementById('circularloader').style.display='none';
+          document.getElementById('projecttypealreadyexist').style.display='block';
           console.log('5555555555555555555555555555',data);
         }
      

@@ -229,7 +229,7 @@
     <div class="card">
       <div class="card-header">
         Lessons by Projects
-        <select  [(ngModel)]='nrSelect' class="form-control col-sm-3 float-right" style="background-color: #f1f1f1; margin-top: -9px;"
+        <select  [(ngModel)]='nrSelectforproject' class="form-control col-sm-3 float-right" style="background-color: #f1f1f1; margin-top: -9px;"
         (change)="onselectProjecttype3($event)" id="458">
         <option value="" disabled> Select Type</option>
         <option *ngFor="let projectype of projectsAsType" value="{{projectype.ID}}">
@@ -292,7 +292,7 @@
       <div class="card-header">
         Project Phase 
       </div>
-      <select  [(ngModel)]='nrSelect' class="form-control col-sm-3 projectphaseselect" style=" margin-top: -9%;  margin-left: 75%;    margin-bottom: 5%;background-color: #f1f1f1;"
+      <select  [(ngModel)]='nrSelectforphase' class="form-control col-sm-3 projectphaseselect" style=" margin-top: -9%;  margin-left: 75%;    margin-bottom: 5%;background-color: #f1f1f1;"
         (change)="onselectProjecttype2($event)" id="458">
         <option value="" disabled> Select Type</option>
         <option *ngFor="let projectype of projectsAsType" value="{{projectype.ID}}">
@@ -381,7 +381,7 @@
       <div class="card-header">
         Lessons by Milestones
       </div>
-      <select  [(ngModel)]='nrSelect' class="form-control col-sm-3 projectphaseselect" style=" margin-top: -9%;  margin-left: 75%;    margin-bottom: 5%;background-color: #f1f1f1;"
+      <select  [(ngModel)]='nrSelectformilestone' class="form-control col-sm-3 projectphaseselect" style=" margin-top: -9%;  margin-left: 75%;    margin-bottom: 5%;background-color: #f1f1f1;"
         (change)="onselectProjecttype1($event)" id="458">
         <option value="" disabled> Select Type</option>
         <option *ngFor="let projectype of projectsAsType" value="{{projectype.ID}}">

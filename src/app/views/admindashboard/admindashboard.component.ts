@@ -12,7 +12,9 @@ import * as Chart from 'chart.js';
 })
 export class AdmindashboardComponent implements OnInit {
   results: any[];
-  nrSelect = 1;
+  nrSelectforproject = 1;
+  nrSelectforphase = 1;
+  nrSelectformilestone = 1;
 
   public _baseURL: string;
   public sortbyBD: string;

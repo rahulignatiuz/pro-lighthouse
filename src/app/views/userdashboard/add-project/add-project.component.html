@@ -21,7 +21,7 @@
          <div class="card-header">
             <span class="centerposition" id="id202">
                <!-- <i class="icon-plus"></i>  -->
-               Record a new process lesson
+               Record a new project lesson
             </span>
             <button class="btn btn-primary borderbtn float-right" type="button" (click)="importBulkFileHistory()">
                History <i class="fa fa-history"></i></button>
@@ -288,10 +288,11 @@
                                  <label class="col-md-3 col-form-label" for="textarea-input">Title <span
                                        class="danger">*</span></label>
                                  <div class="col-md-9">
-                                    <input class="form-control" [(ngModel)]="title"
+                                    <input class="form-control charactercount" [(ngModel)]="title"
                                        [ngClass]="{'has-error is-invalid': isSubmitted && formControls.title.errors }"
-                                       id="text-input" formControlName="title" placeholder="Title" type="text">
-
+                                       id="text-input" formControlName="title" placeholder="Title" type="text" #title12 [maxlength]="maxCharacter">
+                                       <span
+                                       class="float-left remaning1">{{title12.value.length}}/{{maxCharacter}}</span>
                                     <div
                                        *ngIf="lessonForm.controls['title'].invalid && (lessonForm.controls['title'].dirty || lessonForm.controls['title'].touched)"
                                        class="custom-errMsg">

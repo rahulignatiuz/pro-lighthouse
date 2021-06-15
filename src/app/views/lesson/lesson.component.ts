@@ -145,8 +145,7 @@ export class lessonComponent implements OnInit {
 
     });
   }
-  adduserusefullesson(LessonID, UserID, data, title: string) {
-
+  adduserusefullesson(LessonID, UserID, title: string) {
     this.userService.getallflags(LessonID).subscribe((data) => {
       this.results = data.result;
       let flag = data.data[0].flag;
@@ -169,8 +168,9 @@ export class lessonComponent implements OnInit {
     //console.log('212',title)
     // var x = document.getElementById("myDIV");
     document.getElementById("id01").style.display = "none";
-    window.location.reload();
-
+    setTimeout(() => {
+      window.location.reload();
+    }, 2000);
   }
 
   adduserusefullessonforNo(LessonID, UserID, data, title: string) {
@@ -234,9 +234,10 @@ export class lessonComponent implements OnInit {
     var x = document.getElementById("iditem");
     if(data.length > 0){
       x.classList.remove("removecss");
+      x.removeAttribute("disabled");
     }else{
       x.classList.add("removecss");
-
+      x.setAttribute("disabled", "");
     }
     if (x.onclick) {
       //this.adduserusefullesson(this.LessonID,this.UserID,data);

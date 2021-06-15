@@ -18,6 +18,7 @@ export class UpdateProcessComponent implements OnInit {
 
   public projectsAsObjects: any;
   public maxChars = 250;
+  public maxCharacter =100;
 
   public projectsAsType: any;
   public projectsPhaseAsObjects: any;

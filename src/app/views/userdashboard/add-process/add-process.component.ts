@@ -91,8 +91,10 @@ export class AddProcessComponent implements OnInit {
   public bulkAttachment: File = null;
   public somethingMissingError: boolean = false;
   public maxChars = 250;
+  public maxCharacter =100;
   public isClickFunction: boolean = false;
   public isClickDepartment: boolean = false;
+  public getuserusefullesson: string;
   constructor(private router: Router, private formBuilder: FormBuilder, private userService: UserService, private route: ActivatedRoute, private titleService: Title) {
     TagInputModule.withDefaults({
       tagInput: {
@@ -519,6 +521,14 @@ export class AddProcessComponent implements OnInit {
             if (data.status) {
               this.userService.addMappingLessonAttachmentSQL(data.result[0].insertId, this.attachmentID).subscribe((data) => {
                 if (data.status) {
+                  let LessonID = data.result[0].insertId;
+                  let _user: any = JSON.parse(localStorage.getItem('currentUser'));
+                  let UserID = _user.ID;
+                  let title ="";
+                  this.userService.adduserusefullessonforNo(LessonID, UserID, data, title).subscribe((data) => {
+                    this.getuserusefullesson = data.result;
+                    console.log(data);
+                  });
                   this.showLoader = false;
                   console.log(data);
                   this.myModal.show();
@@ -534,6 +544,14 @@ export class AddProcessComponent implements OnInit {
         //   console.log(data);
         //   console.log(data.status);
         if (data.status) {
+          let LessonID = data.result[0].insertId;
+          let _user: any = JSON.parse(localStorage.getItem('currentUser'));
+          let UserID = _user.ID;
+          let title ="";
+          this.userService.adduserusefullessonforNo(LessonID, UserID, data, title).subscribe((data) => {
+            this.getuserusefullesson = data.result;
+            console.log(data);
+          });
           this.showLoader = false;
           this.myModal.show();
           this.router.navigate(['/user/add-process']);

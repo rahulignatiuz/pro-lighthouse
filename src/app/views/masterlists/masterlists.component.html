@@ -5,26 +5,26 @@
       </div>
       <div class="card-header">
          <input type="radio" id="project" name="lesson" value="project" [(ngModel)]="lf"
-            (change)="togglelessonFlow($event, lf)" >
-         <label for="project" style="margin-left: 5px;">Project</label>
-         <input type="radio" style="margin-left: 20px;" id="Process" name="lesson" value="Process" [(ngModel)]="lf"
             (change)="togglelessonFlow($event, lf)">
-         <label for="Process" style="margin-left: 5px;">Process</label><br>
+         <label for="project" class="typestyle">Project</label>
+         <input type="radio" class="rbtn" id="Process" name="lesson" value="Process" [(ngModel)]="lf"
+            (change)="togglelessonFlow($event, lf)">
+         <label for="Process" class="typestyle">Process</label><br>
       </div>
-      <div class="" id="001">
+      <div class="" id="Projectid">
          <ul class="tabs">
-            <li style="margin-left: 8px;">
-               <input type="radio" checked name="tabs" id="tab1"
-                  (click)="showaddform55(); showaddform70(); showaddform56();showaddform57(); showaddform58(); showaddform59(); showaddform61(); showaddform62(); showaddform63(); tabcontforprojecttype();">
+            <li class="fortab">
+
+               <input type="radio" checked name="tabs" id="tab1" (click)="showaddform55(); tabcontforprojecttype();">
                <label for="tab1">Project Type</label>
                <div id="tab-content1" class="tab-content animated fadeIn">
-                  <button (click)="showaddform()" class="btn btn-primary addnewbut fontaddnew"> <i
-                        class="fa fa-plus-circle" style="font-size: 13px;"></i> Add New</button>
+                  <button (click)="showaddformforprojecttype();" class="btn btn-primary addnewbut fontaddnew"> <i
+                        class="fa fa-plus-circle addnew"></i> Add New</button>
                   <div>
                      <!-- <div class="help-tip">
                         <p>Please Drag and Drop entries of the table to change the positions of it</p>
                      </div> -->
-                     <table style="width: 97%;margin-top: 1%;margin-left: 28px;" id="008">
+                     <table class="tablestyle" id="Projecttypeidfortable">
                         <thead>
                            <tr>
                               <th class="tabheading">&nbsp;&nbsp;Edit</th>
@@ -54,18 +54,17 @@
                            </div> -->
                         </thead>
                         <tbody cdkDropList (cdkDropListDropped)="onDrop5($event)">
-                           <tr cdkDrag *ngFor="let project of projectsAsType" cdkDragLockAxis="y"
-                              style="cursor: pointer;">
+                           <tr class="cusrorpointer" cdkDrag *ngFor="let project of projectsAsType" cdkDragLockAxis="y">
 
                               <td class="tdiconpadding">
                                  <a>
                                     <!-- <i class="fa fa-edit editcss" style="font-size: 15px; "></i> -->
                                     <!-- <i class="fa fa-plus-circle" style="font-size:16px"></i> -->
                                  </a>
-                                 <a onclick="document.getElementById('id04').style.display='block'"
+                                 <a onclick="document.getElementById('editprojecttype').style.display='block'"
                                     (click)="getidinurl(project.ID)">
-                                    <i class="fa fa-plus-circle"
-                                       style="font-size:16px;color: green; cursor: pointer;"></i>
+                                    <i class="fa fa-plus-circle icon"></i>
+
                                     <!-- <i class="fa fa-edit editcss" style="font-size: 23px; color: #20a8d8; cursor: pointer;"></i> -->
                                  </a>
 
@@ -79,10 +78,11 @@
                      </table>
                   </div>
 
-                  <form class="form-horizontal" [formGroup]="projectForm" (ngSubmit)="AddProjecttype(projectForm)"
-                     style="display: none;" id="007">
+                  <form class="form-horizontal fordisplaynone" [formGroup]="projectForm"
+                     (ngSubmit)="AddProjecttype(projectForm)" id="Projecttypeidforform">
                      <div class="row">
-                        <div class="card-body p-4 clearfix" style=" width: 75%;margin-right: 10%;">
+
+                        <div class="card-body p-4 clearfix cardstyle">
                            <div class="col-sm-9">
                               <div class="form-group row labeldata">
                                  <label class="col-md-12 addformcsss" for="text-input">Project type</label>
@@ -91,24 +91,24 @@
                         formControlName="projectName" placeholder="Project Name" type="text"> -->
                                     <input class="form-control " id="text-input" formControlName="projecttypeName"
                                        placeholder="Project type Name" type="text">
-                                       <div
+                                    <div
                                        *ngIf="projectForm.controls['projecttypeName'].invalid && (projectForm.controls['projecttypeName'].dirty || projectForm.controls['projecttypeName'].touched)"
                                        class="custom-errMsg">
                                        <div *ngIf="projectForm.controls['projecttypeName'].errors.required">
-                                          Project Type is required.
+                                          Project type is required.
                                        </div>
                                     </div>
                                  </div>
-                                
+
                               </div>
                            </div>
                            <div class="col-sm-9">
                               <div class="form-group row">
                                  <label class="col-md-12 addformcsss" for="text-input">Project Description</label>
                                  <div class="col-md-6">
-                                    <textarea class="form-control " id="textarea-input"
+                                    <textarea class="form-control textareastyle" id="textarea-input"
                                        formControlName="projecttypeDescription" placeholder="Description..." rows="6"
-                                       maxlength="250" style="width: -98%;">
+                                       maxlength="250">
                         </textarea>
                                  </div>
                                  <div
@@ -119,10 +119,9 @@
                                     </div> -->
                                  </div>
                               </div>
-                              <button class="btn btn-primary" type="submit"
-                                 [disabled]="( projectForm.controls['projecttypeName'].invalid )"
-                                 style="border-radius: 4px; margin-right: -27%;margin-left:20px;"><i class="fa fa-save"
-                                    style="font-size:15px"></i> Save</button>
+                              <button class="btn btn-primary submitbtn" type="submit"
+                                 [disabled]="( projectForm.controls['projecttypeName'].invalid )"><i
+                                    class="fa fa-save savebtn"></i> Save</button>
 
                            </div>
 
@@ -133,24 +132,24 @@
                </div>
             </li>
             <li>
-               <input type="radio" name="tabs" id="tab2"
-                  (click)="showaddform55(); showaddform70(); showaddform56();showaddform57(); showaddform58(); showaddform59(); showaddform61(); showaddform62(); showaddform63(); tabcontforproject();">
+
+               <input type="radio" name="tabs" id="tab2" (click)="showaddform55(); tabcontforproject();">
                <label for="tab2">Projects</label>
                <div id="tab-content2" class="tab-content animated fadeIn">
-                  <button (click)="showaddform1()" class="btn btn-primary addnewbut fontaddnew"> <i
-                        class="fa fa-plus-circle" style="font-size: 13px;"></i> Add New</button>
+                  <button (click)="showaddformforprojectname();" class="btn btn-primary addnewbut fontaddnew"> <i
+                        class="fa fa-plus-circle addnew"></i> Add New</button>
                   <div>
-                     <select class="form-control col-sm-3" style=" margin-top: 6px;     margin-left: 41px;"
-                        (change)="onselectProjecttype1($event)" id="457">
+
+                     <select class="form-control col-sm-3 projecttype" (change)="onselectProjecttype1($event)" id="selectforproject">
                         <option value="" disabled> Select Project Type</option>
                         <option *ngFor="let projectype of projectsAsType" value="{{projectype.ID}}">
                            {{projectype.Name}}</option>
                      </select>
-                     <table style="width: 97%;margin-top: 1%;margin-left: 28px;" id="05">
+                     <table class="tablestyle" id="projectsidfortable">
                         <thead>
                            <tr>
                               <th>&nbsp;&nbsp;Edit</th>
-                              <th style="width:34%;">Project Name</th>
+                              <th class="forproject">Project Name</th>
                               <th>LPN/PPN #
                                  <span class="tooltip-toggle"
                                     aria-label="Please Drag and Drop entries of the table to change the positions."
@@ -170,8 +169,8 @@
                            </tr>
                         </thead>
                         <tbody cdkDropList (cdkDropListDropped)="onDrop20($event)">
-                           <tr cdkDrag *ngFor="let project of mappingProjectTypeAndProject" cdkDragLockAxis="y"
-                              style="cursor: pointer;">
+                           <tr class="cusrorpointer" cdkDrag *ngFor="let project of mappingProjectTypeAndProject"
+                              cdkDragLockAxis="y" class="cusrorpointer">
 
                               <td class="tdiconpadding">
                                  <!-- <a routerLink="/edit"><button class="btn btn-primary"> edit</button></a> -->
@@ -179,10 +178,10 @@
                                     <!-- <i class="fa fa-edit editcss" style="font-size: 15px; "></i> -->
                                     <!-- <i class="fa fa-plus-circle" style="font-size:16px"></i> -->
                                  </a>
-                                 <a onclick="document.getElementById('id011').style.display='block'"
+                                 <a onclick="document.getElementById('Editproject').style.display='block'"
                                     (click)="getprojectbyid(project.ID)">
-                                    <i class="fa fa-plus-circle"
-                                       style="font-size:16px;color: green; cursor: pointer;"></i>
+                                    <i class="fa fa-plus-circle icon"></i>
+
                                     <!-- <i class="fa fa-edit editcss" style="font-size: 23px; color: #20a8d8; cursor: pointer;"></i> -->
                                  </a>
                               </td>
@@ -195,10 +194,10 @@
                   </div>
 
 
-                  <form class="form-horizontal" [formGroup]="projectForm" (ngSubmit)="AddProjects(projectForm)"
-                     *ngIf="selectedOption == 'first'" id="06" style="display: none;">
+                  <form class="form-horizontal fordisplaynone" [formGroup]="projectForm"
+                     (ngSubmit)="AddProjects(projectForm)" *ngIf="selectedOption == 'first'" id="projectsidforform">
                      <div class="row">
-                        <div class="card-body p-4 clearfix" style=" width: 75%;margin-right: 10%; ">
+                        <div class="card-body p-4 clearfix cardstyle">
                            <div class="col-sm-9">
                               <div class="form-group row">
                                  <label class="col-md-12 addformcsss" for="text-input">Project Type</label>
@@ -215,7 +214,7 @@
                                        *ngIf="projectForm.controls['_projectType'].invalid && (projectForm.controls['_projectType'].dirty || projectForm.controls['_projectType'].touched)"
                                        class="custom-errMsg">
                                        <div *ngIf="projectForm.controls['_projectType'].errors.required">
-                                          Project Type is required.
+                                          Project type is required.
                                        </div>
                                     </div>
                                  </div>
@@ -232,7 +231,7 @@
                                     </tag-input> -->
                                     <input class="form-control" id="text-input" formControlName="projectName"
                                        placeholder="Project Name" type="text">
-                                       <div
+                                    <div
                                        *ngIf="projectForm.controls['projectName'].invalid && (projectForm.controls['projectName'].dirty || projectForm.controls['projectName'].touched)"
                                        class="custom-errMsg">
                                        <div *ngIf="projectForm.controls['projectName'].errors.required">
@@ -240,7 +239,7 @@
                                        </div>
                                     </div>
                                  </div>
-                                
+
                               </div>
                            </div>
                            <div class="col-sm-9">
@@ -253,7 +252,7 @@
                                        value='0.00' formControlName="projectNumber" placeholder="Format : 01234.00"
                                        oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
                                        type="number" maxlength="8" />
-                                       <div
+                                    <div
                                        *ngIf="projectForm.controls['projectNumber'].invalid && (projectForm.controls['projectNumber'].dirty || projectForm.controls['projectNumber'].touched)"
                                        class="custom-errMsg">
                                        <div *ngIf="projectForm.controls['projectNumber'].errors.required">
@@ -261,16 +260,16 @@
                                        </div>
                                     </div>
                                  </div>
-                               
+
                               </div>
                            </div>
                            <div class="col-sm-9">
                               <div class="form-group row">
                                  <label class="col-md-12 addformcsss" for="text-input">Project Description</label>
                                  <div class="col-md-6">
-                                    <textarea class="form-control " id="textarea-input"
+                                    <textarea class="form-control textareastyle " id="textarea-input"
                                        formControlName="projectDescription" placeholder="Description..." rows="6"
-                                       maxlength="250" style="width: -98%;">
+                                       maxlength="250">
                                  </textarea>
                                  </div>
                                  <div
@@ -281,11 +280,10 @@
                                     </div> -->
                                  </div>
                               </div>
-                              <button class="btn btn-primary" type="submit"
-                                 [disabled]="(projectForm.controls['projectName'].invalid || projectForm.controls['projectNumber'].invalid || projectForm.controls['_projectType'].invalid )"
-                                 style="border-radius: 4px; margin-right: -27%;margin-left:20px;"><i class="fa fa-save"
-                                    style="font-size:15px"></i> Save</button>
-                                    
+                              <button class="btn btn-primary submitbtn" type="submit"
+                                 [disabled]="(projectForm.controls['projectName'].invalid || projectForm.controls['projectNumber'].invalid || projectForm.controls['_projectType'].invalid )"><i
+                                    class="fa fa-save savebtn"></i> Save</button>
+
 
                            </div>
 
@@ -296,24 +294,25 @@
                </div>
             </li>
             <li>
-               <input type="radio" name="tabs" id="tab8"
-                  (click)="showaddform55(); showaddform56(); showaddform70(); showaddform57(); showaddform58(); showaddform59(); showaddform61(); showaddform62(); showaddform63(); tabcontforphase();">
+
+               <input type="radio" name="tabs" id="tab8" (click)="showaddform55(); tabcontforphase();">
                <label for="tab8">Phases</label>
                <div id="tab-content3" class="tab-content animated fadeIn">
-                  <button (click)="showaddform7()" class="btn btn-primary addnewbut fontaddnew"> <i
-                        class="fa fa-plus-circle" style="font-size: 13px;"></i> Add New</button>
+                  <button (click)="showaddformforphasename();" class="btn btn-primary addnewbut fontaddnew"> <i
+                        class="fa fa-plus-circle addnew"></i> Add New</button>
                   <div>
-                     <select class="form-control col-sm-3" style=" margin-top: 6px;     margin-left: 41px;"
-                        (change)="onselectProjecttype2($event);" id="456">
+
+                     <select class="form-control col-sm-3 projecttype" (change)="onselectProjecttype2($event);"
+                        id="selectforphase">
                         <option value="" disabled> Select Project Type</option>
                         <option *ngFor="let projectype of projectsAsType" value="{{projectype.ID}}">
                            {{projectype.Name}}</option>
                      </select>
-                     <table style="width: 97%;margin-top: 1%;margin-left: 28px;" id="19">
+                     <table class="tablestyle" id="phaseidfortable">
                         <thead>
                            <tr>
-                              <th class="" >&nbsp;&nbsp;Edit</th>
-                              <th class=""style="width: 62%;">Phase Name
+                              <th class="">&nbsp;&nbsp;Edit</th>
+                              <th class="forphase">Phase Name
                                  <span class="tooltip-toggle"
                                     aria-label="Please Drag and Drop entries of the table to change the positions."
                                     tabindex="0">
@@ -335,12 +334,12 @@
                         </thead>
                         <tbody cdkDropList (cdkDropListDropped)="onDrop24($event)">
                            <tr cdkDrag *ngFor="let project of MappingProjectTypeAndPhase" cdkDragLockAxis="y"
-                              style="cursor: pointer;">
+                              class="cusrorpointer">
                               <td class="tdiconpadding">
-                                 <a onclick="document.getElementById('id012').style.display='block'"
+                                 <a onclick="document.getElementById('editphase').style.display='block'"
                                     (click)="getphasesbyid(project.ID)">
-                                    <i class="fa fa-plus-circle"
-                                       style="font-size:16px;color: green; cursor: pointer;"></i>
+                                    <i class="fa fa-plus-circle icon"></i>
+
                                     <!-- <i class="fa fa-edit editcss" style="font-size: 23px; color: #20a8d8; cursor: pointer;"></i> -->
                                  </a>
                               </td>
@@ -350,10 +349,10 @@
                         </tbody>
                      </table>
                   </div>
-                  <form class="form-horizontal" [formGroup]="projectForm" (ngSubmit)="Addphases(projectForm)" id="20"
-                     style="display: none;">
+                  <form class="form-horizontal fordisplaynone" [formGroup]="projectForm"
+                     (ngSubmit)="Addphases(projectForm)" id="phaseidforfrom">
                      <div class="row">
-                        <div class="card-body p-4 clearfix" style=" width: 75%; margin-right: 10%;">
+                        <div class="card-body p-4 clearfix cardstyle">
                            <div class="col-sm-9">
                               <div class="form-group row">
                                  <label class="col-md-12 addformcsss" for="text-input">Project Type</label>
@@ -370,7 +369,7 @@
                                        *ngIf="projectForm.controls['_projectType'].invalid && (projectForm.controls['_projectType'].dirty || projectForm.controls['_projectType'].touched)"
                                        class="custom-errMsg">
                                        <div *ngIf="projectForm.controls['_projectType'].errors.required">
-                                          Project Type is required.
+                                          Project type is required.
                                        </div>
                                     </div>
                                  </div>
@@ -391,7 +390,7 @@
                                     </tag-input> -->
                                     <input class="form-control" id="text-input" formControlName="phaseName"
                                        placeholder="Phase Name" type="text">
-                                       <div
+                                    <div
                                        *ngIf="projectForm.controls['phaseName'].invalid && (projectForm.controls['phaseName'].dirty || projectForm.controls['phaseName'].touched)"
                                        class="custom-errMsg">
                                        <div *ngIf="projectForm.controls['phaseName'].errors.required">
@@ -399,7 +398,7 @@
                                        </div>
                                     </div>
                                  </div>
-                               
+
                               </div>
                            </div>
 
@@ -407,9 +406,9 @@
                               <div class="form-group row">
                                  <label class="col-md-12 addformcsss" for="text-input">Phase Description</label>
                                  <div class="col-md-6">
-                                    <textarea class="form-control " id="textarea-input"
+                                    <textarea class="form-control textareastyle" id="textarea-input"
                                        formControlName="phaseDescription" placeholder="Description..." rows="6"
-                                       maxlength="250" style="width: -98%;">
+                                       maxlength="250">
                   </textarea>
                                  </div>
                                  <div
@@ -420,10 +419,9 @@
                                     </div> -->
                                  </div>
                               </div>
-                              <button class="btn btn-primary" type="submit"
-                                 [disabled]="(projectForm.controls['phaseName'].invalid || projectForm.controls['_projectType'].invalid )"
-                                 style="border-radius: 4px; margin-right: -27%;margin-left:20px;"><i class="fa fa-save"
-                                    style="font-size:15px"></i> Save</button>
+                              <button class="btn btn-primary submitbtn" type="submit"
+                                 [disabled]="(projectForm.controls['phaseName'].invalid || projectForm.controls['_projectType'].invalid )"><i
+                                    class="fa fa-save savebtn"></i> Save</button>
 
                            </div>
 
@@ -434,20 +432,20 @@
                </div>
             </li>
             <li>
-               <input type="radio" name="tabs" id="tab9"
-                  (click)="showaddform55(); showaddform70(); showaddform56();showaddform57(); showaddform58(); showaddform59(); showaddform61(); showaddform62(); showaddform63(); tabcontformilestone();">
+
+               <input type="radio" name="tabs" id="tab9" (click)="showaddform55(); tabcontformilestone();">
                <label for="tab9">Milestone</label>
                <div id="tab-content3" class="tab-content animated fadeIn">
-                  <button (click)="showaddform8()" class="btn btn-primary addnewbut fontaddnew"> <i
-                        class="fa fa-plus-circle" style="font-size: 13px;"></i> Add New</button>
+                  <button (click)="showaddformformilestonename()" class="btn btn-primary addnewbut fontaddnew"> <i
+                        class="fa fa-plus-circle addnew"></i> Add New</button>
                   <div>
-                     <select class="form-control col-sm-3" style=" margin-top: 6px;  margin-left: 41px;"
-                        (change)="onselectProjecttype3($event)" id="458">
+
+                     <select class="form-control col-sm-3 projecttype" (change)="onselectProjecttype3($event)" id="selectformilestone">
                         <option value="" disabled> Select Type</option>
                         <option *ngFor="let projectype of projectsAsType" value="{{projectype.ID}}">
                            {{projectype.Name}}</option>
                      </select>
-                     <table style="width: 97%;margin-top: 1%;margin-left: 28px;" id="21">
+                     <table class="tablestyle" id="milestoneidfortable">
                         <thead>
                            <tr>
                               <th class="tabheading">&nbsp;&nbsp;Edit</th>
@@ -471,13 +469,13 @@
                         </thead>
                         <tbody cdkDropList (cdkDropListDropped)="onDrop21($event)">
                            <tr cdkDrag *ngFor="let project of mappingProjectAndMilestone" cdkDragLockAxis="y"
-                              style="cursor: pointer;">
+                              class="cusrorpointer">
 
                               <td class="tdiconpadding">
-                                 <a onclick="document.getElementById('id013').style.display='block'"
+                                 <a onclick="document.getElementById('editmilestone').style.display='block'"
                                     (click)="getmilestonesbyid(project.ID)">
-                                    <i class="fa fa-plus-circle"
-                                       style="font-size:16px;color: green; cursor: pointer;"></i>
+                                    <i class="fa fa-plus-circle icon"></i>
+
                                     <!-- <i class="fa fa-edit editcss" style="font-size: 23px; color: #20a8d8; cursor: pointer;"></i> -->
                                  </a>
                               </td>
@@ -487,10 +485,10 @@
                         </tbody>
                      </table>
                   </div>
-                  <form class="form-horizontal" [formGroup]="projectForm" (ngSubmit)="Addmilestones(projectForm)"
-                     id="22" style="display: none;">
+                  <form class="form-horizontal fordisplaynone" [formGroup]="projectForm"
+                     (ngSubmit)="Addmilestones(projectForm)" id="milestoneidforform">
                      <div class="row">
-                        <div class="card-body p-4 clearfix" style=" width: 75%; margin-right: 10%; ">
+                        <div class="card-body p-4 clearfix cardstyle">
                            <div class="col-sm-9">
                               <div class="form-group row">
                                  <label class="col-md-12 addformcsss" for="text-input">Project Type</label>
@@ -507,7 +505,7 @@
                                        *ngIf="projectForm.controls['_projectType'].invalid && (projectForm.controls['_projectType'].dirty || projectForm.controls['_projectType'].touched)"
                                        class="custom-errMsg">
                                        <div *ngIf="projectForm.controls['_projectType'].errors.required">
-                                          Project Type is required.
+                                          Project type is required.
                                        </div>
                                     </div>
                                  </div>
@@ -527,7 +525,7 @@
                                     </tag-input> -->
                                     <input class="form-control" id="text-input" formControlName="milestoneName"
                                        placeholder="Milestone Name" type="text">
-                                       <div
+                                    <div
                                        *ngIf="projectForm.controls['milestoneName'].invalid && (projectForm.controls['milestoneName'].dirty || projectForm.controls['milestoneName'].touched)"
                                        class="custom-errMsg">
                                        <div *ngIf="projectForm.controls['milestoneName'].errors.required">
@@ -535,7 +533,7 @@
                                        </div>
                                     </div>
                                  </div>
-                                
+
                               </div>
                            </div>
 
@@ -543,9 +541,9 @@
                               <div class="form-group row">
                                  <label class="col-md-12 addformcsss" for="text-input">Milestone Description</label>
                                  <div class="col-md-6">
-                                    <textarea class="form-control " id="textarea-input"
+                                    <textarea class="form-control textareastyle" id="textarea-input"
                                        formControlName="milestoneDescription" placeholder="Description..." rows="6"
-                                       maxlength="250" style="width: -98%;">
+                                       maxlength="250">
                            </textarea>
                                  </div>
                                  <div
@@ -556,10 +554,9 @@
                                     </div> -->
                                  </div>
                               </div>
-                              <button class="btn btn-primary" type="submit"
-                                 [disabled]="(projectForm.controls['milestoneName'].invalid  || projectForm.controls['_projectType'].invalid )"
-                                 style="border-radius: 4px; margin-right: -27%;margin-left:20px;"><i class="fa fa-save"
-                                    style="font-size:15px"></i> Save</button>
+                              <button class="btn btn-primary submitbtn" type="submit"
+                                 [disabled]="(projectForm.controls['milestoneName'].invalid  || projectForm.controls['_projectType'].invalid )"><i
+                                    class="fa fa-save savebtn"></i> Save</button>
 
                            </div>
                            <!-- <button class="btn btn-primary float-right" type="button" style="border-radius: 4px;">Save</button> -->
@@ -569,14 +566,15 @@
                </div>
             </li>
             <li>
-               <input type="radio" name="tabs" id="tab3"
-                  (click)="showaddform55(); showaddform70(); showaddform56();showaddform57(); showaddform58(); showaddform59(); showaddform61(); showaddform62(); showaddform63(); tabcontforlifecycle();">
+
+               <input type="radio" name="tabs" id="tab3" (click)="showaddform55(); tabcontforlifecycle();">
                <label for="tab3">Lifecycle Team</label>
                <div id="tab-content3" class="tab-content animated fadeIn">
-                  <button (click)="showaddform2()" class="btn btn-primary addnewbut fontaddnew fontaddnew"> <i
-                        class="fa fa-plus-circle" style="font-size: 13px;"></i> Add New</button>
+                  <button (click)="showaddformforlifecyclename()"
+                     class="btn btn-primary addnewbut fontaddnew fontaddnew"> <i class="fa fa-plus-circle addnew"></i>
+                     Add New</button>
                   <div>
-                     <table style="width: 97%;margin-top: 1%;margin-left: 28px;" id="10">
+                     <table class="tablestyle" id="LifeCycleidfortable">
                         <thead>
                            <tr>
                               <th class="tabheading">&nbsp;&nbsp;Edit</th>
@@ -600,13 +598,13 @@
                         </thead>
                         <tbody cdkDropList (cdkDropListDropped)="onDrop9($event)">
                            <tr cdkDrag *ngFor="let project of lifecycleAsObjects" cdkDragLockAxis="y"
-                              style="cursor: pointer;">
+                              class="cusrorpointer">
 
                               <td class="tdiconpadding">
-                                 <a onclick="document.getElementById('id06').style.display='block'"
+                                 <a onclick="document.getElementById('editlifecycle').style.display='block'"
                                     (click)="getlifecyclebyid(project.ID)">
-                                    <i class="fa fa-plus-circle"
-                                       style="font-size:16px;color: green; cursor: pointer;"></i>
+                                    <i class="fa fa-plus-circle icon"></i>
+
                                  </a>
                               </td>
                               <td>{{project.Name}}</td>
@@ -615,10 +613,10 @@
                         </tbody>
                      </table>
                   </div>
-                  <form class="form-horizontal" [formGroup]="projectForm" (ngSubmit)="Addlifecycle(projectForm)" id="09"
-                     style="display: none;">
+                  <form class="form-horizontal fordisplaynone" [formGroup]="projectForm"
+                     (ngSubmit)="Addlifecycle(projectForm)" id="LifeCycleidforform">
                      <div class="row">
-                        <div class="card-body p-4 clearfix" style="width: 75%; margin-right: 10%;">
+                        <div class="card-body p-4 clearfix cardstyle">
                            <div class="col-sm-9">
                               <div class="form-group row">
                                  <label class="col-md-12 addformcsss" for="text-input">LifeCycle Name</label>
@@ -633,15 +631,15 @@
                                     </tag-input> -->
                                     <input class="form-control" id="text-input" formControlName="lifecycleName"
                                        placeholder="Lifecycle team Name" type="text">
-                                       <div
+                                    <div
                                        *ngIf="projectForm.controls['lifecycleName'].invalid && (projectForm.controls['lifecycleName'].dirty || projectForm.controls['lifecycleName'].touched)"
                                        class="custom-errMsg">
                                        <div *ngIf="projectForm.controls['lifecycleName'].errors.required">
-                                          Lifecycle Name is required.
+                                          LifeCycle Name is required.
                                        </div>
                                     </div>
                                  </div>
-                                
+
                               </div>
                            </div>
 
@@ -649,9 +647,9 @@
                               <div class="form-group row">
                                  <label class="col-md-12 addformcsss" for="text-input">Lifecycle Description</label>
                                  <div class="col-md-6">
-                                    <textarea class="form-control " id="textarea-input"
+                                    <textarea class="form-control textareastyle" id="textarea-input"
                                        formControlName="lifecycleDescription" placeholder="Description..." rows="6"
-                                       maxlength="250" style="width: -98%;">
+                                       maxlength="250">
                      </textarea>
                                  </div>
                                  <div
@@ -662,10 +660,9 @@
                                     </div> -->
                                  </div>
                               </div>
-                              <button class="btn btn-primary" type="submit"
-                                 [disabled]="(projectForm.controls['lifecycleName'].invalid  )"
-                                 style="border-radius: 4px; margin-right: -27%;margin-left:20px;"><i class="fa fa-save"
-                                    style="font-size:15px"></i> Save</button>
+                              <button class="btn btn-primary submitbtn" type="submit"
+                                 [disabled]="(projectForm.controls['lifecycleName'].invalid  )"><i
+                                    class="fa fa-save savebtn"></i> Save</button>
 
                            </div>
 
@@ -675,15 +672,15 @@
                   </form>
                </div>
             </li>
-            <li>
-               <input type="radio" name="tabs" id="tab4"
-                  (click)="showaddform55(); showaddform70(); showaddform56();showaddform57(); showaddform58(); showaddform59(); showaddform61(); showaddform62(); showaddform63(); tabcontforfunction();">
+            <li >
+
+               <input type="radio" name="tabs" id="tab4" (click)="showaddform55(); tabcontforfunction();">
                <label for="tab4">Functions</label>
                <div id="tab-content3" class="tab-content animated fadeIn">
-                  <button (click)="showaddform3()" class="btn btn-primary addnewbut fontaddnew"> <i
-                        class="fa fa-plus-circle" style="font-size: 13px;"></i> Add New</button>
+                  <button (click)="showaddformforfunctionname()" class="btn btn-primary addnewbut fontaddnew"> <i
+                        class="fa fa-plus-circle addnew"></i> Add New</button>
                   <div>
-                     <table style="width: 97%;margin-top: 1%;margin-left: 28px;" id="11">
+                     <table class="tablestyle" id="functionsidfortable">
                         <thead>
                            <tr>
                               <th class="tabheading">&nbsp;&nbsp;Edit</th>
@@ -707,13 +704,13 @@
                         </thead>
                         <tbody cdkDropList (cdkDropListDropped)="onDrop10($event)">
                            <tr cdkDrag *ngFor="let project of functionAsObjects" cdkDragLockAxis="y"
-                              style="cursor: pointer;">
+                              class="cusrorpointer">
 
                               <td class="tdiconpadding">
-                                 <a onclick="document.getElementById('id07').style.display='block'"
+                                 <a onclick="document.getElementById('editfunction').style.display='block'"
                                     (click)="getfunctionsbyid(project.ID)">
-                                    <i class="fa fa-plus-circle"
-                                       style="font-size:16px;color: green; cursor: pointer;"></i>
+                                    <i class="fa fa-plus-circle icon"></i>
+
                                     <!-- <i class="fa fa-edit editcss" style="font-size: 23px; color: #20a8d8; cursor: pointer;"></i> -->
                                  </a>
                               </td>
@@ -723,10 +720,10 @@
                         </tbody>
                      </table>
                   </div>
-                  <form class="form-horizontal" [formGroup]="projectForm" (ngSubmit)="Addfunction(projectForm)" id="12"
-                     style="display: none;">
+                  <form class="form-horizontal fordisplaynone" [formGroup]="projectForm"
+                     (ngSubmit)="Addfunction(projectForm)" id="functionsidforform">
                      <div class="row">
-                        <div class="card-body p-4 clearfix" style=" width: 75%; margin-right: 10%; ">
+                        <div class="card-body p-4 clearfix cardstyle">
                            <div class="col-sm-9">
                               <div class="form-group row">
                                  <label class="col-md-12 addformcsss" for="text-input">Function Name</label>
@@ -741,7 +738,7 @@
                                     </tag-input> -->
                                     <input class="form-control" id="text-input" formControlName="function"
                                        placeholder="Function Name" type="text">
-                                       <div
+                                    <div
                                        *ngIf="projectForm.controls['function'].invalid && (projectForm.controls['function'].dirty || projectForm.controls['function'].touched)"
                                        class="custom-errMsg">
                                        <div *ngIf="projectForm.controls['function'].errors.required">
@@ -749,7 +746,7 @@
                                        </div>
                                     </div>
                                  </div>
-                                
+
                               </div>
                            </div>
 
@@ -757,9 +754,9 @@
                               <div class="form-group row">
                                  <label class="col-md-12 addformcsss" for="text-input">Function Description</label>
                                  <div class="col-md-6">
-                                    <textarea class="form-control " id="textarea-input"
+                                    <textarea class="form-control textareastyle" id="textarea-input"
                                        formControlName="functionDescription" placeholder="Description..." rows="6"
-                                       maxlength="250" style="width: -98%;">
+                                       maxlength="250">
                      </textarea>
                                  </div>
                                  <div
@@ -770,10 +767,9 @@
                                     </div> -->
                                  </div>
                               </div>
-                              <button class="btn btn-primary" type="submit"
-                                 [disabled]="(projectForm.controls['function'].invalid )"
-                                 style="border-radius: 4px; margin-right: -27%;margin-left:20px;"><i class="fa fa-save"
-                                    style="font-size:15px"></i> Save</button>
+                              <button class="btn btn-primary submitbtn" type="submit"
+                                 [disabled]="(projectForm.controls['function'].invalid )"><i
+                                    class="fa fa-save savebtn"></i> Save</button>
 
                            </div>
 
@@ -783,15 +779,15 @@
                   </form>
                </div>
             </li>
-            <li>
-               <input type="radio" name="tabs" id="tab5"
-                  (click)="showaddform55(); showaddform70(); showaddform56();showaddform57(); showaddform58(); showaddform59(); showaddform61(); showaddform62(); showaddform63(); tabcontfordepartment();">
+            <li >
+
+               <input type="radio" name="tabs" id="tab5" (click)="showaddform55(); tabcontfordepartment();">
                <label for="tab5">Department</label>
                <div id="tab-content3" class="tab-content animated fadeIn">
-                  <button (click)="showaddform4()" class="btn btn-primary addnewbut fontaddnew"> <i
-                        class="fa fa-plus-circle" style="font-size: 13px;"></i> Add New</button>
+                  <button (click)="showaddformfordepartment()" class="btn btn-primary addnewbut fontaddnew"> <i
+                        class="fa fa-plus-circle addnew"></i> Add New</button>
                   <div>
-                     <table style="width: 97%;margin-top: 1%;margin-left: 28px;" id="13">
+                     <table class="tablestyle" id="departmentidfortable">
                         <thead>
                            <tr>
                               <th class="tabheading">&nbsp;&nbsp;Edit</th>
@@ -815,13 +811,13 @@
                         </thead>
                         <tbody cdkDropList (cdkDropListDropped)="onDrop11($event)">
                            <tr cdkDrag *ngFor="let project of departmentAsObjects" cdkDragLockAxis="y"
-                              style="cursor: pointer;">
+                              class="cusrorpointer">
 
                               <td class="tdiconpadding">
-                                 <a onclick="document.getElementById('id08').style.display='block'"
+                                 <a onclick="document.getElementById('editdepartment').style.display='block'"
                                     (click)="getdepartmentsbyid(project.ID)">
-                                    <i class="fa fa-plus-circle"
-                                       style="font-size:16px;color: green; cursor: pointer;"></i>
+                                    <i class="fa fa-plus-circle icon"></i>
+
                                     <!-- <i class="fa fa-edit editcss" style="font-size: 23px; color: #20a8d8; cursor: pointer;"></i> -->
                                  </a>
                               </td>
@@ -831,10 +827,10 @@
                         </tbody>
                      </table>
                   </div>
-                  <form class="form-horizontal" [formGroup]="projectForm" (ngSubmit)="Adddepartment(projectForm)"
-                     id="14" style="display: none;">
+                  <form class="form-horizontal fordisplaynone" [formGroup]="projectForm"
+                     (ngSubmit)="Adddepartment(projectForm)" id="departmentidforform">
                      <div class="row">
-                        <div class="card-body p-4 clearfix" style=" width: 75%;margin-right: 10%; ">
+                        <div class="card-body p-4 clearfix cardstyle">
                            <div class="col-sm-9">
                               <div class="form-group row">
                                  <label class="col-md-12 addformcsss" for="text-input">Department Name</label>
@@ -849,15 +845,16 @@
                                     </tag-input> -->
                                     <input class="form-control" id="text-input" formControlName="departmentName"
                                        placeholder="Department Name" type="text">
-                                       <div
-                                    *ngIf="projectForm.controls['departmentName'].invalid && (projectForm.controls['departmentName'].dirty || projectForm.controls['departmentName'].touched)"
-                                    class="custom-errMsg">
-                                    <div *ngIf="projectForm.controls['departmentName'].errors.required">
-                                       Department Name is required.
+                                    <div
+                                       *ngIf="projectForm.controls['departmentName'].invalid && (projectForm.controls['departmentName'].dirty || projectForm.controls['departmentName'].touched)"
+                                       class="custom-errMsg">
+                                       <div *ngIf="projectForm.controls['departmentName'].errors.required">
+                                          Department Name is required.
+                                       </div>
                                     </div>
                                  </div>
-                                 </div>
-                                 
+
+
                               </div>
                            </div>
 
@@ -865,9 +862,9 @@
                               <div class="form-group row">
                                  <label class="col-md-12 addformcsss" for="text-input">Department Description</label>
                                  <div class="col-md-6">
-                                    <textarea class="form-control " id="textarea-input"
+                                    <textarea class="form-control textareastyle " id="textarea-input"
                                        formControlName="departmentDescription" placeholder="Description..." rows="6"
-                                       maxlength="250" style="width: -98%;">
+                                       maxlength="250">
                      </textarea>
                                  </div>
                                  <div
@@ -878,10 +875,9 @@
                                     </div> -->
                                  </div>
                               </div>
-                              <button class="btn btn-primary" type="submit"
-                                 [disabled]="(projectForm.controls['departmentName'].invalid )"
-                                 style="border-radius: 4px; margin-right: -27%;margin-left:20px;"><i class="fa fa-save"
-                                    style="font-size:15px"></i> Save</button>
+                              <button class="btn btn-primary submitbtn" type="submit"
+                                 [disabled]="(projectForm.controls['departmentName'].invalid )"><i
+                                    class="fa fa-save savebtn"></i> Save</button>
 
                            </div>
 
@@ -892,14 +888,14 @@
                </div>
             </li>
             <li>
-               <input type="radio" name="tabs" id="tab6"
-                  (click)="showaddform55(); showaddform70(); showaddform56();showaddform57(); showaddform58(); showaddform59(); showaddform61(); showaddform62(); showaddform63(); tabcontforimpact();">
+
+               <input type="radio" name="tabs" id="tab6" (click)="showaddform55(); tabcontforimpact();">
                <label for="tab6">Impact Category</label>
                <div id="tab-content3" class="tab-content animated fadeIn">
-                  <button (click)="showaddform5()" class="btn btn-primary addnewbut fontaddnew"> <i
-                        class="fa fa-plus-circle" style="font-size: 13px;"></i> Add New</button>
+                  <button (click)="showaddformforimpactcategory()" class="btn btn-primary addnewbut fontaddnew"> <i
+                        class="fa fa-plus-circle addnew"></i> Add New</button>
                   <div>
-                     <table style="width: 97%;margin-top: 1%;margin-left: 28px;" id="15">
+                     <table class="tablestyle" id="impactcategoryidfortable">
                         <thead>
                            <tr>
                               <th class="tabheading">&nbsp;&nbsp;Edit</th>
@@ -923,13 +919,13 @@
                         </thead>
                         <tbody cdkDropList (cdkDropListDropped)="onDrop12($event)">
                            <tr cdkDrag *ngFor="let project of impactcategoriesAsObjects" cdkDragLockAxis="y"
-                              style="cursor: pointer;">
+                              class="cusrorpointer">
 
                               <td class="tdiconpadding">
-                                 <a onclick="document.getElementById('id09').style.display='block'"
+                                 <a onclick="document.getElementById('editimpactcategory').style.display='block'"
                                     (click)="getimpactcategorybyid(project.ID)">
-                                    <i class="fa fa-plus-circle"
-                                       style="font-size:16px;color: green; cursor: pointer;"></i>
+                                    <i class="fa fa-plus-circle icon"></i>
+
                                     <!-- <i class="fa fa-edit editcss" style="font-size: 23px; color: #20a8d8; cursor: pointer;"></i> -->
                                  </a>
                               </td>
@@ -939,10 +935,10 @@
                         </tbody>
                      </table>
                   </div>
-                  <form class="form-horizontal" [formGroup]="projectForm" (ngSubmit)="Addimpactcategory(projectForm)"
-                     id="16" style="display: none;">
+                  <form class="form-horizontal fordisplaynone" [formGroup]="projectForm"
+                     (ngSubmit)="Addimpactcategory(projectForm)" id="impactcategoryidforform">
                      <div class="row">
-                        <div class="card-body p-4 clearfix" style=" width: 75%; margin-right: 10%;">
+                        <div class="card-body p-4 clearfix cardstyle">
                            <div class="col-sm-9">
                               <div class="form-group row">
                                  <label class="col-md-12 addformcsss" for="text-input">Impact Category Name</label>
@@ -957,7 +953,7 @@
                                     </tag-input> -->
                                     <input class="form-control" id="text-input" formControlName="ImpactcategoryName"
                                        placeholder="Impact Category Name" type="text">
-                                       <div
+                                    <div
                                        *ngIf="projectForm.controls['ImpactcategoryName'].invalid && (projectForm.controls['ImpactcategoryName'].dirty || projectForm.controls['ImpactcategoryName'].touched)"
                                        class="custom-errMsg">
                                        <div *ngIf="projectForm.controls['ImpactcategoryName'].errors.required">
@@ -965,7 +961,7 @@
                                        </div>
                                     </div>
                                  </div>
-                              
+
                               </div>
                            </div>
 
@@ -974,9 +970,9 @@
                                  <label class="col-md-12  addformcsss" for="text-input">Impact Category
                                     Description</label>
                                  <div class="col-md-6">
-                                    <textarea class="form-control " id="textarea-input"
+                                    <textarea class="form-control textareastyle" id="textarea-input"
                                        formControlName="ImpactcategoryDescription" placeholder="Description..." rows="6"
-                                       maxlength="250" style="width: -98%;">
+                                       maxlength="250">
                      </textarea>
                                  </div>
                                  <div
@@ -987,10 +983,9 @@
                                     </div> -->
                                  </div>
                               </div>
-                              <button class="btn btn-primary" type="submit"
-                                 [disabled]="(projectForm.controls['ImpactcategoryName'].invalid )"
-                                 style="border-radius: 4px; margin-right: -27%;margin-left:20px;"><i class="fa fa-save"
-                                    style="font-size:15px"></i> Save</button>
+                              <button class="btn btn-primary submitbtn" type="submit"
+                                 [disabled]="(projectForm.controls['ImpactcategoryName'].invalid )"><i
+                                    class="fa fa-save savebtn"></i> Save</button>
 
                            </div>
 
@@ -1002,14 +997,15 @@
                </div>
             </li>
             <li>
-               <input type="radio" name="tabs" id="tab7"
-                  (click)="showaddform55(); showaddform70(); showaddform56();showaddform57(); showaddform58(); showaddform59(); showaddform61(); showaddform62(); showaddform63(); tabcontforlevel();">
+
+               <input type="radio" name="tabs" id="tab7" (click)="showaddform55(); tabcontforlevel();">
                <label for="tab7">Impact level</label>
                <div id="tab-content3" class="tab-content animated fadeIn">
-                  <button (click)="showaddform6()" class="btn btn-primary addnewbut fontaddnew fontaddnew"> <i
-                        class="fa fa-plus-circle" style="font-size: 13px;"></i> Add New</button>
+                  <button (click)="showaddformforimpactlevel();"
+                     class="btn btn-primary addnewbut fontaddnew fontaddnew"> <i class="fa fa-plus-circle addnew"></i>
+                     Add New</button>
                   <div>
-                     <table style="width: 97%;margin-top: 1%;margin-left: 28px;" id="17">
+                     <table class="tablestyle" id="impactlevelidfortable">
                         <thead>
                            <tr>
                               <th class="tabheading">&nbsp;&nbsp;Edit</th>
@@ -1032,13 +1028,13 @@
                         </thead>
                         <tbody cdkDropList (cdkDropListDropped)="onDrop13($event)">
                            <tr cdkDrag *ngFor="let project of impactlevelAsObjects" cdkDragLockAxis="y"
-                              style="cursor: pointer;">
+                              class="cusrorpointer">
 
                               <td class="tdiconpadding">
-                                 <a onclick="document.getElementById('id10').style.display='block'"
+                                 <a onclick="document.getElementById('editimpactlevel').style.display='block'"
                                     (click)="getimpactlevelbyid(project.ID)">
-                                    <i class="fa fa-plus-circle"
-                                       style="font-size:16px;color: green; cursor: pointer;"></i>
+                                    <i class="fa fa-plus-circle icon"></i>
+
                                     <!-- <i class="fa fa-edit editcss" style="font-size: 23px; color: #20a8d8; cursor: pointer;"></i> -->
                                  </a>
                               </td>
@@ -1048,10 +1044,10 @@
                         </tbody>
                      </table>
                   </div>
-                  <form class="form-horizontal" [formGroup]="projectForm" (ngSubmit)="Addimpactlevel(projectForm)"
-                     id="18" style="display: none;">
+                  <form class="form-horizontal fordisplaynone" [formGroup]="projectForm"
+                     (ngSubmit)="Addimpactlevel(projectForm)" id="impactlevelidforform">
                      <div class="row">
-                        <div class="card-body p-4 clearfix" style=" width: 75%; margin-right: 10%;">
+                        <div class="card-body p-4 clearfix cardstyle">
                            <div class="col-sm-9">
                               <div class="form-group row">
                                  <label class="col-md-12 addformcsss" for="text-input">Impact Level Name</label>
@@ -1066,7 +1062,7 @@
                                     </tag-input> -->
                                     <input class="form-control" id="text-input" formControlName="ImpactcategoryName"
                                        placeholder="Impact Level Name" type="text">
-                                       <div
+                                    <div
                                        *ngIf="projectForm.controls['ImpactcategoryName'].invalid && (projectForm.controls['ImpactcategoryName'].dirty || projectForm.controls['ImpactcategoryName'].touched)"
                                        class="custom-errMsg">
                                        <div *ngIf="projectForm.controls['ImpactcategoryName'].errors.required">
@@ -1074,7 +1070,7 @@
                                        </div>
                                     </div>
                                  </div>
-                                
+
                               </div>
                            </div>
 
@@ -1083,9 +1079,9 @@
                                  <label class="col-md-12  addformcsss" for="text-input">Impact Level
                                     Description</label>
                                  <div class="col-md-6">
-                                    <textarea class="form-control " id="textarea-input"
+                                    <textarea class="form-control textareastyle" id="textarea-input"
                                        formControlName="ImpactcategoryDescription" placeholder="Description..." rows="6"
-                                       maxlength="250" style="width: -98%;">
+                                       maxlength="250">
                      </textarea>
                                  </div>
                                  <div
@@ -1096,10 +1092,9 @@
                                     </div> -->
                                  </div>
                               </div>
-                              <button class="btn btn-primary" type="submit"
-                                 [disabled]="(projectForm.controls['ImpactcategoryName'].invalid )"
-                                 style="border-radius: 4px; margin-right: -27%;margin-left:20px;"><i class="fa fa-save"
-                                    style="font-size:15px"></i> Save</button>
+                              <button class="btn btn-primary submitbtn" type="submit"
+                                 [disabled]="(projectForm.controls['ImpactcategoryName'].invalid )"><i
+                                    class="fa fa-save savebtn"></i> Save</button>
 
                            </div>
 
@@ -1110,25 +1105,24 @@
                </div>
             </li>
 
-
          </ul>
          <br>
-         <div style="clear:both"></div>
+         <div class="clear"></div>
 
       </div>
 
-      <div class="" id="002" style="display: none;">
+      <div class="fordisplaynone" id="Processid">
 
          <ul class="tabs1">
-            <li style="margin-left: 8px;">
-               <input type="radio" checked name="tabs1" id="tab10"
-                  (click)="showaddform65(); showaddform64(); showaddform66(); showaddform67(); showaddform68(); showaddform69();tabcontforprocess();">
+            <li class="fortab">
+               <input type="radio" checked name="tabs1" id="tab10" (click)="showaddform65(); tabcontforprocess();">
                <label for="tab10">Process</label>
                <div id="tab-content10" class="tab-content animated fadeIn">
-                  <button (click)="showaddform9()" class="btn btn-primary addnewbut fontaddnew ">Add New</button>
+                  <button (click)="showaddformforprocessname();" class="btn btn-primary addnewbut fontaddnew ">Add
+                     New</button>
 
                   <div>
-                     <table style="width: 97%;margin-top: 1%;margin-left: 28px;" id="23">
+                     <table class="tablestyle" id="processidfortable">
                         <thead>
                            <tr>
                               <th class="tabheading">&nbsp;&nbsp;Edit</th>
@@ -1152,12 +1146,12 @@
                         </thead>
                         <tbody cdkDropList (cdkDropListDropped)="onDrop($event)">
                            <tr cdkDrag *ngFor="let project of processAsObjects" cdkDragLockAxis="y"
-                              style="cursor: pointer;">
+                              class="cusrorpointer">
                               <td class="tdiconpadding">
-                                 <a onclick="document.getElementById('id05').style.display='block'"
+                                 <a onclick="document.getElementById('editprocess').style.display='block'"
                                     (click)="getprocessbyid(project.ID)">
-                                    <i class="fa fa-plus-circle"
-                                       style="font-size:16px;color: green; cursor: pointer;"></i>
+                                    <i class="fa fa-plus-circle icon"></i>
+
                                     <!-- <i class="fa fa-edit editcss" style="font-size: 23px; color: #20a8d8; cursor: pointer;"></i> -->
                                  </a>
                                  <!-- <a routerLink="/edit"><button class="btn btn-primary"> edit</button></a> -->
@@ -1169,10 +1163,10 @@
                      </table>
 
                   </div>
-                  <form class="form-horizontal" [formGroup]="projectForm" (ngSubmit)="Addprocess(projectForm)" id="24"
-                     style="display: none;">
+                  <form class="form-horizontal fordisplaynone" [formGroup]="projectForm"
+                     (ngSubmit)="Addprocess(projectForm)" id="processidforform">
                      <div class="row">
-                        <div class="card-body p-4 clearfix" style=" width: 75%;margin-right: 10%; ">
+                        <div class="card-body p-4 clearfix cardstyle">
                            <div class="col-sm-9">
                               <div class="form-group row">
                                  <label class="col-md-12  addformcsss" for="text-input">Process Name</label>
@@ -1190,24 +1184,25 @@
                                     </tag-input> -->
                                     <input class="form-control" id="text-input" formControlName="processName"
                                        placeholder="Process Name" type="text">
-                                       <div
-                                    *ngIf="projectForm.controls['processName'].invalid && (projectForm.controls['processName'].dirty || projectForm.controls['processName'].touched)"
-                                    class="custom-errMsg">
-                                    <div *ngIf="projectForm.controls['processName'].errors.required">
-                                       Process Name is required.
+                                    <div
+                                       *ngIf="projectForm.controls['processName'].invalid && (projectForm.controls['processName'].dirty || projectForm.controls['processName'].touched)"
+                                       class="custom-errMsg">
+                                       <div *ngIf="projectForm.controls['processName'].errors.required">
+                                          Process Name is required.
+                                       </div>
                                     </div>
                                  </div>
-                                 </div>
-                                 
+
+
                               </div>
                            </div>
                            <div class="col-sm-9">
                               <div class="form-group row">
                                  <label class="col-md-12 addformcsss" for="text-input">Process Description</label>
                                  <div class="col-md-6">
-                                    <textarea class="form-control " id="textarea-input"
+                                    <textarea class="form-control textareastyle " id="textarea-input"
                                        formControlName="processDescription" placeholder="Description..." rows="6"
-                                       maxlength="250" style="width: -98%;">
+                                       maxlength="250">
                               </textarea>
                                  </div>
                                  <div
@@ -1218,10 +1213,9 @@
                                     </div> -->
                                  </div>
                               </div>
-                              <button class="btn btn-primary" type="submit"
-                                 [disabled]="( projectForm.controls['processName'].invalid)"
-                                 style="border-radius: 4px; margin-right: -27%;margin-left:20px;"><i class="fa fa-save"
-                                    style="font-size:15px"></i> Save</button>
+                              <button class="btn btn-primary submitbtn" type="submit"
+                                 [disabled]="( projectForm.controls['processName'].invalid)"><i
+                                    class="fa fa-save savebtn"></i> Save</button>
 
                            </div>
 
@@ -1234,13 +1228,13 @@
                </div>
             </li>
             <li>
-               <input type="radio" name="tabs1" id="tab11"
-                  (click)="showaddform65(); showaddform64(); showaddform66(); showaddform67(); showaddform68(); showaddform69();tabcontforprocesslifecycle();">
+               <input type="radio" name="tabs1" id="tab11" (click)="showaddform65(); tabcontforprocesslifecycle();">
                <label for="tab11">Lifecycle Team</label>
                <div id="tab-content11" class="tab-content animated fadeIn">
-                  <button (click)="showaddform10()" class="btn btn-primary addnewbut fontaddnew">Add New</button>
+                  <button (click)="showaddformforprocesslifecycle();" class="btn btn-primary addnewbut fontaddnew">Add
+                     New</button>
                   <div>
-                     <table style="width: 97%;margin-top: 1%;margin-left: 28px;" id="25">
+                     <table class="tablestyle" id="LifeCycleprocessidfortable">
                         <thead>
                            <tr>
                               <th class="tabheading">&nbsp;&nbsp;Edit</th>
@@ -1263,12 +1257,12 @@
                         </thead>
                         <tbody cdkDropList (cdkDropListDropped)="onDrop1($event)">
                            <tr cdkDrag *ngFor="let project of lifecycleAsObjects" cdkDragLockAxis="y"
-                              style="cursor: pointer;">
+                              class="cusrorpointer">
                               <td class="tdiconpadding">
-                                 <a onclick="document.getElementById('id06').style.display='block'"
+                                 <a onclick="document.getElementById('editlifecycle').style.display='block'"
                                     (click)="getlifecyclebyid(project.ID)">
-                                    <i class="fa fa-plus-circle"
-                                       style="font-size:16px;color: green; cursor: pointer;"></i>
+                                    <i class="fa fa-plus-circle icon"></i>
+
                                     <!-- <i class="fa fa-edit editcss" style="font-size: 23px; color: #20a8d8; cursor: pointer;"></i> -->
                                  </a>
                                  <!-- <a routerLink="/edit"><button class="btn btn-primary"> edit</button></a> -->
@@ -1279,10 +1273,10 @@
                         </tbody>
                      </table>
                   </div>
-                  <form class="form-horizontal" [formGroup]="projectForm" (ngSubmit)="Addlifecycle(projectForm)" id="26"
-                     style="display: none;">
+                  <form class="form-horizontal fordisplaynone" [formGroup]="projectForm"
+                     (ngSubmit)="Addlifecycle(projectForm)" id="LifeCycleprocessidforform">
                      <div class="row">
-                        <div class="card-body p-4 clearfix" style=" width: 75%; margin-right: 10%; ">
+                        <div class="card-body p-4 clearfix cardstyle">
                            <div class="col-sm-9">
                               <div class="form-group row">
                                  <label class="col-md-12 addformcsss" for="text-input">Lifecycle Name</label>
@@ -1297,7 +1291,7 @@
                                     </tag-input> -->
                                     <input class="form-control" id="text-input" formControlName="lifecycleName"
                                        placeholder="Lifecycle Team Name" type="text">
-                                       <div
+                                    <div
                                        *ngIf="projectForm.controls['lifecycleName'].invalid && (projectForm.controls['lifecycleName'].dirty || projectForm.controls['lifecycleName'].touched)"
                                        class="custom-errMsg">
                                        <div *ngIf="projectForm.controls['lifecycleName'].errors.required">
@@ -1305,7 +1299,7 @@
                                        </div>
                                     </div>
                                  </div>
-                                
+
                               </div>
                            </div>
 
@@ -1313,9 +1307,9 @@
                               <div class="form-group row">
                                  <label class="col-md-12 addformcsss" for="text-input">Lifecycle Description</label>
                                  <div class="col-md-6">
-                                    <textarea class="form-control " id="textarea-input"
+                                    <textarea class="form-control textareastyle" id="textarea-input"
                                        formControlName="lifecycleDescription" placeholder="Description..." rows="6"
-                                       maxlength="250" style="width: -98%;">
+                                       maxlength="250">
                   </textarea>
                                  </div>
                                  <div
@@ -1326,10 +1320,9 @@
                                     </div> -->
                                  </div>
                               </div>
-                              <button class="btn btn-primary" type="submit"
-                                 [disabled]="(projectForm.controls['lifecycleName'].invalid)"
-                                 style="border-radius: 4px; margin-right: -27%;margin-left:20px;"><i class="fa fa-save"
-                                    style="font-size:15px"></i> Save</button>
+                              <button class="btn btn-primary submitbtn" type="submit"
+                                 [disabled]="(projectForm.controls['lifecycleName'].invalid)"><i
+                                    class="fa fa-save savebtn"></i> Save</button>
 
                            </div>
 
@@ -1340,13 +1333,13 @@
                </div>
             </li>
             <li>
-               <input type="radio" name="tabs1" id="tab12"
-                  (click)="showaddform65(); showaddform64(); showaddform66(); showaddform67(); showaddform68(); showaddform69(); tabcontforprocessfunction();">
+               <input type="radio" name="tabs1" id="tab12" (click)="showaddform65(); tabcontforprocessfunction();">
                <label for="tab12">Function</label>
                <div id="tab-content12" class="tab-content animated fadeIn">
-                  <button (click)="showaddform11()" class="btn btn-primary addnewbut fontaddnew">Add New</button>
+                  <button (click)="showaddformforprocessfunctionname();"
+                     class="btn btn-primary addnewbut fontaddnew">Add New</button>
                   <div>
-                     <table style="width: 97%;margin-top: 1%;margin-left: 28px;" id="27">
+                     <table class="tablestyle" id="functionidforprocesstable">
                         <thead>
                            <tr>
                               <th class="tabheading">&nbsp;&nbsp;Edit</th>
@@ -1369,13 +1362,13 @@
                         </thead>
                         <tbody cdkDropList (cdkDropListDropped)="onDrop2($event)">
                            <tr cdkDrag *ngFor="let project of functionAsObjects" cdkDragLockAxis="y"
-                              style="cursor: pointer;">
+                              class="cusrorpointer">
 
                               <td class="tdiconpadding">
-                                 <a onclick="document.getElementById('id07').style.display='block'"
+                                 <a onclick="document.getElementById('editfunction').style.display='block'"
                                     (click)="getfunctionsbyid(project.ID)">
-                                    <i class="fa fa-plus-circle"
-                                       style="font-size:16px;color: green; cursor: pointer;"></i>
+                                    <i class="fa fa-plus-circle icon"></i>
+
                                     <!-- <i class="fa fa-edit editcss" style="font-size: 23px; color: #20a8d8; cursor: pointer;"></i> -->
                                  </a>
                                  <!-- <a routerLink="/edit"><button class="btn btn-primary"> edit</button></a> -->
@@ -1386,10 +1379,10 @@
                         </tbody>
                      </table>
                   </div>
-                  <form class="form-horizontal" [formGroup]="projectForm" (ngSubmit)="Addfunction(projectForm)" id="28"
-                     style="display: none;">
+                  <form class="form-horizontal fordisplaynone" [formGroup]="projectForm"
+                     (ngSubmit)="Addfunction(projectForm)" id="functionidforprocessform">
                      <div class="row">
-                        <div class="card-body p-4 clearfix" style=" width: 75%; margin-right: 10%; ">
+                        <div class="card-body p-4 clearfix cardstyle">
                            <div class="col-sm-9">
                               <div class="form-group row">
                                  <label class="col-md-12 addformcsss" for="text-input">Function Name</label>
@@ -1404,7 +1397,7 @@
                                     </tag-input> -->
                                     <input class="form-control" id="text-input" formControlName="function"
                                        placeholder="Function Name" type="text">
-                                       <div
+                                    <div
                                        *ngIf="projectForm.controls['function'].invalid && (projectForm.controls['function'].dirty || projectForm.controls['function'].touched)"
                                        class="custom-errMsg">
                                        <div *ngIf="projectForm.controls['function'].errors.required">
@@ -1412,7 +1405,7 @@
                                        </div>
                                     </div>
                                  </div>
-                                
+
                               </div>
                            </div>
 
@@ -1422,7 +1415,7 @@
                                  <div class="col-md-6">
                                     <textarea class="form-control " id="textarea-input"
                                        formControlName="functionDescription" placeholder="Description..." rows="6"
-                                       maxlength="250" style="width: -98%;">
+                                       maxlength="250">
                   </textarea>
                                  </div>
                                  <div
@@ -1433,10 +1426,9 @@
                                     </div> -->
                                  </div>
                               </div>
-                              <button class="btn btn-primary" type="submit"
-                                 [disabled]="( projectForm.controls['function'].invalid)"
-                                 style="border-radius: 4px; margin-right: -27%;margin-left:20px;"><i class="fa fa-save"
-                                    style="font-size:15px"></i> Save</button>
+                              <button class="btn btn-primary submitbtn" type="submit"
+                                 [disabled]="( projectForm.controls['function'].invalid)"><i
+                                    class="fa fa-save savebtn"></i> Save</button>
 
                            </div>
 
@@ -1448,13 +1440,13 @@
                </div>
             </li>
             <li>
-               <input type="radio" name="tabs1" id="tab13"
-                  (click)="showaddform65(); showaddform64(); showaddform66(); showaddform67(); showaddform68(); showaddform69(); tabcontforprocessdeparment();">
+               <input type="radio" name="tabs1" id="tab13" (click)="showaddform65(); tabcontforprocessdeparment();">
                <label for="tab13">Department</label>
                <div id="tab-content11" class="tab-content animated fadeIn">
-                  <button (click)="showaddform12()" class="btn btn-primary addnewbut fontaddnew">Add New</button>
+                  <button (click)="showaddformforprocessdepartment();" class="btn btn-primary addnewbut fontaddnew">Add
+                     New</button>
                   <div>
-                     <table style="width: 97%;margin-top: 1%;margin-left: 28px;" id="29">
+                     <table class="tablestyle" id="departmentidforprocesstable">
                         <thead>
                            <tr>
                               <th class="tabheading">&nbsp;&nbsp;Edit</th>
@@ -1477,13 +1469,13 @@
                         </thead>
                         <tbody cdkDropList (cdkDropListDropped)="onDrop3($event)">
                            <tr cdkDrag *ngFor="let project of departmentAsObjects" cdkDragLockAxis="y"
-                              style="cursor: pointer;">
+                              class="cusrorpointer">
 
                               <td class="tdiconpadding">
-                                 <a onclick="document.getElementById('id08').style.display='block'"
+                                 <a onclick="document.getElementById('editdepartment').style.display='block'"
                                     (click)="getdepartmentsbyid(project.ID)">
-                                    <i class="fa fa-plus-circle"
-                                       style="font-size:16px;color: green; cursor: pointer;"></i>
+                                    <i class="fa fa-plus-circle icon"></i>
+
                                     <!-- <i class="fa fa-edit editcss" style="font-size: 23px; color: #20a8d8; cursor: pointer;"></i> -->
                                  </a>
                                  <!-- <a routerLink="/edit"><button class="btn btn-primary"> edit</button></a> -->
@@ -1494,10 +1486,10 @@
                         </tbody>
                      </table>
                   </div>
-                  <form class="form-horizontal" [formGroup]="projectForm" (ngSubmit)="Adddepartment(projectForm)"
-                     id="30" style="display: none;">
+                  <form class="form-horizontal fordisplaynone" [formGroup]="projectForm"
+                     (ngSubmit)="Adddepartment(projectForm)" id="departmentidforprocessform">
                      <div class="row">
-                        <div class="card-body p-4 clearfix" style=" width: 75%; margin-right: 10%; ">
+                        <div class="card-body p-4 clearfix cardstyle">
                            <div class="col-sm-9">
                               <div class="form-group row">
                                  <label class="col-md-12 addformcsss" for="text-input">Department Name</label>
@@ -1512,7 +1504,7 @@
                                     </tag-input> -->
                                     <input class="form-control" id="text-input" formControlName="departmentName"
                                        placeholder="Department Name" type="text">
-                                       <div
+                                    <div
                                        *ngIf="projectForm.controls['departmentName'].invalid && (projectForm.controls['departmentName'].dirty || projectForm.controls['departmentName'].touched)"
                                        class="custom-errMsg">
                                        <div *ngIf="projectForm.controls['departmentName'].errors.required">
@@ -1520,7 +1512,7 @@
                                        </div>
                                     </div>
                                  </div>
-                                
+
                               </div>
                            </div>
 
@@ -1528,9 +1520,9 @@
                               <div class="form-group row">
                                  <label class="col-md-12 addformcsss" for="text-input">Department Description</label>
                                  <div class="col-md-6">
-                                    <textarea class="form-control " id="textarea-input"
+                                    <textarea class="form-control textareastyle" id="textarea-input"
                                        formControlName="departmentDescription" placeholder="Description..." rows="6"
-                                       maxlength="250" style="width: -98%;">
+                                       maxlength="250">
                   </textarea>
                                  </div>
                                  <div
@@ -1541,10 +1533,9 @@
                                     </div> -->
                                  </div>
                               </div>
-                              <button class="btn btn-primary" type="submit"
-                                 [disabled]="(projectForm.controls['departmentName'].invalid)"
-                                 style="border-radius: 4px; margin-right: -27%;margin-left:20px;"><i class="fa fa-save"
-                                    style="font-size:15px"></i> Save</button>
+                              <button class="btn btn-primary submitbtn" type="submit"
+                                 [disabled]="(projectForm.controls['departmentName'].invalid)"><i
+                                    class="fa fa-save savebtn"></i> Save</button>
 
                            </div>
 
@@ -1556,13 +1547,13 @@
                </div>
             </li>
             <li>
-               <input type="radio" name="tabs1" id="tab14"
-                  (click)="showaddform65(); showaddform64(); showaddform66(); showaddform67(); showaddform68(); showaddform69(); tabcontforprocessimpact();">
+               <input type="radio" name="tabs1" id="tab14" (click)="showaddform65(); tabcontforprocessimpact();">
                <label for="tab14">Impact Category</label>
                <div id="tab-content14" class="tab-content animated fadeIn">
-                  <button (click)="showaddform13()" class="btn btn-primary addnewbut fontaddnew">Add New</button>
+                  <button (click)="showaddformforprocessimpactcategory();"
+                     class="btn btn-primary addnewbut fontaddnew">Add New</button>
                   <div>
-                     <table style="width: 97%;margin-top: 1%;margin-left: 28px;" id="31">
+                     <table class="tablestyle" id="impactcategoryprocessidfortable">
                         <thead>
                            <tr>
                               <th class="tabheading">&nbsp;&nbsp;Edit</th>
@@ -1585,13 +1576,13 @@
                         </thead>
                         <tbody cdkDropList (cdkDropListDropped)="onDrop4($event)">
                            <tr cdkDrag *ngFor="let project of impactcategoriesAsObjects" cdkDragLockAxis="y"
-                              style="cursor: pointer;">
+                              class="cusrorpointer">
 
                               <td class="tdiconpadding">
-                                 <a onclick="document.getElementById('id09').style.display='block'"
+                                 <a onclick="document.getElementById('editimpactcategory').style.display='block'"
                                     (click)="getimpactcategorybyid(project.ID)">
-                                    <i class="fa fa-plus-circle"
-                                       style="font-size:16px;color: green; cursor: pointer;"></i>
+                                    <i class="fa fa-plus-circle icon"></i>
+
                                     <!-- <i class="fa fa-edit editcss" style="font-size: 23px; color: #20a8d8; cursor: pointer;"></i> -->
                                  </a>
                                  <!-- <a routerLink="/edit"><button class="btn btn-primary"> edit</button></a> -->
@@ -1602,10 +1593,10 @@
                         </tbody>
                      </table>
                   </div>
-                  <form class="form-horizontal" [formGroup]="projectForm" (ngSubmit)="Addimpactcategory(projectForm)"
-                     id="32" style="display: none;">
+                  <form class="form-horizontal fordisplaynone" [formGroup]="projectForm"
+                     (ngSubmit)="Addimpactcategory(projectForm)" id="impactcategoryprocessidforform">
                      <div class="row">
-                        <div class="card-body p-4 clearfix" style=" width: 75%; margin-right: 10%; ">
+                        <div class="card-body p-4 clearfix cardstyle">
                            <div class="col-sm-9">
                               <div class="form-group row">
                                  <label class="col-md-12 addformcsss" for="text-input">Impact Category Name</label>
@@ -1620,7 +1611,7 @@
                                     </tag-input> -->
                                     <input class="form-control" id="text-input" formControlName="ImpactcategoryName"
                                        placeholder="Impact Category Name" type="text">
-                                       <div
+                                    <div
                                        *ngIf="projectForm.controls['ImpactcategoryName'].invalid && (projectForm.controls['ImpactcategoryName'].dirty || projectForm.controls['ImpactcategoryName'].touched)"
                                        class="custom-errMsg">
                                        <div *ngIf="projectForm.controls['ImpactcategoryName'].errors.required">
@@ -1628,7 +1619,7 @@
                                        </div>
                                     </div>
                                  </div>
-                             
+
                               </div>
                            </div>
 
@@ -1637,9 +1628,9 @@
                                  <label class="col-md-12 addformcsss" for="text-input">Impact Category
                                     Description</label>
                                  <div class="col-md-6">
-                                    <textarea class="form-control " id="textarea-input"
+                                    <textarea class="form-control textareastyle" id="textarea-input"
                                        formControlName="ImpactcategoryDescription" placeholder="Description..." rows="6"
-                                       maxlength="250" style="width: -98%;">
+                                       maxlength="250">
                   </textarea>
                                  </div>
                                  <div
@@ -1650,10 +1641,9 @@
                                     </div> -->
                                  </div>
                               </div>
-                              <button class="btn btn-primary" type="submit"
-                                 [disabled]="( projectForm.controls['ImpactcategoryName'].invalid)"
-                                 style="border-radius: 4px; margin-right: -27%;margin-left:20px;"><i class="fa fa-save"
-                                    style="font-size:15px"></i> Save</button>
+                              <button class="btn btn-primary submitbtn" type="submit"
+                                 [disabled]="( projectForm.controls['ImpactcategoryName'].invalid)"><i
+                                    class="fa fa-save savebtn"></i> Save</button>
 
                            </div>
 
@@ -1666,13 +1656,13 @@
                </div>
             </li>
             <li>
-               <input type="radio" name="tabs1" id="tab15"
-                  (click)="showaddform65(); showaddform64(); showaddform66(); showaddform67(); showaddform68(); showaddform69(); tabcontforprocesslevel();">
+               <input type="radio" name="tabs1" id="tab15" (click)="showaddform65(); tabcontforprocesslevel();">
                <label for="tab15">Impact Level</label>
                <div id="tab-content11" class="tab-content animated fadeIn">
-                  <button (click)="showaddform14()" class="btn btn-primary addnewbut fontaddnew"> Add New</button>
+                  <button (click)="showaddformforprocessimpactlevel();" class="btn btn-primary addnewbut fontaddnew">
+                     Add New</button>
                   <div>
-                     <table style="width: 97%;margin-top: 1%;margin-left: 28px;" id="33">
+                     <table class="tablestyle" id="impactlevelprocessidfortable">
                         <thead>
                            <tr>
                               <th class="tabheading">&nbsp;&nbsp;Edit</th>
@@ -1695,13 +1685,13 @@
                         </thead>
                         <tbody cdkDropList (cdkDropListDropped)="onDrop14($event)">
                            <tr cdkDrag *ngFor="let project of impactlevelAsObjects" cdkDragLockAxis="y"
-                              style="cursor: pointer;">
+                              class="cusrorpointer">
 
                               <td class="tdiconpadding">
-                                 <a onclick="document.getElementById('id10').style.display='block'"
+                                 <a onclick="document.getElementById('editimpactlevel').style.display='block'"
                                     (click)="getimpactlevelbyid(project.ID)">
-                                    <i class="fa fa-plus-circle"
-                                       style="font-size:16px;color: green; cursor: pointer;"></i>
+                                    <i class="fa fa-plus-circle icon"></i>
+
                                     <!-- <i class="fa fa-edit editcss" style="font-size: 23px; color: #20a8d8; cursor: pointer;"></i> -->
                                  </a>
                                  <!-- <a routerLink="/edit"><button class="btn btn-primary"> edit</button></a> -->
@@ -1712,10 +1702,10 @@
                         </tbody>
                      </table>
                   </div>
-                  <form class="form-horizontal" [formGroup]="projectForm" (ngSubmit)="Addimpactlevel(projectForm)"
-                     id="34" style="display: none;">
+                  <form class="form-horizontal fordisplaynone" [formGroup]="projectForm"
+                     (ngSubmit)="Addimpactlevel(projectForm)" id="impactlevelprocessidforform">
                      <div class="row">
-                        <div class="card-body p-4 clearfix" style=" width: 75%; margin-right: 10%;">
+                        <div class="card-body p-4 clearfix cardstyle">
                            <div class="col-sm-9">
                               <div class="form-group row">
                                  <label class="col-md-12 addformcsss" for="text-input">Impact Level Name</label>
@@ -1730,15 +1720,16 @@
                                     </tag-input> -->
                                     <input class="form-control" id="text-input" formControlName="ImpactcategoryName"
                                        placeholder="Impact Level Name" type="text">
-                                       <div
-                                    *ngIf="projectForm.controls['ImpactcategoryName'].invalid && (projectForm.controls['ImpactcategoryName'].dirty || projectForm.controls['ImpactcategoryName'].touched)"
-                                    class="custom-errMsg">
-                                    <div *ngIf="projectForm.controls['ImpactcategoryName'].errors.required">
-                                       Impact Level Name is required.
+                                    <div
+                                       *ngIf="projectForm.controls['ImpactcategoryName'].invalid && (projectForm.controls['ImpactcategoryName'].dirty || projectForm.controls['ImpactcategoryName'].touched)"
+                                       class="custom-errMsg">
+                                       <div *ngIf="projectForm.controls['ImpactcategoryName'].errors.required">
+                                          Impact Level Name is required.
+                                       </div>
                                     </div>
                                  </div>
-                                 </div>
-                                 
+
+
                               </div>
                            </div>
 
@@ -1747,9 +1738,9 @@
                                  <label class="col-md-12 addformcsss" for="text-input">Impact Level
                                     Description</label>
                                  <div class="col-md-6">
-                                    <textarea class="form-control " id="textarea-input"
+                                    <textarea class="form-control textareastyle" id="textarea-input"
                                        formControlName="ImpactcategoryDescription" placeholder="Description..." rows="6"
-                                       maxlength="250" style="width: -98%;">
+                                       maxlength="250">
             </textarea>
                                  </div>
                                  <div
@@ -1760,10 +1751,10 @@
                                     </div> -->
                                  </div>
                               </div>
-                              <button class="btn btn-primary" type="submit"
-                                 [disabled]="( projectForm.controls['ImpactcategoryName'].invalid)"
-                                 style="border-radius: 4px; margin-right: -27%;margin-left:20px;"><i class="fa fa-save"
-                                    style="font-size:20px" ></i> Save</button>
+                              <button class="btn btn-primary submitbtn" type="submit"
+                                 [disabled]="( projectForm.controls['ImpactcategoryName'].invalid)"><i
+                                    class="fa fa-save savebtn"></i> Save</button>
+
 
                            </div>
 
@@ -1771,20 +1762,20 @@
                         </div>
                      </div>
                   </form>
-                 
+
                </div>
             </li>
 
          </ul>
          <br>
-         <div style="clear:both"></div>
+         <div class="clear"></div>
 
       </div>
    </div>
 
-   <div bsModal id="id011" class="modal " style="top: 0% !important; background-color: rgba(0,0,0, 0.4);">
-      <form class="modal-content row d-flex justify-content-center align-items-center"
-         style="width: 30%; height: 185px; left: 36%; top: 30%;" [formGroup]="projectForm">
+   <div bsModal id="Editproject" class="modal blackscreen">
+      <form class="modal-content row d-flex justify-content-center align-items-center modelstyle"
+         [formGroup]="projectForm">
          <div class="container">
             <!-- <h3 style="text-align: center; margin-top:2%">Modal popup</h3> -->
             <div class="col-sm-12">
@@ -1793,7 +1784,7 @@
                   <label for="email"><b>Edit - Project</b></label>
                   <input type="text" class="form-control" #titlename11 placeholder="Enter Name" formControlName="title"
                      name="email" required>
-                  <input type="text" style="display: none;" #titleInput11 class="form-control" placeholder="Enter Name"
+                  <input type="text" #titleInput11 class="form-control fordisplaynone" placeholder="Enter Name"
                      formControlName="submitid" name="email" required>
                   <!-- <input type="text"   class="form-control" placeholder="Enter Name" formControlName="submitid" name="email" required> -->
                   <!-- <div class="col-md-12">
@@ -1807,35 +1798,39 @@
             <div class="clearfix">
                <br>
                <br>
-               <button type="button" onclick="document.getElementById('id233').style.display='block'" [disabled]="(projectForm.controls['submitid'].invalid || projectForm.controls['title'].invalid)" class="deletebtn btn btn-danger float-right borderbtn marginleft">
+               <button type="button"
+                  onclick="document.getElementById('updateconfirmationforproject').style.display='block'"
+                  [disabled]="(projectForm.controls['submitid'].invalid || projectForm.controls['title'].invalid)"
+                  class="deletebtn btn btn-danger float-right borderbtn marginleft">
                   Submit</button>
-               <button type="button" onclick="document.getElementById('id011').style.display='none'"
+               <button type="button" onclick="document.getElementById('Editproject').style.display='none'"
                   class="cancelbtn btn btn-primary float-right borderbtn">Cancel</button>
             </div>
          </div>
       </form>
    </div>
-   <div bsModal id="id233" class="modal " style="top: 0% !important; background-color: rgba(0,0,0, 0.4);">
-      <form class="modal-content row d-flex justify-content-center align-items-center"
-         style="width: 19%; height: 137px; left: 41%; top: 1%; margin-bottom: 0rem;" [formGroup]="projectForm">
+   <div bsModal id="updateconfirmationforproject" class="modal blackscreen">
+      <form class="modal-content row d-flex justify-content-center align-items-center modalcontainer"
+         [formGroup]="projectForm">
          <div class="container">
             <!-- <h3 style="text-align: center; margin-top:2%">Modal popup</h3> -->
-                  <!-- <label class="col-md-12 col-form-label" for="file-input">Attachments: </label> -->
-                  <label for="email"><b>Are you sure you want to update </b></label>
+            <!-- <label class="col-md-12 col-form-label" for="file-input">Attachments: </label> -->
+            <label for="email"><b>Are you sure you want to update </b></label>
             <div class="clearfix">
                <br>
-               
-               <button type="button" (click)="updateprojectbyid(titleInput11.value,titlename11.value);" 
-                  class="deletebtn btn btn-danger float-right borderbtn marginleft" > Yes</button>
-               <button type="button" onclick="document.getElementById('id233').style.display='none'"
+
+               <button type="button" (click)="updateprojectbyid(titleInput11.value,titlename11.value);"
+                  class="deletebtn btn btn-danger float-right borderbtn marginleft"> Yes</button>
+               <button type="button"
+                  onclick="document.getElementById('updateconfirmationforproject').style.display='none'"
                   class="cancelbtn btn btn-primary float-right borderbtn">No</button>
             </div>
          </div>
       </form>
    </div>
-   <div bsModal id="id012" class="modal " style="top: 0% !important; background-color: rgba(0,0,0, 0.4);">
-      <form class="modal-content row d-flex justify-content-center align-items-center"
-         style="width: 30%; height: 185px; left: 36%; top: 30%;" [formGroup]="projectForm">
+   <div bsModal  id="editphase" class="modal blackscreen">
+      <form class="modal-content row d-flex justify-content-center align-items-center modelstyle"
+         [formGroup]="projectForm">
          <div class="container">
             <!-- <h3 style="text-align: center; margin-top:2%">Modal popup</h3> -->
             <div class="col-sm-12">
@@ -1844,7 +1839,7 @@
                   <label for="email"><b>Edit - Phase</b></label>
                   <input type="text" class="form-control" #titlename12 placeholder="Enter Name" formControlName="title"
                      name="email" required>
-                  <input type="text" style="display: none;" #titleInput12 class="form-control" placeholder="Enter Name"
+                  <input type="text" #titleInput12 class="form-control fordisplaynone" placeholder="Enter Name"
                      formControlName="submitid" name="email" required>
                   <!-- <input type="text"   class="form-control" placeholder="Enter Name" formControlName="submitid" name="email" required> -->
                   <!-- <div class="col-md-12">
@@ -1858,35 +1853,39 @@
             <div class="clearfix">
                <br>
                <br>
-               <button type="button" onclick="document.getElementById('id229').style.display='block'" class="deletebtn btn btn-danger float-right borderbtn marginleft" [disabled]="(projectForm.controls['submitid'].invalid || projectForm.controls['title'].invalid)">
+               <button type="button"
+                  onclick="document.getElementById('updateconfirmationforphase').style.display='block'"
+                  class="deletebtn btn btn-danger float-right borderbtn marginleft"
+                  [disabled]="(projectForm.controls['submitid'].invalid || projectForm.controls['title'].invalid)">
                   Submit</button>
-               <button type="button" onclick="document.getElementById('id012').style.display='none'"
+               <button type="button" onclick="document.getElementById('editphase').style.display='none'"
                   class="cancelbtn btn btn-primary float-right borderbtn">Cancel</button>
             </div>
          </div>
       </form>
    </div>
-   <div bsModal id="id229" class="modal " style="top: 0% !important; background-color: rgba(0,0,0, 0.4);">
-      <form class="modal-content row d-flex justify-content-center align-items-center"
-         style="width: 19%; height: 137px; left: 41%; top: 1%; margin-bottom: 0rem;" [formGroup]="projectForm">
+   <div bsModal id="updateconfirmationforphase" class="modal blackscreen">
+      <form class="modal-content row d-flex justify-content-center align-items-center modalcontainer"
+         [formGroup]="projectForm">
          <div class="container">
             <!-- <h3 style="text-align: center; margin-top:2%">Modal popup</h3> -->
-                  <!-- <label class="col-md-12 col-form-label" for="file-input">Attachments: </label> -->
-                  <label for="email"><b>Are you sure you want to update </b></label>
+            <!-- <label class="col-md-12 col-form-label" for="file-input">Attachments: </label> -->
+            <label for="email"><b>Are you sure you want to update </b></label>
             <div class="clearfix">
                <br>
-               
-               <button type="button" (click)="updatephasesbyid(titleInput12.value,titlename12.value)" 
-                  class="deletebtn btn btn-danger float-right borderbtn marginleft" > Yes</button>
-               <button type="button" onclick="document.getElementById('id229').style.display='none'"
+
+               <button type="button" (click)="updatephasesbyid(titleInput12.value,titlename12.value)"
+                  class="deletebtn btn btn-danger float-right borderbtn marginleft"> Yes</button>
+               <button type="button"
+                  onclick="document.getElementById('updateconfirmationforphase').style.display='none'"
                   class="cancelbtn btn btn-primary float-right borderbtn">No</button>
             </div>
          </div>
       </form>
    </div>
-   <div bsModal id="id013" class="modal " style="top: 0% !important; background-color: rgba(0,0,0, 0.4);">
-      <form class="modal-content row d-flex justify-content-center align-items-center"
-         style="width: 30%; height: 185px; left: 36%; top: 30%;" [formGroup]="projectForm">
+   <div bsModal   id="editmilestone" class="modal blackscreen">
+      <form class="modal-content row d-flex justify-content-center align-items-center modelstyle"
+         [formGroup]="projectForm">
          <div class="container">
             <!-- <h3 style="text-align: center; margin-top:2%">Modal popup</h3> -->
             <div class="col-sm-12">
@@ -1895,7 +1894,7 @@
                   <label for="email"><b>Edit - Milestone Name</b></label>
                   <input type="text" class="form-control" #titlename13 placeholder="Enter Name" formControlName="title"
                      name="email" required>
-                  <input type="text" style="display: none;" #titleInput13 class="form-control" placeholder="Enter Name"
+                  <input type="text" #titleInput13 class="form-control fordisplaynone" placeholder="Enter Name"
                      formControlName="submitid" name="email" required>
                   <!-- <input type="text"   class="form-control" placeholder="Enter Name" formControlName="submitid" name="email" required> -->
                   <!-- <div class="col-md-12">
@@ -1909,35 +1908,39 @@
             <div class="clearfix">
                <br>
                <br>
-               <button type="button" onclick="document.getElementById('id230').style.display='block'"class="deletebtn btn btn-danger float-right borderbtn marginleft" [disabled]="(projectForm.controls['submitid'].invalid || projectForm.controls['title'].invalid)">
+               <button type="button"
+                  onclick="document.getElementById('updateconfirmationformilestone').style.display='block'"
+                  class="deletebtn btn btn-danger float-right borderbtn marginleft"
+                  [disabled]="(projectForm.controls['submitid'].invalid || projectForm.controls['title'].invalid)">
                   Submit</button>
-               <button type="button" onclick="document.getElementById('id013').style.display='none'"
+               <button type="button" onclick="document.getElementById('editmilestone').style.display='none'"
                   class="cancelbtn btn btn-primary float-right borderbtn">Cancel</button>
             </div>
          </div>
       </form>
    </div>
-   <div bsModal id="id230" class="modal " style="top: 0% !important; background-color: rgba(0,0,0, 0.4);">
-      <form class="modal-content row d-flex justify-content-center align-items-center"
-         style="width: 19%; height: 137px; left: 41%; top: 1%; margin-bottom: 0rem;" [formGroup]="projectForm">
+   <div bsModal id="updateconfirmationformilestone" class="modal blackscreen">
+      <form class="modal-content row d-flex justify-content-center align-items-center modalcontainer"
+         [formGroup]="projectForm">
          <div class="container">
             <!-- <h3 style="text-align: center; margin-top:2%">Modal popup</h3> -->
-                  <!-- <label class="col-md-12 col-form-label" for="file-input">Attachments: </label> -->
-                  <label for="email"><b>Are you sure you want to update </b></label>
+            <!-- <label class="col-md-12 col-form-label" for="file-input">Attachments: </label> -->
+            <label for="email"><b>Are you sure you want to update </b></label>
             <div class="clearfix">
                <br>
-               
-               <button type="button" (click)="updatemilestonesbyid(titleInput13.value,titlename13.value);" 
-                  class="deletebtn btn btn-danger float-right borderbtn marginleft" > Yes</button>
-               <button type="button" onclick="document.getElementById('id230').style.display='none'"
+
+               <button type="button" (click)="updatemilestonesbyid(titleInput13.value,titlename13.value);"
+                  class="deletebtn btn btn-danger float-right borderbtn marginleft"> Yes</button>
+               <button type="button"
+                  onclick="document.getElementById('updateconfirmationformilestone').style.display='none'"
                   class="cancelbtn btn btn-primary float-right borderbtn">No</button>
             </div>
          </div>
       </form>
    </div>
-   <div bsModal id="id04" class="modal " style="top: 0% !important; background-color: rgba(0,0,0, 0.4);">
-      <form class="modal-content row d-flex justify-content-center align-items-center"
-         style="width: 30%; height: 185px; left: 36%; top: 30%;" [formGroup]="projectForm">
+   <div bsModal id="editprojecttype" class="modal blackscreen ">
+      <form class="modal-content row d-flex justify-content-center align-items-center modelstyle"
+         [formGroup]="projectForm">
          <div class="container">
             <!-- <h3 style="text-align: center; margin-top:2%">Modal popup</h3> -->
             <div class="col-sm-12">
@@ -1946,7 +1949,7 @@
                   <label for="email"><b>Edit - Project Type </b></label>
                   <input type="text" class="form-control" #titlename placeholder="Enter Name" formControlName="title"
                      name="email" required>
-                  <input type="text" style="display: none;" #titleInput class="form-control" placeholder="Enter Name"
+                  <input type="text" #titleInput class="form-control fordisplaynone" placeholder="Enter Name"
                      formControlName="submitid" name="email" required>
                   <!-- <input type="text"   class="form-control" placeholder="Enter Name" formControlName="submitid" name="email" required> -->
                   <!-- <div class="col-md-12">
@@ -1960,293 +1963,323 @@
             <div class="clearfix">
                <br>
                <br>
-               <button type="button" 
-                  class="deletebtn btn btn-danger float-right borderbtn marginleft" onclick="document.getElementById('id223').style.display='block'" [disabled]="(projectForm.controls['submitid'].invalid || projectForm.controls['title'].invalid)"> Submit</button>
-               <button type="button" onclick="document.getElementById('id04').style.display='none'"
+               <button type="button" class="deletebtn btn btn-danger float-right borderbtn marginleft"
+                  onclick="document.getElementById('updateconfirmationforprojecttype').style.display='block'"
+                  [disabled]="(projectForm.controls['submitid'].invalid || projectForm.controls['title'].invalid)">
+                  Submit</button>
+               <button type="button" onclick="document.getElementById('editprojecttype').style.display='none'"
                   class="cancelbtn btn btn-primary float-right borderbtn">Cancel</button>
             </div>
          </div>
       </form>
    </div>
-   <div bsModal id="id223" class="modal " style="top: 0% !important; background-color: rgba(0,0,0, 0.4);">
-      <form class="modal-content row d-flex justify-content-center align-items-center"
-         style="width: 19%; height: 137px; left: 41%; top: 1%; margin-bottom: 0rem;" [formGroup]="projectForm">
+
+   <div bsModal id="updateconfirmationforprojecttype" class="modal blackscreen ">
+      <form class="modal-content row d-flex justify-content-center align-items-center modalcontainer"
+         [formGroup]="projectForm">
          <div class="container">
             <!-- <h3 style="text-align: center; margin-top:2%">Modal popup</h3> -->
-                  <!-- <label class="col-md-12 col-form-label" for="file-input">Attachments: </label> -->
-                  <label for="email"><b>Are you sure you want to update </b></label>
+            <!-- <label class="col-md-12 col-form-label" for="file-input">Attachments: </label> -->
+            <label for="email"><b>Are you sure you want to update </b></label>
             <div class="clearfix">
                <br>
-               
-               <button type="button" (click)="updateprojecttypebyid(titleInput.value,titlename.value); " 
-                  class="deletebtn btn btn-danger float-right borderbtn marginleft" > Yes</button>
-               <button type="button" onclick="document.getElementById('id223').style.display='none'"
+
+               <button type="button" (click)="updateprojecttypebyid(titleInput.value,titlename.value); "
+                  class="deletebtn btn btn-danger float-right borderbtn marginleft"> Yes</button>
+               <button type="button"
+                  onclick="document.getElementById('updateconfirmationforprojecttype').style.display='none'"
                   class="cancelbtn btn btn-primary float-right borderbtn">No</button>
             </div>
          </div>
       </form>
    </div>
-   <div bsModal id="id05" class="modal " style="top: 0% !important; background-color: rgba(0,0,0, 0.4);">
-      <form class="modal-content row d-flex justify-content-center align-items-center"
-         style="width: 30%; height: 185px; left: 36%; top: 30%;" [formGroup]="projectForm">
+
+
+   <div bsModal  id="editprocess" class="modal blackscreen ">
+      <form class="modal-content row d-flex justify-content-center align-items-center modelstyle"
+         [formGroup]="projectForm">
          <div class="container">
             <div class="col-sm-12">
                <div class="form-group row">
-                  <label for="email"><b>Edit - Prcoess</b></label>
+                  <label for="email"><b>Edit - Process</b></label>
                   <input type="text" class="form-control" #titlename1 placeholder="Enter Name" formControlName="title"
                      name="email" required>
-                  <input type="text" style="display: none;" #titleInput1 class="form-control" placeholder="Enter Name"
+                  <input type="text" #titleInput1 class="form-control fordisplaynone" placeholder="Enter Name"
                      formControlName="submitid" name="email" required>
                </div>
             </div>
             <div class="clearfix">
                <br>
                <br>
-               <button type="button" onclick="document.getElementById('id224').style.display='block'" class="deletebtn btn btn-danger float-right borderbtn marginleft" [disabled]="(projectForm.controls['submitid'].invalid || projectForm.controls['title'].invalid)">
+               <button type="button"
+                  onclick="document.getElementById('updateconfirmationforprocess').style.display='block'"
+                  class="deletebtn btn btn-danger float-right borderbtn marginleft"
+                  [disabled]="(projectForm.controls['submitid'].invalid || projectForm.controls['title'].invalid)">
                   Submit</button>
-               <button type="button" onclick="document.getElementById('id05').style.display='none'"
+               <button type="button" onclick="document.getElementById('editprocess').style.display='none'"
                   class="cancelbtn btn btn-primary float-right borderbtn">Cancel</button>
             </div>
          </div>
       </form>
    </div>
-   <div bsModal id="id224" class="modal " style="top: 0% !important; background-color: rgba(0,0,0, 0.4);">
-      <form class="modal-content row d-flex justify-content-center align-items-center"
-         style="width: 19%; height: 137px; left: 41%; top: 1%; margin-bottom: 0rem;" [formGroup]="projectForm">
+   <div bsModal id="updateconfirmationforprocess" class="modal blackscreen ">
+      <form class="modal-content row d-flex justify-content-center align-items-center modalcontainer"
+         [formGroup]="projectForm">
          <div class="container">
             <!-- <h3 style="text-align: center; margin-top:2%">Modal popup</h3> -->
-                  <!-- <label class="col-md-12 col-form-label" for="file-input">Attachments: </label> -->
-                  <label for="email"><b>Are you sure you want to update </b></label>
+            <!-- <label class="col-md-12 col-form-label" for="file-input">Attachments: </label> -->
+            <label for="email"><b>Are you sure you want to update </b></label>
             <div class="clearfix">
                <br>
-               
-               <button type="button" (click)="updateprocessbyid(titleInput1.value,titlename1.value); " 
-                  class="deletebtn btn btn-danger float-right borderbtn marginleft" > Yes</button>
-               <button type="button" onclick="document.getElementById('id224').style.display='none'"
+
+               <button type="button" (click)="updateprocessbyid(titleInput1.value,titlename1.value); "
+                  class="deletebtn btn btn-danger float-right borderbtn marginleft"> Yes</button>
+               <button type="button"
+                  onclick="document.getElementById('updateconfirmationforprocess').style.display='none'"
                   class="cancelbtn btn btn-primary float-right borderbtn">No</button>
             </div>
          </div>
       </form>
    </div>
-   <div bsModal id="id06" class="modal " style="top: 0% !important; background-color: rgba(0,0,0, 0.4);">
-      <form class="modal-content row d-flex justify-content-center align-items-center"
-         style="width: 30%; height: 185px; left: 36%; top: 30%;" [formGroup]="projectForm">
+   <div bsModal  id="editlifecycle" class="modal blackscreen ">
+      <form class="modal-content row d-flex justify-content-center align-items-center modelstyle"
+         [formGroup]="projectForm">
          <div class="container">
             <div class="col-sm-12">
                <div class="form-group row">
                   <label for="email"><b>Edit - Lifecycle</b></label>
                   <input type="text" class="form-control" #titlename2 placeholder="Enter Name" formControlName="title"
                      name="email" required>
-                  <input type="text" style="display: none;" #titleInput2 class="form-control" placeholder="Enter Name"
+                  <input type="text" #titleInput2 class="form-control fordisplaynone" placeholder="Enter Name"
                      formControlName="submitid" name="email" required>
                </div>
             </div>
             <div class="clearfix">
                <br>
                <br>
-               <button type="button" onclick="document.getElementById('id225').style.display='block'"class="deletebtn btn btn-danger float-right borderbtn marginleft" [disabled]="(projectForm.controls['submitid'].invalid || projectForm.controls['title'].invalid)">
+               <button type="button"
+                  onclick="document.getElementById('updateconfirmationforlifecycle').style.display='block'"
+                  class="deletebtn btn btn-danger float-right borderbtn marginleft"
+                  [disabled]="(projectForm.controls['submitid'].invalid || projectForm.controls['title'].invalid)">
                   Submit</button>
-               <button type="button" onclick="document.getElementById('id06').style.display='none'"
+               <button type="button" onclick="document.getElementById('editlifecycle').style.display='none'"
                   class="cancelbtn btn btn-primary float-right borderbtn">Cancel</button>
             </div>
          </div>
       </form>
    </div>
-   <div bsModal id="id225" class="modal " style="top: 0% !important; background-color: rgba(0,0,0, 0.4);">
-      <form class="modal-content row d-flex justify-content-center align-items-center"
-         style="width: 19%; height: 137px; left: 41%; top: 1%; margin-bottom: 0rem;" [formGroup]="projectForm">
+   <div bsModal  id="updateconfirmationforlifecycle" class="modal blackscreen ">
+      <form class="modal-content row d-flex justify-content-center align-items-center modalcontainer"
+         [formGroup]="projectForm">
          <div class="container">
             <!-- <h3 style="text-align: center; margin-top:2%">Modal popup</h3> -->
-                  <!-- <label class="col-md-12 col-form-label" for="file-input">Attachments: </label> -->
-                  <label for="email"><b>Are you sure you want to update </b></label>
+            <!-- <label class="col-md-12 col-form-label" for="file-input">Attachments: </label> -->
+            <label for="email"><b>Are you sure you want to update </b></label>
             <div class="clearfix">
                <br>
-               
-               <button type="button" (click)="updatelifecyclebyid(titleInput2.value,titlename2.value); " 
-                  class="deletebtn btn btn-danger float-right borderbtn marginleft" > Yes</button>
-               <button type="button" onclick="document.getElementById('id225').style.display='none'"
+
+               <button type="button" (click)="updatelifecyclebyid(titleInput2.value,titlename2.value); "
+                  class="deletebtn btn btn-danger float-right borderbtn marginleft"> Yes</button>
+               <button type="button"
+                  onclick="document.getElementById('updateconfirmationforlifecycle').style.display='none'"
                   class="cancelbtn btn btn-primary float-right borderbtn">No</button>
             </div>
          </div>
       </form>
    </div>
 
-   <div bsModal id="id07" class="modal " style="top: 0% !important; background-color: rgba(0,0,0, 0.4);">
-      <form class="modal-content row d-flex justify-content-center align-items-center"
-         style="width: 30%; height: 185px; left: 36%; top: 30%;" [formGroup]="projectForm">
+   <div bsModal  id="editfunction" class="modal blackscreen ">
+      <form class="modal-content row d-flex justify-content-center align-items-center modelstyle"
+         [formGroup]="projectForm">
          <div class="container">
             <div class="col-sm-12">
                <div class="form-group row">
                   <label for="email"><b>Edit - Function</b></label>
                   <input type="text" class="form-control" #titlename3 placeholder="Enter Name" formControlName="title"
                      name="email" required>
-                  <input type="text" style="display: none;" #titleInput3 class="form-control" placeholder="Enter Name"
+                  <input type="text" #titleInput3 class="form-control fordisplaynone" placeholder="Enter Name"
                      formControlName="submitid" name="email" required>
                </div>
             </div>
             <div class="clearfix">
                <br>
                <br>
-               <button type="button"  onclick="document.getElementById('id234').style.display='block'" 
-                  class="deletebtn btn btn-danger float-right borderbtn marginleft marginleft" [disabled]="(projectForm.controls['submitid'].invalid || projectForm.controls['title'].invalid)"> Submit</button>
-               <button type="button" onclick="document.getElementById('id07').style.display='none'"
+               <button type="button"
+                  onclick="document.getElementById('updateconfirmationforfunction').style.display='block'"
+                  class="deletebtn btn btn-danger float-right borderbtn marginleft marginleft"
+                  [disabled]="(projectForm.controls['submitid'].invalid || projectForm.controls['title'].invalid)">
+                  Submit</button>
+               <button type="button" onclick="document.getElementById('editfunction').style.display='none'"
                   class="cancelbtn btn btn-primary float-right borderbtn">Cancel</button>
             </div>
          </div>
       </form>
    </div>
-   <div bsModal id="id234" class="modal " style="top: 0% !important; background-color: rgba(0,0,0, 0.4);">
-      <form class="modal-content row d-flex justify-content-center align-items-center"
-         style="width: 19%; height: 137px; left: 41%; top: 1%; margin-bottom: 0rem;" [formGroup]="projectForm">
+   <div bsModal  id="updateconfirmationforfunction" class="modal blackscreen ">
+      <form class="modal-content row d-flex justify-content-center align-items-center modalcontainer"
+         [formGroup]="projectForm">
          <div class="container">
             <!-- <h3 style="text-align: center; margin-top:2%">Modal popup</h3> -->
-                  <!-- <label class="col-md-12 col-form-label" for="file-input">Attachments: </label> -->
-                  <label for="email"><b>Are you sure you want to update </b></label>
+            <!-- <label class="col-md-12 col-form-label" for="file-input">Attachments: </label> -->
+            <label for="email"><b>Are you sure you want to update </b></label>
             <div class="clearfix">
                <br>
-               
-               <button type="button" (click)="updatefunctionsbyid(titleInput3.value,titlename3.value);" 
-                  class="deletebtn btn btn-danger float-right borderbtn marginleft" > Yes</button>
-               <button type="button" onclick="document.getElementById('id234').style.display='none'"
+
+               <button type="button" (click)="updatefunctionsbyid(titleInput3.value,titlename3.value);"
+                  class="deletebtn btn btn-danger float-right borderbtn marginleft"> Yes</button>
+               <button type="button"
+                  onclick="document.getElementById('updateconfirmationforfunction').style.display='none'"
                   class="cancelbtn btn btn-primary float-right borderbtn">No</button>
             </div>
          </div>
       </form>
    </div>
-   <div bsModal id="id08" class="modal " style="top: 0% !important; background-color: rgba(0,0,0, 0.4);">
-      <form class="modal-content row d-flex justify-content-center align-items-center"
-         style="width: 30%; height: 185px; left: 36%; top: 30%;" [formGroup]="projectForm">
+   <div bsModal  id="editdepartment" class="modal blackscreen ">
+      <form class="modal-content row d-flex justify-content-center align-items-center modelstyle"
+         [formGroup]="projectForm">
          <div class="container">
             <div class="col-sm-12">
                <div class="form-group row">
                   <label for="email"><b>Edit - Department</b></label>
                   <input type="text" class="form-control" #titlename4 placeholder="Enter Name" formControlName="title"
                      name="email" required>
-                  <input type="text" style="display: none;" #titleInput4 class="form-control" placeholder="Enter Name"
+                  <input type="text" #titleInput4 class="form-control fordisplaynone" placeholder="Enter Name"
                      formControlName="submitid" name="email" required>
                </div>
             </div>
             <div class="clearfix">
                <br>
                <br>
-               <button type="button" onclick="document.getElementById('id226').style.display='block'" class="deletebtn btn btn-danger float-right borderbtn marginleft" [disabled]="(projectForm.controls['submitid'].invalid || projectForm.controls['title'].invalid)">
+               <button type="button"
+                  onclick="document.getElementById('updateconfirmationfordepartment').style.display='block'"
+                  class="deletebtn btn btn-danger float-right borderbtn marginleft"
+                  [disabled]="(projectForm.controls['submitid'].invalid || projectForm.controls['title'].invalid)">
                   Submit</button>
-               <button type="button" onclick="document.getElementById('id08').style.display='none'"
+               <button type="button" onclick="document.getElementById('editdepartment').style.display='none'"
                   class="cancelbtn btn btn-primary float-right borderbtn">Cancel</button>
             </div>
          </div>
       </form>
    </div>
-   <div bsModal id="id226" class="modal " style="top: 0% !important; background-color: rgba(0,0,0, 0.4);">
-      <form class="modal-content row d-flex justify-content-center align-items-center"
-         style="width: 19%; height: 137px; left: 41%; top: 1%; margin-bottom: 0rem;" [formGroup]="projectForm">
+   <div bsModal id="updateconfirmationfordepartment" class="modal blackscreen ">
+      <form class="modal-content row d-flex justify-content-center align-items-center modalcontainer"
+         [formGroup]="projectForm">
          <div class="container">
             <!-- <h3 style="text-align: center; margin-top:2%">Modal popup</h3> -->
-                  <!-- <label class="col-md-12 col-form-label" for="file-input">Attachments: </label> -->
-                  <label for="email"><b>Are you sure you want to update </b></label>
+            <!-- <label class="col-md-12 col-form-label" for="file-input">Attachments: </label> -->
+            <label for="email"><b>Are you sure you want to update </b></label>
             <div class="clearfix">
                <br>
-               
-               <button type="button" (click)="updatedepartmentsbyid(titleInput4.value,titlename4.value);" 
-                  class="deletebtn btn btn-danger float-right borderbtn marginleft" > Yes</button>
-               <button type="button" onclick="document.getElementById('id226').style.display='none'"
+
+               <button type="button" (click)="updatedepartmentsbyid(titleInput4.value,titlename4.value);"
+                  class="deletebtn btn btn-danger float-right borderbtn marginleft"> Yes</button>
+               <button type="button"
+                  onclick="document.getElementById('updateconfirmationfordepartment').style.display='none'"
                   class="cancelbtn btn btn-primary float-right borderbtn">No</button>
             </div>
          </div>
       </form>
    </div>
-   <div bsModal id="id09" class="modal " style="top: 0% !important; background-color: rgba(0,0,0, 0.4);">
-      <form class="modal-content row d-flex justify-content-center align-items-center"
-         style="width: 30%; height: 185px; left: 36%; top: 30%;" [formGroup]="projectForm">
+   <div bsModal  id="editimpactcategory" class="modal blackscreen ">
+      <form class="modal-content row d-flex justify-content-center align-items-center modelstyle"
+         [formGroup]="projectForm">
          <div class="container">
             <div class="col-sm-12">
                <div class="form-group row">
                   <label for="email"><b>Edit - Impact Category</b></label>
                   <input type="text" class="form-control" #titlename5 placeholder="Enter Name" formControlName="title"
                      name="email" required>
-                  <input type="text" style="display: none;" #titleInput5 class="form-control" placeholder="Enter Name"
+                  <input type="text" #titleInput5 class="form-control fordisplaynone" placeholder="Enter Name"
                      formControlName="submitid" name="email" required>
                </div>
             </div>
             <div class="clearfix">
                <br>
                <br>
-               <button type="button" onclick="document.getElementById('id227').style.display='block'"
-                  class="deletebtn btn btn-danger float-right borderbtn marginleft" [disabled]="(projectForm.controls['submitid'].invalid || projectForm.controls['title'].invalid)"> Submit</button>
-               <button type="button" onclick="document.getElementById('id09').style.display='none'"
+               <button type="button"
+                  onclick="document.getElementById('updateconfirmationforimpactcategory').style.display='block'"
+                  class="deletebtn btn btn-danger float-right borderbtn marginleft"
+                  [disabled]="(projectForm.controls['submitid'].invalid || projectForm.controls['title'].invalid)">
+                  Submit</button>
+               <button type="button" onclick="document.getElementById('editimpactcategory').style.display='none'"
                   class="cancelbtn btn btn-primary float-right borderbtn">Cancel</button>
             </div>
          </div>
       </form>
    </div>
-   <div bsModal id="id227" class="modal " style="top: 0% !important; background-color: rgba(0,0,0, 0.4);">
-      <form class="modal-content row d-flex justify-content-center align-items-center"
-         style="width: 19%; height: 137px; left: 41%; top: 1%; margin-bottom: 0rem;" [formGroup]="projectForm">
+   <div bsModal id="updateconfirmationforimpactcategory" class="modal blackscreen ">
+      <form class="modal-content row d-flex justify-content-center align-items-center modalcontainer"
+         [formGroup]="projectForm">
          <div class="container">
             <!-- <h3 style="text-align: center; margin-top:2%">Modal popup</h3> -->
-                  <!-- <label class="col-md-12 col-form-label" for="file-input">Attachments: </label> -->
-                  <label for="email"><b>Are you sure you want to update </b></label>
+            <!-- <label class="col-md-12 col-form-label" for="file-input">Attachments: </label> -->
+            <label for="email"><b>Are you sure you want to update </b></label>
             <div class="clearfix">
                <br>
-               
-               <button type="button" (click)="updateimpactcategorybyid(titleInput5.value,titlename5.value);" 
-                  class="deletebtn btn btn-danger float-right borderbtn marginleft" > Yes</button>
-               <button type="button" onclick="document.getElementById('id227').style.display='none'"
+
+               <button type="button" (click)="updateimpactcategorybyid(titleInput5.value,titlename5.value);"
+                  class="deletebtn btn btn-danger float-right borderbtn marginleft"> Yes</button>
+               <button type="button"
+                  onclick="document.getElementById('updateconfirmationforimpactcategory').style.display='none'"
                   class="cancelbtn btn btn-primary float-right borderbtn">No</button>
             </div>
          </div>
       </form>
    </div>
-   <div bsModal id="id10" class="modal " style="top: 0% !important; background-color: rgba(0,0,0, 0.4);">
-      <form class="modal-content row d-flex justify-content-center align-items-center"
-         style="width: 30%; height: 185px; left: 36%; top: 30%;" [formGroup]="projectForm">
+   <div bsModal id="editimpactlevel" class="modal blackscreen ">
+      <form class="modal-content row d-flex justify-content-center align-items-center modelstyle"
+         [formGroup]="projectForm">
          <div class="container">
             <div class="col-sm-12">
                <div class="form-group row">
-                  <label for="email"><b>Edit - Impect Level</b></label>
+                  <label for="email"><b>Edit - Impact Level</b></label>
                   <input type="text" class="form-control" #titlename6 placeholder="Enter Name" formControlName="title"
                      name="email" required>
-                  <input type="text" style="display: none;" #titleInput6 class="form-control" placeholder="Enter Name"
+                  <input type="text" #titleInput6 class="form-control fordisplaynone" placeholder="Enter Name"
                      formControlName="submitid" name="email" required>
                </div>
             </div>
             <div class="clearfix">
                <br>
                <br>
-               <button type="button"  onclick="document.getElementById('id228').style.display='block'"class="deletebtn btn btn-danger float-right borderbtn marginleft" [disabled]="(projectForm.controls['submitid'].invalid || projectForm.controls['title'].invalid)">
+               <button type="button"
+                  onclick="document.getElementById('updateconfirmationforimpactlevel').style.display='block'"
+                  class="deletebtn btn btn-danger float-right borderbtn marginleft"
+                  [disabled]="(projectForm.controls['submitid'].invalid || projectForm.controls['title'].invalid)">
                   Submit</button>
-               <button type="button" onclick="document.getElementById('id10').style.display='none'"
+               <button type="button" onclick="document.getElementById('editimpactlevel').style.display='none'"
                   class="cancelbtn btn btn-primary float-right borderbtn">Cancel</button>
             </div>
          </div>
       </form>
    </div>
-   <div bsModal id="id228" class="modal " style="top: 0% !important; background-color: rgba(0,0,0, 0.4);">
-      <form class="modal-content row d-flex justify-content-center align-items-center"
-         style="width: 19%; height: 137px; left: 41%; top: 1%; margin-bottom: 0rem;" [formGroup]="projectForm">
+   <div bsModal id="updateconfirmationforimpactlevel" class="modal blackscreen ">
+      <form class="modal-content row d-flex justify-content-center align-items-center modalcontainer"
+         [formGroup]="projectForm">
          <div class="container">
             <!-- <h3 style="text-align: center; margin-top:2%">Modal popup</h3> -->
-                  <!-- <label class="col-md-12 col-form-label" for="file-input">Attachments: </label> -->
-                  <label for="email"><b>Are you sure you want to update </b></label>
+            <!-- <label class="col-md-12 col-form-label" for="file-input">Attachments: </label> -->
+            <label for="email"><b>Are you sure you want to update </b></label>
             <div class="clearfix">
                <br>
-               
-               <button type="button" (click)="updateimpactlevelbyid(titleInput6.value,titlename6.value);" 
-                  class="deletebtn btn btn-danger float-right borderbtn marginleft" > Yes</button>
-               <button type="button" onclick="document.getElementById('id228').style.display='none'"
+
+               <button type="button" (click)="updateimpactlevelbyid(titleInput6.value,titlename6.value);"
+                  class="deletebtn btn btn-danger float-right borderbtn marginleft"> Yes</button>
+               <button type="button"
+                  onclick="document.getElementById('updateconfirmationforimpactlevel').style.display='none'"
                   class="cancelbtn btn btn-primary float-right borderbtn">No</button>
             </div>
          </div>
       </form>
    </div>
 
-   <div bsModal id="id22858888" class="modal" style="top: 0% !important; background-color: rgba(0,0,0, 0.4);">
+   <div bsModal  id="circularloader" class="modal blackscreen">
       <!-- <div class="spinner">
          <div class="double-bounce1"></div>
          <div class="double-bounce2"></div>
        </div> -->
 
-       <div class="sk-circle" style="top: 30% !important;">
+      <div class="sk-circle forloader">
          <div class="sk-circle1 sk-child"></div>
          <div class="sk-circle2 sk-child"></div>
          <div class="sk-circle3 sk-child"></div>
@@ -2259,178 +2292,178 @@
          <div class="sk-circle10 sk-child"></div>
          <div class="sk-circle11 sk-child"></div>
          <div class="sk-circle12 sk-child"></div>
-       </div>
+      </div>
    </div>
-   
-   <div bsModal id="id33322222" class="modal " style="top: 0% !important; background-color: rgba(0,0,0, 0.4);">
-      <form class="modal-content row d-flex justify-content-center align-items-center"
-         style="width: 15%; height: 129px; left: 46%; top: 31%; margin-bottom: 0rem;" [formGroup]="projectForm">
+
+   <div bsModal #projecttypealreadyexist="bs-modal"  class="modal blackscreen ">
+      <form class="modal-content row d-flex justify-content-center align-items-center modalcontainer1 "
+         [formGroup]="projectForm">
          <div class="container">
             <!-- <h3 style="text-align: center; margin-top:2%">Modal popup</h3> -->
-                  <!-- <label class="col-md-12 col-form-label" for="file-input">Attachments: </label> -->
-                  <label for="email"><b>Project type name already exist.</b></label>
+            <!-- <label class="col-md-12 col-form-label" for="file-input">Attachments: </label> -->
+            <label for="email"><b>Project type name already exist.</b></label>
             <div class="clearfix">
                <br>
-               
-       
-               <button type="button" onclick="document.getElementById('id33322222').style.display='none'"
+
+
+               <button type="button" (click)="hidemodal();"
                   class="cancelbtn btn btn-primary float-right borderbtn">Ok</button>
             </div>
          </div>
       </form>
    </div>
-   <div bsModal id="id33322221" class="modal " style="top: 0% !important; background-color: rgba(0,0,0, 0.4);">
-      <form class="modal-content row d-flex justify-content-center align-items-center"
-         style="width: 15%; height: 110px; left: 46%; top: 31%; margin-bottom: 0rem;" [formGroup]="projectForm">
+   <div bsModal #projectalreadyexist="bs-modal"  class="modal blackscreen ">
+      <form class="modal-content row d-flex justify-content-center align-items-center modalcontainer2"
+         [formGroup]="projectForm">
          <div class="container">
             <!-- <h3 style="text-align: center; margin-top:2%">Modal popup</h3> -->
-                  <!-- <label class="col-md-12 col-form-label" for="file-input">Attachments: </label> -->
-                  <label for="email"><b>Project name already exist.</b></label>
+            <!-- <label class="col-md-12 col-form-label" for="file-input">Attachments: </label> -->
+            <label for="email"><b>Project name already exist.</b></label>
             <div class="clearfix">
                <br>
-               
-       
-               <button type="button" onclick="document.getElementById('id33322221').style.display='none'"
+
+
+               <button type="button" (click)="hidemodal();"
                   class="cancelbtn btn btn-primary float-right borderbtn">Ok</button>
             </div>
          </div>
       </form>
    </div>
-   <div bsModal id="id33322223" class="modal " style="top: 0% !important; background-color: rgba(0,0,0, 0.4);">
-      <form class="modal-content row d-flex justify-content-center align-items-center"
-         style="width: 15%; height: 110px; left: 46%; top: 31%; margin-bottom: 0rem;" [formGroup]="projectForm">
+   <div bsModal #milestonealreadyexist="bs-modal" class="modal blackscreen ">
+      <form class="modal-content row d-flex justify-content-center align-items-center modalcontainer2"
+         [formGroup]="projectForm">
          <div class="container">
             <!-- <h3 style="text-align: center; margin-top:2%">Modal popup</h3> -->
-                  <!-- <label class="col-md-12 col-form-label" for="file-input">Attachments: </label> -->
-                  <label for="email"><b>Milestone name already exist.</b></label>
+            <!-- <label class="col-md-12 col-form-label" for="file-input">Attachments: </label> -->
+            <label for="email"><b>Milestone name already exist.</b></label>
             <div class="clearfix">
                <br>
-               
-       
-               <button type="button" onclick="document.getElementById('id33322223').style.display='none'"
+
+
+               <button type="button" (click)="hidemodal();"
                   class="cancelbtn btn btn-primary float-right borderbtn">Ok</button>
             </div>
          </div>
       </form>
    </div>
-   <div bsModal id="id33322224" class="modal " style="top: 0% !important; background-color: rgba(0,0,0, 0.4);">
-      <form class="modal-content row d-flex justify-content-center align-items-center"
-         style="width: 15%; height: 110px; left: 46%; top: 31%; margin-bottom: 0rem;" [formGroup]="projectForm">
+   <div bsModal #phasealreadyexist="bs-modal"  class="modal blackscreen ">
+      <form class="modal-content row d-flex justify-content-center align-items-center modalcontainer2"
+         [formGroup]="projectForm">
          <div class="container">
             <!-- <h3 style="text-align: center; margin-top:2%">Modal popup</h3> -->
-                  <!-- <label class="col-md-12 col-form-label" for="file-input">Attachments: </label> -->
-                  <label for="email"><b>Phase name already exist.</b></label>
+            <!-- <label class="col-md-12 col-form-label" for="file-input">Attachments: </label> -->
+            <label for="email"><b>Phase name already exist.</b></label>
             <div class="clearfix">
                <br>
-               
-       
-               <button type="button" onclick="document.getElementById('id33322224').style.display='none'"
+
+
+               <button type="button" (click)="hidemodal();"
                   class="cancelbtn btn btn-primary float-right borderbtn">Ok</button>
             </div>
          </div>
       </form>
    </div>
-   <div bsModal id="id33322225" class="modal " style="top: 0% !important; background-color: rgba(0,0,0, 0.4);">
-      <form class="modal-content row d-flex justify-content-center align-items-center"
-         style="width: 15%; height: 110px; left: 46%; top: 31%; margin-bottom: 0rem;" [formGroup]="projectForm">
+   <div bsModal #lifecyclealreadyexist="bs-modal" class="modal blackscreen ">
+      <form class="modal-content row d-flex justify-content-center align-items-center modalcontainer2"
+         [formGroup]="projectForm">
          <div class="container">
             <!-- <h3 style="text-align: center; margin-top:2%">Modal popup</h3> -->
-                  <!-- <label class="col-md-12 col-form-label" for="file-input">Attachments: </label> -->
-                  <label for="email"><b>LifeCycle name already exist.</b></label>
+            <!-- <label class="col-md-12 col-form-label" for="file-input">Attachments: </label> -->
+            <label for="email"><b>LifeCycle name already exist.</b></label>
             <div class="clearfix">
                <br>
-               
-       
-               <button type="button" onclick="document.getElementById('id33322225').style.display='none'"
+
+
+               <button type="button" (click)="hidemodal();"
                   class="cancelbtn btn btn-primary float-right borderbtn">Ok</button>
             </div>
          </div>
       </form>
    </div>
-   <div bsModal id="id33322226" class="modal " style="top: 0% !important; background-color: rgba(0,0,0, 0.4);">
-      <form class="modal-content row d-flex justify-content-center align-items-center"
-         style="width: 15%; height: 110px; left: 46%; top: 31%; margin-bottom: 0rem;" [formGroup]="projectForm">
+   <div bsModal #functionalreadyexist="bs-modal"  class="modal blackscreen ">
+      <form class="modal-content row d-flex justify-content-center align-items-center modalcontainer2"
+         [formGroup]="projectForm">
          <div class="container">
             <!-- <h3 style="text-align: center; margin-top:2%">Modal popup</h3> -->
-                  <!-- <label class="col-md-12 col-form-label" for="file-input">Attachments: </label> -->
-                  <label for="email"><b>Function name already exist.</b></label>
+            <!-- <label class="col-md-12 col-form-label" for="file-input">Attachments: </label> -->
+            <label for="email"><b>Function name already exist.</b></label>
             <div class="clearfix">
                <br>
-               
-       
-               <button type="button" onclick="document.getElementById('id33322226').style.display='none'"
+
+
+               <button type="button" (click)="hidemodal();"
                   class="cancelbtn btn btn-primary float-right borderbtn">Ok</button>
             </div>
          </div>
       </form>
    </div>
-   <div bsModal id="id33322227" class="modal " style="top: 0% !important; background-color: rgba(0,0,0, 0.4);">
-      <form class="modal-content row d-flex justify-content-center align-items-center"
-         style="width: 15%; height: 129px; left: 46%; top: 31%; margin-bottom: 0rem;" [formGroup]="projectForm">
+   <div bsModal #departmentalreadyexist="bs-modal"  class="modal blackscreen ">
+      <form class="modal-content row d-flex justify-content-center align-items-center modalcontainer1"
+         [formGroup]="projectForm">
          <div class="container">
             <!-- <h3 style="text-align: center; margin-top:2%">Modal popup</h3> -->
-                  <!-- <label class="col-md-12 col-form-label" for="file-input">Attachments: </label> -->
-                  <label for="email"><b>Department name already exist.</b></label>
+            <!-- <label class="col-md-12 col-form-label" for="file-input">Attachments: </label> -->
+            <label for="email"><b>Department name already exist.</b></label>
             <div class="clearfix">
                <br>
-               
-       
-               <button type="button" onclick="document.getElementById('id33322227').style.display='none'"
+
+
+               <button type="button" (click)="hidemodal();"
                   class="cancelbtn btn btn-primary float-right borderbtn">Ok</button>
             </div>
          </div>
       </form>
    </div>
-   <div bsModal id="id33322228" class="modal " style="top: 0% !important; background-color: rgba(0,0,0, 0.4);">
-      <form class="modal-content row d-flex justify-content-center align-items-center"
-         style="width: 15%; height: 129px; left: 46%; top: 31%; margin-bottom: 0rem;" [formGroup]="projectForm">
+   <div bsModal #impactcategoryalreadyexist="bs-modal"  class="modal blackscreen ">
+      <form class="modal-content row d-flex justify-content-center align-items-center modalcontainer1"
+         [formGroup]="projectForm">
          <div class="container">
             <!-- <h3 style="text-align: center; margin-top:2%">Modal popup</h3> -->
-                  <!-- <label class="col-md-12 col-form-label" for="file-input">Attachments: </label> -->
-                  <label for="email"><b>Impact Category name already exist.</b></label>
+            <!-- <label class="col-md-12 col-form-label" for="file-input">Attachments: </label> -->
+            <label for="email"><b>Impact Category name already exist.</b></label>
             <div class="clearfix">
                <br>
-               
-       
-               <button type="button" onclick="document.getElementById('id33322228').style.display='none'"
+
+
+               <button type="button" (click)="hidemodal();"
                   class="cancelbtn btn btn-primary float-right borderbtn">Ok</button>
             </div>
          </div>
       </form>
    </div>
-   <div bsModal id="id33322229" class="modal " style="top: 0% !important; background-color: rgba(0,0,0, 0.4);">
-      <form class="modal-content row d-flex justify-content-center align-items-center"
-         style="width: 15%; height: 129px; left: 46%; top: 31%; margin-bottom: 0rem;" [formGroup]="projectForm">
+   <div bsModal #impactlevelalreadyexist="bs-modal" class="modal blackscreen">
+      <form class="modal-content row d-flex justify-content-center align-items-center modalcontainer1"
+         [formGroup]="projectForm">
          <div class="container">
             <!-- <h3 style="text-align: center; margin-top:2%">Modal popup</h3> -->
-                  <!-- <label class="col-md-12 col-form-label" for="file-input">Attachments: </label> -->
-                  <label for="email"><b>Impact Level name already exist.</b></label>
+            <!-- <label class="col-md-12 col-form-label" for="file-input">Attachments: </label> -->
+            <label for="email"><b>Impact Level name already exist.</b></label>
             <div class="clearfix">
                <br>
-               
-       
-               <button type="button" onclick="document.getElementById('id33322229').style.display='none'"
+
+
+               <button type="button" (click)="hidemodal();"
                   class="cancelbtn btn btn-primary float-right borderbtn">Ok</button>
             </div>
          </div>
       </form>
    </div>
-   <div bsModal id="id33322230" class="modal " style="top: 0% !important; background-color: rgba(0,0,0, 0.4);">
-      <form class="modal-content row d-flex justify-content-center align-items-center"
-         style="width: 15%; height: 110px; left: 46%; top: 31%; margin-bottom: 0rem;" [formGroup]="projectForm">
+   <div bsModal #processalreadyexist="bs-modal" class="modal blackscreen ">
+      <form class="modal-content row d-flex justify-content-center align-items-center modalcontainer2"
+         [formGroup]="projectForm">
          <div class="container">
             <!-- <h3 style="text-align: center; margin-top:2%">Modal popup</h3> -->
-                  <!-- <label class="col-md-12 col-form-label" for="file-input">Attachments: </label> -->
-                  <label for="email"><b>Process name already exist.</b></label>
+            <!-- <label class="col-md-12 col-form-label" for="file-input">Attachments: </label> -->
+            <label for="email"><b>Process name already exist.</b></label>
             <div class="clearfix">
                <br>
-               
-       
-               <button type="button" onclick="document.getElementById('id33322230').style.display='none'"
+
+
+               <button type="button" (click)="hidemodal();"
                   class="cancelbtn btn btn-primary float-right borderbtn">Ok</button>
             </div>
          </div>
       </form>
-   </div>
-   
+   </div>   
+   <!-- <div #myId></div> -->
 </div>

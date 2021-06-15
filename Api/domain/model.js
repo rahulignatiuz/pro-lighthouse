@@ -32,13 +32,14 @@ class User {
     }
     // add lesson by both project and process
     static addLessonSQL(o) {
+     
         if (o.ProcessID) {
             let sql = `Call  addProcessLessonSQL(${o.UserID},${o.LessonTypeID},${o.ProcessID},${o.TypeID},${o.ImpactCategoryID},${o.ImpactLevelID},${o.FunctionID},${o.LifeCycleID},${o.DepartmentID},'${o.Title}','${o.IssueDescription}','${o.RootCause}','${o.Recommendation}',${o.CreatedBy},${o.IsEnabled},@LID); select @LID as insertId;`;
             // let sql = `INSERT INTO lighthouse.lesson (UserID,LessonTypeID,ProcessID,TypeID,ImpactCategoryID,ImpactLevelID,FunctionID,LifeCycleID,DepartmentID,Title,IssueDescription,RootCause,Recommendation,CreatedBy,CreatedDate,IsEnabled) VALUES \
             // ('${o.UserID}','${o.LessonTypeID}','${o.ProcessID}','${o.TypeID}','${o.ImpactCategoryID}','${o.ImpactLevelID}','${o.FunctionID}','${o.LifeCycleID}','${o.DepartmentID}','${o.Title}','${o.IssueDescription}','${o.RootCause}','${o.Recommendation}','${o.CreatedBy}',now(),'${o.IsEnabled}');`;
             return sql;
         } else if (o.ProjectID) {
-            let sql = `Call  addProjectLessonSQL(${o.UserID},${o.LessonTypeID},${o.ProjectTypeID},${o.ProjectID},${o.PhaseID},${o.TypeID},${o.ImpactCategoryID},${o.ImpactLevelID},${o.MilestoneID},${o.FunctionID},${o.LifeCycleID},${o.DepartmentID},'${o.Title}','${o.IssueDescription}','${o.RootCause}','${o.Recommendation}',${o.CreatedBy},${o.IsEnabled},@LID); select @LID as insertId;`;
+         let sql = `Call  addProjectLessonSQL(${o.UserID},${o.LessonTypeID},${o.ProjectTypeID},${o.ProjectID},${o.PhaseID},${o.TypeID},${o.ImpactCategoryID},${o.ImpactLevelID},${o.MilestoneID},${o.FunctionID},${o.LifeCycleID},${o.DepartmentID},'${o.Title}','${o.IssueDescription}','${o.RootCause}','${o.Recommendation}',${o.CreatedBy},${o.IsEnabled},@LID); select @LID as insertId;`;
             // let sql = `INSERT INTO lighthouse.lesson (UserID,LessonTypeID,ProjectTypeID,ProjectID,PhaseID,TypeID,ImpactCategoryID,ImpactLevelID,MilestoneID,FunctionID,LifeCycleID,DepartmentID,Title,IssueDescription,RootCause,Recommendation,CreatedBy,CreatedDate,IsEnabled) VALUES \
             // ('${o.UserID}','${o.LessonTypeID}','${o.ProjectTypeID}','${o.ProjectID}','${o.PhaseID}','${o.TypeID}','${o.ImpactCategoryID}','${o.ImpactLevelID}','${o.MilestoneID}','${o.FunctionID}','${o.LifeCycleID}','${o.DepartmentID}','${o.Title}','${o.IssueDescription}','${o.RootCause}','${o.Recommendation}','${o.CreatedBy}',now(),'${o.IsEnabled}');`;
             return sql;
@@ -578,6 +579,10 @@ class User {
     static getCountimpactlevelSQL(id) {
         let sql = `Call  getCountimpactlevelSQL(${id})`;
         // let sql = `SELECT COUNT( lesson.ImpactLevelID ) as "TotalNumber" FROM lighthouse.lesson WHERE lesson.ImpactLevelID=${id};`;
+        return sql;
+    }
+    static getCountimpactlevelforprocessSQL(id){
+        let sql = `Call  getCountimpactlevelforprocessSQL(${id})`;
         return sql;
     }
     // used to get total count of flag (for dashboard)
