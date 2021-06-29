@@ -182,6 +182,9 @@ svg{
 .cssforsmal{
     display: none !important;
 }
+.newcssforonlylarge{
+  display: none !important;
+}
 .smallscreen{
     margin-top: 5% !important;
 }
@@ -209,8 +212,12 @@ svg{
 .largescreenimplemented{
   margin-top: 7% !important;
 }
+
 }
-@media (max-width: 1536px){
+@media (min-width: 1536px) and (max-width: 1536px){
+  .largescreenimplemented{
+    margin-top: 4%;
+  }
   .labelsforsmall{
       margin-bottom: 3% !important;
   }    
@@ -220,6 +227,9 @@ svg{
   .cssforsmal{
       display: none !important;
   }
+  .newcssforonlylarge{
+    display: none !important;
+  }
   .smallscreen{
       margin-top: 5% !important;
   }
@@ -227,27 +237,30 @@ svg{
       display: flex !important;
   }
   .smallscreenprojectphase{
-      margin-top: 18% !important; 
+      margin-top: 19% !important; 
   }
   .impactcssforsmallscreen{
-      margin-top: 21% !important;
+      margin-top: 22% !important;
   }
   .Milestonecssforsmall{
-      margin-top: 19% !important;
+      margin-top: 20% !important;
   }
   .projectphaseselect{
       margin-top: -12% !important;
   }
   .marginforlarger{
-      margin-top: 0% !important;
+      margin-top: 1% !important;
   }
   .marginforsmall{
-      margin-top: 5% !important;
+      margin-top: 6% !important;
   }
 }
-@media (max-width: 2100px){
+.newcssforonlylarge{
+  display: none;
+}
+@media (min-width: 2100px) and (max-width: 2100px) {
   .largescreenimplemented{
-      margin-top: 3%;
+      margin-top: 3% !important;
   }
   .projectphaseselect{
       margin-top: -9%;
@@ -256,13 +269,16 @@ svg{
       margin-top: 5%;
   }
   .marginforlarger{
-      margin-top: 28px;
+      margin-top: 28px !important;
   }
   .cssforsmallscreen{
-      margin-top: 8%;
+      margin-top: 8% !important;
   }
   .cssforsmal{
       display: flex;
+  }
+  .newcssforonlylarge{
+    display: none !important;
   }
   .largescreen{
       display: none;
@@ -348,7 +364,7 @@ div {
   user-select: none; /* Standard syntax */
 }
 
-@media (max-width: 1535px ){
+@media (min-width: 1535px ) and (max-width: 1535px ){
   .labelsforsmall{
       margin-bottom: 4% !important;
   }
@@ -366,6 +382,12 @@ div {
   }
   .smallscreen{
       margin-top: 13% !important;
+  }
+  .marginforlarger{
+    margin-top: 0% !important;
+  }
+  .cssforsmallscreen{
+    margin-top: 4% !important
   }
 }
 
@@ -451,17 +473,35 @@ div {
   .cssforsmal{
     display: none !important;
   }
+  .newcssforonlylarge{
+    display: none !important;
+  }
   .cssforsmallscreen{
     margin-top: 7% !important;
   }
   .displayforscreen{
     display: none;
   }
-  .marginforsmall{
-    margin-top: 6% !important;
-  } 
+  .projectphaseselect{
+    margin-top: -10% !important;
+  }
+  // .marginforsmall{
+  //   margin-top: 6% !important;
+  // } 
   .largescreenimplemented{
     margin-top: 2% !important;
+  }
+  .largescreen{
+    display: none;
+  }
+  .marginforlarger{
+    margin-top: 2%;
+  }
+  .labelsforsmall{
+    margin-bottom: 2% !important; 
+  }
+  .marginforsmall{
+    margin-top: 1%;
   }
 }
 
@@ -482,7 +522,28 @@ div {
   .largescreenimplemented{
     margin-top: 5% !important;
   }
-
+  .cssforsmal{
+    display: none;
+  }
+  .marginforsmall{
+    margin-top: 14%;
+  }
+  .smallscreenprojectphase{
+    margin-top: 26%;
+  }
+  .impactcssforsmallscreen{
+    margin-top: 33% !important;
+  }
+  .Milestonecssforsmall{
+    margin-top: 25%;
+  }
+  .labelsforsmall{
+    margin-bottom: 5% !important;
+  }
+  .projectphaseselect{
+    margin-top: -15% !important;
+    margin-bottom: 10% !important;
+  }
 }
 
 
@@ -496,34 +557,147 @@ div {
   .largescreenimplemented{
     margin-top: 8% !important;
   }
+
 }
 
+.cssforbig{
+  display: none;
+}
 
+@media (min-width: 2560px) and (max-width: 2560px){
 
-// @media screen and (max-width: 2560px){
+  .displayforonlybig{
+    display: none;
+  }
+  .onlyforbig{
+    margin-top: 2%;
+  }
+  .cssforsmallscreen{
+    margin-top: 21% ;
+  }
+  
+  .cssforbig{
+    display: flex ;
+  }
+  .marginforlarger{
+    margin-top: 17%;
+  }
+  .largescreen{
+    display: none ;
+  }
+  .largescreenimplemented{
+    margin-top: 17%;
+  }
+  .newcssforonlylarge{
+    display: flex;
+  }
+  .projectphaseselect{
+    margin-top: -6% !important;
+  }
+  .forbigscreen{
+    margin-bottom: 3% !important;
+  }
+  .marginforsmall{
+    margin-top: 1%;
+  }
+  .cssforbigscreen{
+    margin-bottom: 8% !important;
+  }
+  .sdata{
+    margin-right: -62%;
+    margin-top: -4% !important;
+    color: white;
+  }
+  .arragn{
+    margin-top: -6% !important;
+  }
+  .smallscreenprojectphase{
+    margin-top: 1%;
+  }
+}
+@media (min-width: 1400px) and (max-width: 1400px) {
+  .cssforsmallscreen{
+    margin-top: 7% !important;
+}
+.marginforlarger {
+  margin-top: 2% !important;
+}
+.largescreenimplemented{
+  margin-top: 6%;
+}
+.smallscreen{
+  margin-top: 22%;
+}
+.displayforscreen{
+  display: none;
+}
+.smallscreenprojectphase{
+  margin-top: 12%;
+}
+.impactcssforsmallscreen{
+  margin-top: 24% !important;
 
-//   .displayforonlybig{
-//     display: none;
-//   }
-//   .onlyforbig{
-//     margin-top: 2%;
-//   }
-//   .cssforsmallscreen{
-//     margin-top: 21% !important;
-//   }
-//   .cssforbig{
-//     display: flex !important;
-//   }
-//   .marginforlarger{
-//     margin-top: 15% !important;
-//   }
-//   .largescreen{
-//     display: none !important;
-//   }
-//   .largescreenimplemented{
-//     margin-top: 17% !important;
-//   }
-// }
-// .cssforbig{
-//   display: none;
-// }
+}
+.Milestonecssforsmall{
+  margin-top: 18% !important;
+
+}
+.marginforsmall{
+  margin-top: 2%;
+}
+.labelsforsmall{
+  margin-bottom: 4% !important;
+}
+.projectphaseselect{
+  margin-top: -13% !important; 
+  margin-bottom: 9% !important;
+
+}
+}
+@media (min-width: 1920px) and (max-width: 1920px) {
+  .newcssforonlylarge{
+    display: none !important;
+  }
+  .cssforsmallscreen{
+    margin-top: 9%;
+  }
+  .marginforlarger{
+    margin-top: 9.5%;
+  }
+  .smallscreenprojectphase{
+    margin-top: 8%;
+  }
+  .largescreenimplemented{
+    margin-top: 4%;
+  }
+  
+}
+
+@media (min-width: 1366px) and (max-width: 1367px) {
+
+  .cssforsmal{
+    display: none;
+  }
+  .marginforsmall{
+    margin-top: 14%;
+  }
+  .smallscreenprojectphase{
+    margin-top: 26%;
+  }
+  .impactcssforsmallscreen{
+    margin-top: 30% !important;
+  }
+  .Milestonecssforsmall{
+    margin-top: 23%;
+  }
+  .labelsforsmall{
+    margin-bottom: 5% !important;
+  }
+  .smallscreen{
+    margin-top: 11%;
+  }
+  .projectphaseselect{
+    margin-top: -13% !important;
+    margin-bottom: 8% !important;
+  }
+} 

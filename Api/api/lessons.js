@@ -100,10 +100,9 @@ router.post("/add", (req, res, next) => {
 function saveData(o, res, keywords) {
     let response = [];
     db.query(Model.addLessonSQL(o), (err, result) => {
-        console.log("963258745555555555555555---", err);
         let data = result[1][0];
 		setTimeout(() => {
-        
+        console.log("963258745555555555555555---", data.insertId);
         if (!err) {
             addKeywords(data.insertId, keywords);
             response.push(data);
@@ -295,6 +294,7 @@ router.post('/project/filter', function (req, res) {
 router.post('/process/filter', function (req, res) {
     var d = {};
     db.query(Model.FilterAllLessonssProcessSQL(req.body), (err, data) => {
+    
         if (!err) {
             if (data && data.length > 0) {
                 res.status(200).json({
@@ -312,7 +312,28 @@ router.post('/process/filter', function (req, res) {
         }
     })
 });
-
+//http://localhost:6001/api/lessons/filterforboth
+router.post('/filterforboth', function (req, res) {
+    var d = {};
+    db.query(Model.FilterAllLessonsforbothSQL(req.body), (err, data) => {
+       // console.log('++++++++++++++++++++++++++++++++++=',FilterAllLessonsforbothSQL(req.body))
+        if (!err) {
+            if (data && data.length > 0) {
+                res.status(200).json({
+                    status: true,
+                    message: "Lessons get successfully.",
+                    result: data
+                });
+            } else {
+                res.status(200).json({
+                    status: false,
+                    message: "Lessons not added.",
+                    result: data
+                });
+            }
+        }
+    })
+});
 //http://localhost:6001/api/lessons/attachment
 router.post('/attachment', upload.single('attachment'), (req, res) => {
     console.log(req.file);
@@ -534,14 +555,10 @@ router.post('/bulkupload', uploadCSV.single('bulkcsv'), (req, res) => {
             }
 
             db.query(Model.addLessonSQLBulk(o), (err, result) => {
-                console.log('---------------------------------------------',err);
-                console.log('888888888888888888888888888888888888',result)
                 if (!err) {
                     let data = result[1][0];
-
                     LessonID = data.insertId;
                     lessonIDs.push(LessonID)
-                    console.log('888888888888888888888888888888888888',data)
                     var results = addLessonByExcle(LessonID, rowdata, index, res);
                     results.then(function (result) {
                         if (i === rows.length - 1) {

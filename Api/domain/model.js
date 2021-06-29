@@ -32,14 +32,13 @@ class User {
     }
     // add lesson by both project and process
     static addLessonSQL(o) {
-     
         if (o.ProcessID) {
             let sql = `Call  addProcessLessonSQL(${o.UserID},${o.LessonTypeID},${o.ProcessID},${o.TypeID},${o.ImpactCategoryID},${o.ImpactLevelID},${o.FunctionID},${o.LifeCycleID},${o.DepartmentID},'${o.Title}','${o.IssueDescription}','${o.RootCause}','${o.Recommendation}',${o.CreatedBy},${o.IsEnabled},@LID); select @LID as insertId;`;
             // let sql = `INSERT INTO lighthouse.lesson (UserID,LessonTypeID,ProcessID,TypeID,ImpactCategoryID,ImpactLevelID,FunctionID,LifeCycleID,DepartmentID,Title,IssueDescription,RootCause,Recommendation,CreatedBy,CreatedDate,IsEnabled) VALUES \
             // ('${o.UserID}','${o.LessonTypeID}','${o.ProcessID}','${o.TypeID}','${o.ImpactCategoryID}','${o.ImpactLevelID}','${o.FunctionID}','${o.LifeCycleID}','${o.DepartmentID}','${o.Title}','${o.IssueDescription}','${o.RootCause}','${o.Recommendation}','${o.CreatedBy}',now(),'${o.IsEnabled}');`;
             return sql;
         } else if (o.ProjectID) {
-         let sql = `Call  addProjectLessonSQL(${o.UserID},${o.LessonTypeID},${o.ProjectTypeID},${o.ProjectID},${o.PhaseID},${o.TypeID},${o.ImpactCategoryID},${o.ImpactLevelID},${o.MilestoneID},${o.FunctionID},${o.LifeCycleID},${o.DepartmentID},'${o.Title}','${o.IssueDescription}','${o.RootCause}','${o.Recommendation}',${o.CreatedBy},${o.IsEnabled},@LID); select @LID as insertId;`;
+            let sql = `Call  addProjectLessonSQL(${o.UserID},${o.LessonTypeID},${o.ProjectTypeID},${o.ProjectID},${o.PhaseID},${o.TypeID},${o.ImpactCategoryID},${o.ImpactLevelID},${o.MilestoneID},${o.FunctionID},${o.LifeCycleID},${o.DepartmentID},'${o.Title}','${o.IssueDescription}','${o.RootCause}','${o.Recommendation}',${o.CreatedBy},${o.IsEnabled},@LID); select @LID as insertId;`;
             // let sql = `INSERT INTO lighthouse.lesson (UserID,LessonTypeID,ProjectTypeID,ProjectID,PhaseID,TypeID,ImpactCategoryID,ImpactLevelID,MilestoneID,FunctionID,LifeCycleID,DepartmentID,Title,IssueDescription,RootCause,Recommendation,CreatedBy,CreatedDate,IsEnabled) VALUES \
             // ('${o.UserID}','${o.LessonTypeID}','${o.ProjectTypeID}','${o.ProjectID}','${o.PhaseID}','${o.TypeID}','${o.ImpactCategoryID}','${o.ImpactLevelID}','${o.MilestoneID}','${o.FunctionID}','${o.LifeCycleID}','${o.DepartmentID}','${o.Title}','${o.IssueDescription}','${o.RootCause}','${o.Recommendation}','${o.CreatedBy}',now(),'${o.IsEnabled}');`;
             return sql;
@@ -364,6 +363,8 @@ class User {
     }
     // used to filter lesson Process data
     static FilterAllLessonssProcessSQL(d) {
+        console.log(d)
+
         let ProcessID = d.ProcessID;
         let TypeID = d.LessontypeID;
         let SortBy = d.SortBy;
@@ -376,6 +377,7 @@ class User {
         let ImpectLevelsIDList = d.ImpectLevelsIDList;
         let KeywordsIDListArray = [];
         let LessonsID = d.LessonsID;
+        console.log('--------------',FunctionIDList)
         for (const type of KeywordsIDList) {
             // console.log(type.ID)
             KeywordsIDListArray.push(type.ID)
@@ -446,6 +448,9 @@ class User {
         left Join userlike ul on ul.lessonID = les.ID where les.LessonTypeID=2 ${str} group by les.ID order by ${sortby}`
         return sql;
     }
+
+    
+    
     // used to get all Keywords data
     static AddAllKeywordsSQL(k) {
         let sql = `Call  addAllKeywordsSQL('${k.Name}','${k.Description}',${k.CreatedBy},${k.UpdatedBy},@LID); select @LID as insertId;`;
@@ -579,10 +584,6 @@ class User {
     static getCountimpactlevelSQL(id) {
         let sql = `Call  getCountimpactlevelSQL(${id})`;
         // let sql = `SELECT COUNT( lesson.ImpactLevelID ) as "TotalNumber" FROM lighthouse.lesson WHERE lesson.ImpactLevelID=${id};`;
-        return sql;
-    }
-    static getCountimpactlevelforprocessSQL(id){
-        let sql = `Call  getCountimpactlevelforprocessSQL(${id})`;
         return sql;
     }
     // used to get total count of flag (for dashboard)
@@ -917,7 +918,7 @@ class User {
         return sql;
     }
     // id =1 ->project and id =2 ->process
-    static getcountlessontype(id) {
+     static getcountlessontype(id) {
         let sql = `call getcountlessontype(${id})`;
         // let sql = `select count(lesson.LessonTypeID)as total, (select count(ID) from lesson)as totallesson  from lesson where LessonTypeID =${id}`
         return sql;

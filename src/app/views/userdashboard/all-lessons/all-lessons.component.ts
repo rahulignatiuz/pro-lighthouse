@@ -1,18 +1,20 @@
 import { Component, OnInit } from '@angular/core';
+import { IDropdownSettings } from 'ng-multiselect-dropdown'
 import { UserService } from '../../../_services/user.service';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { Constant } from '../../../_global/constant';
 import { Lesson } from '../../../_models/lesson';
 import { Title } from '@angular/platform-browser';
-import { IDropdownSettings } from 'ng-multiselect-dropdown'
-
+import { TransitiveCompileNgModuleMetadata } from '@angular/compiler';
 @Component({
-  selector: 'app-mylesson-process',
-  templateUrl: './mylesson-process.component.html',
-  styleUrls: ['./mylesson-process.component.scss']
+  selector: 'app-all-lessons',
+  templateUrl: './all-lessons.component.html',
+  styleUrls: ['./all-lessons.component.scss']
 })
-export class MylessonProcessComponent implements OnInit {
+
+
+export class AllLessonsComponent implements OnInit {
   step = 0;
   results: any[];
   projecttype: any[];
@@ -69,9 +71,12 @@ export class MylessonProcessComponent implements OnInit {
   public implement: string;
   public implemented: string;
   public show: boolean = true;
+  public showforproject: boolean = false;
+  public showforprocess: boolean = false;
   public hasuser = false;
   public lessonID:any;
-
+  public resultsforproject: any[];
+  public resultsforprocess: any[];
   constructor(private router: Router, private userService: UserService, private titleService: Title) {
     this.router.routerState.root.queryParams.subscribe(params => {
       var lessonProcesstID = params['lessonid'];
@@ -96,6 +101,9 @@ export class MylessonProcessComponent implements OnInit {
     this.getKeywords();
     this.getlifecycle();
     this.getuserusefullesson();
+    this.getUserLessonsall();
+
+
     this.titleService.setTitle("Lighthouse | View Lessons");
   }
 
@@ -116,7 +124,7 @@ export class MylessonProcessComponent implements OnInit {
       enableCheckAll: false
     };
     this.sortbyBD = "";
-    this.selectLessonType = 2;
+    this.selectLessonType = 0;
 
     this.implemented = "";
     this.iconhide();
@@ -161,19 +169,18 @@ export class MylessonProcessComponent implements OnInit {
     return (target['classList'] && target['classList'].contains(expansionIndicatorClass));
   }
   togglelessonFlow(e) {
-
     let target = e.target;
     let value = target.value;
-    if (value == 0) {
-      this.router.navigate(['/user/all-lessons']);
-
+    if (value == 1) {
+      this.router.navigate(['/user/mylessons-project']);
     } else if (value == 2) {
       this.router.navigate(['/user/mylessons-process']);
-    } else if (value == 1) {
-      this.router.navigate(['/user/mylessons-project']);
     }
+    else if (value == 0) {
+      this.router.navigate(['/user/all-lessons']);
+    }
+    this.selectLessonType = 1;
   }
-
   onselectSoftBy(e) {
     let event = e.target.value;
     console.log(event);
@@ -295,15 +302,17 @@ export class MylessonProcessComponent implements OnInit {
       LessonsID: this.lessonID ? this.lessonID : "",
     };
 
-    this.userService.getAllFilterLessonsProcess(obj).subscribe((data) => {
-      if (data.status) {
-        this.noResult = false;
-        this.results = data.result;
-      } else {
-        this.noResult = true;
-        this.results = [];
-      }
-    });
+    // this.userService.getAllFilterAllLessonsforbothSQL(obj).subscribe((data) => {
+    //   if (data.status) {
+    //     this.noResult = false;
+    //     this.resultsforproject = data.result;
+    //     this.resultsforprocess = data.result;
+    //     console.log('================================================================>',this.results)
+    //   } else {
+    //     this.noResult = true;
+    //     this.results = [];
+    //   }
+    // });
   }
 
   resetFilter() {
@@ -435,4 +444,71 @@ export class MylessonProcessComponent implements OnInit {
       this.hasuser = true;
     }
   }
+  getUserLessonsall() {
+   
+    this.userService.getUserProcessLessons().subscribe((data) => {
+      console.log('1', data);
+      this.resultsforprocess = data.result;
+      console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!+++++++++++++++++++!!!!!!!!!',this.resultsforprocess)
+
+    this.userService.getUserLessons().subscribe((data) => {       
+       this.resultsforproject = data.result.concat(this.resultsforprocess);
+        var merged = Object.assign(this.resultsforprocess, this.resultsforproject);
+    });
+  });
+  }
+  getidlessonforprocess(ID) {
+    this.router.navigate(['/lesson/lesson-process/' + ID]);
+  }
+  getidinurl(ID) {
+     this.getlessonbyid(ID);
+  }
+  getlessonbyid(ID) {
+
+    this.userService.getlessonbyProjectID(ID).subscribe((data) => {
+      console.log("+++++++++++++++++++++++++++++++++++getlessonbyid+++++++++++++++++++++++++++++++++++++++++++");
+      console.log(data.result[0]);
+      if(data.result[0].LessonTypeID == 1){
+        this.router.navigate(['/lesson/' + ID]);
+      }
+      this.userService.getlessonbyProcessID(ID).subscribe((data) => {
+        console.log(data);
+        if(data.result[0].LessonTypeID == 2){
+          this.router.navigate(['/lesson/lesson-process/' + ID]);
+        }
+  
+      });
+    });
+
+
+
+
+  }
+  editinurlforproject(ID) {
+    this.getlessonbyidforedit(ID);
+  }
+
+  getlessonbyidforedit(ID) {
+    this.userService.getlessonbyProjectID(ID).subscribe((data) => {
+      console.log("+++++++++++++++++++++++++++++++++++getlessonbyid+++++++++++++++++++++++++++++++++++++++++++");
+      // console.log(data.result[0]);
+      if(data.result[0].LessonTypeID == 1){
+
+        this.router.navigate(['/user/update-project/' + ID]);
+
+      }
+      this.userService.getlessonbyProcessID(ID).subscribe((data) => {
+        console.log(data);
+        if(data.result[0].LessonTypeID == 2){
+          this.router.navigate(['/user/update-process/' + ID]);
+      }
+  
+      });
+    });
+
+
+
+
+  }
+ 
 }

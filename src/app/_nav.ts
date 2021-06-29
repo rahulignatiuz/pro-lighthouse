@@ -276,7 +276,7 @@ export const navItems: NavData[] = [
         
           {
             name: 'View Lessons',
-            url: '/user/mylessons-project',
+            url: '/user/all-lessons',
             icon: 'icon-list'
           },
           {
@@ -329,7 +329,7 @@ export const navItems: NavData[] = [
      
       {
         name: 'View Lessons',
-        url: '/user/mylessons-project',
+        url: '/user/all-lessons',
         icon: 'icon-list'
       },
       {
@@ -381,7 +381,7 @@ export const navItems: NavData[] = [
       }, 
       {
         name: 'View Lessons',
-        url: '/user/mylessons-project',
+        url: '/user/all-lessons',
         icon: 'cui-lightbulb'
       },
       // {

@@ -8,6 +8,8 @@ import { AddProcessComponent } from './add-process/add-process.component';
 import { UpdateProcessComponent } from './update-process/update-process.component';
 import { MylessonProcessComponent } from './mylesson-process/mylesson-process.component';
 import { BulkImportComponent } from './bulk-import/bulk-import.component';
+import { AllLessonsComponent } from './all-lessons/all-lessons.component';
+
 
 const routes: Routes = [
   {
@@ -43,6 +45,13 @@ const routes: Routes = [
     component: MylessonsProjectComponent,
     data: {
       title: 'Project Lessons'
+    }
+  },
+  {
+    path: 'all-lessons',
+    component: AllLessonsComponent,
+    data: {
+      title: 'All Lessons'
     }
   },
   {

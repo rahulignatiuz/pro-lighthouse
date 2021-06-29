@@ -167,8 +167,8 @@ export class MylessonsProjectComponent implements OnInit {
   togglelessonFlow(e) {
     let target = e.target;
     let value = target.value;
-    if (value == 1) {
-      this.router.navigate(['/user/mylessons-project']);
+    if (value == 0) {
+      this.router.navigate(['/user/all-lessons']);
     } else if (value == 2) {
       this.router.navigate(['/user/mylessons-process']);
     }

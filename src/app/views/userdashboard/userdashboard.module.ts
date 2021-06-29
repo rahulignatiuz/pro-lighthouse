@@ -14,7 +14,7 @@ import { UpdateProjectComponent } from './update-project/update-project.componen
 import { ReactiveFormsModule } from '@angular/forms';
 import { AccumulationChartModule,PyramidSeriesService,AccumulationDataLabelService,AccumulationTooltipService,AccumulationLegendService} from '@syncfusion/ej2-angular-charts';
 import { NgCircleProgressModule } from 'ng-circle-progress';
-
+import { AllLessonsComponent } from './all-lessons/all-lessons.component';
 // Tabs Component
 import { TabsModule } from 'ngx-bootstrap/tabs';
 
@@ -84,7 +84,7 @@ import { BulkImportComponent } from './bulk-import/bulk-import.component';
       "startFromZero": false,
       "lazy": false})
   ],
-  declarations: [UserdashboardComponent, UpdateProjectComponent, MylessonsProjectComponent, AddLessonComponent, AddProcessComponent, UpdateProcessComponent, MylessonProcessComponent, BulkImportComponent],
-  providers: [PyramidSeriesService, AccumulationDataLabelService,AccumulationTooltipService,AccumulationLegendService]
+  declarations: [UserdashboardComponent, UpdateProjectComponent, MylessonsProjectComponent, AddLessonComponent, AddProcessComponent,AllLessonsComponent, UpdateProcessComponent, MylessonProcessComponent, BulkImportComponent],
+  providers: [PyramidSeriesService, AccumulationDataLabelService,AccumulationTooltipService,AccumulationLegendService,]
 })
 export class UserdashboardModule { }
