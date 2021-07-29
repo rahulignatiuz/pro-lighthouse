@@ -330,7 +330,7 @@ router.post('/pending/account/delete', function (req, res) {
                 to: req.body.Email,
                 subject: 'Rejected, your login request.',
                 text: `Hello User, 
-                \nYour login request has been Rejected by  ${lighthouseJson.PLATFORM_NAME} using ${req.body.Email} email address. 
+                \nYour login request has been rejected by ${lighthouseJson.PLATFORM_NAME} using ${req.body.Email} email address. 
                 
                 \nThanks`
             };

@@ -1306,5 +1306,16 @@ class User {
         let sql = `update lighthouse.userusefullesson SET flag ='${p.flag}', Description='${p.Description}' where ID='${p.ID}'`;
         return sql;
     }
+    static getkeyboardbarchartSQL() {
+       // let sql = `call getdepartmentBybarchartSQL()`;
+        //     let sql = `select dp.Name as deprt,COUNT(DepartmentID) as total,(select count(ID) from lesson) as totallesson
+        // FROM lesson les 
+        // Inner join department dp on dp.ID = les.DepartmentID 
+        // GROUP BY  DepartmentID;`
+     //   let sql =` SELECT Name, COUNT(Name) AS Appearances FROM lighthouse.keyword GROUP BY Name ORDER BY Appearances desc LIMIT 5 `
+     let sql = `SELECT Name, COUNT(Name) AS Appearances FROM mappinglessonkeyword map
+     inner join keyword ky on ky.ID = map.KeywordID GROUP BY Name ORDER BY Appearances desc limit 5`
+        return sql;
+    }
 }
 module.exports = User;

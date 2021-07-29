@@ -70,7 +70,7 @@
                                  <label class="col-md-3 col-form-label" for="text-input">Project Name <span
                                        class="danger">*</span></label>
                                  <div class="col-md-9">
-                                    <tag-input [theme]="'minimal'" [(ngModel)]="_projectName" class=""
+                                    <!-- <tag-input [theme]="'minimal'" [(ngModel)]="_projectName" class=""
                                        [ngClass]="{'has-error is-invalid': isSubmitted && formControls._projectname.errors }"
                                        (onAdd)="onselectProject($event)" (onRemove)="onProjectRemoved($event)"
                                        [maxItems]="1" formControlName="_projectname"
@@ -80,7 +80,14 @@
                                           [identifyBy]="'projectId'">
                                        </tag-input-dropdown>
                                        <i class="cui-magnifying-glass icons font-2xl d-block mt-4 searchIcon"></i>
-                                    </tag-input>
+                                    </tag-input> -->
+                                    <select class="form-control"
+                                    [ngClass]="{'has-error is-invalid': isSubmitted && formControls._projectname.errors }"
+                                    formControlName="_projectname" id="ppo">
+                                    <option value="" [selected]='true'>Select Project</option>
+                                    <option *ngFor="let phase of mappingProjectTypeAndProject" value="{{phase.ID}}">
+                                       {{phase.Name}}</option>
+                                 </select>
                                     <div
                                        *ngIf="lessonForm.controls['_projectname'].invalid && (lessonForm.controls['_projectname'].dirty || lessonForm.controls['_projectname'].touched)"
                                        class="custom-errMsg">
@@ -90,7 +97,7 @@
                                     </div>
                                  </div>
                               </div>
-                           </div>
+                           </div>                        
                            <div class="col-sm-6" *ngIf="LPN">
                               <div class="form-group row">
                                  <label class="col-md-3 col-form-label" for="text-input">LPN/PPN</label>

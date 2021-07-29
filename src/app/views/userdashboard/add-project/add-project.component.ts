@@ -634,7 +634,7 @@ export class AddLessonComponent implements OnInit {
           });
           this.showLoader = false;
           this.myModal.show();
-          this.router.navigate(['/user/add-project']);
+          this.router.navigate(['/user/all-lessons']);
         }
       });
     }

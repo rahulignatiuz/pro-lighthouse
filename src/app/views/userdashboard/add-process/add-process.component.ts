@@ -264,6 +264,24 @@ export class AddProcessComponent implements OnInit {
     }
   }
   addIgnoreColumn(column: any) {
+    let key1 = column.value
+    debugger;
+    this.userService.getKeywords().subscribe((data) => {
+      if (data.status) {
+        this.keywordsAsObjects = data.result;
+      }
+   
+        if(key1 == "ER_DUP_ENTRY"){
+          debugger;
+          //document.getElementById('circularloader').style.display='none';
+          //document.getElementById('processalreadyexist').style.display='block';
+          console.log('5555555555555555555555555555',data);
+          //console.log(this.myId.nativeElement);
+          // this.processalreadyexist.show();        
+        }
+     
+      
+   });
     this._Keywords.push(<any>column);
     console.log(column);
   }
@@ -554,7 +572,7 @@ export class AddProcessComponent implements OnInit {
           });
           this.showLoader = false;
           this.myModal.show();
-          this.router.navigate(['/user/add-process']);
+          this.router.navigate(['/user/all-lessons']);
         }
       });
     }

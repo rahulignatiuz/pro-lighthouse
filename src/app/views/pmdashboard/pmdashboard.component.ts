@@ -10,8 +10,12 @@ import { Title } from '@angular/platform-browser';
   styleUrls: ['./pmdashboard.component.scss']
 })
 export class PmdashboardComponent implements OnInit {
-  results: any[];
-  nrSelect = 1;
+  public  results: any[];
+ 
+  public nrSelectforproject = 1;
+  public  nrSelectforphase = 1;
+  public  nrSelectformilestone = 1;
+
 
   public _baseURL: string;
   public sortbyBD: string;
@@ -23,7 +27,16 @@ export class PmdashboardComponent implements OnInit {
   public mappingProjectAndMilestone: any;
   public mappingProjectAndPhase: any;
   public MappingProjectTypeAndPhase: any;
-
+  public showLoader: boolean = true;
+  public showLoaderfordepartment: boolean = true;
+  public showLoaderforpyramid: boolean = true;
+  public showLoaderforproject: boolean = true;
+  public showLoaderforprocessandproject: boolean = true;
+  public showLoaderforphase: boolean = true;
+  public  showLoaderforimplemented: boolean = true;
+  public showLoaderforimpactcategory: boolean = true;
+  public showLoaderformilestone: boolean = true;
+  public showLoaderforfunction: boolean = true;
   //barchart
   public barChartOptions: any = {
     scaleShowVerticalLines: false,

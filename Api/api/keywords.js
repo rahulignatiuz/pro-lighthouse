@@ -44,4 +44,39 @@ router.get("/",  (req, res, next)=>{
         })
    
 })
+// Get most used keyword 
+//http://localhost:6001/api/keywords/keywordbarchart
+router.get("/keywordbarchart", (req, res, next) => {
+    db.query(Model.getkeyboardbarchartSQL(req.body), (err, result) => {
+        let data = result;
+       // console.log('-------------------------------------',data)
+        if (!err) {
+            let dataObj = [];
+            let labelObj = [];
+           // let totalObj = [];
+            if (data && data.length > 0) {
+                for (let i = 0; i < data.length; i++) {
+                    dataObj.push(data[i].Appearances);
+                    labelObj.push(data[i].Name);
+                    // totalObj.push(data[i].totallesson);
+                }
+                res.status(200).json({
+                    status: true,
+                    message: "keywords get successfully.",
+                    data: dataObj,
+                    label: labelObj,
+                  // totallesson: totalObj
+                });
+            } else {
+                res.status(200).json({
+                    status: false,
+                    message: "departments not added.",
+                    data: dataObj,
+                    label: labelObj,
+                    totallesson: totalObj
+                });
+            }
+        }
+    });
+});
 module.exports = router; 

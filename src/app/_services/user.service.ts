@@ -138,6 +138,9 @@ export class UserService {
   getdepartbarchart() {
     return this.http.get<any>(`${this._baseURL}/departments/departmentbarchart`);
   }
+  getkeywordbarchart(){
+    return this.http.get<any>(`${this._baseURL}/keywords/keywordbarchart`);
+  }
   getdepartbarchart1() {
     return this.http.get<any>(`${this._baseURL}/departments/departmentbar`);
   }
@@ -172,11 +175,14 @@ export class UserService {
   }
 
   getlessonbyProjectID(ID: number) {
+    setTimeout(function(){},1500)
+    debugger;
     console.log(ID, "getlessonbyPojectID");
     return this.http.post<any>(`${this._baseURL}/lessons/porject/id`, { ID });
   }
 
   getlessonbyProcessID(ID: number) {
+    debugger;
     console.log(ID, "getlessonbyProcessID");
     return this.http.post<any>(`${this._baseURL}/lessons/process/id`, { ID });
   }

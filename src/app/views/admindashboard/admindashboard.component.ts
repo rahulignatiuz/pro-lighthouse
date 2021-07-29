@@ -26,16 +26,17 @@ export class AdmindashboardComponent implements OnInit {
   public mappingProjectAndMilestone: any;
   public mappingProjectAndPhase: any;
   public MappingProjectTypeAndPhase: any;
-  showLoader: boolean = true;
-  showLoaderfordepartment: boolean = true;
-  showLoaderforpyramid: boolean = true;
-  showLoaderforproject: boolean = true;
-  showLoaderforprocessandproject: boolean = true;
-  showLoaderforphase: boolean = true;
-  showLoaderforimplemented: boolean = true;
-  showLoaderforimpactcategory: boolean = true;
-  showLoaderformilestone: boolean = true;
-  showLoaderforfunction: boolean = true;
+  public showLoader: boolean = true;
+  public showLoaderfordepartment: boolean = true;
+  public showLoaderforkeyword: boolean = true;
+  public showLoaderforpyramid: boolean = true;
+  public showLoaderforproject: boolean = true;
+  public showLoaderforprocessandproject: boolean = true;
+  public showLoaderforphase: boolean = true;
+  public  showLoaderforimplemented: boolean = true;
+  public showLoaderforimpactcategory: boolean = true;
+  public showLoaderformilestone: boolean = true;
+  public showLoaderforfunction: boolean = true;
 
 
 
@@ -63,16 +64,19 @@ export class AdmindashboardComponent implements OnInit {
   // public barChartLabels: string[];
   public barChartTypeforphase = 'bar';
   public barChartTypefordepartment = 'bar';
+  public barChartTypeforkeyword = 'bar';
+
   public barChartTypeforcategory = 'bar';
   barChartLabels: string[];
   barChartLabelsfordepartment: string[];
+  barChartLabelsforkeyword: string[];
 
   public barChartData: any[] = [
     // { data: [65, 59, 80, 81, 56, 55, 46], label: '' },
     // { data: [65, 59, 80, 81, 56, 55, 46], label: '123' },
 
   ];
-
+  public barChartDataforkeyword: any[] = [ ];
 
   public barChartDatafordepartment: any[] = [
     // { data: [65, 59, 80, 81, 56, 55, 46], label: '' },
@@ -227,6 +231,7 @@ export class AdmindashboardComponent implements OnInit {
     this.getdefaultmilestones();
     this.getdefaultprojectphase();
     this.titleService.setTitle("Lighthouse | Dashboard");
+    this.getkeywordsbarchart(); 
 
   }
 
@@ -468,6 +473,29 @@ getdefaultprojectphase(){
         this.barChartDatafordepartment = data.data;
         this.showLoaderfordepartment=false;
         console.log(data);
+      }
+
+    });
+    
+  }
+  getkeywordsbarchart() {
+    this.userService.getkeywordbarchart().subscribe((data) => {
+      // this.userService.getdepartbarchart1().subscribe((data) => {
+      //   //data.label;
+      //   // let deprt1 = data.label;
+      //  // console.log(data.label)
+      //   this.barChartLabelsfordepartment = data.label;
+      // });
+      if (data) {
+        data.data.push(0);
+        
+        this.barChartLabelsforkeyword = data.label;
+        this.barChartDataforkeyword = data.data;
+        // this.barChartLabelsforkeyword = data.label.slice(0, 5);
+        // this.barChartDataforkeyword = data.data.slice(0, 5);
+        // this.barChartDataforkeyword.push(0);
+        this.showLoaderforkeyword=false;
+        console.log('-------------------------------',data,this.barChartDataforkeyword);
       }
 
     });

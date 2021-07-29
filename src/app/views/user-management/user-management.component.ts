@@ -70,6 +70,7 @@ export class UserManagementComponent implements OnInit {
   @ViewChild('pendingUser', { static: false }) public pendingUser: ModalDirective;
   @ViewChild('pendingUserRegistrationForm', { static: false }) public pendingUserRegistrationForm: ModalDirective;
   @ViewChild('userExists', { static: false }) public userExists: ModalDirective;
+  @ViewChild('addmultipleuser', { static: false }) public addmultipleuser: ModalDirective;
   public constructor(private titleService: Title, private userService: UserService, private router: Router, private formBuilder: FormBuilder) {
     this.titleService.setTitle("Lighthouse | User Management");
     this.getAllUser();
@@ -282,6 +283,14 @@ export class UserManagementComponent implements OnInit {
   userRegister() {
     this.isSubmitted = false;
     this.registrationForm.show();
+    //this.modalService.open(content, { centered: true });
+
+    // this.router.navigate(['/register']);
+  }
+  multipleuserregister() {
+    // this.isSubmitted = false;
+    this.addmultipleuser.show();
+    this.registrationForm.hide();
     //this.modalService.open(content, { centered: true });
 
     // this.router.navigate(['/register']);

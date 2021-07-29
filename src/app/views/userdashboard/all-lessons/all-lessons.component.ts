@@ -102,7 +102,7 @@ export class AllLessonsComponent implements OnInit {
     this.getlifecycle();
     this.getuserusefullesson();
     this.getUserLessonsall();
-
+ 
 
     this.titleService.setTitle("Lighthouse | View Lessons");
   }
@@ -464,7 +464,7 @@ export class AllLessonsComponent implements OnInit {
      this.getlessonbyid(ID);
   }
   getlessonbyid(ID) {
-
+debugger
     this.userService.getlessonbyProjectID(ID).subscribe((data) => {
       console.log("+++++++++++++++++++++++++++++++++++getlessonbyid+++++++++++++++++++++++++++++++++++++++++++");
       console.log(data.result[0]);
