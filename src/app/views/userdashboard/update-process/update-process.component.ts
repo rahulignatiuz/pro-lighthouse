@@ -326,7 +326,7 @@ export class UpdateProcessComponent implements OnInit {
 
   addIgnoreColumn(column: any) {
     this._Keywords.push(<any>column);
-    // console.log(column);
+     console.log(column);
   }
   onKeywordsRemoved(column: any) {
     const index: number = this._Keywords.indexOf(<any>column);

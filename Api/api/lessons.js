@@ -214,26 +214,39 @@ router.post('/update', function (req, res) {
 
     });
 });
-function updateKeywords(lessonID, keywords) {
-    db.query(Model.deleteAllKeywordsByID(lessonID), (err, deleteResults) => {
-        for (keyword of keywords) {
-            if (keyword.ID) {
-                db.query(Model.addKeywordsByMappingLessonSQL(lessonID, keyword.ID), (err, addResults) => {
-                    let data = addResults[1][0];
-                });
-            } else {
-                db.query(Model.addKeywordsBySQL(keyword.Name), (err, keywordResultsResult) => {
-                    let keywordResults = keywordResultsResult[1][0];
-                    if (keywordResults.insertId) {
-                        db.query(Model.addKeywordsByMappingLessonSQL(lessonID, keywordResults.insertId), (err, mappingResults) => {
-                            let data = mappingResults[1][0];
-                        });
-                    }
-                });
-            }
-        }
+async function updateKeywords(lessonID, keywords) {
+    return new Promise((resolve, reject) => {
+        db.query(Model.deleteAllKeywordsByID(lessonID), (err, deleteResults) => {
+            keywords.forEach((keyword, index) => {
+                if (keyword.ID) {
+                    db.query(Model.addKeywordsByMappingLessonSQL(lessonID, keyword.ID), (err, result) => {
+                        //   let data = result[1][0];
+                        console.log("if+++++++keywordResultsResult+++++++keywordResultsResult++++id+data", result);
+                    });
+                } else {
+                    db.query(Model.addKeywordsBySQL(keyword.Name), (err, keywordResultsResult) => {
+                        let keywordResults = keywordResultsResult[1][0];
+    
+                        if (!err) {
+                            if (keywordResults.insertId) {
+                                db.query(Model.addKeywordsByMappingLessonSQL(lessonID, keywordResults.insertId), (err, mappingResults) => {
+                                    //   let data = mappingResults[1][0];
+                                    console.log("else+++++++keywordResultsResult+++++++keywordResultsResult++++id+data", mappingResults);
+                                });
+                            }
+                        }
+                    });
+                }
+                if (index == keywords.length - 1) {
+                    return resolve();
+                }
+            });
+        });
+      
     });
 }
+
+
 //http://localhost:6001/api/lessons/porject/id
 router.post("/porject/id", (req, res, next) => {
     ID = req.body.ID;
