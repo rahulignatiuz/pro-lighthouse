@@ -329,7 +329,7 @@
                                     <div class="col-md-9">
                                        <textarea class="form-control" (blur)="lessonFormFields()" id="textarea-input"
                                           [(ngModel)]="issuedescription"
-                                          [ngClass]="{'has-error is-invalid': isSubmitted && lessonProcessForm.issuedescription.errors }"
+                                          [ngClass]="{'has-error is-invalid': isSubmitted && processFormControls.issuedescription.errors }"
                                           formControlName="issuedescription" placeholder="Description..." rows="6"
                                           maxlength="250" #description></textarea>
                                        <label

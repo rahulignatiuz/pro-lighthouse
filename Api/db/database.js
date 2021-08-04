@@ -30,7 +30,7 @@ function executeQuery(sql, callback) {
 }
 
 function query(sql, callback) {
-    console.log("+-+-+-+", sql);
+  //  console.log("+-+-+-+", sql);
     executeQuery(sql, function (err, result) {
       //  console.log("+-+-data+-result+", result);
 

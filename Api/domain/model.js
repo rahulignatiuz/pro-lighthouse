@@ -53,12 +53,12 @@ class User {
     }
     static updateLessonBybulk(lessonID, o) {
         if (o.ProjectID) {
-           // console.log(o.ProjectID, "o.ProjectID");
+            // console.log(o.ProjectID, "o.ProjectID");
             let sql = `Call  updateProjectLessonBybulk(${o.UserID},${o.LessonTypeID},${o.LifeCycleID},${o.ProjectTypeID},${o.TypeID},${o.ProjectID},${o.PhaseID},${o.ImpactCategoryID},${o.ImpactLevelID},${o.MilestoneID},${o.FunctionID},${o.DepartmentID},${o.CreatedBy},${lessonID})`;
             // let sql = `update lighthouse.lesson SET UserID='${o.UserID}', LessonTypeID='${o.LessonTypeID}',LifeCycleID='${o.LifeCycleID}',ProjectTypeID='${o.ProjectTypeID}',TypeID='${o.TypeID}',ProjectID='${o.ProjectID}',PhaseID='${o.PhaseID}',ImpactCategoryID='${o.ImpactCategoryID}',ImpactLevelID='${o.ImpactLevelID}',MilestoneID='${o.MilestoneID}',FunctionID='${o.FunctionID}' ,DepartmentID='${o.DepartmentID}', CreatedBy='${o.CreatedBy}' where ID='${lessonID}'`;
             return sql;
         } else if (o.ProcessID) {
-          //  console.log(o.ProcessID, "o.ProcessID");
+            //  console.log(o.ProcessID, "o.ProcessID");
             let sql = `Call  updateProcessLessonBybulk(${o.UserID},${o.LessonTypeID},${o.LifeCycleID},${o.ProcessID},${o.TypeID},${o.ImpactCategoryID},${o.ImpactLevelID},${o.FunctionID},${o.DepartmentID},${o.CreatedBy},${lessonID})`;
             // let sql = `update lighthouse.lesson SET UserID='${o.UserID}', LessonTypeID='${o.LessonTypeID}',LifeCycleID='${o.LifeCycleID}',ProcessID='${o.ProcessID}',TypeID='${o.TypeID}',ImpactCategoryID='${o.ImpactCategoryID}',ImpactLevelID='${o.ImpactLevelID}',FunctionID='${o.FunctionID}',DepartmentID='${o.DepartmentID}', CreatedBy='${o.CreatedBy}' where ID='${lessonID}'`;
             return sql;
@@ -94,7 +94,7 @@ class User {
     }
     // to get project data
     static getAllProjectsSQL(projectTypeId) {
-       // console.log(projectTypeId);
+        // console.log(projectTypeId);
         let sql = `call getAllProjectsSQL()`;
         //let sql = `SELECT ID,Name,LPN,Description,Indexing FROM lighthouse.project order by Indexing ASC`;
         //let sql =`SELECT lighthouse.project.ID, lighthouse.project.Name, lighthouse.project.LPN, lighthouse.project.Description FROM lighthouse.project INNER JOIN lighthouse.mappingprojectprojecttype ON lighthouse.project.ID = lighthouse.mappingprojectprojecttype.ProjectID where lighthouse.mappingprojectprojecttype.ProjecttypeID = "${projectTypeId}"  order by Name ASC`;
@@ -331,7 +331,7 @@ class User {
             sortby += " likes  DESC ";
         }
         if (LessonsID) {
-           // console.log("================", LessonsID);
+            // console.log("================", LessonsID);
             str += " and les.ID IN (" + LessonsID + ")";
         }
         // if (Flag == "flag") {
@@ -377,7 +377,7 @@ class User {
         let ImpectLevelsIDList = d.ImpectLevelsIDList;
         let KeywordsIDListArray = [];
         let LessonsID = d.LessonsID;
-        console.log('--------------',FunctionIDList)
+        console.log('--------------', FunctionIDList)
         for (const type of KeywordsIDList) {
             // console.log(type.ID)
             KeywordsIDListArray.push(type.ID)
@@ -449,8 +449,8 @@ class User {
         return sql;
     }
 
-    
-    
+
+
     // used to get all Keywords data
     static AddAllKeywordsSQL(k) {
         let sql = `Call  addAllKeywordsSQL('${k.Name}','${k.Description}',${k.CreatedBy},${k.UpdatedBy},@LID); select @LID as insertId;`;
@@ -535,16 +535,17 @@ class User {
     }
     // used to add keyword through mapping by lesson id and keywordid
     static addKeywordsByMappingLessonSQL(lessonID, keywordID) {
-        let sql = `call addKeywordsByMappingLessonSQL(${lessonID},${keywordID},@LID); select @LID as insertId;`;
+        let sql = `call addKeywordsByMappingLessonSQL('${lessonID}','${keywordID}',@LID); select @LID as insertId;`;
         // let sql = ` INSERT INTO lighthouse.mappinglessonkeyword ( LessonID,KeywordID) \
         // VALUES( '${lessonID}','${kaywordID}')`;
         return sql;
     }
     //used to add keywords data
     static addKeywordsBySQL(value) {
-        let sql = `call addKeywordsBySQL('${value}',@LID); select @LID as insertId;`;
+         let sql = `call addKeywordsBySQL('${value}',@LID); select @LID as insertId;`;
         // let sql = ` INSERT INTO lighthouse.keyword ( Name,Description) \
         // VALUES( '${value}','${value}')`;
+     //   let sql = `INSERT INTO lighthouse.keyword (Name,Description) SELECT '${value}', '${value}'  FROM DUAL WHERE NOT EXISTS(SELECT 1 FROM lighthouse.keyword WHERE Name = '${value}' AND Description = '${value}') LIMIT 1`;
         return sql;
     }
     // used to get all keywords data by lessonid
@@ -918,7 +919,7 @@ class User {
         return sql;
     }
     // id =1 ->project and id =2 ->process
-     static getcountlessontype(id) {
+    static getcountlessontype(id) {
         let sql = `call getcountlessontype(${id})`;
         // let sql = `select count(lesson.LessonTypeID)as total, (select count(ID) from lesson)as totallesson  from lesson where LessonTypeID =${id}`
         return sql;
@@ -1298,22 +1299,22 @@ class User {
     }
     static getuserusefulbylessonID(ID) {
         //let sql = Call  getdepartmentsbyid(${ID});
-        let sql = 	`select * from lighthouse.userusefullesson  where LessonID='${ID}'`;
+        let sql = `select * from lighthouse.userusefullesson  where LessonID='${ID}'`;
         return sql;
     }
-    static updateflag (p) {
+    static updateflag(p) {
         //let sql = call updateProjectsSQL('${p.LPN}',${p.ID});
         let sql = `update lighthouse.userusefullesson SET flag ='${p.flag}', Description='${p.Description}' where ID='${p.ID}'`;
         return sql;
     }
     static getkeyboardbarchartSQL() {
-       // let sql = `call getdepartmentBybarchartSQL()`;
+        // let sql = `call getdepartmentBybarchartSQL()`;
         //     let sql = `select dp.Name as deprt,COUNT(DepartmentID) as total,(select count(ID) from lesson) as totallesson
         // FROM lesson les 
         // Inner join department dp on dp.ID = les.DepartmentID 
         // GROUP BY  DepartmentID;`
-     //   let sql =` SELECT Name, COUNT(Name) AS Appearances FROM lighthouse.keyword GROUP BY Name ORDER BY Appearances desc LIMIT 5 `
-     let sql = `SELECT Name, COUNT(Name) AS Appearances FROM mappinglessonkeyword map
+        //   let sql =` SELECT Name, COUNT(Name) AS Appearances FROM lighthouse.keyword GROUP BY Name ORDER BY Appearances desc LIMIT 5 `
+        let sql = `SELECT Name, COUNT(Name) AS Appearances FROM mappinglessonkeyword map
      inner join keyword ky on ky.ID = map.KeywordID GROUP BY Name ORDER BY Appearances desc limit 5`
         return sql;
     }

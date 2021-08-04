@@ -33,7 +33,7 @@ const router = express.Router();
 router.get("/project", (req, res, next) => {
     db.query(Model.getAllLessonProjectSQL(), (err, result) => {
         let data = result[0];
-        console.log(data);
+        //  console.log(data);
         if (!err) {
             if (data && data.length > 0) {
                 res.status(200).json({
@@ -55,7 +55,7 @@ router.get("/project", (req, res, next) => {
 router.get("/process", (req, res, next) => {
     db.query(Model.getAllLessonProcessSQL(), (err, result) => {
         let data = result[0];
-        console.log(data);
+        // console.log(data);
         if (!err) {
             if (data && data.length > 0) {
                 res.status(200).json({
@@ -94,52 +94,60 @@ router.post("/add", (req, res, next) => {
     o.Recommendation = req.body.Recommendation;
     o.CreatedBy = req.body.CreatedBy;
     o.IsEnabled = req.body.IsEnabled;
-    // console.log("keywords----------------",req.body.Keywords);
-    saveData(o, res, req.body.Keywords);
+    var results = saveData(o, res, req.body.Keywords);
+    results.then(function (result) {
+        res.status(200).json({
+            status: true,
+            message: "Lesson added successfully.",
+            result: result
+        });
+
+    });
 });
-function saveData(o, res, keywords) {
-    let response = [];
-    db.query(Model.addLessonSQL(o), (err, result) => {
-        let data = result[1][0];
-		setTimeout(() => {
-        console.log("963258745555555555555555---", data.insertId);
-        if (!err) {
-            addKeywords(data.insertId, keywords);
-            response.push(data);
-            res.status(200).json({
-                status: true,
-                message: "Lesson added successfully.",
-                result: response
-            });
-        } else {
-            response.push(data);
-            res.status(200).json({
-                status: false,
-                message: "Lesson not added successfully.",
-                result: response
-            });
-        }
- }, 2000);
+async function saveData(o, res, keywords) {
+    return new Promise((resolve, reject) => {
+        db.query(Model.addLessonSQL(o), (err, result) => {
+            let data = result[1][0];
+            if (!err) {
+                addKeywords(data.insertId, keywords);
+                return err ? reject(err) : resolve(data);
+            } else {
+                res.status(200).json({
+                    status: false,
+                    message: "Lesson not added successfully.",
+                    result: err
+                });
+            }
+        });
     });
 }
-function addKeywords(lessonID, keywords) {
-    for (keyword of keywords) {
-        if (keyword.ID) {
-            db.query(Model.addKeywordsByMappingLessonSQL(lessonID, keyword.ID), (err, result) => {
-                let data = result[1][0];
+async function addKeywords(lessonID, keywords) {
+    return new Promise((resolve, reject) => {
+        keywords.forEach((keyword, index) => {
+            if (keyword.ID) {
+                db.query(Model.addKeywordsByMappingLessonSQL(lessonID, keyword.ID), (err, result) => {
+                    //   let data = result[1][0];
+                    console.log("if+++++++keywordResultsResult+++++++keywordResultsResult++++id+data", result);
+                });
+            } else {
+                db.query(Model.addKeywordsBySQL(keyword.display), (err, keywordResultsResult) => {
+                    let keywordResults = keywordResultsResult[1][0];
 
-            });
-        } else {
-            db.query(Model.addKeywordsBySQL(keyword.display), (err, keywordResultsResult) => {
-                let keywordResults = keywordResultsResult[1][0];
-                if (keywordResults.insertId) {
-                    db.query(Model.addKeywordsByMappingLessonSQL(lessonID, keywordResults.insertId), (err, mappingResults) => {
-                        let data = mappingResults[1][0];
-                    });
-                }
-            });
-        }
-    }
+                    if (!err) {
+                        if (keywordResults.insertId) {
+                            db.query(Model.addKeywordsByMappingLessonSQL(lessonID, keywordResults.insertId), (err, mappingResults) => {
+                                //   let data = mappingResults[1][0];
+                                console.log("else+++++++keywordResultsResult+++++++keywordResultsResult++++id+data", mappingResults);
+                            });
+                        }
+                    }
+                });
+            }
+            if (index == keywords.length - 1) {
+                return resolve();
+            }
+        });
+    });
 }
 router.post("/filterLesson", (req, res, next) => {
     db.query(Model.getLessonsByFilterSQL(req.body), (err, data) => {
@@ -174,7 +182,7 @@ router.post('/delete', function (req, res) {
 
 router.post('/update', function (req, res) {
     var o = {};
-    console.log(req.body.keywords);
+    // console.log(req.body.keywords);
     o.ID = req.body.ID;
     o.UserID = req.body.UserID;
     o.LessonTypeID = req.body.LessonTypeID;
@@ -294,7 +302,7 @@ router.post('/project/filter', function (req, res) {
 router.post('/process/filter', function (req, res) {
     var d = {};
     db.query(Model.FilterAllLessonssProcessSQL(req.body), (err, data) => {
-    
+
         if (!err) {
             if (data && data.length > 0) {
                 res.status(200).json({
@@ -316,7 +324,7 @@ router.post('/process/filter', function (req, res) {
 router.post('/filterforboth', function (req, res) {
     var d = {};
     db.query(Model.FilterAllLessonsforbothSQL(req.body), (err, data) => {
-       // console.log('++++++++++++++++++++++++++++++++++=',FilterAllLessonsforbothSQL(req.body))
+        // console.log('++++++++++++++++++++++++++++++++++=',FilterAllLessonsforbothSQL(req.body))
         if (!err) {
             if (data && data.length > 0) {
                 res.status(200).json({
@@ -353,7 +361,7 @@ router.post('/attachment', upload.single('attachment'), (req, res) => {
 });
 //http://localhost:6001/api/lessons/mappingattachment
 router.post('/mappingattachment', (req, res) => {
-    console.log(req.body);
+    // console.log(req.body);
     try {
         //res.send(req.file);
         db.query(Model.AddMappingLessonAttachmentSQL(req.body), (err, result) => {
@@ -370,7 +378,7 @@ router.post('/mappingattachment', (req, res) => {
 });
 //http://localhost:6001/api/lessons/getattachment
 router.post('/getattachment', (req, res) => {
-    console.log(req.body);
+    //console.log(req.body);
     try {
         //res.send(req.file);
         db.query(Model.getLessonAttachmentSQL(req.body.ID), (err, result) => {
@@ -592,19 +600,6 @@ async function addLessonByExcle(LessonID, row, Index, res) {
     var o = {};
     let lessonID = LessonID;
     let index = Index + 1;
-    // var Email = row[1],
-    //     ProjectType = row[2],
-    //     Process = row[3],
-    //     Project = row[4],
-    //     Phase = row[5],
-    //     Milestone = row[6],
-    //     Type = row[7],
-    //     ImpactCategory = row[8],
-    //     ImpactLevel = row[9],
-    //     Function = row[10],
-    //     Department = row[11],
-    //     Keywords = row[16],
-    //     LifeCycle = row[17]
     var Email = row[1],
         ProjectType = row[2],
         Project = row[3],
@@ -803,10 +798,10 @@ async function updateDataBulk(lessonID, o, res) {
             if (!err) {
                 resolve(data);
             } else {
-                console.log("Cannot read property '22222' of undefined +++++++++++", err);
+                // console.log("Cannot read property '22222' of undefined +++++++++++", err);
                 db.query(Model.deleteMultiLessons(lessonIDs), (err, data) => {
-                    console.log("Cannot rened +++++++++err++", err);
-                    console.log("Cannot rened +++++++++data++", data);
+                    // console.log("Cannot rened +++++++++err++", err);
+                    //  console.log("Cannot rened +++++++++data++", data);
                     res.status(200).json({
                         status: false,
                         message: "Deleted lesson",
@@ -1131,7 +1126,7 @@ async function addDataOnExcle(ID, worksheet, workbook) {
                 } else {
                     worksheet.cell(cellIndex, 6).string().style(style);
                 }
-                console.log("++++++++++++++++++++++++++++++++++++++", row.Project);
+                //   console.log("++++++++++++++++++++++++++++++++++++++", row.Project);
                 if (row.Project != "null") {
                     if (row.Project == row.ErrorField) {
                         worksheet.cell(cellIndex, 7).string(row.Project).style(errStyle);

@@ -14,7 +14,7 @@ import { IDropdownSettings } from 'ng-multiselect-dropdown';
 export class AddProcessComponent implements OnInit {
   @ViewChild('myModal', { static: false }) public myModal: ModalDirective;
   @ViewChild('bulkimport', { static: false }) public bulkimport: ModalDirective;
-
+  public _user: any = JSON.parse(localStorage.getItem('currentUser'));
   public projectsAsObjects: any;
   public projectsAsType: any;
   public projectsPhaseAsObjects: any;
@@ -91,7 +91,7 @@ export class AddProcessComponent implements OnInit {
   public bulkAttachment: File = null;
   public somethingMissingError: boolean = false;
   public maxChars = 250;
-  public maxCharacter =100;
+  public maxCharacter = 100;
   public isClickFunction: boolean = false;
   public isClickDepartment: boolean = false;
   public getuserusefullesson: string;
@@ -151,10 +151,10 @@ export class AddProcessComponent implements OnInit {
     this.typeoflesson = "";
 
   }
-  remove(){
+  remove() {
     var x = document.getElementById("id202");
     x.classList.remove("top3");
-    
+
   }
   // get formControls() { return this.lessonForm.controls; }
   get processFormControls() { return this.lessonProcessForm.controls; }
@@ -217,9 +217,9 @@ export class AddProcessComponent implements OnInit {
       this.bulkImporing = true;
       const formData = new FormData();
       this.xlFileNameWithoutExt = this.bulkAttachment.name.split('.').slice(0, -1).join('.');
-      let User: any = JSON.parse(localStorage.getItem('currentUser'));
+     // let User: any = JSON.parse(localStorage.getItem('currentUser'));
       formData.append('bulkcsv', this.bulkAttachment);
-      formData.append('UserID', User.ID);
+      formData.append('UserID', this._user.ID);
       this.userService.uploadbulkFile(formData).subscribe((data) => {
         if (data.status) {
           this.bulkErrorCount = data.result.errorCount;
@@ -264,24 +264,6 @@ export class AddProcessComponent implements OnInit {
     }
   }
   addIgnoreColumn(column: any) {
-    let key1 = column.value
-    debugger;
-    this.userService.getKeywords().subscribe((data) => {
-      if (data.status) {
-        this.keywordsAsObjects = data.result;
-      }
-   
-        if(key1 == "ER_DUP_ENTRY"){
-          debugger;
-          //document.getElementById('circularloader').style.display='none';
-          //document.getElementById('processalreadyexist').style.display='block';
-          console.log('5555555555555555555555555555',data);
-          //console.log(this.myId.nativeElement);
-          // this.processalreadyexist.show();        
-        }
-     
-      
-   });
     this._Keywords.push(<any>column);
     console.log(column);
   }
@@ -502,11 +484,11 @@ export class AddProcessComponent implements OnInit {
   }
 
   addLessonProcess(form: NgForm) {
-    console.log(form.value);
+
     this.isSubmitted = true;
-    let _user: any = JSON.parse(localStorage.getItem('currentUser'));
+   // let _user: any = JSON.parse(localStorage.getItem('currentUser'));
     let o: any = {
-      UserID: _user.ID,
+      UserID: this._user.ID,
       LessonTypeID: 2,
       ProcessID: form.value.process,
       TypeID: form.value.typeoflesson,
@@ -520,7 +502,7 @@ export class AddProcessComponent implements OnInit {
       DepartmentID: form.value.department[0].ID,
       FunctionID: form.value.function[0].ID,
       Recommendation: this.Recommendation,
-      CreatedBy: _user.ID,
+      CreatedBy: this._user.ID,
       IsEnabled: 1
     };
     this.showLoader = true;
@@ -533,24 +515,27 @@ export class AddProcessComponent implements OnInit {
         if (data.status) {
           this.attachmentID = data.data.insertId;
           this.userService.addLesson(o).subscribe((data) => {
+            console.log("++++++++++++++++++++++++addLessonProcess+++1++++++++++++++++++++++++++", data.result.insertId);
             //  console.log(data);
             //  console.log(data.result[0].insertId);
             //  console.log(data.status);
+            let LessonID = data.result.insertId;
+            console.log("++++++++++++++++++++++++addLessonProcess++++2+++++++++++++++++++++++++", data.result.insertId);
+            //  let _user: any = JSON.parse(localStorage.getItem('currentUser'));
+            let UserID = this._user.ID;
+            let title = "";
+            let lessonData = data;
             if (data.status) {
-              this.userService.addMappingLessonAttachmentSQL(data.result[0].insertId, this.attachmentID).subscribe((data) => {
+              this.userService.addMappingLessonAttachmentSQL(LessonID, this.attachmentID).subscribe((data) => {
                 if (data.status) {
-                  let LessonID = data.result[0].insertId;
-                  let _user: any = JSON.parse(localStorage.getItem('currentUser'));
-                  let UserID = _user.ID;
-                  let title ="";
-                  this.userService.adduserusefullessonforNo(LessonID, UserID, data, title).subscribe((data) => {
+                  this.userService.adduserusefullessonforNo(LessonID, UserID, lessonData, title).subscribe((data) => {
                     this.getuserusefullesson = data.result;
                     console.log(data);
                   });
                   this.showLoader = false;
                   console.log(data);
                   this.myModal.show();
-                  this.router.navigate(['/']);
+                  this.router.navigate(['/user/all-lessons']);
                 }
               });
             }
@@ -562,10 +547,11 @@ export class AddProcessComponent implements OnInit {
         //   console.log(data);
         //   console.log(data.status);
         if (data.status) {
-          let LessonID = data.result[0].insertId;
-          let _user: any = JSON.parse(localStorage.getItem('currentUser'));
-          let UserID = _user.ID;
-          let title ="";
+          console.log("++++++++++++++++++++++++addLessonProcess+++++++++++++++++++++++++++++", data.result.insertId);
+          let LessonID = data.result.insertId;
+          //let _user: any = JSON.parse(localStorage.getItem('currentUser'));
+          let UserID = this._user.ID;
+          let title = "";
           this.userService.adduserusefullessonforNo(LessonID, UserID, data, title).subscribe((data) => {
             this.getuserusefullesson = data.result;
             console.log(data);

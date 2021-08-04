@@ -176,13 +176,11 @@ export class UserService {
 
   getlessonbyProjectID(ID: number) {
     setTimeout(function(){},1500)
-    debugger;
     console.log(ID, "getlessonbyPojectID");
     return this.http.post<any>(`${this._baseURL}/lessons/porject/id`, { ID });
   }
 
   getlessonbyProcessID(ID: number) {
-    debugger;
     console.log(ID, "getlessonbyProcessID");
     return this.http.post<any>(`${this._baseURL}/lessons/process/id`, { ID });
   }
@@ -304,7 +302,6 @@ export class UserService {
     return this.http.post<any>(`${this._baseURL}/process/add`, o);
   }
   uploadbulkFile(bulkcsv) {
-    debugger;
     return this.http.post<any>(`${this._baseURL}/lessons/bulkupload`, bulkcsv);
   }
   getAllBulk() {
