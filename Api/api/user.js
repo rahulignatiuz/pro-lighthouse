@@ -279,36 +279,16 @@ router.post('/pending/register', function (req, res) {
     db.query(Model.userRegistration(obj), (err, userDataResult) => {
         let userData = userDataResult[1][0];
         if (!err) {
-            console.log(userData.insertId);
+            console.log("+++++++userData.insertId++++++", userData.insertId);
             db.query(Model.mappingUserRoles(userData.insertId, req.body.Roles), (err, result) => {
                 let data = result[1][0];
                 if (!err) {
-                    db.query(Model.updateGoogleUser(obj), (err, data) => {
-                        if (!err) {
-                            var mailOptions = {
-                                from: lighthouseJson.SMTP_USER,
-                                to: req.body.Email,
-                                subject: 'Approved, your login request.',
-                                html: `<b>Hello ${req.body.FirstName}</b>,<br><br> 
-                                Your request to access the Lighthouse Tool has been approved. 
-                                Please click <a href="${lighthouseJson.BASE_URL}/#/login">here</a> to access the website or <br> 
-                                logon to ${lighthouseJson.BASE_URL}/#/login using the google account you used to request access.<br><br>
-                                Please contact the administrator at – <a href="mailto:${lighthouseJson.ADMIN}">${lighthouseJson.ADMIN}</a> if you need further assistance.<br><br>
-                                
-                                Thank you`
-                            };
-                            transport.sendMail(mailOptions, function (error, info) {
-                                if (!error) {
-                                    console.log('Email sent: ' + info.response);
-                                    res.status(200).json({
-                                        status: true,
-                                        message: "user added successfully.",
-                                        result: userData
-                                    });
-                                }
-                            });
-
-                        }
+                    console.log("++data+++++userData.insertId++++++", data);
+                    responseEmail(obj, req);
+                    res.status(200).json({
+                        status: true,
+                        message: "user added successfully.",
+                        result: userData
                     });
                 }
             });
@@ -321,6 +301,34 @@ router.post('/pending/register', function (req, res) {
         }
     });
 });
+async function responseEmail(obj, req) {
+    db.query(Model.updateGoogleUser(obj), (err, data) => {
+        if (!err) {
+            var mailOptions = {
+                from: lighthouseJson.SMTP_USER,
+                to: req.body.Email,
+                subject: 'Approved, your login request.',
+                html: `<b>Hello ${req.body.FirstName}</b>,<br><br> 
+                Your request to access the Lighthouse Tool has been approved. 
+                Please click <a href="${lighthouseJson.BASE_URL}/#/login">here</a> to access the website or <br> 
+                logon to ${lighthouseJson.BASE_URL}/#/login using the google account you used to request access.<br><br>
+                Please contact the administrator at – <a href="mailto:${lighthouseJson.ADMIN}">${lighthouseJson.ADMIN}</a> if you need further assistance.<br><br>
+                
+                Thank you`
+            };
+            transport.sendMail(mailOptions, function (error, info) {
+                if (!error) {
+                    console.log('Email sent: ' + info.response);
+
+                } else {
+                    console.log('error Email sent: ' + error);
+
+                }
+            });
+
+        }
+    });
+}
 //http://localhost:6001/api/user/pending/account/delete
 router.post('/pending/account/delete', function (req, res) {
     db.query(Model.pendingUserDelete(req.body.ID), (err, data) => {
@@ -330,7 +338,7 @@ router.post('/pending/account/delete', function (req, res) {
                 to: req.body.Email,
                 subject: 'Rejected, your login request.',
                 text: `Hello User, 
-                \nYour login request has been rejected by ${lighthouseJson.PLATFORM_NAME} using ${req.body.Email} email address. 
+                \nYour login request has been Rejected by  ${lighthouseJson.PLATFORM_NAME} using ${req.body.Email} email address. 
                 
                 \nThanks`
             };

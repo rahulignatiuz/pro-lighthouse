@@ -3,10 +3,10 @@ var mysql = require("mysql");
 
 const pool = mysql.createPool({
     connectionLimit: 10,
-    host: 'localhost',
+    host: '127.0.0.1',
     user: 'root',
     password: 'root',
-    database: 'lighthouse',
+    database: 'lighthousetest',
     debug: false,
     multipleStatements: true
 });
@@ -30,13 +30,13 @@ function executeQuery(sql, callback) {
 }
 
 function query(sql, callback) {
-  //  console.log("+-+-+-+", sql);
+    console.log("+-+-+-+", sql);
     executeQuery(sql, function (err, result) {
-      //  console.log("+-+-data+-result+", result);
+        // console.log("+-+-data+-result+", result);
 
       //  console.log("+-+-data+-+",result[0].affectedRows); 
         if (err) {
-           // console.log(err)
+            console.log(err)
             return callback(err);
         } else {
             callback(null, result);

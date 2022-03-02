@@ -36,7 +36,7 @@ import {
   AppHeaderModule,
   AppFooterModule,
   AppSidebarModule,
-  
+
 
 } from '@coreui/angular';
 

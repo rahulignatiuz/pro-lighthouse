@@ -30,8 +30,12 @@ router.get("/", (req, res, next) => {
 router.post('/add', function (req, res) {
     var f = {};
     // d.ID=req.body.ID;
-    f.Name = req.body.Name;
-    f.Description = req.body.Description;
+    f.Name = req.body.Name.replace(/'/g, "\\'")
+    if(req.body.Description){
+        f.Description = req.body.Description.replace(/'/g, "\\'")
+    }else{
+        f.Description = ''
+    }
     f.CreatedBy = req.body.CreatedBy;
     f.UpdatedBy = req.body.UpdatedBy;
     //console.log(f)
@@ -79,7 +83,7 @@ router.post('/update', (req, res, next) => {
 router.post('/updatename', (req, res, next) => {
     let i = {};
     i.ID = req.body.ID;
-    i.Name = req.body.Name;
+    i.Name = req.body.Name.replace(/'/g, "\\'")
 
 
     //console.log(p);

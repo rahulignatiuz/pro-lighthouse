@@ -59,7 +59,7 @@ router.get('/google', (req, res) => {
     res.status(200).json({
         url: url
     });
-    
+
 });
 
 router.get('/auth/google/callback', function (req, res) {
@@ -72,7 +72,7 @@ router.get('/auth/google/callback', function (req, res) {
                 oAuth2Client.setCredentials(tokens);
                 let url = lighthouseJson.GOOGLE_USER_INFO + tokens.access_token;
                 fetch(url, { method: "Get" }).then(res => res.json()).then((json) => {
-                    console.log("googleUser---------------",json);
+                    console.log("googleUser---------------", json);
                     // do something with JSON
                     const email = json.email;
                     const address = email.split('@').pop();
@@ -100,7 +100,7 @@ router.get('/auth/google/callback', function (req, res) {
                                                 } else {
                                                     db.query(Model.googleUser(json, IsEnabled), (err, result) => {
                                                         let data = result[1][0];
-                                                        console.log("googleUser---------------",data);
+                                                        console.log("googleUser---------------", data);
                                                         res.redirect(lighthouseJson.BASE_URL + "/#/social-auth?email=" + json.email);
                                                     });
                                                 }
@@ -238,7 +238,7 @@ router.post('/google/admin/email', function (req, res) {
         db.query(Model.getGoogleUserBYEmail(json.email, IsEnabled), (checkGoogleErr, checkGoogleDataResult) => {
             let checkGoogleData = checkGoogleDataResult[0];
             if (!checkGoogleErr) {
-                if (checkGoogleData.length) {												
+                if (checkGoogleData.length) {
                     res.status(200).json({
                         status: false,
                         result: checkGoogleData
@@ -247,8 +247,10 @@ router.post('/google/admin/email', function (req, res) {
                     db.query(Model.googleUser(json, IsEnabled), (err, result) => {
                         let data = result[1][0];
                         if (!err) {
-                            db.query(Model.getUserEmailForNotification(), (err, notificationEmail) => {
+                            db.query(Model.getUserEmailForNotification(), (err, notificationEmailData) => {
                                 if (!err) {
+                                    let notificationEmail = notificationEmailData[0];
+                                    console.log("++++notificationEmail++++++", notificationEmail);
                                     notificationEmail.forEach((emails, index) => {
                                         var mailOptions = {
                                             from: lighthouseJson.SMTP_USER,
@@ -263,8 +265,10 @@ router.post('/google/admin/email', function (req, res) {
                                         transport.sendMail(mailOptions, function (error, info) {
                                             if (!error) {
                                                 console.log('Email sent: ' + info.response);
-
                                                 // res.redirect(lighthouseJson.BASE_URL + "/#/social-auth?account-exist=" + json.email);
+                                            } else {
+                                                console.log('Email error google sent: ' + error);
+
                                             }
                                         });
 

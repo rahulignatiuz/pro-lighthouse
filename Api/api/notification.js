@@ -196,7 +196,7 @@ function getAllNotificationByDate(duration) {
                         //console.log("++++++title++++++++2", email[0].Email, title);
                         for (x of title) {
                             //  console.log("369852147------2", x.Title);
-                            
+
                             if (x.ProjectID) {
                                 lessonIDProject += x.ID + ",";
                                 arrayItems += `<li><a href='${lighthouseJson.BASE_URL}/#/user/mylessons-project?lessonid=${x.ID}'>${x.Title}</a></li>`;
@@ -215,11 +215,11 @@ function getAllNotificationByDate(duration) {
                         } else {
                             if (!lessonIDProject) {
                                 processLesson = `<a href="${lighthouseJson.BASE_URL}/#/user/mylessons-process?lessonid=${lessonIDProcess}">Process</a>`;
-                            }else{
+                            } else {
                                 processLesson = `and <a href="${lighthouseJson.BASE_URL}/#/user/mylessons-process?lessonid=${lessonIDProcess}">Process</a>`;
                             }
-                            
-                            
+
+
                         }
                         var mailOptions = {
                             from: lighthouseJson.SMTP_USER,

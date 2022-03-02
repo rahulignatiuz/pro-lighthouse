@@ -33,7 +33,7 @@ const router = express.Router();
 router.get("/project", (req, res, next) => {
     db.query(Model.getAllLessonProjectSQL(), (err, result) => {
         let data = result[0];
-        //  console.log(data);
+        console.log(data);
         if (!err) {
             if (data && data.length > 0) {
                 res.status(200).json({
@@ -55,7 +55,7 @@ router.get("/project", (req, res, next) => {
 router.get("/process", (req, res, next) => {
     db.query(Model.getAllLessonProcessSQL(), (err, result) => {
         let data = result[0];
-        // console.log(data);
+        console.log(data);
         if (!err) {
             if (data && data.length > 0) {
                 res.status(200).json({
@@ -74,6 +74,10 @@ router.get("/process", (req, res, next) => {
     });
 });
 router.post("/add", (req, res, next) => {
+    console.log("+++++++", req.body);
+    // var rCause = req.body.RootCause;
+    // var rootCause = rCause.replace(/'/g, "\\'")
+    // console.log("+++issueDescription++++",rootCause);
     let o = {};
     o.UserID = req.body.UserID;
     o.LessonTypeID = req.body.LessonTypeID;
@@ -88,10 +92,14 @@ router.post("/add", (req, res, next) => {
     o.FunctionID = req.body.FunctionID;
     o.LifeCycleID = req.body.LifeCycleID;
     o.DepartmentID = req.body.DepartmentID;
-    o.Title = req.body.Title;
-    o.IssueDescription = req.body.IssueDescription;
-    o.RootCause = req.body.RootCause;
-    o.Recommendation = req.body.Recommendation;
+    o.Title = req.body.Title.replace(/'/g, "\\'");
+    o.IssueDescription = req.body.IssueDescription.replace(/'/g, "\\'");
+    if (req.body.TypeID == "1") {
+        o.RootCause = req.body.RootCause.replace(/'/g, "\\'");
+    } else {
+        o.RootCause = "undefined";
+    }
+    o.Recommendation = req.body.Recommendation.replace(/'/g, "\\'");
     o.CreatedBy = req.body.CreatedBy;
     o.IsEnabled = req.body.IsEnabled;
     var results = saveData(o, res, req.body.Keywords);
@@ -179,10 +187,9 @@ router.post('/delete', function (req, res) {
         }
     })
 });
-
 router.post('/update', function (req, res) {
     var o = {};
-    // console.log(req.body.keywords);
+    console.log(req.body.keywords);
     o.ID = req.body.ID;
     o.UserID = req.body.UserID;
     o.LessonTypeID = req.body.LessonTypeID;
@@ -197,10 +204,14 @@ router.post('/update', function (req, res) {
     o.FunctionID = req.body.FunctionID;
     o.LifeCycleID = req.body.LifeCycleID;
     o.DepartmentID = req.body.DepartmentID;
-    o.Title = req.body.Title;
-    o.IssueDescription = req.body.IssueDescription;
-    o.RootCause = req.body.RootCause;
-    o.Recommendation = req.body.Recommendation;
+    o.Title = req.body.Title.replace(/'/g, "\\'")
+    o.IssueDescription = req.body.IssueDescription.replace(/'/g, "\\'")
+    if (req.body.TypeID == "1") {
+        o.RootCause = req.body.RootCause.replace(/'/g, "\\'")
+    } else {
+        o.RootCause = "undefined";
+    }
+    o.Recommendation = req.body.Recommendation.replace(/'/g, "\\'")
     o.UpdatedBy = req.body.UpdatedBy;
     o.IsEnabled = req.body.IsEnabled;
 
@@ -226,7 +237,7 @@ async function updateKeywords(lessonID, keywords) {
                 } else {
                     db.query(Model.addKeywordsBySQL(keyword.Name), (err, keywordResultsResult) => {
                         let keywordResults = keywordResultsResult[1][0];
-    
+
                         if (!err) {
                             if (keywordResults.insertId) {
                                 db.query(Model.addKeywordsByMappingLessonSQL(lessonID, keywordResults.insertId), (err, mappingResults) => {
@@ -242,11 +253,9 @@ async function updateKeywords(lessonID, keywords) {
                 }
             });
         });
-      
+
     });
 }
-
-
 //http://localhost:6001/api/lessons/porject/id
 router.post("/porject/id", (req, res, next) => {
     ID = req.body.ID;
@@ -315,46 +324,24 @@ router.post('/project/filter', function (req, res) {
 router.post('/process/filter', function (req, res) {
     var d = {};
     db.query(Model.FilterAllLessonssProcessSQL(req.body), (err, data) => {
+        if (!err) {
+            if (data && data.length > 0) {
+                res.status(200).json({
+                    status: true,
+                    message: "Lessons get successfully.",
+                    result: data
+                });
+            } else {
+                res.status(200).json({
+                    status: false,
+                    message: "Lessons not added.",
+                    result: data
+                });
+            }
+        }
+    })
+});
 
-        if (!err) {
-            if (data && data.length > 0) {
-                res.status(200).json({
-                    status: true,
-                    message: "Lessons get successfully.",
-                    result: data
-                });
-            } else {
-                res.status(200).json({
-                    status: false,
-                    message: "Lessons not added.",
-                    result: data
-                });
-            }
-        }
-    })
-});
-//http://localhost:6001/api/lessons/filterforboth
-router.post('/filterforboth', function (req, res) {
-    var d = {};
-    db.query(Model.FilterAllLessonsforbothSQL(req.body), (err, data) => {
-        // console.log('++++++++++++++++++++++++++++++++++=',FilterAllLessonsforbothSQL(req.body))
-        if (!err) {
-            if (data && data.length > 0) {
-                res.status(200).json({
-                    status: true,
-                    message: "Lessons get successfully.",
-                    result: data
-                });
-            } else {
-                res.status(200).json({
-                    status: false,
-                    message: "Lessons not added.",
-                    result: data
-                });
-            }
-        }
-    })
-});
 //http://localhost:6001/api/lessons/attachment
 router.post('/attachment', upload.single('attachment'), (req, res) => {
     console.log(req.file);
@@ -374,7 +361,7 @@ router.post('/attachment', upload.single('attachment'), (req, res) => {
 });
 //http://localhost:6001/api/lessons/mappingattachment
 router.post('/mappingattachment', (req, res) => {
-    // console.log(req.body);
+    console.log(req.body);
     try {
         //res.send(req.file);
         db.query(Model.AddMappingLessonAttachmentSQL(req.body), (err, result) => {
@@ -391,7 +378,7 @@ router.post('/mappingattachment', (req, res) => {
 });
 //http://localhost:6001/api/lessons/getattachment
 router.post('/getattachment', (req, res) => {
-    //console.log(req.body);
+    console.log(req.body);
     try {
         //res.send(req.file);
         db.query(Model.getLessonAttachmentSQL(req.body.ID), (err, result) => {
@@ -530,6 +517,7 @@ alreadyExecuted = false;
 alreadyLoopEx = false;
 var totalRows = [];
 var lessonIDs = [];
+var lessonIdDelete = [];
 var i = 0;
 //http://localhost:6001/api/lessons/bulkupload
 router.post('/bulkupload', uploadCSV.single('bulkcsv'), (req, res) => {
@@ -541,6 +529,7 @@ router.post('/bulkupload', uploadCSV.single('bulkcsv'), (req, res) => {
     successRow = [];
     errorcell = [];
     lessonIDs = [];
+    lessonIdDelete = [];
     i = 0;
     //  console.log("**********************",req.body.UserID);
     readXlsxFile(filePath).then((rows) => {
@@ -564,13 +553,13 @@ router.post('/bulkupload', uploadCSV.single('bulkcsv'), (req, res) => {
                 o.Title = Title;
             }
             if (IssueDescription) {
-                o.IssueDescription = IssueDescription;
+                o.IssueDescription = IssueDescription.replace(/'/g, "\\'")
             }
             if (Recommendation) {
-                o.Recommendation = Recommendation;
+                o.Recommendation = Recommendation.replace(/'/g, "\\'")
             }
             if (Type == "Issue") {
-                o.RootCause = RootCause;
+                o.RootCause = RootCause.replace(/'/g, "\\'")
             } else {
                 o.RootCause = "undefined";
             }
@@ -580,8 +569,26 @@ router.post('/bulkupload', uploadCSV.single('bulkcsv'), (req, res) => {
                     let data = result[1][0];
                     LessonID = data.insertId;
                     lessonIDs.push(LessonID)
+                    let l = {};
+                    l.UserID = UserID;
+                    l.LessonID = LessonID;
+                    l.Description = ''
+                    l.flag = 0;
+                    console.log(l);
+                    //console.log(db.query(User.AddUserusefullessonsSQL(l)));
+                    db.query(Model.AddUserusefullessonsSQL(l), (err, result) => { });
                     var results = addLessonByExcle(LessonID, rowdata, index, res);
                     results.then(function (result) {
+                        let uniquelessonIdDelete = [...new Set(lessonIdDelete)].filter(n => n);
+                        console.log("+++++++++++9999999999++++++++++++++++999999999999999999++++++++", uniquelessonIdDelete);
+                        if (uniquelessonIdDelete.length) {
+                            console.log("+++++++++++++++++++++++++++999999999999999999++++++++", uniquelessonIdDelete);
+                            uniquelessonIdDelete.forEach((deID) => {
+                                db.query(Model.deletelessonsSQL(deID), (deerr, dedata) => {
+                                    console.log("========Delete===============", dedata);
+                                });
+                            });
+                        }
                         if (i === rows.length - 1) {
                             const frontICPath = filePath.replace(/\\/g, "\\\\");
                             db.query(Model.addBulkImportSQL(fileName, frontICPath, successRow.length, errorcell.length, UserID), (err, resultBulk) => {
@@ -613,6 +620,20 @@ async function addLessonByExcle(LessonID, row, Index, res) {
     var o = {};
     let lessonID = LessonID;
     let index = Index + 1;
+    let projectTypeID = null;
+    // var Email = row[1],
+    //     ProjectType = row[2],
+    //     Process = row[3],
+    //     Project = row[4],
+    //     Phase = row[5],
+    //     Milestone = row[6],
+    //     Type = row[7],
+    //     ImpactCategory = row[8],
+    //     ImpactLevel = row[9],
+    //     Function = row[10],
+    //     Department = row[11],
+    //     Keywords = row[16],
+    //     LifeCycle = row[17]
     var Email = row[1],
         ProjectType = row[2],
         Project = row[3],
@@ -627,28 +648,46 @@ async function addLessonByExcle(LessonID, row, Index, res) {
         ImpactCategory = row[16],
         ImpactLevel = row[17]
     var KeywordsArr = Keywords.split(',');
-    if (Project) {
+    if (ProjectType) {
         o.LessonTypeID = 1;
-        o.ProjectID = await getProjectCallback(Project, lessonID);
-        if (!o.ProjectID) {
-            let errorMessageProject = "Given Project '" + row[3] + "' not exist. Please check once again.";
-            var returnValue = await AddBulkImport(Index, row, row[3], 3, index, errorMessageProject);
-            //   errorrows.push({ key: Index, value: row, error: row[4], rowIndex: 4, columnIndex: index, errorMessage: errorMessageProject, cellAddress: cellPosition });
-            // console.log("----------Project-----------", Project);
-            errorcell.push({ error: row[3], errorID: returnValue });
+        o.ProjectTypeID = await getProjectTypeCallback(ProjectType, lessonID);
+        if (!o.ProjectTypeID) {
+            let errorMessageProjectType = "Given ProjectType '" + row[2] + "' not exist. Please check once again.";
+            var returnValue = await AddBulkImport(Index, row, row[2], 2, index, errorMessageProjectType);
+            //   errorrows.push({ key: Index, value: row, error: row[2], rowIndex: 2, columnIndex: index, errorMessage: errorMessageProjectType, cellAddress: cellPosition });
+            errorcell.push({ error: row[2], errorID: returnValue });
+            lessonIdDelete.push(lessonID)
             lessonID = null;
+        } else {
+            projectTypeID = o.ProjectTypeID;
         }
-        if (ProjectType) {
-            o.ProjectTypeID = await getProjectTypeCallback(ProjectType, lessonID);
-            if (!o.ProjectTypeID) {
-                let errorMessageProjectType = "Given ProjectType '" + row[2] + "' not exist. Please check once again.";
-                var returnValue = await AddBulkImport(Index, row, row[2], 2, index, errorMessageProjectType);
-                //   errorrows.push({ key: Index, value: row, error: row[2], rowIndex: 2, columnIndex: index, errorMessage: errorMessageProjectType, cellAddress: cellPosition });
-                errorcell.push({ error: row[2], errorID: returnValue });
+        if (Project) {
+            o.ProjectID = await getProjectCallback(Project, lessonID);
+            if (!o.ProjectID) {
+                let errorMessageProject = "Given Project '" + row[3] + "' not exist. Please check once again.";
+                var returnValue = await AddBulkImport(Index, row, row[3], 3, index, errorMessageProject);
+                //   errorrows.push({ key: Index, value: row, error: row[4], rowIndex: 4, columnIndex: index, errorMessage: errorMessageProject, cellAddress: cellPosition });
+                // console.log("----------Project-----------", Project);
+                errorcell.push({ error: row[3], errorID: returnValue });
+                lessonIdDelete.push(lessonID)
                 lessonID = null;
+            } else {
+                if (projectTypeID) {
+                    // console.log(o.ProjectID,"9999999999999999999999999999999555555999999999999999999999999999999999",projectTypeID);
+                    let projectMapped = await checkProjectProjecttypeCallback(o.ProjectID, projectTypeID)
+                    // console.log("9999999999999999999999999999999999999999999999999999999999999999",projectMapped);
+                    if (!projectMapped) {
+                        let errorMessageProject = "Given Project '" + row[3] + "' not available  in project type '" + ProjectType + "'. Please check once again.";
+                        var returnValue = await AddBulkImport(Index, row, row[3], 3, index, errorMessageProject);
+                        //   errorrows.push({ key: Index, value: row, error: row[4], rowIndex: 4, columnIndex: index, errorMessage: errorMessageProject, cellAddress: cellPosition });
+                        // console.log("----------Project-----------", Project);
+                        errorcell.push({ error: row[3], errorID: returnValue });
+                        lessonIdDelete.push(lessonID)
+                        lessonID = null;
+                    }
+                }
             }
         }
-
         if (Phase) {
             o.PhaseID = await getPhaseCallback(Phase, lessonID);
             if (!o.PhaseID) {
@@ -657,7 +696,23 @@ async function addLessonByExcle(LessonID, row, Index, res) {
                 var returnValue = await AddBulkImport(Index, row, row[4], 4, index, errorMessagePhase);
                 //   errorrows.push({ key: Index, value: row, error: row[5], rowIndex: 5, columnIndex: index, errorMessage: errorMessagePhase, cellAddress: cellPosition });
                 errorcell.push({ error: row[4], errorID: returnValue });
+                lessonIdDelete.push(lessonID)
                 lessonID = null;
+            } else {
+                if (projectTypeID) {
+                    //console.log(o.ProjectID,"9999999999999999999999999999999555555999999999999999999999999999999999",projectTypeID);
+                    let phaseMapped = await checkPhaseProjecttypeCallback(o.PhaseID, projectTypeID)
+                    //console.log("9999999999999999999999999999999999999999999999999999999999999999",phaseMapped);
+                    if (!phaseMapped) {
+                        let errorMessagePhase = "Given Phase '" + row[4] + "' not available in project type '" + ProjectType + "'. Please check once again.";
+                        //   let cellPosition = "row 6  column " + index + 1
+                        var returnValue = await AddBulkImport(Index, row, row[4], 4, index, errorMessagePhase);
+                        //   errorrows.push({ key: Index, value: row, error: row[5], rowIndex: 5, columnIndex: index, errorMessage: errorMessagePhase, cellAddress: cellPosition });
+                        errorcell.push({ error: row[4], errorID: returnValue });
+                        lessonIdDelete.push(lessonID)
+                        lessonID = null;
+                    }
+                }
             }
         }
         if (Milestone) {
@@ -668,7 +723,24 @@ async function addLessonByExcle(LessonID, row, Index, res) {
                 var returnValue = await AddBulkImport(Index, row, row[5], 5, index, errorMessageMilestone);
                 //   errorrows.push({ key: Index, value: row, error: row[6], rowIndex: 6, columnIndex: index, errorMessage: errorMessageMilestone, cellAddress: cellPosition });
                 errorcell.push({ error: row[5], errorID: returnValue });
+                lessonIdDelete.push(lessonID)
                 lessonID = null;
+            } else {
+                if (projectTypeID) {
+                    //console.log(o.ProjectID,"9999999999999999999999999999999555555999999999999999999999999999999999",projectTypeID);
+                    let milestoneMapped = await checkMilestoneProjecttypeCallback(o.MilestoneID, projectTypeID)
+                    //console.log("9999999999999999999999999999999999999999999999999999999999999999",milestoneMapped);
+                    if (!milestoneMapped) {
+                        let errorMessageMilestone = "Given Milestone '" + row[5] + "' not available in project type '" + ProjectType + "'. Please check once again.";
+                        //  let cellPosition = "row 7  column " + index + 1
+                        var returnValue = await AddBulkImport(Index, row, row[5], 5, index, errorMessageMilestone);
+                        //   errorrows.push({ key: Index, value: row, error: row[6], rowIndex: 6, columnIndex: index, errorMessage: errorMessageMilestone, cellAddress: cellPosition });
+                        errorcell.push({ error: row[5], errorID: returnValue });
+                        lessonIdDelete.push(lessonID)
+                        lessonID = null;
+                    }
+                }
+
             }
         }
     } else if (Process) {
@@ -680,6 +752,7 @@ async function addLessonByExcle(LessonID, row, Index, res) {
             var returnValue = await AddBulkImport(Index, row, row[6], 6, index, errorMessageProcess);
             //   errorrows.push({ key: Index, value: row, error: row[3], rowIndex: 3, columnIndex: index, errorMessage: errorMessageProcess, cellAddress: cellPosition });
             errorcell.push({ error: row[6], errorID: returnValue });
+            lessonIdDelete.push(lessonID)
             lessonID = null;
         }
     }
@@ -697,6 +770,7 @@ async function addLessonByExcle(LessonID, row, Index, res) {
             var returnValue = await AddBulkImport(Index, row, row[1], 1, index, errorMessageEmail);
             //  errorrows.push({ key: Index, value: row, error: row[1], rowIndex: 1, columnIndex: index, errorMessage: errorMessageEmail, cellAddress: cellPosition });
             errorcell.push({ error: row[1], errorID: returnValue });
+            lessonIdDelete.push(lessonID)
             lessonID = null;
         }
         o.CreatedBy = o.UserID;
@@ -710,6 +784,7 @@ async function addLessonByExcle(LessonID, row, Index, res) {
             var returnValue = await AddBulkImport(Index, row, row[11], 11, index, errorMessageType);
             //  errorrows.push({ key: Index, value: row, error: row[7], rowIndex: 7, columnIndex: index, errorMessage: errorMessageType, cellAddress: cellPosition });
             errorcell.push({ error: row[11], errorID: returnValue });
+            lessonIdDelete.push(lessonID)
             lessonID = null;
         }
     }
@@ -722,6 +797,7 @@ async function addLessonByExcle(LessonID, row, Index, res) {
             var returnValue = await AddBulkImport(Index, row, row[8], 8, index, errorMessageFunction);
             //  errorrows.push({ key: Index, value: row, error: row[10], rowIndex: 10, columnIndex: index, errorMessage: errorMessageFunction, cellAddress: cellPosition });
             errorcell.push({ error: row[8], errorID: returnValue });
+            lessonIdDelete.push(lessonID)
             lessonID = null;
         }
     }
@@ -734,6 +810,7 @@ async function addLessonByExcle(LessonID, row, Index, res) {
             var returnValue = await AddBulkImport(Index, row, row[17], 17, index, errorMessageImpactLevel);
             //   errorrows.push({ key: Index, value: row, error: row[9], rowIndex: 9, columnIndex: index, errorMessage: errorMessageImpactLevel, cellAddress: cellPosition });
             errorcell.push({ error: row[17], errorID: returnValue });
+            lessonIdDelete.push(lessonID)
             lessonID = null;
         }
     }
@@ -746,6 +823,7 @@ async function addLessonByExcle(LessonID, row, Index, res) {
             var returnValue = await AddBulkImport(Index, row, row[16], 16, index, errorMessageImpactCategory);
             //  errorrows.push({ key: Index, value: row, error: row[8], rowIndex: 8, columnIndex: index, errorMessage: errorMessageImpactCategory, cellAddress: cellPosition });
             errorcell.push({ error: row[16], errorID: returnValue });
+            lessonIdDelete.push(lessonID)
             lessonID = null;
         }
     }
@@ -758,6 +836,7 @@ async function addLessonByExcle(LessonID, row, Index, res) {
             var returnValue = await AddBulkImport(Index, row, row[9], 9, index, errorMessageDepartment);
             //  errorrows.push({ key: Index, value: row, error: row[11], rowIndex: 11, columnIndex: index, errorMessage: errorMessageDepartment, cellAddress: cellPosition });
             errorcell.push({ error: row[9], errorID: returnValue });
+            lessonIdDelete.push(lessonID)
             lessonID = null;
         }
     }
@@ -770,6 +849,7 @@ async function addLessonByExcle(LessonID, row, Index, res) {
             var returnValue = await AddBulkImport(Index, row, row[7], 7, index, errorMessageLifeCycle);
             //  errorrows.push({ key: Index, value: row, error: row[11], rowIndex: 11, columnIndex: index, errorMessage: errorMessageDepartment, cellAddress: cellPosition });
             errorcell.push({ error: row[7], errorID: returnValue });
+            lessonIdDelete.push(lessonID)
             lessonID = null;
         }
     }
@@ -811,10 +891,10 @@ async function updateDataBulk(lessonID, o, res) {
             if (!err) {
                 resolve(data);
             } else {
-                // console.log("Cannot read property '22222' of undefined +++++++++++", err);
+                console.log("Cannot read property '22222' of undefined +++++++++++", err);
                 db.query(Model.deleteMultiLessons(lessonIDs), (err, data) => {
-                    // console.log("Cannot rened +++++++++err++", err);
-                    //  console.log("Cannot rened +++++++++data++", data);
+                    console.log("Cannot rened +++++++++err++", err);
+                    console.log("Cannot rened +++++++++data++", data);
                     res.status(200).json({
                         status: false,
                         message: "Deleted lesson",
@@ -857,14 +937,34 @@ function getProjectCallback(Project, lessonID) {
                 //console.log(err);
                 return err ? reject(err) : resolve(data[0].ID);
             } else {
-                db.query(Model.deletelessonsSQL(lessonID), (err, data) => {
-                    //console.log("Delete", data);
-                });
+                // db.query(Model.deletelessonsSQL(lessonID), (err, data) => {
+                //     console.log("========Delete===============", data);
+                // });
                 return err ? reject(err) : resolve(null);
             }
         });
     });
 }
+
+
+function checkProjectProjecttypeCallback(ProjectId, projecttypeid) {
+    return new Promise((resolve, reject) => {
+        db.query(Model.checkMappingProjectProjectType(ProjectId, projecttypeid), (err, result) => {
+            let data = result[0];
+
+            if (data.length > 0) {
+                console.log("++++++++++checkProjectProjecttypeCallback+++++++++", data);
+                return err ? reject(err) : resolve(data[0].ID);
+            } else {
+                // db.query(Model.deletelessonsSQL(lessonID), (err, data) => {
+                //     console.log("========Delete===============", data);
+                // });
+                return err ? reject(err) : resolve(null);
+            }
+        });
+    });
+}
+
 function getProjectTypeCallback(ProjectType, lessonID) {
     return new Promise((resolve, reject) => {
         db.query(Model.getProjectTypeIDByName(ProjectType), (err, result) => {
@@ -873,9 +973,9 @@ function getProjectTypeCallback(ProjectType, lessonID) {
                 //console.log(err);
                 return err ? reject(err) : resolve(data[0].ID);
             } else {
-                db.query(Model.deletelessonsSQL(lessonID), (err, data) => {
-                    //console.log("Delete", data);
-                });
+                // db.query(Model.deletelessonsSQL(lessonID), (err, data) => {
+                //     //console.log("Delete", data);
+                // });
                 return err ? reject(err) : resolve(null);
             }
         });
@@ -889,14 +989,34 @@ function getPhaseCallback(Phase, lessonID) {
                 //console.log(err);
                 return err ? reject(err) : resolve(data[0].ID);
             } else {
-                db.query(Model.deletelessonsSQL(lessonID), (err, data) => {
-                    //console.log("Delete", data);
-                });
+                // db.query(Model.deletelessonsSQL(lessonID), (err, data) => {
+                //     //console.log("Delete", data);
+                // });
                 return err ? reject(err) : resolve(null);
             }
         });
     });
 }
+
+function checkPhaseProjecttypeCallback(PhaseId, projecttypeid) {
+    return new Promise((resolve, reject) => {
+        db.query(Model.checkPhaseProjecttypeCallback(PhaseId, projecttypeid), (err, result) => {
+            let data = result[0];
+            if (data.length > 0) {
+                //console.log(err);
+                return err ? reject(err) : resolve(data[0].ID);
+            } else {
+                // db.query(Model.deletelessonsSQL(lessonID), (err, data) => {
+                //     //console.log("Delete", data);
+                // });
+                return err ? reject(err) : resolve(null);
+            }
+        });
+    });
+}
+
+
+
 function getMilestoneCallback(Milestone, lessonID) {
     return new Promise((resolve, reject) => {
         db.query(Model.getMilestoneIDByName(Milestone), (err, result) => {
@@ -905,14 +1025,33 @@ function getMilestoneCallback(Milestone, lessonID) {
                 //console.log(err);
                 return err ? reject(err) : resolve(data[0].ID);
             } else {
-                db.query(Model.deletelessonsSQL(lessonID), (err, data) => {
-                    //console.log("Delete", data);
-                });
+                // db.query(Model.deletelessonsSQL(lessonID), (err, data) => {
+                //     //console.log("Delete", data);
+                // });
                 return err ? reject(err) : resolve(null);
             }
         });
     });
 }
+
+function checkMilestoneProjecttypeCallback(MilestoneId, projecttypeid) {
+    return new Promise((resolve, reject) => {
+        db.query(Model.checkMilestoneProjecttypeCallback(MilestoneId, projecttypeid), (err, result) => {
+            let data = result[0];
+            if (data.length > 0) {
+                //console.log(err);
+                return err ? reject(err) : resolve(data[0].ID);
+            } else {
+                // db.query(Model.deletelessonsSQL(lessonID), (err, data) => {
+                //     //console.log("Delete", data);
+                // });
+                return err ? reject(err) : resolve(null);
+            }
+        });
+    });
+}
+
+
 function getProcessCallback(Process, lessonID) {
     return new Promise((resolve, reject) => {
         db.query(Model.getProcessIDByName(Process), (err, result) => {
@@ -921,9 +1060,9 @@ function getProcessCallback(Process, lessonID) {
                 //console.log(err);
                 return err ? reject(err) : resolve(data[0].ID);
             } else {
-                db.query(Model.deletelessonsSQL(lessonID), (err, data) => {
-                    //console.log("Delete", data);
-                });
+                // db.query(Model.deletelessonsSQL(lessonID), (err, data) => {
+                //     //console.log("Delete", data);
+                // });
                 return err ? reject(err) : resolve(null);
             }
         });
@@ -937,9 +1076,9 @@ function getTypeCallback(Type, lessonID) {
                 //console.log(err);
                 return err ? reject(err) : resolve(data[0].ID);
             } else {
-                db.query(Model.deletelessonsSQL(lessonID), (err, data) => {
-                    //console.log("Delete", data);
-                });
+                // db.query(Model.deletelessonsSQL(lessonID), (err, data) => {
+                //     //console.log("Delete", data);
+                // });
                 return err ? reject(err) : resolve(null);
             }
         });
@@ -954,9 +1093,9 @@ function getImpactCategoryCallback(ImpactCategory, lessonID) {
                 //console.log(err);
                 return err ? reject(err) : resolve(data[0].ID);
             } else {
-                db.query(Model.deletelessonsSQL(lessonID), (err, data) => {
-                    //console.log("Delete", data);
-                });
+                // db.query(Model.deletelessonsSQL(lessonID), (err, data) => {
+                //     //console.log("Delete", data);
+                // });
                 return err ? reject(err) : resolve(null);
             }
         });
@@ -970,9 +1109,9 @@ function getImpactLevelCallback(ImpactLevel, lessonID) {
                 //console.log(err);
                 return err ? reject(err) : resolve(data[0].ID);
             } else {
-                db.query(Model.deletelessonsSQL(lessonID), (err, data) => {
-                    //console.log("Delete", data);
-                });
+                // db.query(Model.deletelessonsSQL(lessonID), (err, data) => {
+                //     //console.log("Delete", data);
+                // });
                 return err ? reject(err) : resolve(null);
             }
         });
@@ -986,9 +1125,9 @@ function getFunctionCallback(Function, lessonID) {
                 //console.log(err);
                 return err ? reject(err) : resolve(data[0].ID);
             } else {
-                db.query(Model.deletelessonsSQL(lessonID), (err, data) => {
-                    //console.log("Delete", data);
-                });
+                // db.query(Model.deletelessonsSQL(lessonID), (err, data) => {
+                //     //console.log("Delete", data);
+                // });
                 return err ? reject(err) : resolve(null);
             }
         });
@@ -1002,9 +1141,9 @@ function getDepartmentCallback(Department, lessonID) {
                 //console.log(err);
                 return err ? reject(err) : resolve(data[0].ID);
             } else {
-                db.query(Model.deletelessonsSQL(lessonID), (err, data) => {
-                    //console.log("Delete", data);
-                });
+                // db.query(Model.deletelessonsSQL(lessonID), (err, data) => {
+                //     //console.log("Delete", data);
+                // });
                 return err ? reject(err) : resolve(null);
             }
         });
@@ -1018,9 +1157,9 @@ function getLifeCycleCallback(LifeCycle, lessonID) {
                 //console.log(err);
                 return err ? reject(err) : resolve(data[0].ID);
             } else {
-                db.query(Model.deletelessonsSQL(lessonID), (err, data) => {
-                    //console.log("Delete", data);
-                });
+                // db.query(Model.deletelessonsSQL(lessonID), (err, data) => {
+                //     //console.log("Delete", data);
+                // });
                 return err ? reject(err) : resolve(null);
             }
         });
@@ -1139,7 +1278,7 @@ async function addDataOnExcle(ID, worksheet, workbook) {
                 } else {
                     worksheet.cell(cellIndex, 6).string().style(style);
                 }
-                //   console.log("++++++++++++++++++++++++++++++++++++++", row.Project);
+                console.log("++++++++++++++++++++++++++++++++++++++", row.Project);
                 if (row.Project != "null") {
                     if (row.Project == row.ErrorField) {
                         worksheet.cell(cellIndex, 7).string(row.Project).style(errStyle);

@@ -27,7 +27,7 @@ router.get("/",  (req, res, next)=>{
     //http://localhost:6001/api/keywords/add
     router.post('/add',(req,res,next)=>{
         let k={};
-        k.Name =req.body.Name;
+        k.Name =req.body.Name.replace(/'/g, "\\'")
         k.Description = req.body.Description;
         k.CreatedBy = req.body.CreatedBy;
         k.UpdatedBy = req.body.UpdatedBy;
@@ -47,9 +47,9 @@ router.get("/",  (req, res, next)=>{
 // Get most used keyword 
 //http://localhost:6001/api/keywords/keywordbarchart
 router.get("/keywordbarchart", (req, res, next) => {
-    db.query(Model.getkeyboardbarchartSQL(req.body), (err, result) => {
-        let data = result;
-       // console.log('-------------------------------------',data)
+    db.query(Model.getkeywordbarchartSQL(), (err, result) => {
+        let data = result[0];
+      //  console.log('-------------------------------------',data)
         if (!err) {
             let dataObj = [];
             let labelObj = [];

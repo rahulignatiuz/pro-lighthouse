@@ -172,9 +172,9 @@
                                  <div class="col-md-9">
                                     <input class="form-control charactercount" [(ngModel)]="title"
                                        [ngClass]="{'has-error is-invalid': isSubmitted && processFormControls.title.errors }"
-                                       id="text-input" formControlName="title" placeholder="Title" type="text" #title12 [maxlength]="maxCharacter">
-                                       <span
-                                       class="float-left remaning1">{{title12.value.length}}/{{maxCharacter}}</span>
+                                       id="text-input" formControlName="title" placeholder="Title" type="text" #title12
+                                       [maxlength]="maxCharacter">
+                                    <span class="float-left remaning1">{{title12.value.length}}/{{maxCharacter}}</span>
                                     <div
                                        *ngIf="lessonProcessForm.controls['title'].invalid && (lessonProcessForm.controls['title'].dirty || lessonProcessForm.controls['title'].touched)"
                                        class="custom-errMsg">
@@ -182,7 +182,7 @@
                                           Title is required.
                                        </div>
                                     </div>
-                                    
+
                                  </div>
 
                               </div>
@@ -190,7 +190,8 @@
                            </div>
                            <div class="col-sm-6">
                               <div class="form-group row">
-                                 <label class="col-md-3 col-form-label" for="inline-radios">Type of Lesson <span class="danger">*</span></label>
+                                 <label class="col-md-3 col-form-label" for="inline-radios">Type of Lesson <span
+                                       class="danger">*</span></label>
                                  <div class="col-md-9 col-form-label">
                                     <select class="form-control" [(ngModel)]="typeoflesson"
                                        [ngClass]="{'has-error is-invalid': isSubmitted && processFormControls.typeoflesson.errors }"

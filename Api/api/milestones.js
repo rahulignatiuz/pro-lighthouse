@@ -30,8 +30,12 @@ router.get("/", (req, res, next) => {
 //http://localhost:6001/api/milestones/add
 router.post('/add', (req, res, next) => {
     let m = {};
-    m.Name = req.body.Name;
-    m.Description = req.body.Description;
+    m.Name = req.body.Name.replace(/'/g, "\\'")
+    if(req.body.Description){
+        m.Description = req.body.Description.replace(/'/g, "\\'")
+    }else{
+        m.Description = ''
+    }
     m.CreatedBy = req.body.CreatedBy;
     m.UpdatedBy = req.body.UpdatedBy;
     //console.log(p);
@@ -78,7 +82,7 @@ router.post('/update', (req, res, next) => {
 router.post('/updatename', (req, res, next) => {
     let i = {};
     i.ID = req.body.ID;
-    i.Name = req.body.Name;
+    i.Name = req.body.Name.replace(/'/g, "\\'")
 
 
     //console.log(p);

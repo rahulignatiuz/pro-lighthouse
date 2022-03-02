@@ -7,14 +7,14 @@
             <!-- <h4 style="font-weight: 500;">User Management </h4> -->
             <span class="centerposition">
               User Management
-  
-             </span>
+
+            </span>
           </div>
           <div class="col-sm-6">
             <a href="#" (click)="userRegister()" class="btn btn-secondary"><i
                 class="	fa fa-plus-circle fa-fw"></i><span>Add
                 User</span></a>
-                
+
             <a href="#" (click)="userPending()" class="btn btn-secondary pending-user"><span>Pending
                 Requests</span><span *ngIf="isPendingUser" class="badge">{{pendingUserCount}}</span></a>
             <div class="col-sm-5">
@@ -147,12 +147,12 @@
         </div>
       </div>
     </div>
-    <a (click)="multipleuserregister()" class=" float-right mulipleuser">Create Multiple Account ?</a>
+    <!-- <a (click)="multipleuserregister()" class=" float-right mulipleuser">Create Multiple Account ?</a> -->
     <button type="submit" [disabled]="createAccBtnDis" class="btn btn-block btn-primary centerbtn">Create
-      Account</button> 
-     
-     
-    
+      Account</button>
+
+
+
   </form>
 </div>
 <div bsModal #accountSetting="bs-modal" class="modal">
@@ -271,7 +271,8 @@
 
     <!-- Modal footer -->
     <div class="modal-footer">
-      <pagination-controls *ngIf="!noDataPendingUser" class="mr-auto" (pageChange)="p1 = $event" id="first"></pagination-controls>
+      <pagination-controls *ngIf="!noDataPendingUser" class="mr-auto" (pageChange)="p1 = $event" id="first">
+      </pagination-controls>
       <button type="button" class="btn btn-danger pagination-footer" (click)="closePendingModal()">Close</button>
     </div>
   </div>
@@ -326,16 +327,15 @@
 </div>
 <div bsModal #addmultipleuser="bs-modal" class="modal">
   <form class="modal-content row forms">
-      <div class="modal-body">
-          <label for="courseRejected">Add Multiple Users</label>
-          <!-- <textarea class="form-control" rows="3" [(ngModel)]="courseRejectedTB" name="first"></textarea> -->
-          <input type="email" value="foo@example.com, bar@example.com">
-      </div>
-      <div class="modal-footer" style="border-top: 0px solid #c8ced3;">
-          <!-- <button type="button" (click)="deleteClose()" class="btn btn-primary">Cancel <i class="fa fa-close">
+    <div class="modal-body">
+      <label for="courseRejected">Add Multiple Users</label>
+      <!-- <textarea class="form-control" rows="3" [(ngModel)]="courseRejectedTB" name="first"></textarea> -->
+      <input type="email" value="foo@example.com, bar@example.com">
+    </div>
+    <div class="modal-footer" style="border-top: 0px solid #c8ced3;">
+      <!-- <button type="button" (click)="deleteClose()" class="btn btn-primary">Cancel <i class="fa fa-close">
               </i></button> -->
-          <button type="button" (click)="deleteDone()" class="btn btn-danger">Save <i
-                  class="fa fa-trash"></i></button>
-      </div>
+      <button type="button" (click)="deleteDone()" class="btn btn-danger">Save <i class="fa fa-trash"></i></button>
+    </div>
   </form>
 </div>

@@ -369,7 +369,6 @@ export class UserManagementComponent implements OnInit {
   }
   pendingUserRegistration() {
     this.isSubmitted = true;
-    this.approveBtnDis = true;
     let obj: any = {
       UserID: this._user.ID,
       FirstName: this.p_firstName,
@@ -379,9 +378,12 @@ export class UserManagementComponent implements OnInit {
       EmailNotification: 0,
       IsEnabled: 1
     };
+    console.log("+++++++++this.pendingRegistrationForm.valid++++++++++++",this.pendingRegistrationForm.valid);
+    
     if (this.pendingRegistrationForm.valid) {
+      this.approveBtnDis = true;
       this.userService.addPaddingUserRegistration(obj).subscribe((data) => {
-        console.log(data);
+        console.log("+++++++++addPaddingUserRegistration++++++++++++",data);
         window.location.reload();
       });
     }

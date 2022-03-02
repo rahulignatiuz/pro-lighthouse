@@ -39,9 +39,10 @@ export class BulkImportComponent implements OnInit {
   generateErrorFile(ID) {
     this.userService.generateErrorFile(ID).subscribe((data) => {
       let url = this._baseURL + '/' + data.result.filePath;
-      window.open(url);
-      this.getAllBulk();
-     // window.location.reload();
+      setTimeout(function (){
+        window.open(url);
+        this.getAllBulk();
+      }, 500);
     });
 
   }

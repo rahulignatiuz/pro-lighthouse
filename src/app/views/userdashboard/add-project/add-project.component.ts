@@ -105,7 +105,7 @@ export class AddLessonComponent implements OnInit {
   // public islifecycleValid : boolean = false;
 
   //columns: any[] = [];
-
+  public selectedIndexID: any;
   constructor(private router: Router, private formBuilder: FormBuilder, private userService: UserService, private route: ActivatedRoute, private titleService: Title) {
     TagInputModule.withDefaults({
       tagInput: {
@@ -427,9 +427,41 @@ export class AddLessonComponent implements OnInit {
 
   }
   //used to add lpn no.
-  public onselectProject(tag) {
-    let lpn = tag.LPN
-    this.LPN = tag.LPN
+  // public onselectProject(tag) {
+  //   let lpn = tag.target.value;
+  //   this.LPN = tag.target.value;
+  //   console.log("+++++++lpn++++++++++",lpn);
+    
+  //   if (lpn) {
+  //     this.projectNumber = lpn;
+
+  //   } else {
+  //     this.projectNumber = "";
+  //   }
+  //   const a = document.getElementsByClassName("ng2-tag-input__text-input")[0];
+  //   a.classList.remove("mystyle");
+  //   //this.getMappingProjectAndMilestone()
+  //   // this.getProjectPhase();
+  //   // this.projectFormFields();
+  // }
+  public onselectProject(e) {
+    let selectedindex = e.srcElement.selectedIndex;
+    let projectnameobjects = e.srcElement[selectedindex].id;
+    this.selectedIndexID = e.srcElement[selectedindex].id;
+    let removestrings = projectnameobjects.replaceAll("^\"|\"$","\n", "");
+    let ConvertedObject = JSON.parse(projectnameobjects);  
+    console.log(removestrings,ConvertedObject)
+    console.log("=================>>>ManagerID",ConvertedObject.ManagerID)
+    this.selectedIndexID = ConvertedObject.ID;
+    let value=[];
+    value.push(removestrings);
+
+    console.log(value)
+    let selectedIndexManagerID = e.srcElement[selectedindex].id[0].ManagerID;
+   // console.log( this.selectedIndexID)
+    let lpn = e.target.value;
+    this.LPN = e.target.value;
+
     if (lpn) {
       this.projectNumber = lpn;
 
@@ -441,6 +473,7 @@ export class AddLessonComponent implements OnInit {
     //this.getMappingProjectAndMilestone()
     // this.getProjectPhase();
     // this.projectFormFields();
+    // this.getmappedprojectmanager( this.selectedIndexID);
   }
 
   onKeywordsRemoved(column: any) {
@@ -556,7 +589,7 @@ export class AddLessonComponent implements OnInit {
   }
 
   updateLPN(ID) {
-    let id = ID.toString();
+    let id = ID;
     this.userService.getProjectByID(id).subscribe((data) => {
       let lpn = this.projectNumber;
       if (!data.result[0].LPN) {
@@ -568,13 +601,16 @@ export class AddLessonComponent implements OnInit {
 
   addLesson(form: NgForm) {
     this.isSubmitted = true;
-    this.updateLPN(form.value._projectname[0].ID);
+    this.updateLPN(this.selectedIndexID);
+    console.log("+++++++++++++this._user.ID", this._user.ID);
+    console.log("+++++++++++++project id", this.selectedIndexID);
+    
    // let _user: any = JSON.parse(localStorage.getItem('currentUser'));
     let o: any = {
       UserID: this._user.ID,
       LessonTypeID: 1,
       ProjectTypeID: form.value._projectType,
-      ProjectID: form.value._projectname[0].ID,
+      ProjectID: this.selectedIndexID,
       PhaseID: form.value._projectPhase,
       TypeID: form.value.typeoflesson,
       ImpactCategoryID: form.value.impectcategory,

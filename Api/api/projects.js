@@ -70,9 +70,13 @@ router.post('/update', function (req, res) {
 //http://localhost:6001/api/projects/add
 router.post('/add', (req, res, next) => {
     let p = {};
-    p.Name = req.body.Name;
+    p.Name = req.body.Name.replace(/'/g, "\\'")
     p.LPN = req.body.LPN;
-    p.Description = req.body.Description;
+    if(req.body.Description){
+        p.Description = req.body.Description.replace(/'/g, "\\'")
+    }else{
+        p.Description = ''
+    }
     p.CreatedBy = req.body.CreatedBy;
     p.UpdatedBy = req.body.UpdatedBy;
     //console.log(d);
@@ -116,7 +120,7 @@ router.post('/updateindex', (req, res, next) => {
 router.post('/updatename', (req, res, next) => {
     let i = {};
     i.ID = req.body.ID;
-    i.Name = req.body.Name;
+    i.Name = req.body.Name.replace(/'/g, "\\'")
 
 
     //console.log(p);

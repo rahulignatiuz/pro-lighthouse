@@ -30,7 +30,11 @@ router.post("/add", (req, res, next) => {
 
     l.UserID = req.body.UserID;
     l.LessonID = req.body.LessonID;
-    l.Description = req.body.Description;
+    if(req.body.Description){
+        l.Description = req.body.Description.replace(/'/g, "\\'")
+    }else{
+        l.Description = ''
+    }
     l.flag = req.body.flag;
     console.log(l);
     //console.log(db.query(User.AddUserusefullessonsSQL(l)));
@@ -53,6 +57,7 @@ router.post("/countbyid", (req, res, next) => {
 
     db.query(Model.getallcountuserusefulSQL(id), (err, result) => {
         let data = result[0];
+		console.log('============================++++++++++++++++++++++',err)
         if (!err) {
             if (data && data.length > 0) {
                 res.status(200).json({

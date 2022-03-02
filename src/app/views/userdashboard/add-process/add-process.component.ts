@@ -217,7 +217,7 @@ export class AddProcessComponent implements OnInit {
       this.bulkImporing = true;
       const formData = new FormData();
       this.xlFileNameWithoutExt = this.bulkAttachment.name.split('.').slice(0, -1).join('.');
-     // let User: any = JSON.parse(localStorage.getItem('currentUser'));
+      // let User: any = JSON.parse(localStorage.getItem('currentUser'));
       formData.append('bulkcsv', this.bulkAttachment);
       formData.append('UserID', this._user.ID);
       this.userService.uploadbulkFile(formData).subscribe((data) => {
@@ -486,7 +486,7 @@ export class AddProcessComponent implements OnInit {
   addLessonProcess(form: NgForm) {
 
     this.isSubmitted = true;
-   // let _user: any = JSON.parse(localStorage.getItem('currentUser'));
+    // let _user: any = JSON.parse(localStorage.getItem('currentUser'));
     let o: any = {
       UserID: this._user.ID,
       LessonTypeID: 2,

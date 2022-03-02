@@ -27,8 +27,12 @@ router.get("/", (req, res, next) => {
 //http://localhost:6001/api/phases/add
 router.post('/add', (req, res, next) => {
     let p = {};
-    p.Name = req.body.Name;
-    p.Description = req.body.Description;
+    p.Name = req.body.Name.replace(/'/g, "\\'")
+    if(req.body.Description){
+        p.Description = req.body.Description.replace(/'/g, "\\'")
+    }else{
+        p.Description = ''
+    }
     p.CreatedBy = req.body.CreatedBy;
     p.UpdatedBy = req.body.UpdatedBy;
     //console.log(p);
@@ -73,7 +77,7 @@ router.post('/update', (req, res, next) => {
 router.post('/updatename', (req, res, next) => {
     let i = {};
     i.ID = req.body.ID;
-    i.Name = req.body.Name;
+    i.Name = req.body.Name.replace(/'/g, "\\'")
 
 
     //console.log(p);

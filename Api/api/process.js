@@ -27,8 +27,12 @@ router.get("/", (req, res, next) => {
 //http://localhost:6001/api/process/add
 router.post('/add', (req, res, next) => {
     let i = {};
-    i.Name = req.body.Name;
-    i.Description = req.body.Description;
+    i.Name = req.body.Name.replace(/'/g, "\\'")
+    if(req.body.Description){
+        i.Description = req.body.Description.replace(/'/g, "\\'")
+    }else{
+        i.Description = ''
+    }
     i.CreatedBy = req.body.CreatedBy;
     i.UpdatedBy = req.body.UpdatedBy;
     //console.log(p);
@@ -77,7 +81,7 @@ router.post('/update', (req, res, next) => {
 router.post('/updatename', (req, res, next) => {
     let i = {};
     i.ID = req.body.ID;
-    i.Name = req.body.Name;
+    i.Name = req.body.Name.replace(/'/g, "\\'")
 
 
     //console.log(p);
